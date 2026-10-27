@@ -2,6 +2,13 @@
 
 SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. 현재 수업의 기본 고속도로 환경을 사용하며, 실제 도로 선정과 프로젝트 주제는 팀에서 추후 결정합니다.
 
+## 프로젝트 바로가기
+
+- [프로젝트 웹페이지](https://jy02sung.github.io/Artificial-Intelligence-and-Control-for-Autonomous-Driving/)
+- [Canva 발표자료 편집](https://canva.link/s8q5mppy42hkaay) — 제목·목차·주요 섹션 초안, 도로 및 결과 미정
+
+발표자료는 Canva에서 관리하며 저장소에는 링크만 제공합니다. Canva 접근·편집 권한은 Canva의 공유 설정을 따릅니다. 웹페이지는 `docs/index.html`에서 수정하며 GitHub Pages로 게시합니다.
+
 ## 팀 문서
 
 - [문서 목록](docs/README.md)
