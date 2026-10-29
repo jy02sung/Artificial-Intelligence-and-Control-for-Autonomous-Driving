@@ -1,6 +1,14 @@
 # Artificial-Intelligence-and-Control-for-Autonomous-Driving
 
-SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. 현재 수업의 기본 고속도로 환경을 사용하며, 실제 도로 선정과 프로젝트 주제는 팀에서 추후 결정합니다.
+SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. `jys` 브랜치에는 V의 **퇴계원IC 도로 환경**을 추가했습니다. 기존 수업 고속도로 예제와 학습 코드는 그대로 보존합니다.
+
+## 퇴계원IC 실행 (jys)
+
+- [도로 환경 안내·가정·다음 단계](scenarios/toegyewon/README.md)
+- Windows: `scenarios/toegyewon/open_sumo.cmd` 더블클릭 후 재생
+- [교통량 및 도로 기본 설정](scenarios/toegyewon/parameters.json)
+- 빨간 ego 1대 + 일반 승용차·버스. 현재 ego는 도로 검증용 IDM이며 학습된 PPO는 후속 연결 대상입니다.
+- [검증 결과](scenarios/toegyewon/validation.json)
 
 ## 프로젝트 바로가기
 

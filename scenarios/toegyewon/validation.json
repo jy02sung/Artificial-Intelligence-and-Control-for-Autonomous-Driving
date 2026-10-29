@@ -1,0 +1,103 @@
+{
+  "date": "2026-10-29",
+  "sumo_version": "1.27.1",
+  "network_edges": 52,
+  "routes": 7,
+  "static_tests": 3,
+  "runs": [
+    {
+      "seed": 0,
+      "controller": "SUMO IDM ego (not trained RL)",
+      "departed": 491,
+      "arrived": 491,
+      "collision_events": 0,
+      "teleports": 0,
+      "max_active_ego": 1,
+      "ego_arrived": true,
+      "ego_weaving_lanes": [
+        3,
+        2
+      ],
+      "weaving_lane_changes": 61,
+      "duration_s": 747.6,
+      "remaining": 0
+    },
+    {
+      "seed": 1,
+      "controller": "SUMO IDM ego (not trained RL)",
+      "departed": 491,
+      "arrived": 491,
+      "collision_events": 0,
+      "teleports": 0,
+      "max_active_ego": 1,
+      "ego_arrived": true,
+      "ego_weaving_lanes": [
+        2
+      ],
+      "weaving_lane_changes": 55,
+      "duration_s": 752.8,
+      "remaining": 0
+    },
+    {
+      "seed": 7,
+      "controller": "SUMO IDM ego (not trained RL)",
+      "departed": 491,
+      "arrived": 491,
+      "collision_events": 0,
+      "teleports": 0,
+      "max_active_ego": 1,
+      "ego_arrived": true,
+      "ego_weaving_lanes": [
+        2
+      ],
+      "weaving_lane_changes": 66,
+      "duration_s": 727.6,
+      "remaining": 0
+    },
+    {
+      "seed": 42,
+      "controller": "SUMO IDM ego (not trained RL)",
+      "departed": 491,
+      "arrived": 491,
+      "collision_events": 0,
+      "teleports": 0,
+      "max_active_ego": 1,
+      "ego_arrived": true,
+      "ego_weaving_lanes": [
+        2
+      ],
+      "weaving_lane_changes": 61,
+      "duration_s": 721.6,
+      "remaining": 0
+    },
+    {
+      "seed": 2,
+      "controller": "SUMO IDM ego (not trained RL)",
+      "departed": 491,
+      "arrived": 491,
+      "collision_events": 0,
+      "teleports": 0,
+      "max_active_ego": 1,
+      "ego_arrived": true,
+      "ego_weaving_lanes": [
+        3,
+        2
+      ],
+      "weaving_lane_changes": 65,
+      "duration_s": 744.2,
+      "remaining": 0
+    }
+  ],
+  "recording_seed_7": {
+    "frames": 3638,
+    "vehicle_records": 238099,
+    "path": "results/seed_7/telemetry.jsonl.gz"
+  },
+  "limitations": [
+    "Synthetic demand, not measured traffic",
+    "SUMO baseline controllers, not learned PPO",
+    "OSM lane connections require field validation",
+    "No absolute elevation or grade model"
+  ],
+  "gui_validation_seed": 2
+}

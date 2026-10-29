@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+  <input>
+    <net-file value="toegyewon.net.xml" />
+    <route-files value="toegyewon.rou.xml" />
+  </input>
+  <time>
+    <step-length value="0.2" />
+    <end value="900" />
+  </time>
+  <processing>
+    <collision.check-junctions value="true" />
+    <time-to-teleport value="120" />
+  </processing>
+  <gui_only>
+    <gui-settings-file value="view.xml" />
+  </gui_only>
+</configuration>
