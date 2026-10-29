@@ -526,6 +526,8 @@ def _ic_write_display(directory, road):
     # Elevated spans follow actual geometric crossings, so changing road coordinates
     # cannot leave a bridge deck at the old schematic location.
     net=ET.parse(directory/"highway.net.xml").getroot()
+    if SCENERY.get("ic_landscape", False):
+        _ic_add_landscape(decor, road, net)
     for pid,center,direction,length,width,h in _ic_bridge_spans(net,road):
         rectangle(decor,pid+"_shadow",(center[0]+2,center[1]-2),direction,
                   length+3,width+2,"32,42,50,90",.5)
@@ -649,3 +651,159 @@ def _ic_bridge_spans(net, road):
                     length=min(75,under_width/max(.25,sine)+7)
                     out.append(("bridge_"+str(len(out)),(x,y),direction,length,deck_width,h))
     return out
+
+
+def _ic_add_landscape(decor, road, net):
+    """Deterministic map decoration, below traffic and clear of lane envelopes.
+
+    These polygons are illustrative scenery, not surveyed buildings or traffic
+    objects. No network geometry, vehicle type, route, or demand is modified.
+    """
+    import random
+    rng = random.Random(SCENERY.get("landscape_seed", 21))
+    cell = 24.
+    segments = {}
+    for edge in net.findall("edge"):
+        for lane in edge.findall("lane"):
+            pts = [tuple(map(float, p.split(","))) for p in lane.get("shape").split()]
+            half = float(lane.get("width", road["lane_width"]))/2
+            for a, b in zip(pts, pts[1:]):
+                dx, dy = b[0]-a[0], b[1]-a[1]
+                length2 = dx*dx+dy*dy
+                if length2 < 1e-8:
+                    continue
+                seg = (a[0], a[1], dx, dy, length2, half)
+                for ix in range(math.floor((min(a[0],b[0])-half)/cell), math.floor((max(a[0],b[0])+half)/cell)+1):
+                    for iy in range(math.floor((min(a[1],b[1])-half)/cell), math.floor((max(a[1],b[1])+half)/cell)+1):
+                        segments.setdefault((ix,iy), []).append(seg)
+
+    def road_clear(x, y, radius):
+        margin = radius+4.
+        for ix in range(math.floor((x-margin)/cell), math.floor((x+margin)/cell)+1):
+            for iy in range(math.floor((y-margin)/cell), math.floor((y+margin)/cell)+1):
+                for ax,ay,dx,dy,l2,half in segments.get((ix,iy), []):
+                    t = max(0., min(1., ((x-ax)*dx+(y-ay)*dy)/l2))
+                    if math.hypot(x-ax-t*dx, y-ay-t*dy) < margin+half:
+                        return False
+        return True
+
+    def polygon(pid, pts, color, layer, kind="landscape"):
+        add(decor,"poly",id="land_"+pid,type=kind,shape=shape(pts),
+            color=color,fill="true",layer=layer)
+
+    def ellipse(pid, x, y, rx, ry, color, layer, phase=0):
+        pts=[]
+        for i in range(28):
+            a=i*math.tau/28
+            wobble=1+.035*math.sin(3*a+phase)
+            pts.append((x+rx*math.cos(a)*wobble, y+ry*math.sin(a)*wobble))
+        polygon(pid,pts,color,layer)
+
+    def box(pid, x, y, width, height, color, layer):
+        polygon(pid,[(x-width/2,y-height/2),(x+width/2,y-height/2),
+            (x+width/2,y+height/2),(x-width/2,y+height/2)],color,layer)
+
+    # Soft land cover. Pavement and traffic always render above these layers.
+    polygon("western_greenbelt",[(-205,280),(-130,272),(-82,190),(-66,70),
+        (-91,-15),(-71,-135),(-9,-220),(16,-355),(-25,-470),
+        (-112,-540),(-180,-435),(-207,-275),(-212,-100),(-222,113)],"221,232,207",-12)
+    for pid,x,y,rx,ry in [("north_island",266,232,30,30),
+                          ("central_island",145,33,48,73),
+                          ("south_island",35,-79,43,51),
+                          ("south_greenbelt",136,-271,27,100)]:
+        ellipse(pid,x,y,rx,ry,"213,228,195",-11)
+        ellipse(pid+"_meadow",x-3,y+2,rx*.76,ry*.78,"221,233,205",-10.8)
+    ellipse("north_meadow",465,277,153,31,"226,234,213",-12)
+
+    # A stylized stream outside the western network boundary, with two banks.
+    river=[]
+    control=[(-211.,340.),(-290.,80.),(-235.,-300.),(-185.,-600.)]
+    for i in range(81):
+        t=i/80; weights=((1-t)**3,3*(1-t)**2*t,3*(1-t)*t*t,t**3)
+        river.append(tuple(sum(v*q[k] for v,q in zip(weights,control)) for k in range(2))+(0.,))
+    line(decor,"land_river_bank",river,"220,227,207",-9.5,39)
+    line(decor,"land_river_sand",river,"232,230,211",-9.3,29)
+    line(decor,"land_river_water",river,"160,202,211",-9.,22)
+    line(decor,"land_river_current",shifted(river,3),"184,218,222",-8.8,5)
+    line(decor,"land_riverside_path",shifted(river,-25),"210,210,193",-8.,2.2)
+
+    # Small warehouse/neighbourhood blocks. Bounding circles keep them off roads.
+    reserved=[]
+    buildings=[("warehouse",382,46,62,27,"177,190,190"),
+               ("workshop",465,52,39,25,"197,190,174"),
+               ("office",437,-54,26,20,"191,199,187"),
+               ("home_1",342,-212,24,17,"205,182,164"),
+               ("home_2",381,-203,22,20,"196,193,177"),
+               ("home_3",421,-220,27,17,"182,194,191"),
+               ("home_4",375,-250,25,18,"205,190,168")]
+    for pid,x,y,width,height,color in buildings:
+        radius=math.hypot(width,height)/2+4
+        if not road_clear(x,y,radius):
+            continue
+        reserved.append((x,y,radius+5))
+        box(pid+"_yard",x,y,width+9,height+9,"224,225,214",-7)
+        box(pid+"_shadow",x+2,y-2,width+2,height+2,"180,189,177",-3.6)
+        box(pid+"_wall",x,y,width+1,height+1,"157,170,166",-3.3)
+        box(pid+"_roof",x-.4,y+.5,width-1,height-1,color,-3.)
+        line(decor,"land_"+pid+"_ridge",[(x-width*.43,y+.5),(x+width*.43,y+.5)],"218,225,216",-2.8,.65)
+        for j in range(max(1,int(width/18))):
+            bx=x-width*.3+j*15
+            box(pid+"_skylight_"+str(j),bx,y+height*.2,5,2.5,"212,226,224",-2.6)
+
+    # Parking spaces and muted parked-car symbols are decorative polygons only.
+    px,py=375.,-12.
+    if road_clear(px,py,44):
+        reserved.append((px,py,47))
+        box("parking_border",px,py,79,39,"205,214,203",-7)
+        box("parking",px,py,75,35,"211,217,212",-6.5)
+        for row in [-1,1]:
+            y=py+row*10
+            for j in range(20):
+                x=px-32+j*3.3
+                line(decor,"land_parking_line_%s_%s"%(row,j),[(x,y-3),(x,y+3)],"243,243,229",-6.2,.18)
+                if j<19 and (j+row)%4 in [0,1]:
+                    box("parked_%s_%s"%(row,j),x+1.65,y,1.8,4.3,"173,185,182" if j%2 else "235,235,225",-6)
+        line(decor,"land_parking_aisle",[(px-32,py),(px+32,py)],"225,228,217",-6.1,.4)
+
+    # Light field strips in the south-east fill empty map space without clutter.
+    for col in range(2):
+        for row in range(2):
+            x,y=355+77*col,-350-55*row
+            if not road_clear(x,y,40):
+                continue
+            reserved.append((x,y,43))
+            box("field_border_%s_%s"%(col,row),x,y,68,44,"214,223,198",-10)
+            box("field_%s_%s"%(col,row),x,y,63,39,"225,224,194" if (col+row)%2 else "205,220,185",-9.8)
+            for k in range(9):
+                xx=x-27+k*6.6
+                line(decor,"land_field_rows_%s_%s_%s"%(col,row,k),[(xx,y-17),(xx,y+17)],"192,207,172",-9.6,.5)
+
+    trees=[]
+    zones=[(-123,173,57,95,42),(143,31,39,66,45),
+           (32,-78,34,43,22),(266,231,24,25,14),
+           (138,-270,21,87,18),(-91,-307,83,185,60),
+           (481,274,144,27,30),(443,-139,135,141,35)]
+    palette=[("135,166,124","158,186,142"),
+             ("146,176,132","173,196,152"),
+             ("127,160,125","153,183,142")]
+    for zone,(cx,cy,rx,ry,target) in enumerate(zones):
+        made=0
+        for attempt in range(target*45):
+            if made>=target:
+                break
+            x,y=rng.uniform(cx-rx,cx+rx),rng.uniform(cy-ry,cy+ry)
+            if ((x-cx)/rx)**2+((y-cy)/ry)**2>1:
+                continue
+            radius=rng.uniform(3.5,6.2)
+            if not road_clear(x,y,radius+2):
+                continue
+            if any(math.hypot(x-a,y-b)<radius+r+2 for a,b,r in reserved):
+                continue
+            if any(math.hypot(x-a,y-b)<(radius+r)*.88 for a,b,r in trees):
+                continue
+            trees.append((x,y,radius));made+=1
+            pid="tree_%s_%s"%(zone,made);dark,light=palette[rng.randrange(len(palette))]
+            phase=rng.random()*math.tau
+            ellipse(pid+"_shadow",x+1.2,y-1.5,radius*1.10,radius*.88,"185,202,171",-3.7,phase)
+            ellipse(pid+"_crown",x,y,radius,radius*.92,dark,-2.4,phase)
+            ellipse(pid+"_light",x-radius*.22,y+radius*.23,radius*.66,radius*.57,light,-2.2,phase)

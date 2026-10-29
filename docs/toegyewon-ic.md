@@ -4,6 +4,24 @@
 
 ![전체 도로](assets/toegyewon/overview.png)
 
+## 주변 환경 장식
+
+루프 안쪽 녹지와 나무 248그루, 서쪽 하천·둔치·산책로, 동쪽 건물 7동·주차장·작은 농지를 추가했습니다. 하천과 건물 배치는 발표용으로 구성한 배경이며 실제 지형이나 건물의 정밀 복원값이 아닙니다.
+
+장식은 도로 아래 레이어에 표시되고, 나무와 건물은 생성된 차로의 위치를 확인해 여유 공간에 배치합니다. 주차장 차량도 그림이며 실제 교통류에 포함되지 않습니다. 도로·차로 연결·경로·차량 설정과 교통 수요는 이전 커밋과 동일합니다.
+
+별도 이미지 파일이나 추가 Python 패키지 없이 재생성됩니다. 같은 `landscape_seed`를 사용하면 배치도 동일합니다. `env/road_config.py` 하단에서 다음 설정으로 장식을 끌 수 있습니다.
+
+```python
+SCENERY.update(ic_landscape=False, landscape_seed=21)
+```
+
+`True`로 되돌린 뒤 `python view_road.py`를 실행하면 배경이 다시 표시됩니다. 전체 보기의 중심과 배율은 `env/mdp_config.py` 하단 GUI 설정에 있습니다.
+
+![주변 환경 확대 화면](assets/toegyewon/landscape_detail.png)
+
+[주변 환경 검증 기록](assets/toegyewon/scenery_validation.json): 물리 설정 XML 동일, 장식 표시 전환·재현성 확인, seed 42에서 1,759대 완주 및 충돌·긴급 제동·텔레포트 0.
+
 ## 실행
 
 SUMO 1.27.1과 저장소의 Python 패키지를 설치한 뒤 이 저장소 루트의 CMD에서 실행합니다.

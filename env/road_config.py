@@ -3845,6 +3845,7 @@ ROAD.update(
 )
 EGO.update(max_speed=MAIN_SPEED, depart_lane="0", depart_speed=10)
 SCENERY["trees"] = False
+SCENERY.update(ic_landscape=True, landscape_seed=21)
 TRAFFIC.update(
     max_speed=33.33, vehs_per_hour=sum(rate for rate,color in FLOWS.values()),
     depart_lane="best", depart_speed="max", flows=FLOWS,

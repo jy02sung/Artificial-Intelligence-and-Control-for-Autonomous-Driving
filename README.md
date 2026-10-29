@@ -11,7 +11,7 @@ SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. 이 
 
 ## 팀 문서
 
-- [퇴계원 IC 도로 실행·구성·검증 안내](docs/toegyewon-ic.md) — `python view_road.py`로 실행
+- [퇴계원 IC 도로 실행·구성·검증 안내](docs/toegyewon-ic.md) — 주변 환경 장식 포함, `python view_road.py`로 실행
 - [문서 목록](docs/README.md)
 - [프로젝트 최종 목적 및 완료 체크리스트](docs/project-goals-checklist.md) — 수업 목표와 팀 권장 작업 구분
 - [기존 학습 데이터와 추가 권장 데이터](docs/data-inventory-and-proposals.md) — 도로 미정, 현재 구현과 향후 제안 구분
