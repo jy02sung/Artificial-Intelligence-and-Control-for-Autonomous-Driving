@@ -1,6 +1,6 @@
 # Artificial-Intelligence-and-Control-for-Autonomous-Driving
 
-SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. 현재 수업의 기본 고속도로 환경을 사용하며, 실제 도로 선정과 프로젝트 주제는 팀에서 추후 결정합니다.
+SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. 이 `kyh` 브랜치에는 수업 스켈레톤 구조를 유지한 퇴계원 IC 교육용 도로 모델을 연결했습니다. 실제 도로를 단순화한 모델이며, 프로젝트 주제와 학습·평가 계획은 팀 문서에서 관리합니다.
 
 ## 프로젝트 바로가기
 
@@ -11,6 +11,7 @@ SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. 현�
 
 ## 팀 문서
 
+- [퇴계원 IC 도로 실행·구성·검증 안내](docs/toegyewon-ic.md) — `python view_road.py`로 실행
 - [문서 목록](docs/README.md)
 - [프로젝트 최종 목적 및 완료 체크리스트](docs/project-goals-checklist.md) — 수업 목표와 팀 권장 작업 구분
 - [기존 학습 데이터와 추가 권장 데이터](docs/data-inventory-and-proposals.md) — 도로 미정, 현재 구현과 향후 제안 구분
@@ -74,7 +75,7 @@ python train_bc.py --data data/demo.npz
 | `env/mdp_config.py` | 시간 설정, 관측·행동, 기본 보상 |
 | `env/road_builder.py` | SUMO 도로·경로·설정 파일 생성 |
 | `env/sumo_env.py` | reset/step, TraCI 제어, 관측·보상·종료 판정 |
-| `env/sumo/` | 기본 고속도로 XML 및 sumocfg |
+| `env/sumo/` | 실행 시 재생성되는 퇴계원 IC XML 및 sumocfg |
 | `train.py` | PPO 하이퍼파라미터, 보상 덮어쓰기, 학습 |
 | `train_bc.py` / `collect_pomdp_data.py` | BC 학습 / 주행 데이터 수집 |
 | `algorithms/` | PPO 및 BC 구현 |
@@ -84,7 +85,7 @@ python train_bc.py --data data/demo.npz
 
 현재 로컬 작업본 설정을 유지합니다: `lr=0.0003`, 목표 `200000`스텝, `n_steps=2048`, `n_epochs=10`, `minibatch_size=64`, `gamma=0.99`, `gae_lambda=0.95`, `clip_eps=0.2`, 은닉층 `(256,256)`, `seed=0`. 전체 값은 코드가 기준입니다. rollout 단위로 학습하므로 실제 스텝은 목표보다 조금 많을 수 있습니다.
 
-기본 도로는 12km, 편도 3차로이며 일반 차량은 Krauss·IDM·EIDM·ACC 혼합입니다. `train.py`의 `REWARD_OVERRIDES`가 기본 보상을 덮어씁니다.
+이 브랜치의 기본 도로는 퇴계원 IC 모델(외부 Edge 39개, 경로 13개)이며 일반 차량은 Krauss 70%·IDM 30% 혼합입니다. 원본 직선 도로 생성 경로도 유지합니다. `train.py`의 `REWARD_OVERRIDES`가 기본 보상을 덮어씁니다.
 
 **실행 시 SUMO 파일이 다시 생성됩니다.** NETEDIT에서 XML만 수정하면 덮어써질 수 있습니다. 실제 교차로 확장 시 도로 생성뿐 아니라 경로, 관측, 보상, 종료 판정도 검토해야 합니다. `test.py`는 현재 설정을 사용하므로 과거 모델 평가 시 해당 run 설정과 일치시켜야 합니다.
 

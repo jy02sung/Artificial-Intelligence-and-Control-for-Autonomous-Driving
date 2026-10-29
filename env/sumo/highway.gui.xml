@@ -1,5 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
 <viewsettings>
-    <scheme name="real world"/>
-    <viewport zoom="6000" x="80.0" y="-4.8" angle="0"/>
-    <delay value="100.0"/>
+  <scheme name="Toegyewon IC - aerial geometry">
+    <opengl trueZ="true" dither="false" />
+    <background backgroundColor="235,240,233" showGrid="false" />
+    <edges laneEdgeMode="22" laneShowBorders="false" showLinkDecals="false" showLinkRules="false" widthExaggeration="1" showDirection="false">
+      <colorScheme name="by height at geometry-segment start" interpolated="true">
+        <entry color="78,88,102" threshold="0" />
+        <entry color="78,104,130" threshold="4" />
+        <entry color="58,99,140" threshold="8.0" />
+      </colorScheme>
+    </edges>
+    <vehicles vehicleMode="0" vehicleQuality="2" vehicle_exaggeration="1.5" vehicle_minSize="0" vehicle_constantSize="false" showBlinker="true" />
+    <junctions drawShape="false" junctionMode="0" />
+    <pois poiName_show="true" poiName_size="50" poiName_color="32,48,62" poi_exaggeration="0.2" />
+    <polys polyName_show="false" />
+  </scheme>
+  <delay value="300.0" />
+  <viewport x="220.0" y="-110.0" zoom="90.0" />
 </viewsettings>

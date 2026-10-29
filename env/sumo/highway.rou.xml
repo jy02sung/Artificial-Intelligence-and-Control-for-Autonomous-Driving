@@ -1,13 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
 <routes>
-    <vType id="ego_type" accel="5.4" decel="5.4" maxSpeed="33.33" color="1,0,0" vClass="passenger" guiShape="passenger/sedan"/>
-    <vTypeDistribution id="carDist">
-        <vType id="car_krauss" probability="0.3500" carFollowModel="Krauss" accel="2.0" decel="4.5" tau="1.0" minGap="2.5" maxSpeed="14.0" speedDev="0.15" color="1,1,0" vClass="passenger" guiShape="passenger/sedan" sigma="0.3" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
-        <vType id="car_idm" probability="0.3000" carFollowModel="IDM" accel="1.8" decel="3.5" tau="1.2" minGap="2.0" maxSpeed="16.0" speedDev="0.1" color="0,1,1" vClass="passenger" guiShape="passenger/sedan" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
-        <vType id="car_eidm" probability="0.2000" carFollowModel="EIDM" accel="2.0" decel="4.0" tau="1.1" minGap="2.0" maxSpeed="16.5" speedDev="0.1" color="1,0.6,0" vClass="passenger" guiShape="passenger/sedan" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
-        <vType id="car_acc" probability="0.1500" carFollowModel="ACC" accel="2.0" decel="4.0" tau="1.5" minGap="2.0" maxSpeed="19.0" speedDev="0.05" color="1,0,1" vClass="passenger" guiShape="passenger/sedan" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
-    </vTypeDistribution>
-    <route id="r0" edges="e0"/>
-    <flow id="traffic" type="carDist" route="r0" begin="0" end="100000"
-          period="4.50"
-          departLane="random" departSpeed="8.0"/>
+  <vType id="car_krauss" vClass="passenger" length="4.8" carFollowModel="Krauss" accel="2.6" decel="4.5" emergencyDecel="9" tau="1.2" minGap="2.5" maxSpeed="33.33" speedFactor="1" speedDev="0.05" sigma="0.3" />
+  <vType id="car_idm" vClass="passenger" length="4.8" carFollowModel="IDM" accel="2.6" decel="4.5" emergencyDecel="9" tau="1.2" minGap="2.5" maxSpeed="33.33" speedFactor="1" speedDev="0.05" />
+  <vTypeDistribution id="carDist" vTypes="car_krauss car_idm" probabilities="0.7 0.3" />
+  <vType id="ego_type" accel="5.4" decel="5.4" maxSpeed="27.78" color="1,0,0" vClass="passenger" length="4.8" minGap="2.5" guiShape="passenger/sedan" />
+  <route id="south_through" edges="sb_in sb_bridge sb_main sb_accel sb_out" />
+  <route id="north_through" edges="nb_in nb_main nb_accel nb_out" />
+  <route id="east_through" edges="east_in east_main east_accel east_out" />
+  <route id="west_through" edges="west_in west_accel west_out" />
+  <route id="south_to_east" edges="sb_in south_exit south_loop south_loop_bridge south_loop_join weave east_ramp east_join east_accel east_out" />
+  <route id="south_to_west" edges="sb_in south_exit south_loop south_loop_bridge south_loop_join weave flyover north_loop west_accel west_out" />
+  <route id="south_to_local" edges="sb_in south_exit south_loop south_loop_bridge south_loop_join weave east_ramp east_service_out" />
+  <route id="north_to_east" edges="nb_in north_exit north_exit_widen north_approach weave east_ramp east_join east_accel east_out" />
+  <route id="north_to_west" edges="nb_in north_exit north_exit_widen north_approach weave flyover north_loop west_accel west_out" />
+  <route id="north_to_local" edges="nb_in north_exit north_exit_widen north_approach weave east_ramp east_service_out" />
+  <route id="east_to_north" edges="east_in return_ramp return_split return_north nb_accel nb_out" />
+  <route id="east_to_south" edges="east_in return_ramp return_split return_south return_bridge return_loop sb_accel sb_out" />
+  <route id="outer_to_south" edges="sb_in outer_entry outer_bridge outer_south outer_join" />
+  <route id="r0" edges="nb_in north_exit north_exit_widen north_approach weave flyover north_loop west_accel west_out" />
+  <flow id="flow_south_through" type="carDist" route="south_through" begin="0" end="500.0" vehsPerHour="1600.0" departLane="best" departSpeed="max" color="0.65,0.68,0.74" />
+  <flow id="flow_north_through" type="carDist" route="north_through" begin="0" end="500.0" vehsPerHour="1600.0" departLane="best" departSpeed="max" color="0.65,0.68,0.74" />
+  <flow id="flow_east_through" type="carDist" route="east_through" begin="0" end="500.0" vehsPerHour="2500.0" departLane="best" departSpeed="max" color="0.9,0.65,0.16" />
+  <flow id="flow_west_through" type="carDist" route="west_through" begin="0" end="500.0" vehsPerHour="2500.0" departLane="best" departSpeed="max" color="0.9,0.65,0.16" />
+  <flow id="flow_south_to_east" type="carDist" route="south_to_east" begin="0" end="500.0" vehsPerHour="700.0" departLane="best" departSpeed="max" color="0.1,0.6,1" />
+  <flow id="flow_south_to_west" type="carDist" route="south_to_west" begin="0" end="500.0" vehsPerHour="500.0" departLane="best" departSpeed="max" color="0.1,0.6,1" />
+  <flow id="flow_south_to_local" type="carDist" route="south_to_local" begin="0" end="500.0" vehsPerHour="200.0" departLane="best" departSpeed="max" color="0.1,0.6,1" />
+  <flow id="flow_north_to_east" type="carDist" route="north_to_east" begin="0" end="500.0" vehsPerHour="500.0" departLane="best" departSpeed="max" color="0.1,0.85,0.5" />
+  <flow id="flow_north_to_west" type="carDist" route="north_to_west" begin="0" end="500.0" vehsPerHour="700.0" departLane="best" departSpeed="max" color="0.1,0.85,0.5" />
+  <flow id="flow_north_to_local" type="carDist" route="north_to_local" begin="0" end="500.0" vehsPerHour="200.0" departLane="best" departSpeed="max" color="0.1,0.85,0.5" />
+  <flow id="flow_east_to_north" type="carDist" route="east_to_north" begin="0" end="500.0" vehsPerHour="600.0" departLane="best" departSpeed="max" color="0.9,0.65,0.16" />
+  <flow id="flow_east_to_south" type="carDist" route="east_to_south" begin="0" end="500.0" vehsPerHour="600.0" departLane="best" departSpeed="max" color="0.9,0.65,0.16" />
+  <flow id="flow_outer_to_south" type="carDist" route="outer_to_south" begin="0" end="500.0" vehsPerHour="400.0" departLane="best" departSpeed="max" color="0.7,0.45,0.9" />
+  <vType id="ego_demo_type" vClass="passenger" length="4.8" minGap="2.5" accel="2.6" decel="4.5" emergencyDecel="9" tau="1.2" maxSpeed="33.33" speedFactor="1" speedDev="0.05" carFollowModel="Krauss" sigma="0" color="1,.05,.05" />
+  <vehicle id="ego_demo" type="ego_demo_type" route="north_to_west" depart="40" departLane="best" departSpeed="12" />
 </routes>

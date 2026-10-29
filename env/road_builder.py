@@ -31,6 +31,8 @@ def build(road: dict, ego: dict, traffic: dict, out_dir: str) -> str:
         traffic: configs.road_config.TRAFFIC (배경 교통류)
         out_dir: 생성 위치 (보통 프로젝트의 sumo/ 폴더)
     """
+    if road.get("layout") == "toegyewon_ic":
+        return _ic_build(road, ego, traffic, out_dir)
     os.makedirs(out_dir, exist_ok=True)
 
     # ──────────────────────────────────────────────────────
@@ -315,3 +317,335 @@ def _write_scenery(out_dir: str, road: dict):
     lines.append("</additional>")
     with open(path, "w") as f:
         f.write("\n".join(lines) + "\n")
+
+
+# ==================================================================
+# 퇴계원 IC 생성부. build(road, ego, traffic, out_dir)와 highway.*를 유지.
+# ==================================================================
+import math
+from pathlib import Path
+import xml.etree.ElementTree as ET
+
+
+def _ic_build(road, ego, traffic, out_dir):
+    directory = Path(out_dir)
+    directory.mkdir(parents=True, exist_ok=True)
+    nodes = ET.Element("nodes")
+    for nid, (x, y, z) in road["nodes"].items():
+        add(nodes, "node", id=nid, x=x, y=y, z=z, type="priority")
+    save(directory/"highway.nod.xml", nodes)
+    edges = ET.Element("edges")
+    for eid, start, end, count, speed, priority, points in road["edges"]:
+        attrs = dict(id=eid, numLanes=count, speed=speed, priority=priority,
+                     spreadType="center", width=road["lane_width"])
+        attrs.update({"from": start, "to": end})
+        if points:
+            attrs["shape"] = " ".join(",".join(f"{v:.3f}" for v in p) for p in points)
+        add(edges, "edge", **attrs)
+    save(directory/"highway.edg.xml", edges)
+    connections = ET.Element("connections")
+    for before, after, src, dst in road["connections"]:
+        add(connections, "connection", **{"from": before, "to": after,
+                                         "fromLane": src, "toLane": dst})
+    save(directory/"highway.con.xml", connections)
+    subprocess.run([
+        checkBinary("netconvert"), "--node-files", "highway.nod.xml",
+        "--edge-files", "highway.edg.xml", "--connection-files", "highway.con.xml",
+        "--output-file", "highway.net.xml", "--no-turnarounds", "true",
+        "--offset.disable-normalization", "true", "--junctions.corner-detail", "8",
+        "--junctions.internal-link-detail", "12", "--junctions.minimal-shape", "true",
+    ], cwd=str(directory), check=True, capture_output=True)
+    _ic_write_routes(directory, road, ego, traffic)
+    _ic_write_display(directory, road)
+    configuration = ET.Element("configuration")
+    sections = {
+        "input": {"net-file": "highway.net.xml", "route-files": "highway.rou.xml",
+                  "additional-files": "highway.scenery.xml"},
+        "time": {"begin": 0, "step-length": SIMULATION["step_length"]},
+        "processing": {"time-to-teleport": -1, "collision.action": "warn",
+                       "collision.check-junctions": "true"},
+        "random_number": {"seed": traffic.get("seed", 42)},
+        "gui_only": {"gui-settings-file": "highway.gui.xml", "window-size": "1180,1080"},
+    }
+    for name, values in sections.items():
+        section = add(configuration, name)
+        for option, value in values.items():
+            add(section, option, value=value)
+    path = directory/"highway.sumocfg"
+    save(path, configuration)
+    return str(path)
+
+
+def _ic_write_routes(directory, road, ego, traffic):
+    routes = ET.Element("routes")
+    controllers = traffic.get("controllers") or {}
+    if not controllers:
+        raise ValueError("IC traffic.controllers must define at least one vehicle type")
+    total = sum(float(c.get("probability", 1)) for c in controllers.values())
+    if total <= 0:
+        raise ValueError("Traffic controller probabilities must have a positive sum")
+    ids, probabilities = [], []
+    for name, c in controllers.items():
+        probability = float(c.get("probability", 1))
+        if probability < 0:
+            raise ValueError("Negative controller probability")
+        attrs = dict(id="car_"+name, vClass="passenger", length=4.8,
+                     carFollowModel=c["carFollowModel"],
+                     accel=c.get("accel", 2.6), decel=c.get("decel", 4.5),
+                     emergencyDecel=9, tau=c.get("tau", 1.2),
+                     minGap=c.get("min_gap", 2.5),
+                     maxSpeed=c.get("max_speed", traffic["max_speed"]),
+                     speedFactor=1, speedDev=c.get("speed_dev", .05))
+        if "sigma" in c:
+            attrs["sigma"] = c["sigma"]
+        if c.get("keep_lane", False):
+            attrs.update(lcStrategic=0, lcCooperative=0, lcSpeedGain=0, lcKeepRight=0)
+        add(routes, "vType", **attrs)
+        if probability > 0:
+            ids.append("car_"+name); probabilities.append(str(probability/total))
+    add(routes, "vTypeDistribution", id="carDist", vTypes=" ".join(ids),
+        probabilities=" ".join(probabilities))
+    # 원본 reset()이 사용하는 차량 타입 ID와 경로 ID를 유지합니다.
+    add(routes, "vType", id="ego_type", accel=ego["accel"], decel=ego["decel"],
+        maxSpeed=ego["max_speed"], color="1,0,0", vClass="passenger",
+        length=4.8, minGap=2.5, guiShape="passenger/sedan")
+    for rid, edges in road["routes"].items():
+        add(routes, "route", id=rid, edges=" ".join(edges))
+    add(routes, "route", id="r0", edges=" ".join(road["routes"][road["ego_route"]]))
+    flows = traffic["flows"]
+    base_rate = sum(float(rate) for rate, color in flows.values())
+    scale = float(traffic["vehs_per_hour"])/base_rate if base_rate else 0
+    if scale < 0:
+        raise ValueError("Traffic volume must be non-negative")
+    end = float(traffic.get("flow_end", 500))
+    for rid, (rate, color) in flows.items():
+        if rate * scale > 0:
+            add(routes, "flow", id="flow_"+rid, type="carDist", route=rid,
+                begin=0, end=end, vehsPerHour=rate*scale,
+                departLane=traffic["depart_lane"], departSpeed=traffic["depart_speed"], color=color)
+    # 일반 SUMO 제어기의 빨간 시연차. 학습 환경이 생성하는 ego와 별도 ID.
+    if traffic.get("demo_vehicle", True):
+        add(routes, "vType", id="ego_demo_type", vClass="passenger", length=4.8,
+            minGap=2.5, accel=2.6, decel=4.5, emergencyDecel=9, tau=1.2,
+            maxSpeed=33.33, speedFactor=1, speedDev=.05,
+            carFollowModel="Krauss", sigma=0, color="1,.05,.05")
+        add(routes, "vehicle", id="ego_demo", type="ego_demo_type",
+            route=road["ego_route"], depart=min(40, end/2), departLane="best", departSpeed=12)
+    save(directory/"highway.rou.xml", routes)
+
+
+def add(parent, tag, **attrs):
+    return ET.SubElement(parent, tag, {k: str(v) for k, v in attrs.items()})
+
+
+def save(path, root):
+    ET.indent(root, space="  ")
+    ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
+
+
+def shape(points):
+    return " ".join(f"{p[0]:.3f},{p[1]:.3f}" for p in points)
+
+
+def shifted(points, offset):
+    result = []
+    for i, p in enumerate(points):
+        a = points[max(0, i-1)]
+        b = points[min(len(points)-1, i+1)]
+        dx, dy = b[0]-a[0], b[1]-a[1]
+        n = math.hypot(dx, dy) or 1
+        result.append((p[0]+dy/n*offset, p[1]-dx/n*offset, p[2]))
+    return result
+
+
+def line(root, pid, points, color, layer, width):
+    add(root, "poly", id=pid, type="display", shape=shape(points), color=color,
+        fill="false", layer=f"{layer:.3f}", lineWidth=width)
+
+
+def rectangle(root, pid, center, direction, length, width, color, layer):
+    x, y = center
+    dx, dy = direction
+    n = math.hypot(dx, dy)
+    ux, uy = dx/n, dy/n
+    vx, vy = -uy, ux
+    points = [(x+a*ux+b*vx, y+a*uy+b*vy)
+              for a,b in [(-length/2,-width/2), (length/2,-width/2),
+                          (length/2,width/2), (-length/2,width/2)]]
+    add(root,"poly",id=pid,type="bridge",shape=shape(points),color=color,
+        fill="true",layer=layer)
+
+
+def marking(root, pid, points, dashed=False):
+    # 선도 높이에 맞춰 그립니다. native 고정 레이어 차선선은 trueZ와 충돌합니다.
+    travelled = 0
+    serial = 0
+    for a,b in zip(points,points[1:]):
+        length = math.hypot(b[0]-a[0], b[1]-a[1])
+        if length < .01:
+            continue
+        distance = 0
+        while distance < length - 1e-6:
+            step = min(length-distance, 6 if not dashed else 10-(travelled % 10))
+            if not dashed or travelled % 20 < 10:
+                p = tuple(a[d]+(b[d]-a[d])*distance/length for d in range(3))
+                q = tuple(a[d]+(b[d]-a[d])*(distance+step)/length for d in range(3))
+                line(root,f"{pid}_{serial}",[p,q],"239,243,247",
+                     min(p[2],q[2])+.25, .12 if dashed else .15)
+                serial += 1
+            distance += step
+            travelled += step
+
+
+def _ic_write_display(directory, road):
+    view = ET.Element("viewsettings")
+    scheme = add(view,"scheme",name="Toegyewon IC - aerial geometry")
+    add(scheme,"opengl",trueZ="true",dither="false")
+    add(scheme,"background",backgroundColor="235,240,233",showGrid="false")
+    edges = add(scheme,"edges",laneEdgeMode=22,laneShowBorders="false",
+                showLinkDecals="false",showLinkRules="false",
+                widthExaggeration=1,showDirection="false")
+    colors = add(edges,"colorScheme",name="by height at geometry-segment start",interpolated="true")
+    for height,color in [(0,"78,88,102"),(4,"78,104,130"),(road["bridge_height"],"58,99,140")]:
+        add(colors,"entry",color=color,threshold=height)
+    vehicles=add(scheme,"vehicles",vehicleMode=0,vehicleQuality=2,
+                 vehicle_exaggeration=SIMULATION["gui_vehicle_scale"],vehicle_minSize=0,
+                 vehicle_constantSize="false",showBlinker="true")
+    add(scheme,"junctions",drawShape="false",junctionMode=0)
+    add(scheme,"pois",poiName_show="true",poiName_size=50,
+        poiName_color="32,48,62",poi_exaggeration=.2)
+    add(scheme,"polys",polyName_show="false")
+    add(view,"delay",value=SIMULATION["gui_delay"])
+    add(view,"viewport",x=SIMULATION["gui_center_x"], y=SIMULATION["gui_center_y"],
+        zoom=SIMULATION["gui_overview_zoom"])
+    save(directory/"highway.gui.xml",view)
+
+    decor=ET.Element("additional")
+    # 물리 연결과 무관한 시각화 전용 폴리곤입니다.
+    # 상판은 지상 차량(z+1)보다 높고 교량 차량(z+1)보다 낮은 레이어.
+    # Elevated spans follow actual geometric crossings, so changing road coordinates
+    # cannot leave a bridge deck at the old schematic location.
+    net=ET.parse(directory/"highway.net.xml").getroot()
+    for pid,center,direction,length,width,h in _ic_bridge_spans(net,road):
+        rectangle(decor,pid+"_shadow",(center[0]+2,center[1]-2),direction,
+                  length+3,width+2,"32,42,50,90",.5)
+        rectangle(decor,pid+"_slab",center,direction,length,width+1.0,"174,184,195",h-.4)
+        rectangle(decor,pid+"_deck",center,direction,length,width,"58,99,140",h-.2)
+        ux,uy=direction
+        n=math.hypot(ux,uy);ux/=n;uy/=n
+        for side in [-1,1]:
+            off=side*(width/2+.25)
+            a=(center[0]-ux*length/2-uy*off,center[1]-uy*length/2+ux*off)
+            b=(center[0]+ux*length/2-uy*off,center[1]+uy*length/2+ux*off)
+            line(decor,pid+"_rail_"+str(side),[a,b],"230,232,224",h+.15,.45)
+
+    net=ET.parse(directory/"highway.net.xml").getroot()
+    for junction in net.findall("junction"):
+        if junction.get("id", "").startswith(":") or not junction.get("shape"):
+            continue
+        z=float(junction.get("z",0))
+        color="58,99,140" if z>4 else "78,88,102"
+        add(decor,"poly",id="surface_"+junction.get("id"),type="junction_display",
+            shape=junction.get("shape"),fill="true",color=color,layer=z-.05)
+    for edge in net.findall("edge"):
+        if edge.get("id","").startswith(":"):
+            continue
+        lanes=edge.findall("lane")
+        # 차로별 native 포장 사이의 가는 배경색 틈을 같은 지상 포장색으로 메웁니다.
+        borders = []
+        flat_ground = True
+        for lane, side in [(lanes[0], 1), (lanes[-1], -1)]:
+            points = [tuple(map(float, p.split(","))) for p in lane.get("shape").split()]
+            points = [p if len(p) == 3 else (*p, 0.) for p in points]
+            flat_ground = flat_ground and all(abs(p[2]) < .001 for p in points)
+            borders.append(shifted(points, side * float(lane.get("width", road["lane_width"]))/2))
+        if len(borders[0]) == len(borders[1]):
+            # Fill gaps between native lanes at their own elevation, including bridges.
+            for j in range(len(borders[0])-1):
+                points=[borders[0][j],borders[0][j+1],borders[1][j+1],borders[1][j]]
+                z=min(q[2] for q in points)
+                f=min(1,max(0,z/road["bridge_height"]))
+                color=",".join(str(round(a+(b-a)*f)) for a,b in zip((78,88,102),(58,99,140)))
+                add(decor,"poly",id="pavement_"+edge.get("id")+"_"+str(j),
+                    type="pavement_display",shape=shape(points),fill="true",color=color,layer=z-.1)
+        for i,lane in enumerate(lanes):
+            points=[tuple(float(v) for v in p.split(",")) for p in lane.get("shape").split()]
+            points=[p if len(p)==3 else (*p,0.) for p in points]
+            width=float(lane.get("width",road["lane_width"]))
+            right=shifted(points,width/2-.06)
+            marking(decor,lane.get("id")+"_right",right,dashed=(i>0))
+            if i==len(lanes)-1:
+                marking(decor,lane.get("id")+"_left",shifted(points,-width/2+.06))
+    # Painted, non-drivable widening taper: added lanes begin after the narrow
+    # exit is clear of the motorway, with a gradual shoulder instead of a square cap.
+    narrow=net.find("edge[@id='north_exit']/lane")
+    wide=net.find("edge[@id='north_exit_widen']/lane")
+    if narrow is not None and wide is not None:
+        def lane_points(lane):
+            pts=[tuple(map(float,p.split(","))) for p in lane.get("shape").split()]
+            return [p if len(p)==3 else (*p,0.) for p in pts]
+        ns=shifted(lane_points(narrow),float(narrow.get("width"))/2)
+        ws=shifted(lane_points(wide),float(wide.get("width"))/2)
+        start=len(ns)-1;distance=0
+        while start>0 and distance<30:
+            distance+=math.dist(ns[start][:2],ns[start-1][:2]);start-=1
+        a,b,c=ns[start],ns[-1],ws[0]
+        add(decor,"poly",id="north_exit_widening",type="painted_taper",
+            shape=shape(ns[start:]+[c]),fill="true",color="78,88,102",layer=-.08)
+        line(decor,"north_exit_widening_border",[a,c],"239,243,247",.26,.15)
+        for j in range(1,8):
+            t=j/8
+            inner=tuple(a[k]+(b[k]-a[k])*t for k in range(3))
+            outer=tuple(a[k]+(c[k]-a[k])*max(0,t-.06) for k in range(3))
+            line(decor,"north_exit_widening_hatch_"+str(j),[inner,outer],"239,243,247",.27,.12)
+
+    for pid,x,y in [
+        ("N_HIGHWAY", -20,300),
+        ("S_HIGHWAY", 245,-500),
+        ("GEUMGANG-RO", 480,225),
+        ("WEAVING_4_LANES", 310,18),
+        ("RAMP_OVER_HIGHWAY", 330,-170),
+    ]:
+        add(decor,"poi",id=pid,x=x,y=y,color="32,48,62",layer=20)
+    save(directory/"highway.scenery.xml",decor)
+
+
+
+def _ic_bridge_spans(net, road):
+    """Find grade-separated crossings from the generated lane geometry.
+
+    Road node sharing determines traffic connectivity; this function only draws
+    decks. A crossing never creates an intersection or lane connection.
+    """
+    edges=[]
+    for edge in net.findall("edge"):
+        if edge.get("function")=="internal":continue
+        lanes=edge.findall("lane")
+        center=lanes[len(lanes)//2]
+        pts=[tuple(map(float,p.split(","))) for p in center.get("shape").split()]
+        pts=[p if len(p)==3 else (*p,0.) for p in pts]
+        # Offset middle lane back to the carriageway center for an even lane count.
+        if len(lanes)%2==0:pts=shifted(pts,float(center.get("width",road["lane_width"]))/2)
+        edges.append((edge.get("id"),pts,sum(float(l.get("width",road["lane_width"])) for l in lanes)))
+    out=[];seen=[]
+    for i,(eid,ps,width) in enumerate(edges):
+        for other,qs,ow in edges[i+1:]:
+            for a,b in zip(ps,ps[1:]):
+                rx,ry=b[0]-a[0],b[1]-a[1]
+                for c,d in zip(qs,qs[1:]):
+                    sx,sy=d[0]-c[0],d[1]-c[1]
+                    den=rx*sy-ry*sx
+                    if abs(den)<1e-9:continue
+                    u=((c[0]-a[0])*sy-(c[1]-a[1])*sx)/den
+                    v=((c[0]-a[0])*ry-(c[1]-a[1])*rx)/den
+                    if not (0<=u<=1 and 0<=v<=1):continue
+                    za=a[2]+u*(b[2]-a[2]);zb=c[2]+v*(d[2]-c[2])
+                    if abs(za-zb)<3.5:continue
+                    x,y=a[0]+u*rx,a[1]+u*ry
+                    high,direction,deck_width,under_width,h=(eid,(rx,ry),width,ow,za) if za>zb else (other,(sx,sy),ow,width,zb)
+                    if any(k==high and math.hypot(x-xx,y-yy)<2 for k,xx,yy in seen):continue
+                    seen.append((high,x,y))
+                    sine=abs(den)/(math.hypot(rx,ry)*math.hypot(sx,sy))
+                    length=min(75,under_width/max(.25,sine)+7)
+                    out.append(("bridge_"+str(len(out)),(x,y),direction,length,deck_width,h))
+    return out

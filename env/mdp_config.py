@@ -200,3 +200,12 @@ REWARD = {
 #   그래서 속도 보상을 1/10로 줄여 리턴을 ~10 규모로 낮췄다.
 #   → 보상의 절대값이 아니라 "항 사이의 상대 비율"이 정책을 결정한다는
 #     점을 확인해보는 실험을 해보길 권장.
+
+
+# 퇴계원 IC 화면/시간 설정. 기존 SIMULATION 객체 및 관측·행동·보상은 유지.
+SIMULATION.update(
+    step_length=.2, max_steps=4500, warmup_steps=100,
+    gui_delay=300., gui_zoom=750., gui_track_ego=True,
+    gui_overview_zoom=90., gui_center_x=220., gui_center_y=-110.,
+    gui_vehicle_scale=1.5,
+)
