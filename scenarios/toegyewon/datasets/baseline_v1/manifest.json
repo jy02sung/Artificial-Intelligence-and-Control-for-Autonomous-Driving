@@ -1,0 +1,179 @@
+{
+  "schema": "toegyewon-baseline-v1",
+  "controller": "SUMO IDM + LC2013, no learned policy",
+  "step_length_s": 0.2,
+  "visibility_m": 50,
+  "observation_dim": 54,
+  "action_semantics": "realized [delta_speed/dt m/s2, same-edge lane index delta]; NOT command/action_raw",
+  "reward": "0.01*speed_t*dt - 0.001*dt - 5*ego_collision + 2*arrival",
+  "source_sha256": {
+    "toegyewon.net.xml": "8cc11fd5556ff8c38b9b74fbddf2db41f3ea23d5010fdd93b74f18d0f098ed7d",
+    "toegyewon.rou.xml": "e097709c74dcff2c123e2c517e3fd56a3aa7babc8b0637eb0033a735e95b5dbc",
+    "parameters.json": "b319a3c237a65e8b17491ed787bb58326cd4ff613540a34639e199cd7dcbe084"
+  },
+  "collection_config": {
+    "traffic_scales": [
+      0.6,
+      1.0,
+      1.4
+    ],
+    "ego_depart_s": 90,
+    "episode_limit_s": 300,
+    "background_distribution": {
+      "human": 0.35,
+      "car_idm": 0.25,
+      "car_eidm": 0.2,
+      "car_acc": 0.15,
+      "bus": 0.05
+    }
+  },
+  "sumo_version": "Eclipse SUMO sumo 1.27.1",
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 200,
+      "route": "nw_to_east",
+      "traffic_scale": 0.6,
+      "nominal_vehs_per_hour": 1752.0,
+      "steps": 580,
+      "return_": 17.628966535705995,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 1,
+      "seed": 201,
+      "route": "nw_to_east",
+      "traffic_scale": 0.6,
+      "nominal_vehs_per_hour": 1752.0,
+      "steps": 661,
+      "return_": 17.606779774388848,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 2,
+      "seed": 202,
+      "route": "south_to_west",
+      "traffic_scale": 0.6,
+      "nominal_vehs_per_hour": 1752.0,
+      "steps": 760,
+      "return_": 18.647872342382488,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 3,
+      "seed": 203,
+      "route": "south_to_west",
+      "traffic_scale": 0.6,
+      "nominal_vehs_per_hour": 1752.0,
+      "steps": 723,
+      "return_": 18.655940650976795,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 4,
+      "seed": 204,
+      "route": "nw_to_east",
+      "traffic_scale": 1.0,
+      "nominal_vehs_per_hour": 2920.0,
+      "steps": 1341,
+      "return_": 17.468342725114194,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 5,
+      "seed": 205,
+      "route": "nw_to_east",
+      "traffic_scale": 1.0,
+      "nominal_vehs_per_hour": 2920.0,
+      "steps": 819,
+      "return_": 17.5859856205672,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 6,
+      "seed": 206,
+      "route": "south_to_west",
+      "traffic_scale": 1.0,
+      "nominal_vehs_per_hour": 2920.0,
+      "steps": 1500,
+      "return_": 10.656234088824295,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 7,
+      "seed": 207,
+      "route": "south_to_west",
+      "traffic_scale": 1.0,
+      "nominal_vehs_per_hour": 2920.0,
+      "steps": 1195,
+      "return_": 18.57317088634681,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 8,
+      "seed": 208,
+      "route": "nw_to_east",
+      "traffic_scale": 1.4,
+      "nominal_vehs_per_hour": 4087.9999999999995,
+      "steps": 1500,
+      "return_": 13.390849127558687,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 9,
+      "seed": 209,
+      "route": "nw_to_east",
+      "traffic_scale": 1.4,
+      "nominal_vehs_per_hour": 4087.9999999999995,
+      "steps": 1500,
+      "return_": 13.799906684156678,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 10,
+      "seed": 210,
+      "route": "south_to_west",
+      "traffic_scale": 1.4,
+      "nominal_vehs_per_hour": 4087.9999999999995,
+      "steps": 1500,
+      "return_": 10.1154910878575,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    },
+    {
+      "episode": 11,
+      "seed": 211,
+      "route": "south_to_west",
+      "traffic_scale": 1.4,
+      "nominal_vehs_per_hour": 4087.9999999999995,
+      "steps": 1500,
+      "return_": 10.203135855495821,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0
+    }
+  ],
+  "complete": true,
+  "transitions": 13579
+}
