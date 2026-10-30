@@ -10,10 +10,10 @@
   <route id="west_through" edges="sano_wb_in sano_wb_main sano_wb_exit_lane sano_wb_bridge sano_wb_descend sano_wb_accel west_in west_accel west_out" />
   <route id="south_to_east" edges="sb_in south_exit south_loop south_loop_bridge south_loop_join weave east_ramp east_join east_accel east_out sano_eb_bridge sano_eb_main sano_eb_accel sano_eb_finish sano_eb_out" />
   <route id="south_to_west" edges="sb_in south_exit south_loop south_loop_bridge south_loop_join weave flyover north_loop west_accel west_out" />
-  <route id="south_to_local" edges="sb_in south_exit south_loop south_loop_bridge south_loop_join weave east_ramp east_service_out sano_service_bridge sano_service_merge sano_eb_out" />
+  <route id="south_to_local" edges="sb_in south_exit south_loop south_loop_bridge south_loop_join weave east_ramp east_service_out sano_service_bridge sano_service_out" />
   <route id="north_to_east" edges="nb_in north_exit north_exit_widen north_approach weave east_ramp east_join east_accel east_out sano_eb_bridge sano_eb_main sano_eb_accel sano_eb_finish sano_eb_out" />
   <route id="north_to_west" edges="nb_in north_exit north_exit_widen north_approach weave flyover north_loop west_accel west_out" />
-  <route id="north_to_local" edges="nb_in north_exit north_exit_widen north_approach weave east_ramp east_service_out sano_service_bridge sano_service_merge sano_eb_out" />
+  <route id="north_to_local" edges="nb_in north_exit north_exit_widen north_approach weave east_ramp east_service_out sano_service_bridge sano_service_out" />
   <route id="east_to_north" edges="east_in return_ramp return_split return_north nb_accel nb_out" />
   <route id="east_to_south" edges="east_in return_ramp return_split return_south return_bridge return_loop sb_accel sb_out" />
   <route id="outer_to_south" edges="sb_in outer_entry outer_bridge outer_south outer_join" />

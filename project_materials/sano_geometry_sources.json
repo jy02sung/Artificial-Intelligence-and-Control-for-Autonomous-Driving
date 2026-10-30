@@ -29,9 +29,6 @@
     "sano_service_bridge": [
       "169929478"
     ],
-    "sano_service_merge": [
-      "169929482"
-    ],
     "sano_wb_in": [
       "372832348"
     ],
@@ -117,7 +114,8 @@
     ],
     "sano_to_collector": [
       "169728849"
-    ]
+    ],
+    "sano_service_out": []
   },
   "assumptions": [
     "Educational model, not a surveyed digital twin. Existing Toegyewon mainline/loops retained.",
@@ -154,5 +152,19 @@
       "sano_to_collector"
     ],
     "routes_and_demand_unchanged": true
+  },
+  "independent_east_exit": {
+    "date": "2026-10-30",
+    "requested_by_user": true,
+    "replaced_way_references": [
+      "169929482"
+    ],
+    "geometry": "Synthetic smooth independent outlet from the existing collector bridge to (1315,-175,0). It does not rejoin the arterial.",
+    "changed_routes": [
+      "south_to_local",
+      "north_to_local"
+    ],
+    "main_outbound_lanes": 2,
+    "terminal_lanes": 2
   }
 }

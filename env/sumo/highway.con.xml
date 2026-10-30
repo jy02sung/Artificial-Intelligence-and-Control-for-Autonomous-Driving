@@ -83,14 +83,12 @@
   <connection from="sano_nb_to_east" to="sano_eb_accel" fromLane="0" toLane="0" />
   <connection from="sano_eb_accel" to="sano_eb_finish" fromLane="1" toLane="0" />
   <connection from="sano_eb_accel" to="sano_eb_finish" fromLane="2" toLane="1" />
-  <connection from="sano_eb_finish" to="sano_eb_out" fromLane="0" toLane="2" />
-  <connection from="sano_eb_finish" to="sano_eb_out" fromLane="1" toLane="3" />
+  <connection from="sano_eb_finish" to="sano_eb_out" fromLane="0" toLane="0" />
+  <connection from="sano_eb_finish" to="sano_eb_out" fromLane="1" toLane="1" />
   <connection from="east_service_out" to="sano_service_bridge" fromLane="0" toLane="0" />
   <connection from="east_service_out" to="sano_service_bridge" fromLane="1" toLane="1" />
-  <connection from="sano_service_bridge" to="sano_service_merge" fromLane="0" toLane="0" />
-  <connection from="sano_service_bridge" to="sano_service_merge" fromLane="1" toLane="1" />
-  <connection from="sano_service_merge" to="sano_eb_out" fromLane="0" toLane="0" />
-  <connection from="sano_service_merge" to="sano_eb_out" fromLane="1" toLane="1" />
+  <connection from="sano_service_bridge" to="sano_service_out" fromLane="0" toLane="0" />
+  <connection from="sano_service_bridge" to="sano_service_out" fromLane="1" toLane="1" />
   <connection from="sano_wb_in" to="sano_wb_main" fromLane="2" toLane="0" />
   <connection from="sano_wb_in" to="sano_wb_main" fromLane="3" toLane="1" />
   <connection from="sano_wb_in" to="sano_west_collector" fromLane="0" toLane="0" />

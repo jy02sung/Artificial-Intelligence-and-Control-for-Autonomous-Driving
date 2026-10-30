@@ -654,6 +654,7 @@ def _ic_write_display(directory, road):
         ("S_HIGHWAY", 245,-500),
         ("GEUMGANG-RO", 480,115),
         ("SANO_IC", 840,260),
+        ("EAST_LOCAL_EXIT", 1245,-195),
         ("DONGGUREUNG-RO", 920,350),
         ("TOEGYEWON_IC", -10,-320),
         ("WEAVING_4_LANES", 310,18),
