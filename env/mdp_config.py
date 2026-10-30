@@ -206,6 +206,6 @@ REWARD = {
 SIMULATION.update(
     step_length=.2, max_steps=4500, warmup_steps=100,
     gui_delay=300., gui_zoom=750., gui_track_ego=True,
-    gui_overview_zoom=82., gui_center_x=190., gui_center_y=-120.,
+    gui_overview_zoom=92., gui_center_x=550., gui_center_y=-85.,
     gui_vehicle_scale=1.5,
 )

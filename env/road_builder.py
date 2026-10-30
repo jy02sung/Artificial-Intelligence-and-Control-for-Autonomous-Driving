@@ -332,7 +332,9 @@ def _ic_build(road, ego, traffic, out_dir):
     directory.mkdir(parents=True, exist_ok=True)
     nodes = ET.Element("nodes")
     for nid, (x, y, z) in road["nodes"].items():
-        add(nodes, "node", id=nid, x=x, y=y, z=z, type="priority")
+        attrs = dict(id=nid, x=x, y=y, z=z, type="priority")
+        attrs.update(road.get("node_options", {}).get(nid, {}))
+        add(nodes, "node", **attrs)
     save(directory/"highway.nod.xml", nodes)
     edges = ET.Element("edges")
     for eid, start, end, count, speed, priority, points in road["edges"]:
@@ -345,8 +347,9 @@ def _ic_build(road, ego, traffic, out_dir):
     save(directory/"highway.edg.xml", edges)
     connections = ET.Element("connections")
     for before, after, src, dst in road["connections"]:
-        add(connections, "connection", **{"from": before, "to": after,
-                                         "fromLane": src, "toLane": dst})
+        attrs = {"from": before, "to": after, "fromLane": src, "toLane": dst}
+        attrs.update(road.get("connection_options", {}).get((before, after, src, dst), {}))
+        add(connections, "connection", **attrs)
     save(directory/"highway.con.xml", connections)
     subprocess.run([
         checkBinary("netconvert"), "--node-files", "highway.nod.xml",
@@ -499,7 +502,7 @@ def marking(root, pid, points, dashed=False):
 
 def _ic_write_display(directory, road):
     view = ET.Element("viewsettings")
-    scheme = add(view,"scheme",name="Toegyewon IC - aerial geometry")
+    scheme = add(view,"scheme",name="Toegyewon + Sano IC - aerial geometry")
     add(scheme,"opengl",trueZ="true",dither="false")
     add(scheme,"background",backgroundColor="235,240,233",showGrid="false")
     edges = add(scheme,"edges",laneEdgeMode=22,laneShowBorders="false",
@@ -544,6 +547,25 @@ def _ic_write_display(directory, road):
     net=ET.parse(directory/"highway.net.xml").getroot()
     for junction in net.findall("junction"):
         if junction.get("id", "").startswith(":") or not junction.get("shape"):
+            continue
+        if junction.get("id") in road.get("node_options", {}):
+            # The safety envelope locates stop lines; render only its drivable
+            # lane ribbons so the enlarged junction does not look like a square.
+            prefix = ":" + junction.get("id") + "_"
+            for internal in net.findall("edge"):
+                if not internal.get("id", "").startswith(prefix):
+                    continue
+                internal_lanes = internal.findall("lane")
+                for idx, lane in enumerate(internal_lanes):
+                    pts = [tuple(map(float, q.split(","))) for q in lane.get("shape").split()]
+                    pts = [q if len(q)==3 else (*q, 0.) for q in pts]
+                    width = float(lane.get("width", road["lane_width"]))
+                    right, left = shifted(pts, width/2+.04), shifted(pts, -width/2-.04)
+                    add(decor, "poly", id="surface_lane_"+lane.get("id"),
+                        type="junction_display", shape=shape(right+list(reversed(left))),
+                        fill="true", color="78,88,102", layer=-.05)
+                    if idx > 0:
+                        marking(decor, "guide_"+lane.get("id"), shifted(pts, width/2), dashed=True)
             continue
         z=float(junction.get("z",0))
         color="58,99,140" if z>4 else "78,88,102"
@@ -601,10 +623,39 @@ def _ic_write_display(directory, road):
             outer=tuple(a[k]+(c[k]-a[k])*max(0,t-.06) for k in range(3))
             line(decor,"north_exit_widening_hatch_"+str(j),[inner,outer],"239,243,247",.27,.12)
 
+    # Non-drivable shoulders extend beyond lane-count changes as tapered
+    # hatching. Vehicle routes and physical lane widths remain unchanged.
+    for before, after in [("sano_eb_accel", "sano_eb_finish"), ("sano_wb_accel", "west_in")]:
+        src = net.find("edge[@id='%s']/lane" % before)
+        dst = net.find("edge[@id='%s']/lane" % after)
+        if src is None or dst is None:
+            continue
+        def border(lane):
+            pts = [tuple(map(float, q.split(","))) for q in lane.get("shape").split()]
+            pts = [q if len(q)==3 else (*q, 0.) for q in pts]
+            return shifted(pts, float(lane.get("width", road["lane_width"]))/2)
+        tip = border(src)[-1]
+        path = border(dst)
+        end = 1; length = 0.
+        while end < len(path)-1 and length < 38:
+            length += math.dist(path[end-1][:2], path[end][:2]); end += 1
+        path = path[:end+1]
+        z = min(tip[2], path[0][2])
+        add(decor, "poly", id="taper_"+before, type="painted_taper",
+            shape=shape([tip]+path), fill="true", color="78,88,102", layer=z-.08)
+        line(decor, "taper_border_"+before, [tip,path[-1]], "239,243,247", z+.24, .15)
+        for k in range(1,7):
+            t=k/7; j=round(t*(len(path)-1))
+            outer=tuple(tip[n]+(path[-1][n]-tip[n])*t for n in range(3))
+            line(decor, "taper_hatch_%s_%s"%(before,k), [path[j],outer], "239,243,247", z+.25, .12)
+
     for pid,x,y in [
         ("N_HIGHWAY", -20,300),
         ("S_HIGHWAY", 245,-500),
-        ("GEUMGANG-RO", 480,225),
+        ("GEUMGANG-RO", 480,115),
+        ("SANO_IC", 840,260),
+        ("DONGGUREUNG-RO", 920,350),
+        ("TOEGYEWON_IC", -10,-320),
         ("WEAVING_4_LANES", 310,18),
         ("RAMP_OVER_HIGHWAY", 330,-170),
     ]:
@@ -710,10 +761,14 @@ def _ic_add_landscape(decor, road, net):
     for pid,x,y,rx,ry in [("north_island",266,232,30,30),
                           ("central_island",145,33,48,73),
                           ("south_island",35,-79,43,51),
-                          ("south_greenbelt",136,-271,27,100)]:
+                          ("south_greenbelt",136,-271,27,100),
+                          ("sano_nw_island",674,212,18,14),
+                          ("sano_se_island",750,103,16,10)]:
         ellipse(pid,x,y,rx,ry,"213,228,195",-11)
         ellipse(pid+"_meadow",x-3,y+2,rx*.76,ry*.78,"221,233,205",-10.8)
     ellipse("north_meadow",465,277,153,31,"226,234,213",-12)
+    ellipse("sano_east_greenbelt",1000,245,140,55,"221,232,207",-12)
+    ellipse("sano_south_meadow",950,-76,157,81,"226,234,213",-12)
 
     # A stylized stream outside the western network boundary, with two banks.
     river=[]
@@ -735,7 +790,10 @@ def _ic_add_landscape(decor, road, net):
                ("home_1",342,-212,24,17,"205,182,164"),
                ("home_2",381,-203,22,20,"196,193,177"),
                ("home_3",421,-220,27,17,"182,194,191"),
-               ("home_4",375,-250,25,18,"205,190,168")]
+               ("home_4",375,-250,25,18,"205,190,168"),
+               ("sano_workshop",857,295,35,20,"177,190,190"),
+               ("sano_home",837,13,25,17,"205,182,164"),
+               ("sano_warehouse",947,-39,48,24,"191,199,187")]
     for pid,x,y,width,height,color in buildings:
         radius=math.hypot(width,height)/2+4
         if not road_clear(x,y,radius):
@@ -782,7 +840,9 @@ def _ic_add_landscape(decor, road, net):
     zones=[(-123,173,57,95,42),(143,31,39,66,45),
            (32,-78,34,43,22),(266,231,24,25,14),
            (138,-270,21,87,18),(-91,-307,83,185,60),
-           (481,274,144,27,30),(443,-139,135,141,35)]
+           (481,274,144,27,30),(443,-139,135,141,35),
+           (674,212,15,11,5),(750,103,12,7,3),
+           (1000,245,131,47,38),(950,-76,140,69,42)]
     palette=[("135,166,124","158,186,142"),
              ("146,176,132","173,196,152"),
              ("127,160,125","153,183,142")]
