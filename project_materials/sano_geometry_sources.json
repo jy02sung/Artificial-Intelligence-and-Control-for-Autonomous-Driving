@@ -130,5 +130,29 @@
     "14,420 veh/hour is synthetic demonstration demand, not measured counts. Existing east/west arterial demand is redistributed among new exits.",
     "All trees and buildings are illustrative visual decoration; no additional traffic dynamics.",
     "The north-side local crossing uses a custom 28 x 32 m intersection envelope so stop lines stay outside conflicting lanes; its exact polygon is a modeling adjustment."
-  ]
+  ],
+  "corridor_refinement": {
+    "date": "2026-10-30",
+    "base_commit": "7ec5181",
+    "changes": [
+      "Northbound carriageway shifted outward with smooth transitions at both external boundaries.",
+      "Southeast loop merges to northbound lane 0 (right); two incoming through lanes map to lanes 1 and 2.",
+      "The 11 m common ramp is extended to 63.792 m before its two destinations diverge.",
+      "Priority-junction envelope widened to contain separated carriageways, while existing yield rules are retained."
+    ],
+    "modified_edges": [
+      "sano_nb_in",
+      "sano_nb_under_south",
+      "sano_nb_under_main",
+      "sano_nb_out",
+      "sano_se_loop",
+      "sano_nb_to_east",
+      "sano_sb_to_west",
+      "sano_nb_to_west",
+      "sano_west_ramp_split",
+      "sano_to_west_main",
+      "sano_to_collector"
+    ],
+    "routes_and_demand_unchanged": true
+  }
 }
