@@ -10,6 +10,7 @@ SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. `jys
 - 빨간 ego 1대 + 일반 승용차·버스. 현재 ego는 도로 검증용 IDM이며 학습된 PPO는 후속 연결 대상입니다.
 - [검증 결과](scenarios/toegyewon/validation.json)
 - [기본 제어기 데이터 수집 안내](scenarios/toegyewon/COLLECTION.md) — 두 경로·교통량 3단계·4종 제어기 혼합, 모델 학습 없음
+- [4종 제어기 동일 조건 비교·BC 데이터](scenarios/toegyewon/CONTROLLER_COMPARISON.md) — ego 제어기별 30회, IDM 기준 수치 비교와 학습 분할
 
 ## 프로젝트 바로가기
 

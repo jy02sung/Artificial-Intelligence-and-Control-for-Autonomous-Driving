@@ -57,7 +57,9 @@ def applied_action(before,after,dt):
     return [(after['speed']-before['speed'])/dt,
             after['lane']-before['lane'] if same else 0],[True,same]
 
-def collect(out,repeats=2,seed=100,rules=False):
+def collect(out,repeats=2,seed=100,rules=False,ego_controller=None,paired=False):
+    if paired and (not rules or repeats!=5 or ego_controller is None):
+        raise ValueError('Paired study requires rules, 5 repeats, and an explicit ego controller')
     out.mkdir(parents=True,exist_ok=False)
     net_source=HERE/'rules_v2/network.net.xml' if rules else HERE/'toegyewon.net.xml'
     net=sumolib.net.readNet(str(net_source),withInternal=True)
@@ -81,6 +83,14 @@ def collect(out,repeats=2,seed=100,rules=False):
         'source_sha256':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in ['toegyewon.net.xml','toegyewon.rou.xml','parameters.json']},
         'collection_config':config,'sumo_version':subprocess_version(),
         'episodes':[],'complete':False}
+    if ego_controller:
+        manifest['ego_controller']=ego_controller
+        manifest['controller']=f'SUMO {ego_controller} + LC2013, no learned policy'
+    if paired:
+        shutil.copy2(HERE/'comparison_setup.py',out/'comparison_setup.py')
+        manifest.update(experiment='matched-controllers-v1',matched_seed_base=seed,
+                        demand_protocol='explicit deterministic vehicle types/departures; all speed factors 1; endogenous trajectories may differ',
+                        split_protocol='per route/load: repeats 0/1/2=train,3=validation,4=test')
     if rules:
         manifest.update(schema='toegyewon-rules-v2',controller='SUMO native car following + marked lane permissions + brake-first emergency supervisor',
                         rule_context_fields=['left_exists','right_exists','left_solid','right_solid'],
@@ -101,6 +111,13 @@ def collect(out,repeats=2,seed=100,rules=False):
             distribution.set('probabilities',' '.join(str(v) for v in config['background_distribution'].values()))
             for flow in root.findall('flow'):flow.set('vehsPerHour',str(float(flow.get('vehsPerHour'))*scale))
             ego=root.find("vehicle[@id='ego']");ego.set('route',route);ego.set('depart',str(config['ego_depart_s']))
+            if ego_controller:
+                from comparison_setup import configure_ego
+                manifest['ego_parameters']=configure_ego(root,ego_controller)
+            demand_digest=None
+            if paired:
+                from comparison_setup import freeze_demand,demand_hash,split_for
+                freeze_demand(root,epseed);demand_digest=demand_hash(root)
             routefile=out/f'episode_{episode:02d}.rou.xml';write_xml(root,routefile)
             traci.start([binary('sumo'),'-n',str(out/'toegyewon.net.xml'),'-r',str(routefile),
                 '--step-length',str(dt),'--seed',str(epseed),'--no-step-log','--duration-log.disable','true',
@@ -121,6 +138,10 @@ def collect(out,repeats=2,seed=100,rules=False):
                     states=nextstates
                     if 'ego' in states:break
                 if 'ego' not in states:raise RuntimeError('ego failed to depart within 180 seconds')
+                ego_start_time=traci.simulation.getTime()
+                observed_ego_parameters={k:f('ego') for k,f in dict(accel=traci.vehicle.getAccel,decel=traci.vehicle.getDecel,
+                    emergencyDecel=traci.vehicle.getEmergencyDecel,tau=traci.vehicle.getTau,minGap=traci.vehicle.getMinGap,
+                    length=traci.vehicle.getLength,width=traci.vehicle.getWidth,speedFactor=traci.vehicle.getSpeedFactor).items()}
                 obs,xy=observation(states,route,lengths,lanes)
                 for step in range(int(config['episode_limit_s']/dt)):
                     decision=policy.before_step(states) if policy else None
@@ -159,7 +180,10 @@ def collect(out,repeats=2,seed=100,rules=False):
                 traci.close(wait=False)
             manifest['episodes'].append(dict(episode=episode,seed=epseed,route=route,traffic_scale=scale,
                 nominal_vehs_per_hour=sum(params['traffic_vehs_per_hour'].values())*scale,steps=steps,return_=total_reward,end_reason=reason,
-                ego_collisions=collisions,ego_teleports=teleports))
+                ego_collisions=collisions,ego_teleports=teleports,ego_start_time_s=ego_start_time,
+                observed_ego_parameters=observed_ego_parameters))
+            if paired:
+                manifest['episodes'][-1].update(pair_id=episode,repeat=rep,split=split_for(rep),demand_sha256=demand_digest)
             if policy:
                 manifest['episodes'][-1]['rule_counts']=policy.counts
                 assert policy.counts['ordinary_solid_crossings']==0,policy.counts
@@ -224,6 +248,9 @@ if __name__=='__main__':
     parser.add_argument('--seed',type=int,default=100)
     parser.add_argument('--validate',type=Path)
     parser.add_argument('--rules',action='store_true',help='Use the separately built v2 markings and exception policy')
+    parser.add_argument('--ego-controller',choices=['Krauss','IDM','EIDM','ACC'])
+    parser.add_argument('--paired',action='store_true')
+    parser.add_argument('--out',type=Path)
     args=parser.parse_args()
     if args.validate:validate(args.validate)
     else:
@@ -231,4 +258,4 @@ if __name__=='__main__':
         # Fixed UTC+9 also works on Windows without the optional tzdata package.
         from datetime import timezone,timedelta
         name=datetime.now(timezone(timedelta(hours=9))).strftime(('rules_v2_' if args.rules else 'dataset_')+'%Y%m%d_%H%M%S')
-        collect(HERE/'results'/name,args.repeats,args.seed,args.rules)
+        collect(args.out or HERE/'results'/name,args.repeats,args.seed,args.rules,args.ego_controller,args.paired)
