@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+  <input>
+    <net-file value="network.net.xml" />
+    <route-files value="routes.rou.xml" />
+    <additional-files value="../rules_v2/markings.add.xml" />
+  </input>
+  <time>
+    <step-length value="0.2" />
+    <end value="2400" />
+  </time>
+  <processing>
+    <time-to-teleport value="-1" />
+    <collision.check-junctions value="true" />
+  </processing>
+  <random_number>
+    <seed value="1000" />
+  </random_number>
+  <gui_only>
+    <gui-settings-file value="../view.xml" />
+  </gui_only>
+</configuration>

@@ -7,10 +7,9 @@ SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. `jys
 - [도로 환경 안내·가정·다음 단계](scenarios/toegyewon/README.md)
 - Windows: `scenarios/toegyewon/open_sumo.cmd` 더블클릭 후 재생
 - [교통량 및 도로 기본 설정](scenarios/toegyewon/parameters.json)
-- 빨간 ego 1대 + 일반 승용차·버스. 현재 ego는 도로 검증용 IDM이며 학습된 PPO는 후속 연결 대상입니다.
-- [검증 결과](scenarios/toegyewon/validation.json)
-- [기본 제어기 데이터 수집 안내](scenarios/toegyewon/COLLECTION.md) — 두 경로·교통량 3단계·4종 제어기 혼합, 모델 학습 없음
-- [4종 제어기 동일 조건 비교·BC 데이터](scenarios/toegyewon/CONTROLLER_COMPARISON.md) — ego 제어기별 30회, IDM 기준 수치 비교와 학습 분할
+- **현재 기본 실행은 ego 없는 배경 교통 검증**입니다. 30분 수요 + 최대 10분 배출, 두 금강로 합류부에 협조 합류 적용.
+- [도로 안정화 설정·검증 결과](scenarios/toegyewon/TRAFFIC.md)
+- 기존 퇴계원IC 학습용 수집 데이터는 폐기했습니다. 도로 검증 후 BC/PPO 데이터를 다시 수집할 예정입니다.
 
 ## 프로젝트 바로가기
 

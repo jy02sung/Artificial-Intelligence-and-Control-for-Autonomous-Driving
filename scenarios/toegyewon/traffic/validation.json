@@ -1,0 +1,2195 @@
+{
+  "config": {
+    "demand_end_s": 1800,
+    "drain_s": 600,
+    "step_length_s": 0.2,
+    "merge_nodes": [
+      "7461635551",
+      "1810880137"
+    ],
+    "merge_visibility_m": 80,
+    "background_distribution": {
+      "human": 0.35,
+      "car_idm": 0.25,
+      "car_eidm": 0.2,
+      "car_acc": 0.15,
+      "bus": 0.05
+    },
+    "validation_scales": [
+      0.6,
+      1.0,
+      1.4
+    ],
+    "validation_seeds": [
+      1000,
+      1001,
+      1002,
+      1003,
+      1004
+    ]
+  },
+  "results": [
+    {
+      "variant": "priority",
+      "scale": 0.6,
+      "seed": 1000,
+      "demand": 878,
+      "arrived": 878,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 0,
+      "routes": {
+        "nw_to_east": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.36825396825398,
+          "mean_waiting_s": 4.971428571428572,
+          "max_waiting_s": 25.2
+        },
+        "south_to_west": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 129.14920634920634,
+          "mean_waiting_s": 0.9857142857142857,
+          "max_waiting_s": 6.4
+        },
+        "nw_to_south": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.73061224489796,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.67959183673469,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 54.415555555555564,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 47.25555555555555,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 54,
+          "arrived": 54,
+          "unfinished": 0,
+          "mean_duration_s": 123.17037037037038,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 0.6,
+      "seed": 1001,
+      "demand": 878,
+      "arrived": 878,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 0,
+      "routes": {
+        "nw_to_east": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 127.12222222222222,
+          "mean_waiting_s": 7.403174603174603,
+          "max_waiting_s": 27.4
+        },
+        "south_to_west": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 128.66031746031746,
+          "mean_waiting_s": 0.6730158730158728,
+          "max_waiting_s": 6.0
+        },
+        "nw_to_south": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.729591836734706,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.66224489795918,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 54.45777777777779,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 47.29777777777778,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 54,
+          "arrived": 54,
+          "unfinished": 0,
+          "mean_duration_s": 122.96296296296296,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 0.6,
+      "seed": 1002,
+      "demand": 878,
+      "arrived": 878,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 0,
+      "routes": {
+        "nw_to_east": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 125.55555555555554,
+          "mean_waiting_s": 6.815873015873016,
+          "max_waiting_s": 31.8
+        },
+        "south_to_west": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 128.54603174603176,
+          "mean_waiting_s": 0.8952380952380953,
+          "max_waiting_s": 5.8
+        },
+        "nw_to_south": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.72653061224491,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.66836734693877,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 54.41555555555555,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 47.29111111111111,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 54,
+          "arrived": 54,
+          "unfinished": 0,
+          "mean_duration_s": 123.0888888888889,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 0.6,
+      "seed": 1003,
+      "demand": 878,
+      "arrived": 878,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 0,
+      "routes": {
+        "nw_to_east": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 125.21269841269842,
+          "mean_waiting_s": 6.834920634920635,
+          "max_waiting_s": 28.8
+        },
+        "south_to_west": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 128.6095238095238,
+          "mean_waiting_s": 0.5857142857142857,
+          "max_waiting_s": 5.8
+        },
+        "nw_to_south": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.71836734693879,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.67040816326531,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 54.45333333333333,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 47.23555555555554,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 54,
+          "arrived": 54,
+          "unfinished": 0,
+          "mean_duration_s": 123.31851851851853,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 0.6,
+      "seed": 1004,
+      "demand": 878,
+      "arrived": 878,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 0,
+      "routes": {
+        "nw_to_east": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 127.46031746031744,
+          "mean_waiting_s": 7.585714285714286,
+          "max_waiting_s": 27.6
+        },
+        "south_to_west": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 127.63333333333333,
+          "mean_waiting_s": 0.7063492063492064,
+          "max_waiting_s": 5.8
+        },
+        "nw_to_south": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.728571428571435,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.66122448979591,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 54.39333333333334,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 47.30666666666667,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 54,
+          "arrived": 54,
+          "unfinished": 0,
+          "mean_duration_s": 122.85555555555557,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 1.0,
+      "seed": 1000,
+      "demand": 1460,
+      "arrived": 1388,
+      "undeparted": 0,
+      "unfinished": 72,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 38,
+      "routes": {
+        "nw_to_east": {
+          "demand": 210,
+          "arrived": 138,
+          "unfinished": 72,
+          "mean_duration_s": 1124.0376811594201,
+          "mean_waiting_s": 468.7457142857143,
+          "max_waiting_s": 910.4
+        },
+        "south_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 1009.1209523809525,
+          "mean_waiting_s": 494.09142857142865,
+          "max_waiting_s": 1149.8
+        },
+        "nw_to_south": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.68553846153847,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.66830769230769,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 54.495999999999995,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 47.26,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 123.50888888888888,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": false,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 1.0,
+      "seed": 1001,
+      "demand": 1460,
+      "arrived": 1387,
+      "undeparted": 0,
+      "unfinished": 73,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 29,
+      "routes": {
+        "nw_to_east": {
+          "demand": 210,
+          "arrived": 137,
+          "unfinished": 73,
+          "mean_duration_s": 1184.300729927007,
+          "mean_waiting_s": 548.6504761904762,
+          "max_waiting_s": 918.6
+        },
+        "south_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 1015.5485714285714,
+          "mean_waiting_s": 519.5314285714285,
+          "max_waiting_s": 1234.6
+        },
+        "nw_to_south": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.672000000000004,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.65538461538461,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 54.50266666666666,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 47.242666666666665,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 123.3711111111111,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": false,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 1.0,
+      "seed": 1002,
+      "demand": 1460,
+      "arrived": 1402,
+      "undeparted": 0,
+      "unfinished": 58,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 25,
+      "routes": {
+        "nw_to_east": {
+          "demand": 210,
+          "arrived": 152,
+          "unfinished": 58,
+          "mean_duration_s": 1119.4855263157897,
+          "mean_waiting_s": 536.332380952381,
+          "max_waiting_s": 901.8
+        },
+        "south_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 960.9228571428571,
+          "mean_waiting_s": 463.3971428571429,
+          "max_waiting_s": 1298.0
+        },
+        "nw_to_south": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.6843076923077,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.66215384615385,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 54.48,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 47.25466666666666,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 123.48444444444443,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": false,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 1.0,
+      "seed": 1003,
+      "demand": 1460,
+      "arrived": 1398,
+      "undeparted": 0,
+      "unfinished": 62,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 34,
+      "routes": {
+        "nw_to_east": {
+          "demand": 210,
+          "arrived": 148,
+          "unfinished": 62,
+          "mean_duration_s": 1075.5662162162162,
+          "mean_waiting_s": 488.912380952381,
+          "max_waiting_s": 860.6
+        },
+        "south_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 970.7990476190475,
+          "mean_waiting_s": 478.3304761904762,
+          "max_waiting_s": 1143.4
+        },
+        "nw_to_south": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.68184615384616,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.648,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 54.500000000000014,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 47.242666666666665,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 123.5622222222222,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": false,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 1.0,
+      "seed": 1004,
+      "demand": 1460,
+      "arrived": 1382,
+      "undeparted": 0,
+      "unfinished": 78,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 39,
+      "routes": {
+        "nw_to_east": {
+          "demand": 210,
+          "arrived": 135,
+          "unfinished": 75,
+          "mean_duration_s": 1104.6785185185186,
+          "mean_waiting_s": 542.7714285714286,
+          "max_waiting_s": 926.2
+        },
+        "south_to_west": {
+          "demand": 210,
+          "arrived": 207,
+          "unfinished": 3,
+          "mean_duration_s": 1069.4734299516908,
+          "mean_waiting_s": 577.7380952380953,
+          "max_waiting_s": 1078.2
+        },
+        "nw_to_south": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.68615384615385,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.6603076923077,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 54.46,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 47.24,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 123.27555555555554,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": false,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 1.4,
+      "seed": 1000,
+      "demand": 2044,
+      "arrived": 1547,
+      "undeparted": 262,
+      "unfinished": 497,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 21,
+      "routes": {
+        "nw_to_east": {
+          "demand": 294,
+          "arrived": 41,
+          "unfinished": 253,
+          "mean_duration_s": 1459.307317073171,
+          "mean_waiting_s": 884.0959183673469,
+          "max_waiting_s": 2007.8
+        },
+        "south_to_west": {
+          "demand": 294,
+          "arrived": 50,
+          "unfinished": 244,
+          "mean_duration_s": 1443.5,
+          "mean_waiting_s": 690.6850340136054,
+          "max_waiting_s": 1933.8
+        },
+        "nw_to_south": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.74241758241758,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.66901098901099,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 54.56666666666667,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 47.279999999999994,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.54285714285714,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": false,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 1.4,
+      "seed": 1001,
+      "demand": 2044,
+      "arrived": 1748,
+      "undeparted": 94,
+      "unfinished": 296,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 34,
+      "routes": {
+        "nw_to_east": {
+          "demand": 294,
+          "arrived": 122,
+          "unfinished": 172,
+          "mean_duration_s": 1597.1737704918035,
+          "mean_waiting_s": 611.5,
+          "max_waiting_s": 1440.8
+        },
+        "south_to_west": {
+          "demand": 294,
+          "arrived": 170,
+          "unfinished": 124,
+          "mean_duration_s": 1207.8199999999997,
+          "mean_waiting_s": 506.4986394557822,
+          "max_waiting_s": 1496.2
+        },
+        "nw_to_south": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.728351648351655,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.646153846153844,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 54.56190476190477,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 47.30476190476189,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.45396825396826,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": false,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 1.4,
+      "seed": 1002,
+      "demand": 2044,
+      "arrived": 1755,
+      "undeparted": 77,
+      "unfinished": 289,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 31,
+      "routes": {
+        "nw_to_east": {
+          "demand": 294,
+          "arrived": 127,
+          "unfinished": 167,
+          "mean_duration_s": 1592.8834645669292,
+          "mean_waiting_s": 740.5843537414966,
+          "max_waiting_s": 1484.8
+        },
+        "south_to_west": {
+          "demand": 294,
+          "arrived": 172,
+          "unfinished": 122,
+          "mean_duration_s": 1261.770930232558,
+          "mean_waiting_s": 538.6333333333333,
+          "max_waiting_s": 1654.8
+        },
+        "nw_to_south": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.7265934065934,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.65582417582418,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 54.56857142857144,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 47.28190476190475,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.67777777777778,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": false,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 1.4,
+      "seed": 1003,
+      "demand": 2044,
+      "arrived": 1742,
+      "undeparted": 95,
+      "unfinished": 302,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 30,
+      "routes": {
+        "nw_to_east": {
+          "demand": 294,
+          "arrived": 88,
+          "unfinished": 206,
+          "mean_duration_s": 1674.2068181818183,
+          "mean_waiting_s": 735.5503401360544,
+          "max_waiting_s": 1523.8
+        },
+        "south_to_west": {
+          "demand": 294,
+          "arrived": 198,
+          "unfinished": 96,
+          "mean_duration_s": 1242.5070707070709,
+          "mean_waiting_s": 557.5,
+          "max_waiting_s": 1658.4
+        },
+        "nw_to_south": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.73186813186813,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.65714285714286,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 54.559047619047625,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 47.316190476190464,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.61746031746033,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": false,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "priority",
+      "scale": 1.4,
+      "seed": 1004,
+      "demand": 2044,
+      "arrived": 1749,
+      "undeparted": 90,
+      "unfinished": 295,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 29,
+      "routes": {
+        "nw_to_east": {
+          "demand": 294,
+          "arrived": 113,
+          "unfinished": 181,
+          "mean_duration_s": 1588.8371681415929,
+          "mean_waiting_s": 625.1081632653061,
+          "max_waiting_s": 1439.0
+        },
+        "south_to_west": {
+          "demand": 294,
+          "arrived": 180,
+          "unfinished": 114,
+          "mean_duration_s": 1212.0144444444447,
+          "mean_waiting_s": 516.4122448979592,
+          "max_waiting_s": 1444.8
+        },
+        "nw_to_south": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.72703296703297,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.65186813186813,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 54.564761904761916,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 47.297142857142845,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.47301587301588,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": false,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 0.6,
+      "seed": 1000,
+      "demand": 878,
+      "arrived": 878,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 0,
+      "routes": {
+        "nw_to_east": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 111.784126984127,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.14285714285714,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.73061224489796,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.69081632653062,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 55.484444444444435,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 48.19333333333334,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 54,
+          "arrived": 54,
+          "unfinished": 0,
+          "mean_duration_s": 123.15925925925927,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 0.6,
+      "seed": 1001,
+      "demand": 878,
+      "arrived": 878,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 0,
+      "routes": {
+        "nw_to_east": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 111.52539682539683,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.36666666666666,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.734693877551024,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.66632653061225,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 55.475555555555566,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 48.21555555555556,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 54,
+          "arrived": 54,
+          "unfinished": 0,
+          "mean_duration_s": 123.01851851851852,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 0.6,
+      "seed": 1002,
+      "demand": 878,
+      "arrived": 878,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 0,
+      "routes": {
+        "nw_to_east": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 111.39365079365079,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 122.96666666666665,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.724489795918366,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.66530612244899,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 55.20666666666666,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 48.086666666666666,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 54,
+          "arrived": 54,
+          "unfinished": 0,
+          "mean_duration_s": 123.0925925925926,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 0.6,
+      "seed": 1003,
+      "demand": 878,
+      "arrived": 878,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 0,
+      "routes": {
+        "nw_to_east": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 111.43809523809526,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.27142857142857,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.72755102040817,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.66428571428571,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 55.32444444444445,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 48.40888888888888,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 54,
+          "arrived": 54,
+          "unfinished": 0,
+          "mean_duration_s": 123.22962962962964,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 0.6,
+      "seed": 1004,
+      "demand": 878,
+      "arrived": 878,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 1,
+      "routes": {
+        "nw_to_east": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 111.484126984127,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.01111111111112,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.722448979591846,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 196,
+          "arrived": 196,
+          "unfinished": 0,
+          "mean_duration_s": 48.65,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 55.39111111111112,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 48.13555555555556,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 54,
+          "arrived": 54,
+          "unfinished": 0,
+          "mean_duration_s": 122.84074074074076,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 1.0,
+      "seed": 1000,
+      "demand": 1460,
+      "arrived": 1460,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 18,
+      "routes": {
+        "nw_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 112.15904761904763,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 123.63714285714285,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.6923076923077,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.664,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 55.969333333333346,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 48.14666666666667,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 123.52888888888887,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 1.0,
+      "seed": 1001,
+      "demand": 1460,
+      "arrived": 1460,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 20,
+      "routes": {
+        "nw_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 111.72095238095238,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 123.82095238095239,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.67938461538462,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.652307692307694,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 55.77733333333334,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 48.096,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 123.33555555555554,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 1.0,
+      "seed": 1002,
+      "demand": 1460,
+      "arrived": 1460,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 14,
+      "routes": {
+        "nw_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 111.6847619047619,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 123.6552380952381,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.68923076923078,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.66215384615385,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 55.736,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 48.168,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 123.43777777777777,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 1.0,
+      "seed": 1003,
+      "demand": 1460,
+      "arrived": 1460,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 17,
+      "routes": {
+        "nw_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 111.78095238095239,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 123.5352380952381,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.676307692307695,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.636923076923075,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 55.97733333333333,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 48.01866666666666,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 123.61777777777776,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 1.0,
+      "seed": 1004,
+      "demand": 1460,
+      "arrived": 1460,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 23,
+      "routes": {
+        "nw_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 111.77904761904762,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 123.6552380952381,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.67753846153847,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 325,
+          "arrived": 325,
+          "unfinished": 0,
+          "mean_duration_s": 48.65661538461539,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 55.96533333333333,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 150,
+          "arrived": 150,
+          "unfinished": 0,
+          "mean_duration_s": 48.23199999999999,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 90,
+          "arrived": 90,
+          "unfinished": 0,
+          "mean_duration_s": 123.29777777777777,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 1.4,
+      "seed": 1000,
+      "demand": 2044,
+      "arrived": 2044,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 43,
+      "routes": {
+        "nw_to_east": {
+          "demand": 294,
+          "arrived": 294,
+          "unfinished": 0,
+          "mean_duration_s": 112.76598639455781,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 294,
+          "arrived": 294,
+          "unfinished": 0,
+          "mean_duration_s": 124.28163265306121,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.73362637362637,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.668131868131866,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 56.68952380952382,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 48.3542857142857,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.55714285714288,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 1.4,
+      "seed": 1001,
+      "demand": 2044,
+      "arrived": 2044,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 45,
+      "routes": {
+        "nw_to_east": {
+          "demand": 294,
+          "arrived": 294,
+          "unfinished": 0,
+          "mean_duration_s": 112.57278911564626,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 294,
+          "arrived": 294,
+          "unfinished": 0,
+          "mean_duration_s": 124.62380952380953,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.730549450549454,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.65846153846154,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 56.43523809523809,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 48.43333333333332,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.43650793650795,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 1.4,
+      "seed": 1002,
+      "demand": 2044,
+      "arrived": 2044,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 36,
+      "routes": {
+        "nw_to_east": {
+          "demand": 294,
+          "arrived": 294,
+          "unfinished": 0,
+          "mean_duration_s": 112.39319727891156,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 294,
+          "arrived": 294,
+          "unfinished": 0,
+          "mean_duration_s": 124.34965986394559,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.729230769230774,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.643956043956045,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 56.720000000000006,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 48.4647619047619,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.64444444444446,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 1.4,
+      "seed": 1003,
+      "demand": 2044,
+      "arrived": 2044,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 49,
+      "routes": {
+        "nw_to_east": {
+          "demand": 294,
+          "arrived": 294,
+          "unfinished": 0,
+          "mean_duration_s": 112.46190476190475,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 294,
+          "arrived": 294,
+          "unfinished": 0,
+          "mean_duration_s": 124.20204081632652,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.737582417582416,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.645274725274724,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 56.65238095238095,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 48.39238095238096,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.62222222222222,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    },
+    {
+      "variant": "zipper",
+      "scale": 1.4,
+      "seed": 1004,
+      "demand": 2044,
+      "arrived": 2044,
+      "undeparted": 0,
+      "unfinished": 0,
+      "collisions": 0,
+      "teleport_warnings": 0,
+      "emergency_braking_warnings": 46,
+      "routes": {
+        "nw_to_east": {
+          "demand": 294,
+          "arrived": 294,
+          "unfinished": 0,
+          "mean_duration_s": 112.4795918367347,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_west": {
+          "demand": 294,
+          "arrived": 294,
+          "unfinished": 0,
+          "mean_duration_s": 124.40952380952379,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "nw_to_south": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.72747252747253,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "south_to_nw": {
+          "demand": 455,
+          "arrived": 455,
+          "unfinished": 0,
+          "mean_duration_s": 48.65978021978022,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_east": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 56.61047619047619,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "east_to_west": {
+          "demand": 210,
+          "arrived": 210,
+          "unfinished": 0,
+          "mean_duration_s": 48.343809523809526,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        },
+        "west_to_south": {
+          "demand": 126,
+          "arrived": 126,
+          "unfinished": 0,
+          "mean_duration_s": 123.53968253968256,
+          "mean_waiting_s": 0.0,
+          "max_waiting_s": 0.0
+        }
+      },
+      "passed": true,
+      "last_summary_time_s": 2390.0
+    }
+  ],
+  "raw_results": "D:\\\uc790\uc728\uc8fc\ud589\uc778\uacf5\uc9c0\ub2a5\ubc0f\uc81c\uc5b4 \ud300\ud504\ub85c\uc81d\ud2b8\\Artificial-Intelligence-and-Control-for-Autonomous-Driving\\scenarios\\toegyewon\\results\\traffic_stability_20261031_182321",
+  "all_zipper_passed": true
+}
