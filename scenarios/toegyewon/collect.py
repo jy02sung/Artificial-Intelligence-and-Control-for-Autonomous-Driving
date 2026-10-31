@@ -57,17 +57,23 @@ def applied_action(before,after,dt):
     return [(after['speed']-before['speed'])/dt,
             after['lane']-before['lane'] if same else 0],[True,same]
 
-def collect(out,repeats=2,seed=100):
+def collect(out,repeats=2,seed=100,rules=False):
     out.mkdir(parents=True,exist_ok=False)
-    net=sumolib.net.readNet(str(HERE/'toegyewon.net.xml'),withInternal=True)
+    net_source=HERE/'rules_v2/network.net.xml' if rules else HERE/'toegyewon.net.xml'
+    net=sumolib.net.readNet(str(net_source),withInternal=True)
     lengths={lane.getID():lane.getLength() for e in net.getEdges(withInternal=True) for lane in e.getLanes()}
     lanes={e.getID():e.getLaneNumber() for e in net.getEdges(withInternal=True)}
     params=json.loads((HERE/'parameters.json').read_text(encoding='utf-8'))
     config=json.loads((HERE/'collection_config.json').read_text(encoding='utf-8'))
     dt=params['step_length_s']
-    source=HERE/'toegyewon.rou.xml'
+    source=HERE/'rules_v2/routes.rou.xml' if rules else HERE/'toegyewon.rou.xml'
     for name in ['parameters.json','collection_config.json','toegyewon.net.xml','toegyewon.rou.xml','collect.py']:
         shutil.copy2(HERE/name,out/name)
+    if rules:
+        shutil.copy2(net_source,out/'toegyewon.net.xml');shutil.copy2(source,out/'toegyewon.rou.xml')
+        for name in ['marking_rules.json','rule_policy.py','build_markings.py']:
+            shutil.copy2(HERE/name,out/name)
+        shutil.copy2(HERE/'rules_v2/inventory.json',out/'marking_inventory.json')
     manifest={'schema':'toegyewon-baseline-v1','controller':'SUMO IDM + LC2013, no learned policy',
         'step_length_s':dt,'visibility_m':50,'observation_dim':54,
         'action_semantics':'realized [delta_speed/dt m/s2, same-edge lane index delta]; NOT command/action_raw',
@@ -75,7 +81,13 @@ def collect(out,repeats=2,seed=100):
         'source_sha256':{name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in ['toegyewon.net.xml','toegyewon.rou.xml','parameters.json']},
         'collection_config':config,'sumo_version':subprocess_version(),
         'episodes':[],'complete':False}
+    if rules:
+        manifest.update(schema='toegyewon-rules-v2',controller='SUMO native car following + marked lane permissions + brake-first emergency supervisor',
+                        rule_context_fields=['left_exists','right_exists','left_solid','right_solid'],
+                        marking_rules=json.loads((HERE/'marking_rules.json').read_text(encoding='utf-8')))
+        manifest['source_sha256']={name:hashlib.sha256((out/name).read_bytes()).hexdigest() for name in ['toegyewon.net.xml','toegyewon.rou.xml','parameters.json','marking_rules.json','rule_policy.py','marking_inventory.json']}
     arrays={k:[] for k in ['obs','next_obs','action_applied','action_valid','reward','terminated','truncated','episode','t','next_obs_valid']}
+    if rules:arrays.update({k:[] for k in ['rule_context','next_rule_context','emergency_requested','emergency_braking']})
     detected=[];offsets=[0]
     schedule=[(scale,route,rep) for scale in config['traffic_scales'] for route in ROUTES for rep in range(repeats)]
     with gzip.open(out/'transitions.jsonl.gz','wt',encoding='utf-8') as stream:
@@ -96,15 +108,24 @@ def collect(out,repeats=2,seed=100):
                 '--lanechange-output',str(out/f'episode_{episode:02d}.lanechanges.xml'),
                 '--error-log',str(out/f'episode_{episode:02d}.warnings.log')])
             steps=0;total_reward=0.;reason='spawn_timeout';collisions=0;teleports=0
+            policy=None
+            if rules:
+                from rule_policy import RulePolicy
+                policy=RulePolicy(epseed,out/f'episode_{episode:02d}.rules.jsonl')
             try:
                 states={}
                 for _ in range(int(180/dt)):
-                    traci.simulationStep();states=snapshot()
+                    decision=policy.before_step(states) if policy else None
+                    traci.simulationStep();nextstates=snapshot()
+                    if policy:policy.after_step(states,nextstates,decision)
+                    states=nextstates
                     if 'ego' in states:break
                 if 'ego' not in states:raise RuntimeError('ego failed to depart within 180 seconds')
                 obs,xy=observation(states,route,lengths,lanes)
                 for step in range(int(config['episode_limit_s']/dt)):
+                    decision=policy.before_step(states) if policy else None
                     time=traci.simulation.getTime();traci.simulationStep();nxt=snapshot()
+                    if policy:policy.after_step(states,nxt,decision)
                     collided='ego' in traci.simulation.getCollidingVehiclesIDList()
                     teleported='ego' in traci.simulation.getStartingTeleportIDList()
                     arrived='ego' in traci.simulation.getArrivedIDList()
@@ -121,6 +142,11 @@ def collect(out,repeats=2,seed=100):
                         action_valid=valid,reward=reward,terminated=term,truncated=trunc,
                         next_obs_valid=not missing,state=states,next_state=nxt,
                         detected_xy=xy.tolist(),ego_collision=collided,ego_teleport=teleported)
+                    if policy:
+                        record.update(rule_context=policy.context(states),next_rule_context=policy.context(nxt),
+                            ego_rule_decision=decision,violator_ids=sorted(policy.violators.intersection(states)))
+                        for k,v in dict(rule_context=record['rule_context'],next_rule_context=record['next_rule_context'],
+                                        emergency_requested=decision['emergency'],emergency_braking=decision['brake']).items():arrays[k].append(v)
                     stream.write(json.dumps(record,separators=(',',':'))+'\n')
                     for key,value in dict(obs=obs,next_obs=nextobs,action_applied=action,action_valid=valid,
                         reward=reward,terminated=term,truncated=trunc,episode=episode,t=step,next_obs_valid=not missing).items():arrays[key].append(value)
@@ -128,10 +154,15 @@ def collect(out,repeats=2,seed=100):
                     steps+=1;total_reward+=reward
                     if term or trunc:break
                     states,obs,xy=nxt,nextobs,nextxy
-            finally:traci.close(wait=False)
+            finally:
+                if policy:policy.close()
+                traci.close(wait=False)
             manifest['episodes'].append(dict(episode=episode,seed=epseed,route=route,traffic_scale=scale,
                 nominal_vehs_per_hour=sum(params['traffic_vehs_per_hour'].values())*scale,steps=steps,return_=total_reward,end_reason=reason,
                 ego_collisions=collisions,ego_teleports=teleports))
+            if policy:
+                manifest['episodes'][-1]['rule_counts']=policy.counts
+                assert policy.counts['ordinary_solid_crossings']==0,policy.counts
             (out/'manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
             print(f'episode {episode+1}/{len(schedule)} route={route} traffic={scale} transitions={steps} end={reason}',flush=True)
     for key,value in arrays.items():
@@ -166,6 +197,8 @@ def validate(out):
         assert not np.any((d['terminated']|d['truncated'])[ix[:-1]])
         assert (d['terminated']|d['truncated'])[ix[-1]]
         np.testing.assert_allclose(d['next_obs'][ix[:-1]],d['obs'][ix[1:]])
+        if 'rule_context' in d:
+            np.testing.assert_array_equal(d['next_rule_context'][ix[:-1]],d['rule_context'][ix[1:]])
     with gzip.open(out/'transitions.jsonl.gz','rt',encoding='utf-8') as f:
         count=0
         for count,line in enumerate(f,1):
@@ -177,6 +210,11 @@ def validate(out):
             assert r['terminated']==bool(d['terminated'][i]) and r['truncated']==bool(d['truncated'][i])
             assert r['action_valid']==d['action_valid'][i].tolist()
             assert math.isclose(r['reward'],float(d['reward'][i]),rel_tol=1e-5,abs_tol=1e-6)
+            if 'rule_context' in d:
+                np.testing.assert_array_equal(r['rule_context'],d['rule_context'][i])
+                np.testing.assert_array_equal(r['next_rule_context'],d['next_rule_context'][i])
+                assert bool(d['emergency_requested'][i])==r['ego_rule_decision']['emergency']
+                assert bool(d['emergency_braking'][i])==r['ego_rule_decision']['brake']
         assert count==n
     print(f'VALIDATED {n} transitions in {out}',flush=True)
 
@@ -185,11 +223,12 @@ if __name__=='__main__':
     parser.add_argument('--repeats',type=int,default=2)
     parser.add_argument('--seed',type=int,default=100)
     parser.add_argument('--validate',type=Path)
+    parser.add_argument('--rules',action='store_true',help='Use the separately built v2 markings and exception policy')
     args=parser.parse_args()
     if args.validate:validate(args.validate)
     else:
         if args.repeats<1:parser.error('--repeats must be positive')
         # Fixed UTC+9 also works on Windows without the optional tzdata package.
         from datetime import timezone,timedelta
-        name=datetime.now(timezone(timedelta(hours=9))).strftime('dataset_%Y%m%d_%H%M%S')
-        collect(HERE/'results'/name,args.repeats,args.seed)
+        name=datetime.now(timezone(timedelta(hours=9))).strftime(('rules_v2_' if args.rules else 'dataset_')+'%Y%m%d_%H%M%S')
+        collect(HERE/'results'/name,args.repeats,args.seed,args.rules)

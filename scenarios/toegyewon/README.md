@@ -1,5 +1,7 @@
 # 퇴계원IC — V / jys 도로 환경
 
+**2026-10-31 추가:** [실선·점선 / 위반 차량 / 긴급 회피 v2](RULES_V2.md), [새 수집 데이터](datasets/rules_v2/README.md). 기존 baseline은 보존했습니다. 지도 판독은 일부 구간만 확인됐으며, 전체 실측 재현으로 취급하면 안 됩니다. v2 실행은 `python scenarios/toegyewon/run_rules.py --gui`입니다.
+
 사용자가 표시한 퇴계원IC의 큰 하단 루프, 작은 상단 루프, 동측 엇갈림 구간과 바깥 진출입부를 구현한 독립 SUMO 시나리오입니다. 기존 `env/sumo/highway`와 학습 설정을 변경하지 않습니다.
 
 ![생성된 네트워크 및 실제 시뮬레이션 좌표로 만든 구성도](preview.png)

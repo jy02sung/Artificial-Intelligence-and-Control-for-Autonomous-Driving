@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes>
+  <vType id="human" carFollowModel="Krauss" color="0.3,0.65,1" accel="2.6" decel="4.5" sigma="0.5" tau="1.2" length="5" minGap="2.5" lcStrategic="1" />
+  <vType id="bus" vClass="bus" guiShape="bus" carFollowModel="IDM" color="1,0.75,0.2" length="12" minGap="3" accel="1.5" decel="4" tau="1.5" />
+  <vTypeDistribution id="background" vTypes="human bus" probabilities="0.95 0.05" />
+  <vType id="ego_baseline" carFollowModel="IDM" color="1,0,0" accel="2.6" decel="4.5" tau="1.2" minGap="2.5" />
+  <route id="nw_to_east" edges="86198713 86198719 86198728 37927508 86198720 170059988 170059996 170059995 170059994.dashed 170059994.solid 1063527748 797789364 781184662#2" />
+  <route id="south_to_west" edges="52873356 37927512 170059991 170059994.dashed 170059994.solid 844484876 86198717 170059992 169929503#1" />
+  <route id="nw_to_south" edges="86198713 86198719 86198728 86198725 86198709 37927509 206426298 844484877" />
+  <route id="south_to_nw" edges="52873356 844484878#0 844484878#1 86198722 86198708 1414146971 1414146965 86198714" />
+  <route id="west_to_east" edges="781184662#0 781184662#1 781184662#2" />
+  <route id="east_to_west" edges="169929503#0 169929503#1" />
+  <route id="west_to_south" edges="781184662#0 170059993 544293888#0 544293888#1 86198710 170059989 206426298 844484877" />
+  <flow id="nw_to_east" type="background" route="nw_to_east" begin="0" end="600" vehsPerHour="420" departLane="best" departSpeed="max" />
+  <flow id="south_to_west" type="background" route="south_to_west" begin="0" end="600" vehsPerHour="420" departLane="best" departSpeed="max" />
+  <flow id="nw_to_south" type="background" route="nw_to_south" begin="0" end="600" vehsPerHour="650" departLane="best" departSpeed="max" />
+  <flow id="south_to_nw" type="background" route="south_to_nw" begin="0" end="600" vehsPerHour="650" departLane="best" departSpeed="max" />
+  <flow id="west_to_east" type="background" route="west_to_east" begin="0" end="600" vehsPerHour="300" departLane="best" departSpeed="max" />
+  <flow id="east_to_west" type="background" route="east_to_west" begin="0" end="600" vehsPerHour="300" departLane="best" departSpeed="max" />
+  <flow id="west_to_south" type="background" route="west_to_south" begin="0" end="600" vehsPerHour="180" departLane="best" departSpeed="max" />
+  <vehicle id="ego" type="ego_baseline" route="nw_to_east" depart="30" departLane="best" departSpeed="max" />
+</routes>

@@ -1,0 +1,25 @@
+{
+  "version": "aerial-interpretation-v2",
+  "survey_date": "2026-10-31",
+  "source": "https://map.naver.com/p/search/퇴계원IC",
+  "imagery_capture_date": null,
+  "evidence_directory": "results/marking_survey_20261031",
+  "limitations": "Visual interpretation, not a lane survey. Existing OSM lane counts retained. Obscured areas and exact paint endpoints require field/roadview confirmation. Solid/dashed rendering is a simulation approximation.",
+  "default_multilane": "dashed_unverified",
+  "solid_edges": {
+    "86198713": "north_mainline.png: mainline bridge; extent follows OSM bridge, approximate",
+    "86198714": "north_mainline.png: mainline bridge; extent follows OSM bridge, approximate",
+    "86198725": "motorway_bridge.png: road47 overpass, visible continuous lane lines",
+    "86198709": "motorway_bridge.png: road47 overpass, visible continuous lane lines",
+    "86198722": "motorway_bridge.png: opposite carriageway overpass"
+  },
+  "solid_boundaries": {
+    "86198728": {"boundaries": [1, 2, 3], "evidence": "north_mainline.png; mainline boundaries continuous, auxiliary boundary retained as provisional dashed"},
+    "86198708": {"boundaries": [1, 2, 3], "evidence": "motorway_bridge.png; mainline boundaries continuous, auxiliary boundary provisional"}
+  },
+  "weaving_solid_tail_m": 25,
+  "weaving_evidence": "north_split_clear.png and south_merge_clear.png: dashed weaving followed by continuous approach markings; final 25m is an approximate model endpoint, not a measured distance",
+  "dashed_observed_edges": ["170059991", "1063527748", "781184662#0", "781184662#1", "169929503#0", "169929503#1", "37927509"],
+  "violator_fraction": 0.05,
+  "emergency": {"ttc_s": 1.5, "reaction_s": 0.2, "comfortable_decel": 4.5, "front_headway_s": 1.0, "rear_headway_s": 1.5, "min_gap_m": 5.0, "cooldown_s": 5.0}
+}

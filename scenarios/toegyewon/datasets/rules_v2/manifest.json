@@ -1,0 +1,351 @@
+{
+  "schema": "toegyewon-rules-v2",
+  "controller": "SUMO native car following + marked lane permissions + brake-first emergency supervisor",
+  "step_length_s": 0.2,
+  "visibility_m": 50,
+  "observation_dim": 54,
+  "action_semantics": "realized [delta_speed/dt m/s2, same-edge lane index delta]; NOT command/action_raw",
+  "reward": "0.01*speed_t*dt - 0.001*dt - 5*ego_collision + 2*arrival",
+  "source_sha256": {
+    "toegyewon.net.xml": "68814f054dd8cd8c5fe4940c31599f15b76d0e6d67c695f31e5b7ca87e5ff8ba",
+    "toegyewon.rou.xml": "86bac45531af95caac71f4f02d6af3bfe3a8caf8d0e1160ac3de105472d603da",
+    "parameters.json": "b319a3c237a65e8b17491ed787bb58326cd4ff613540a34639e199cd7dcbe084",
+    "marking_rules.json": "2791cdbcd699c94e683a9dad058bf938ead6ab54b3461043c63708d50645e643",
+    "rule_policy.py": "c4bf46933e182cff3873ae9c3e7a6883a01b1804000b3c090fcf30364f969b9b",
+    "marking_inventory.json": "2ddd1ae2e3ad01707146539e38484346ad3bb84ec3e66c58cd055adde58a6465"
+  },
+  "collection_config": {
+    "traffic_scales": [
+      0.6,
+      1.0,
+      1.4
+    ],
+    "ego_depart_s": 90,
+    "episode_limit_s": 300,
+    "background_distribution": {
+      "human": 0.35,
+      "car_idm": 0.25,
+      "car_eidm": 0.2,
+      "car_acc": 0.15,
+      "bus": 0.05
+    }
+  },
+  "sumo_version": "Eclipse SUMO sumo 1.27.1",
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 300,
+      "route": "nw_to_east",
+      "traffic_scale": 0.6,
+      "nominal_vehs_per_hour": 1752.0,
+      "steps": 737,
+      "return_": 17.58330266253281,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 118,
+        "violators": 6,
+        "solid_crossings": 0,
+        "violator_crossings": 0,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 1,
+      "seed": 301,
+      "route": "nw_to_east",
+      "traffic_scale": 0.6,
+      "nominal_vehs_per_hour": 1752.0,
+      "steps": 777,
+      "return_": 17.599824156783967,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 124,
+        "violators": 9,
+        "solid_crossings": 0,
+        "violator_crossings": 0,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 2,
+      "seed": 302,
+      "route": "south_to_west",
+      "traffic_scale": 0.6,
+      "nominal_vehs_per_hour": 1752.0,
+      "steps": 617,
+      "return_": 18.668397476685712,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 107,
+        "violators": 5,
+        "solid_crossings": 0,
+        "violator_crossings": 0,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 3,
+      "seed": 303,
+      "route": "south_to_west",
+      "traffic_scale": 0.6,
+      "nominal_vehs_per_hour": 1752.0,
+      "steps": 661,
+      "return_": 18.679451693356413,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 113,
+        "violators": 4,
+        "solid_crossings": 0,
+        "violator_crossings": 0,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 4,
+      "seed": 304,
+      "route": "nw_to_east",
+      "traffic_scale": 1.0,
+      "nominal_vehs_per_hour": 2920.0,
+      "steps": 1282,
+      "return_": 17.507332184149785,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 284,
+        "violators": 12,
+        "solid_crossings": 3,
+        "violator_crossings": 3,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 5,
+      "seed": 305,
+      "route": "nw_to_east",
+      "traffic_scale": 1.0,
+      "nominal_vehs_per_hour": 2920.0,
+      "steps": 855,
+      "return_": 17.571944294284513,
+      "end_reason": "arrival",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 216,
+        "violators": 7,
+        "solid_crossings": 0,
+        "violator_crossings": 0,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 6,
+      "seed": 306,
+      "route": "south_to_west",
+      "traffic_scale": 1.0,
+      "nominal_vehs_per_hour": 2920.0,
+      "steps": 1500,
+      "return_": 10.962546697529506,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 320,
+        "violators": 13,
+        "solid_crossings": 0,
+        "violator_crossings": 0,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 7,
+      "seed": 307,
+      "route": "south_to_west",
+      "traffic_scale": 1.0,
+      "nominal_vehs_per_hour": 2920.0,
+      "steps": 1500,
+      "return_": 16.3102555744963,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 320,
+        "violators": 13,
+        "solid_crossings": 1,
+        "violator_crossings": 1,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 8,
+      "seed": 308,
+      "route": "nw_to_east",
+      "traffic_scale": 1.4,
+      "nominal_vehs_per_hour": 4087.9999999999995,
+      "steps": 1500,
+      "return_": 13.72163397458743,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 446,
+        "violators": 18,
+        "solid_crossings": 1,
+        "violator_crossings": 1,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 9,
+      "seed": 309,
+      "route": "nw_to_east",
+      "traffic_scale": 1.4,
+      "nominal_vehs_per_hour": 4087.9999999999995,
+      "steps": 1500,
+      "return_": 13.59760315474081,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 446,
+        "violators": 21,
+        "solid_crossings": 2,
+        "violator_crossings": 2,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 10,
+      "seed": 310,
+      "route": "south_to_west",
+      "traffic_scale": 1.4,
+      "nominal_vehs_per_hour": 4087.9999999999995,
+      "steps": 1500,
+      "return_": 10.277039350400305,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 446,
+        "violators": 13,
+        "solid_crossings": 2,
+        "violator_crossings": 2,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    },
+    {
+      "episode": 11,
+      "seed": 311,
+      "route": "south_to_west",
+      "traffic_scale": 1.4,
+      "nominal_vehs_per_hour": 4087.9999999999995,
+      "steps": 1500,
+      "return_": 10.42437689101199,
+      "end_reason": "time_limit",
+      "ego_collisions": 0,
+      "ego_teleports": 0,
+      "rule_counts": {
+        "assigned": 446,
+        "violators": 28,
+        "solid_crossings": 3,
+        "violator_crossings": 3,
+        "ordinary_solid_crossings": 0,
+        "ego_emergency_requests": 0,
+        "ego_emergency_crossings": 0
+      }
+    }
+  ],
+  "complete": true,
+  "rule_context_fields": [
+    "left_exists",
+    "right_exists",
+    "left_solid",
+    "right_solid"
+  ],
+  "marking_rules": {
+    "version": "aerial-interpretation-v2",
+    "survey_date": "2026-10-31",
+    "source": "https://map.naver.com/p/search/\ud1f4\uacc4\uc6d0IC",
+    "imagery_capture_date": null,
+    "evidence_directory": "results/marking_survey_20261031",
+    "limitations": "Visual interpretation, not a lane survey. Existing OSM lane counts retained. Obscured areas and exact paint endpoints require field/roadview confirmation. Solid/dashed rendering is a simulation approximation.",
+    "default_multilane": "dashed_unverified",
+    "solid_edges": {
+      "86198713": "north_mainline.png: mainline bridge; extent follows OSM bridge, approximate",
+      "86198714": "north_mainline.png: mainline bridge; extent follows OSM bridge, approximate",
+      "86198725": "motorway_bridge.png: road47 overpass, visible continuous lane lines",
+      "86198709": "motorway_bridge.png: road47 overpass, visible continuous lane lines",
+      "86198722": "motorway_bridge.png: opposite carriageway overpass"
+    },
+    "solid_boundaries": {
+      "86198728": {
+        "boundaries": [
+          1,
+          2,
+          3
+        ],
+        "evidence": "north_mainline.png; mainline boundaries continuous, auxiliary boundary retained as provisional dashed"
+      },
+      "86198708": {
+        "boundaries": [
+          1,
+          2,
+          3
+        ],
+        "evidence": "motorway_bridge.png; mainline boundaries continuous, auxiliary boundary provisional"
+      }
+    },
+    "weaving_solid_tail_m": 25,
+    "weaving_evidence": "north_split_clear.png and south_merge_clear.png: dashed weaving followed by continuous approach markings; final 25m is an approximate model endpoint, not a measured distance",
+    "dashed_observed_edges": [
+      "170059991",
+      "1063527748",
+      "781184662#0",
+      "781184662#1",
+      "169929503#0",
+      "169929503#1",
+      "37927509"
+    ],
+    "violator_fraction": 0.05,
+    "emergency": {
+      "ttc_s": 1.5,
+      "reaction_s": 0.2,
+      "comfortable_decel": 4.5,
+      "front_headway_s": 1.0,
+      "rear_headway_s": 1.5,
+      "min_gap_m": 5.0,
+      "cooldown_s": 5.0
+    }
+  },
+  "transitions": 13929
+}
