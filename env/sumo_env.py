@@ -90,12 +90,12 @@ class SumoHighwayEnv(gym.Env):
         # ----- 도로/차량 설정에서 필요한 값들 -----
         self.vmax = float(road["speed_limit"])   # 속도 정규화 기준
         self.num_lanes = int(road["num_lanes"])
-        # 시작 차선: "center"면 중앙 차선(차선수//2)으로 자동 결정.
-        #   3차선 → 1번(가운데), 5차선 → 2번. 차선 수를 바꿔도 항상 가운데라
-        #   좌/우 양쪽으로 변경 여지가 대칭으로 생긴다 (탐험에 유리).
+        self.ego = ego
+        self.ego_routes = list(ego.get("routes", ["r0"]))
+        self.current_route = "r0"
         _dl = ego["depart_lane"]
         if str(_dl).lower() == "center":
-            self.ego_depart_lane = str(int(road["num_lanes"]) // 2)
+            self.ego_depart_lane = "center"
         else:
             self.ego_depart_lane = str(_dl)
         # ---- 프리필(도로 전체 사전 배치) 설정 ----
@@ -271,9 +271,44 @@ class SumoHighwayEnv(gym.Env):
         for _ in range(self.warmup_steps):
             traci.simulationStep()
 
-        # ego 차량 투입 — 반드시 "도로 시작점(0m)"에서 출발
-        traci.vehicle.add(self.ego_id, "r0", typeID="ego_type",
-                          departLane=self.ego_depart_lane,
+        # ego 차량 다중 코스 선택 및 투입
+        available_routes = self.ego_routes if self.ego_routes else ["r0"]
+        if options and "route" in options:
+            selected_route = str(options["route"])
+        elif len(available_routes) > 1:
+            selected_route = str(self.np_random.choice(available_routes))
+        else:
+            selected_route = available_routes[0]
+        self.current_route = selected_route
+
+        # 첫 번째 엣지에서 다음 엣지로 갈 수 있는 유효 출발 차선 자동 계산
+        try:
+            route_edges = traci.route.getEdges(selected_route)
+            first_edge = route_edges[0]
+            first_edge_lanes = traci.edge.getLaneNumber(first_edge)
+            valid_depart_lanes = []
+            if len(route_edges) > 1:
+                next_edge = route_edges[1]
+                for lane_idx in range(first_edge_lanes):
+                    lane_id = f"{first_edge}_{lane_idx}"
+                    for lk in traci.lane.getLinks(lane_id):
+                        if lk[0].startswith(next_edge + "_"):
+                            valid_depart_lanes.append(lane_idx)
+                            break
+            if not valid_depart_lanes:
+                valid_depart_lanes = list(range(first_edge_lanes))
+
+            if self.ego_depart_lane == "center":
+                depart_lane = str(valid_depart_lanes[len(valid_depart_lanes) // 2])
+            elif self.ego_depart_lane.isdigit() and int(self.ego_depart_lane) in valid_depart_lanes:
+                depart_lane = str(self.ego_depart_lane)
+            else:
+                depart_lane = str(valid_depart_lanes[0])
+        except Exception:
+            depart_lane = "0"
+
+        traci.vehicle.add(self.ego_id, selected_route, typeID="ego_type",
+                          departLane=depart_lane,
                           departPos="0",
                           departSpeed=self.ego_depart_speed)
 
@@ -796,6 +831,7 @@ class SumoHighwayEnv(gym.Env):
             "gap": ego_gap,
             "accel_raw": accel_raw,
             "lane_change_raw": lane_raw,
+            "route": self.current_route,
             "lane_change": lane_change,
             "lane_change_applied": lane_change_applied,
             "lane_before": lane_before,

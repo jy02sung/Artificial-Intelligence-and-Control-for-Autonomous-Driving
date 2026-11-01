@@ -1,13 +1,58 @@
 <routes>
     <vType id="ego_type" accel="5.4" decel="5.4" maxSpeed="33.33" color="1,0,0" vClass="passenger" guiShape="passenger/sedan"/>
     <vTypeDistribution id="carDist">
-        <vType id="car_krauss" probability="0.3500" carFollowModel="Krauss" accel="2.0" decel="4.5" tau="1.0" minGap="2.5" maxSpeed="14.0" speedDev="0.15" color="1,1,0" vClass="passenger" guiShape="passenger/sedan" sigma="0.3" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
-        <vType id="car_idm" probability="0.3000" carFollowModel="IDM" accel="1.8" decel="3.5" tau="1.2" minGap="2.0" maxSpeed="16.0" speedDev="0.1" color="0,1,1" vClass="passenger" guiShape="passenger/sedan" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
-        <vType id="car_eidm" probability="0.2000" carFollowModel="EIDM" accel="2.0" decel="4.0" tau="1.1" minGap="2.0" maxSpeed="16.5" speedDev="0.1" color="1,0.6,0" vClass="passenger" guiShape="passenger/sedan" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
-        <vType id="car_acc" probability="0.1500" carFollowModel="ACC" accel="2.0" decel="4.0" tau="1.5" minGap="2.0" maxSpeed="19.0" speedDev="0.05" color="1,0,1" vClass="passenger" guiShape="passenger/sedan" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
+        <vType id="car_krauss" probability="0.3000" carFollowModel="Krauss" accel="2.0" decel="4.5" tau="1.0" minGap="2.5" maxSpeed="14.0" speedDev="0.15" color="1,1,0" vClass="passenger" guiShape="passenger/sedan" sigma="0.3" lcStrategic="1.0" lcCooperative="1.0" lcSpeedGain="0"/>
+        <vType id="car_idm" probability="0.3000" carFollowModel="IDM" accel="1.8" decel="3.5" tau="1.2" minGap="2.0" maxSpeed="16.0" speedDev="0.1" color="0,1,1" vClass="passenger" guiShape="passenger/hatchback" lcStrategic="1.0" lcCooperative="1.0" lcSpeedGain="0"/>
+        <vType id="car_eidm" probability="0.2500" carFollowModel="EIDM" accel="2.0" decel="4.0" tau="1.1" minGap="2.0" maxSpeed="16.5" speedDev="0.1" color="1,0.6,0" vClass="passenger" guiShape="passenger/wagon" lcStrategic="1.0" lcCooperative="1.0" lcSpeedGain="0"/>
+        <vType id="car_acc" probability="0.1500" carFollowModel="ACC" accel="2.0" decel="4.0" tau="1.5" minGap="2.0" maxSpeed="19.0" speedDev="0.05" color="1,0,1" vClass="passenger" guiShape="passenger/sedan" lcStrategic="1.0" lcCooperative="1.0" lcSpeedGain="0"/>
     </vTypeDistribution>
-    <route id="r0" edges="e0"/>
-    <flow id="traffic" type="carDist" route="r0" begin="0" end="100000"
-          period="4.50"
-          departLane="random" departSpeed="8.0"/>
+
+    <!-- 전체 네트워크 15개 경로 -->
+    <route id="r0" edges="37927512 170059994 1063527748 E1 781184662#1.411.12"/>
+    <route id="r1" edges="781184662#0 781184662#0-AddedOffRampEdge 781184662#1 E0 781184662#1.411.12"/>
+    <route id="r2" edges="169929488#0 169728799"/>
+    <route id="r3" edges="169929488#0 169929488#1"/>
+    <route id="r4" edges="169929503#0 169929503#1 543621237"/>
+    <route id="r5" edges="169929503#0 169929503#1 169929503#3"/>
+    <route id="r6" edges="37927512 170059994 844484876 169929503#1 543621237"/>
+    <route id="r7" edges="37927512 170059994 844484876 169929503#1 169929503#3"/>
+    <route id="r8" edges="781184662#0 781184662#0-AddedOffRampEdge 170059993 170059993-AddedOffRampEdge 37375274 844484878#1 86198722"/>
+    <route id="r9" edges="781184662#0 781184662#0-AddedOffRampEdge 170059993 170059993-AddedOffRampEdge 544293888#1 206426298"/>
+    <route id="r10" edges="844484878#0 844484878#1 86198722"/>
+    <route id="r11" edges="86198728 37927508 170059994 1063527748 E1 781184662#1.411.12"/>
+    <route id="r12" edges="86198728 37927508 170059994 844484876 169929503#1 543621237"/>
+    <route id="r13" edges="86198728 37927508 170059994 844484876 169929503#1 169929503#3"/>
+    <route id="r14" edges="86198728 86198725 37927509 206426298"/>
+
+    <!-- 경로별 교통 흐름 -->
+    <flow id="flow_r0" type="carDist" route="r0" begin="0" end="100000"
+          period="6.86" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r1" type="carDist" route="r1" begin="0" end="100000"
+          period="9.60" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r2" type="carDist" route="r2" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r3" type="carDist" route="r3" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r4" type="carDist" route="r4" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r5" type="carDist" route="r5" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r6" type="carDist" route="r6" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r7" type="carDist" route="r7" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r8" type="carDist" route="r8" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r9" type="carDist" route="r9" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r10" type="carDist" route="r10" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r11" type="carDist" route="r11" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r12" type="carDist" route="r12" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r13" type="carDist" route="r13" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
+    <flow id="flow_r14" type="carDist" route="r14" begin="0" end="100000"
+          period="16.00" departLane="random" departSpeed="8.0"/>
 </routes>
