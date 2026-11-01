@@ -42,30 +42,30 @@ TOTAL_TIMESTEPS = 200_000   # 총 학습 스텝 수
 #  이 파일이 run 폴더에 스냅샷되므로 "그 결과가 어떤 계수였는지"도 남는다.
 # ══════════════════════════════════════════════════════════════════
 REWARD_OVERRIDES = dict(
-    speed_weight=0.1,          # 속도 보상 (스텝당 최대 이 값)
-    collision_penalty=5.0,     # 충돌 시 -이 값, 즉시 종료
-    arrival_bonus=2.0,         # 완주 보너스
-    close_gap_threshold=6.0,   # 이 거리(m) 미만 접근 시
-    close_gap_penalty=0.1,     #   → 스텝당 감점
-    blocked_penalty=0.05,      # "느린 앞차에 막힘" 스텝당 감점 (추월 학습 핵심)
-    blocked_gap=20.0,          #   막힘 판정: 앞차 이 거리 이내
-    blocked_speed_frac=0.7,    #   그리고 내 속도 < vmax × 이 값
-    lane_change_penalty=0.0,   # 변경 실행당 감점 (커리큘럼: 초기 0,
-    invalid_action_penalty=0.0,#  추월 학습 후 지그재그 과하면 0.02~0.05)
+    speed_weight=0.12,         # 정지로 충돌을 피하는 정책에도 주행할 유인을 준다.
+    collision_penalty=10.0,
+    arrival_bonus=20.0,
+    close_gap_threshold=8.0,   # m
+    close_gap_penalty=0.12,
+    blocked_penalty=0.0,       # 단일 차로 램프에서 앞차를 따라가는 것은 정상 주행
+    blocked_gap=20.0,
+    blocked_speed_frac=0.7,
+    lane_change_penalty=0.0,   # 필수 차로변경을 탐색하는 단계
+    invalid_action_penalty=0.0,
 )
 REWARD = {**REWARD_DEFAULTS, **REWARD_OVERRIDES}
 
 
 HPARAMS = dict(
     # ---- 최적화 ----
-    lr=3e-4,                 # 4차 과제 모델 B: 모델 A(lr=1e-4)와 학습률 비교
-    n_steps=2048,            # rollout 길이. 크면 advantage 추정이 안정적
+    lr=1e-4,                 # IC 학습의 시작 학습률
+    n_steps=1024,            # 1,024스텝 경험을 모아 업데이트
     n_epochs=10,             # 모은 데이터 재사용 횟수
     minibatch_size=64,
 
     # ---- 할인 / advantage ----
-    gamma=0.99,              # 할인율 γ. 0.99 ≈ 100스텝(50초) 앞을 내다봄
-    gae_lambda=0.95,         # GAE λ. 1에 가까울수록 분산↑편향↓
+    gamma=0.997,             # 약 330스텝(165초) 규모의 r0 완주 보상을 반영
+    gae_lambda=0.98,         # GAE λ. 1에 가까울수록 분산↑편향↓
 
     # ---- PPO 고유 ----
     clip_eps=0.2,            # 클리핑 범위 ε
@@ -88,10 +88,7 @@ HPARAMS = dict(
                                #   → 양자화 dead zone 제거. deterministic 평가에서도
                                #     argmax로 차선변경이 실제로 나온다. (권장)
                                # "gaussian": 예전 방식(전축 연속) — 비교 실험용
-    lane_keep_bias=0.5,        # hybrid 차선 head의 "유지" 초기 편향.
-                               #   0.5 → 초기 (좌27%/유지45%/우27%) ≈ 55% 변경 시도 (공격적)
-                               #   1.0 → ≈32% 시도 (보수적)
-                               #   낮추면 탐험↑, 높이면 보수적
+    lane_keep_bias=0.0,        # 출구 차로 탐색을 위해 초기 좌/유지/우를 거의 균등하게 둔다.
     init_log_std=-0.5,         # 가감속 축 초기 탐험 폭 σ=e^-0.5≈0.61
                                # (hybrid에서 차선 탐험은 위 bias가 담당)  # 차원별 초기 탐험 폭: (가감속, 차선변경)
                                #   가감속 σ = e^-0.5 ≈ 0.61
@@ -107,7 +104,7 @@ HPARAMS = dict(
 )
 
 # ---- 평가 / 로깅 ----
-EVAL_INTERVAL = 5       # 몇 번의 업데이트마다 주행 지표를 평가할지 (0이면 안 함)
+EVAL_INTERVAL = 10      # 1,024 × 10 = 10,240스텝마다 평가
 EVAL_EPISODES = 5       # 평가 1회당 에피소드 수
 LOG_INTERVAL = 1        # 몇 번의 업데이트마다 콘솔에 출력할지
 RESULTS_DIR = "results" # 결과 저장 폴더

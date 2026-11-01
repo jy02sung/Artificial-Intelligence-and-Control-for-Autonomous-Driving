@@ -1,3 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
 <edges>
-    <edge id="e0" from="n0" to="n1" numLanes="3" speed="33.33"/>
+    <edge id="sb_entry" from="nw_in" to="sb_split" numLanes="3" speed="27.78" shape="212,828,12 237,761,12" priority="3" spreadType="center" />
+    <edge id="sb_main" from="sb_split" to="sb_merge" numLanes="3" speed="27.78" shape="237,761,12 307,597,12 381,390,12" priority="3" spreadType="center" />
+    <edge id="sb_exit" from="sb_merge" to="s_exit" numLanes="3" speed="27.78" shape="381,390,12 441,190,12 484,34,12" priority="3" spreadType="center" />
+    <edge id="nb_entry" from="s_in" to="nb_split" numLanes="3" speed="27.78" shape="510,41,12 501,127,12" priority="3" spreadType="center" />
+    <edge id="nb_main" from="nb_split" to="nb_merge" numLanes="3" speed="27.78" shape="501,127,12 481,248,12 451,375,12 415,493,12" priority="3" spreadType="center" />
+    <edge id="nb_exit" from="nb_merge" to="nw_exit" numLanes="3" speed="27.78" shape="415,493,12 352,655,12 235,839,12" priority="3" spreadType="center" />
+    <edge id="eb_entry" from="w_in" to="eb_split" numLanes="2" speed="19.44" shape="351,716,0 413,742,0" priority="2" spreadType="center" />
+    <edge id="eb_main" from="eb_split" to="eb_merge" numLanes="2" speed="19.44" shape="413,742,0 511,784,0 602,817,0 673,837,0 742,846,0 816,846,0 918,840,0 1030,831,0" priority="2" spreadType="center" />
+    <edge id="eb_exit" from="eb_merge" to="e_exit" numLanes="2" speed="19.44" shape="1030,831,0 1235,814,0" priority="2" spreadType="center" />
+    <edge id="wb_entry" from="e_in" to="wb_merge" numLanes="2" speed="19.44" shape="1235,833,0 962,855,0 806,864,0 726,857,0" priority="2" spreadType="center" />
+    <edge id="wb_exit" from="wb_merge" to="w_exit" numLanes="2" speed="19.44" shape="726,857,0 669,851,0 606,836,0 510,800,0 349,732,0" priority="2" spreadType="center" />
+    <edge id="outer_loop" from="sb_split" to="weave_in" numLanes="1" speed="13.89" shape="237,761,12 242,734,12 247,681,10 250,611,6 246,557,4 235,506,2 205,434,0 190,389,0 185,364,0 187,340,0 195,309,0 210,286,0 236,264,0 270,247,0 319,232,0 368,226,0 409,228,0 453,240,0 493,260,0 539,297,0 579,340,0 607,380,1 620,407,2 626,422,2" priority="1" spreadType="center" />
+    <edge id="south_ramp" from="nb_split" to="weave_in" numLanes="1" speed="13.89" shape="501,127,12 509,146,12 525,182,10.5 551,233,7.5 595,315,4 614,365,3 624,402,2.3 626,422,2" priority="1" spreadType="center" />
+    <edge id="weave" from="weave_in" to="weave_out" numLanes="2" speed="13.89" shape="626,422,2 635,457,2 642,507,2 646,571,2 650,674,2" priority="2" spreadType="center" />
+    <edge id="north_loop" from="weave_out" to="wb_merge" numLanes="1" speed="13.89" shape="650,674,2 653,740,4 658,805,7 662,894,7 666,934,7 677,969,7 691,990,6.5 712,1005,6 736,1011,5.6 758,1010,5.2 779,1002,4.7 797,985,4.2 807,964,3.7 809,942,3.2 803,920,2.6 786,898,1.9 763,879,1.1 741,863,0.3 726,857,0" priority="1" spreadType="center" />
+    <edge id="east_ramp" from="weave_out" to="east_fork" numLanes="1" speed="13.89" shape="650,674,2 655,700,2 665,729,1.7 685,758,1.3 711,783,0.8 744,802,0.4 782,813,0 830,818,0 904,820,0 969,820,0" priority="1" spreadType="center" />
+    <edge id="east_join" from="east_fork" to="eb_merge" numLanes="1" speed="13.89" shape="969,820,0 996,823,0 1016,829,0 1030,831,0" priority="1" spreadType="center" />
+    <edge id="east_local" from="east_fork" to="e_local_exit" numLanes="1" speed="13.89" shape="969,820,0 1035,813,0 1115,792,0 1230,757,0" priority="1" spreadType="center" />
+    <edge id="west_ramp" from="eb_split" to="return_fork" numLanes="1" speed="13.89" shape="413,742,0 447,750,0 515,765,1 548,772,1.5 570,772,2 590,765,2 607,749,2 618,725,2 624,684,2 626,630,2 624,566,2 620,512,2" priority="1" spreadType="center" />
+    <edge id="return_north" from="return_fork" to="nb_merge" numLanes="1" speed="13.89" shape="620,512,2 608,488,3 593,463,4 573,443,5 551,430,6 525,425,7 502,427,8 479,434,9 452,451,10.7 429,474,12 415,493,12" priority="1" spreadType="center" />
+    <edge id="return_south" from="return_fork" to="sb_merge" numLanes="1" speed="13.89" shape="620,512,2 619,471,2 614,433,1.5 601,394,1 572,349,0 533,310,0 487,276,0 446,257,0 405,246,0 363,244,0.5 316,252,1 268,270,2 233,293,3 210,323,4 202,352,5 205,380,6 218,407,7 239,431,8 265,444,9 296,446,9.5 326,439,10 352,424,11 371,405,12 381,390,12" priority="1" spreadType="center" />
 </edges>

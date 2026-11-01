@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-27T13:58:10.123055+09:00 by Eclipse SUMO netconvert 1.27.1
+<!-- generated on 2026-11-01T22:40:35.758294+09:00 by Eclipse SUMO netconvert 1.27.1
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="C:\Users\jy02s\Documents\Codex\team-autonomous-driving\Artificial-Intelligence-and-Control-for-Autonomous-Driving\env\sumo\highway.nod.xml"/>
-        <edge-files value="C:\Users\jy02s\Documents\Codex\team-autonomous-driving\Artificial-Intelligence-and-Control-for-Autonomous-Driving\env\sumo\highway.edg.xml"/>
+        <node-files value="env/sumo/highway.nod.xml"/>
+        <edge-files value="env/sumo/highway.edg.xml"/>
+        <connection-files value="env/sumo/highway.con.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\jy02s\Documents\Codex\team-autonomous-driving\Artificial-Intelligence-and-Control-for-Autonomous-Driving\env\sumo\highway.net.xml"/>
+        <output-file value="env/sumo/highway.net.xml"/>
     </output>
 
 </netconvertConfiguration>
@@ -17,15 +18,299 @@
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,12000.00,0.00" origBoundary="0.00,0.00,12000.00,0.00" projParameter="!"/>
+    <location netOffset="-185.00,-34.00" convBoundary="0.00,0.00,1050.00,977.00" origBoundary="185.00,34.00,1235.00,1011.00" projParameter="!"/>
 
-    <edge id="e0" from="n0" to="n1" priority="-1">
-        <lane id="e0_0" index="0" speed="33.33" length="12000.00" shape="0.00,-8.00 12000.00,-8.00"/>
-        <lane id="e0_1" index="1" speed="33.33" length="12000.00" shape="0.00,-4.80 12000.00,-4.80"/>
-        <lane id="e0_2" index="2" speed="33.33" length="12000.00" shape="0.00,-1.60 12000.00,-1.60"/>
+    <edge id=":east_fork_0" function="internal">
+        <lane id=":east_fork_0_0" index="0" speed="13.89" length="17.82" shape="782.41,786.00 786.59,785.81 791.29,785.34 795.98,784.78 800.14,784.29"/>
+    </edge>
+    <edge id=":east_fork_1" function="internal">
+        <lane id=":east_fork_1_0" index="0" speed="13.89" length="17.82" shape="782.41,786.00 786.59,786.20 791.28,786.69 795.97,787.28 800.14,787.79"/>
+    </edge>
+    <edge id=":eb_merge_0" function="internal">
+        <lane id=":eb_merge_0_0" index="0" speed="16.66" length="19.69" shape="822.78,792.53 826.45,793.74 830.57,794.93 835.61,795.70 842.06,795.64"/>
+    </edge>
+    <edge id=":eb_merge_1" function="internal">
+        <lane id=":eb_merge_1_0" index="0" speed="19.44" length="19.60" shape="822.52,797.20 842.06,795.64"/>
+        <lane id=":eb_merge_1_1" index="1" speed="19.44" length="19.60" shape="822.78,800.39 842.32,798.83"/>
+    </edge>
+    <edge id=":eb_split_0" function="internal">
+        <lane id=":eb_split_0_0" index="0" speed="16.66" length="26.06" shape="233.61,708.62 240.75,711.12 247.83,712.95 254.09,714.27 258.78,715.24"/>
+    </edge>
+    <edge id=":eb_split_1" function="internal">
+        <lane id=":eb_split_1_0" index="0" speed="19.44" length="26.06" shape="233.61,708.62 257.56,718.93"/>
+        <lane id=":eb_split_1_1" index="1" speed="19.44" length="26.06" shape="232.38,711.57 256.30,721.87"/>
+    </edge>
+    <edge id=":nb_merge_0" function="internal">
+        <lane id=":nb_merge_0_0" index="0" speed="20.84" length="14.90" shape="243.63,440.50,12.00 241.52,443.19,12.00 239.58,445.70,12.00 237.69,448.75,12.00 235.74,453.06,12.00"/>
+    </edge>
+    <edge id=":nb_merge_1" function="internal">
+        <lane id=":nb_merge_1_0" index="0" speed="27.78" length="14.84" shape="239.61,438.48,12.00 235.74,453.06,12.00"/>
+        <lane id=":nb_merge_1_1" index="1" speed="27.78" length="14.84" shape="236.54,437.55,12.00 232.76,451.90,12.00"/>
+        <lane id=":nb_merge_1_2" index="2" speed="27.78" length="14.84" shape="233.48,436.61,12.00 229.78,450.74,12.00"/>
+    </edge>
+    <edge id=":nb_split_0" function="internal">
+        <lane id=":nb_split_0_0" index="0" speed="17.47" length="13.18" shape="319.04,94.73,12.00 318.95,98.77,12.00 319.55,101.71,12.00 320.65,104.32,12.00 322.03,107.32,12.00"/>
+    </edge>
+    <edge id=":nb_split_1" function="internal">
+        <lane id=":nb_split_1_0" index="0" speed="27.78" length="13.21" shape="319.04,94.73,12.00 316.77,107.94,12.00"/>
+        <lane id=":nb_split_1_1" index="1" speed="27.78" length="13.21" shape="315.85,94.40,12.00 313.62,107.42,12.00"/>
+        <lane id=":nb_split_1_2" index="2" speed="27.78" length="13.21" shape="312.67,94.07,12.00 310.46,106.90,12.00"/>
+    </edge>
+    <edge id=":return_fork_0" function="internal">
+        <lane id=":return_fork_0_0" index="0" speed="13.89" length="10.51" shape="435.13,479.81,2.00 434.67,476.84,2.00 433.83,474.84,2.00 432.64,472.93,2.00 431.12,470.25,2.00"/>
+    </edge>
+    <edge id=":return_fork_1" function="internal">
+        <lane id=":return_fork_1_0" index="0" speed="13.89" length="10.48" shape="435.13,479.81,2.00 434.79,469.34,2.00"/>
+    </edge>
+    <edge id=":sb_merge_0" function="internal">
+        <lane id=":sb_merge_0_0" index="0" speed="20.84" length="20.10" shape="178.64,376.35,12.00 181.56,373.69,12.00 185.04,370.83,12.00 188.45,366.90,12.00 191.14,361.05,12.00"/>
+    </edge>
+    <edge id=":sb_merge_1" function="internal">
+        <lane id=":sb_merge_1_0" index="0" speed="27.78" length="19.92" shape="184.19,379.54,12.00 191.14,361.05,12.00"/>
+        <lane id=":sb_merge_1_1" index="1" speed="27.78" length="19.92" shape="187.20,380.62,12.00 194.21,361.97,12.00"/>
+        <lane id=":sb_merge_1_2" index="2" speed="27.78" length="19.92" shape="190.21,381.70,12.00 197.27,362.89,12.00"/>
+    </edge>
+    <edge id=":sb_split_0" function="internal">
+        <lane id=":sb_split_0_0" index="0" speed="20.84" length="18.39" shape="53.92,712.71,12.00 55.51,706.95,12.00 55.95,702.28,12.00 55.91,698.28,12.00 56.06,694.55,12.00"/>
+    </edge>
+    <edge id=":sb_split_1" function="internal">
+        <lane id=":sb_split_1_0" index="0" speed="27.78" length="18.26" shape="53.92,712.71,12.00 61.73,696.04,12.00"/>
+        <lane id=":sb_split_1_1" index="1" speed="27.78" length="18.26" shape="56.92,713.82,12.00 64.68,697.30,12.00"/>
+        <lane id=":sb_split_1_2" index="2" speed="27.78" length="18.26" shape="59.91,714.94,12.00 67.62,698.55,12.00"/>
+    </edge>
+    <edge id=":wb_merge_0" function="internal">
+        <lane id=":wb_merge_0_0" index="0" speed="16.66" length="18.84" shape="558.60,833.46 555.53,831.16 552.27,828.51 548.09,826.15 542.26,824.74"/>
+    </edge>
+    <edge id=":wb_merge_1" function="internal">
+        <lane id=":wb_merge_1_0" index="0" speed="19.44" length="18.69" shape="560.91,826.35 542.26,824.74"/>
+        <lane id=":wb_merge_1_1" index="1" speed="19.44" length="18.69" shape="561.19,823.16 542.59,821.56"/>
+    </edge>
+    <edge id=":weave_in_0" function="internal">
+        <lane id=":weave_in_0_0" index="0" speed="13.89" length="3.88" shape="439.72,375.24,2.19 439.84,376.39,2.13 439.93,377.17,2.10 440.08,377.94,2.06 440.35,379.06,2.00"/>
+    </edge>
+    <edge id=":weave_in_1" function="internal">
+        <lane id=":weave_in_1_0" index="0" speed="13.89" length="5.13" shape="435.78,374.95,2.00 436.32,376.37,2.00 436.63,377.36,2.00 436.89,378.38,2.00 437.25,379.85,2.00"/>
+    </edge>
+    <edge id=":weave_out_0" function="internal">
+        <lane id=":weave_out_0_0" index="0" speed="13.89" length="14.61" shape="466.94,648.81,2.00 467.32,653.44,2.00 467.95,656.88,2.00 468.71,659.88,2.00 469.46,663.17,2.00"/>
+    </edge>
+    <edge id=":weave_out_1" function="internal">
+        <lane id=":weave_out_1_0" index="0" speed="13.89" length="14.84" shape="463.75,648.94,2.00 464.20,653.65,2.00 464.93,657.16,2.00 465.65,660.22,2.00 466.07,663.57,2.00"/>
     </edge>
 
-    <junction id="n0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>
-    <junction id="n1" type="dead_end" x="12000.00" y="0.00" incLanes="e0_0 e0_1 e0_2" intLanes="" shape="12000.00,-9.60 12000.00,0.00"/>
+    <edge id="east_join" from="east_fork" to="eb_merge" priority="1" spreadType="center" shape="784.00,786.00 811.00,789.00 831.00,795.00 845.00,797.00">
+        <lane id="east_join_0" index="0" speed="13.89" length="23.23" shape="800.14,787.79 811.00,789.00 822.78,792.53"/>
+    </edge>
+    <edge id="east_local" from="east_fork" to="e_local_exit" priority="1" spreadType="center" shape="784.00,786.00 850.00,779.00 930.00,758.00 1045.00,723.00">
+        <lane id="east_local_0" index="0" speed="13.89" length="253.05" shape="800.14,784.29 850.00,779.00 930.00,758.00 1045.00,723.00"/>
+    </edge>
+    <edge id="east_ramp" from="weave_out" to="east_fork" priority="1" spreadType="center" shape="465.00,640.00,2.00 470.00,666.00,2.00 480.00,695.00,1.70 500.00,724.00,1.30 526.00,749.00,0.80 559.00,768.00,0.40 597.00,779.00 645.00,784.00 719.00,786.00 784.00,786.00">
+        <lane id="east_ramp_0" index="0" speed="13.89" length="368.20" shape="469.46,663.17,2.00 470.00,666.00,2.00 480.00,695.00,1.70 500.00,724.00,1.30 526.00,749.00,0.80 559.00,768.00,0.40 597.00,779.00 645.00,784.00 719.00,786.00 782.41,786.00"/>
+    </edge>
+    <edge id="eb_entry" from="w_in" to="eb_split" priority="2" spreadType="center">
+        <lane id="eb_entry_0" index="0" speed="19.44" length="72.65" shape="166.62,680.52 233.61,708.62"/>
+        <lane id="eb_entry_1" index="1" speed="19.44" length="72.65" shape="165.38,683.48 232.38,711.57"/>
+    </edge>
+    <edge id="eb_exit" from="eb_merge" to="e_exit" priority="2" spreadType="center">
+        <lane id="eb_exit_0" index="0" speed="19.44" length="208.53" shape="842.06,795.64 1049.87,778.41"/>
+        <lane id="eb_exit_1" index="1" speed="19.44" length="208.53" shape="842.32,798.83 1050.13,781.59"/>
+    </edge>
+    <edge id="eb_main" from="eb_split" to="eb_merge" priority="2" spreadType="center" shape="228.00,708.00 326.00,750.00 417.00,783.00 488.00,803.00 557.00,812.00 631.00,812.00 733.00,806.00 845.00,797.00">
+        <lane id="eb_main_0" index="0" speed="19.44" length="581.41" shape="257.56,718.93 326.59,748.51 417.49,781.48 488.32,801.43 557.10,810.40 630.95,810.40 732.89,804.40 822.52,797.20"/>
+        <lane id="eb_main_1" index="1" speed="19.44" length="581.41" shape="256.30,721.87 325.41,751.49 416.51,784.52 487.68,804.57 556.90,813.60 631.05,813.60 733.11,807.60 822.78,800.39"/>
+    </edge>
+    <edge id="nb_entry" from="s_in" to="nb_split" priority="3" spreadType="center">
+        <lane id="nb_entry_0" index="0" speed="27.78" length="87.88" shape="328.18,7.33,12.00 319.04,94.73,12.00"/>
+        <lane id="nb_entry_1" index="1" speed="27.78" length="87.88" shape="325.00,7.00,12.00 315.85,94.40,12.00"/>
+        <lane id="nb_entry_2" index="2" speed="27.78" length="87.88" shape="321.82,6.67,12.00 312.67,94.07,12.00"/>
+    </edge>
+    <edge id="nb_exit" from="nb_merge" to="nw_exit" priority="3" spreadType="center" shape="230.00,459.00,12.00 167.00,621.00,12.00 50.00,805.00,12.00">
+        <lane id="nb_exit_0" index="0" speed="27.78" length="399.49" shape="235.74,453.06,12.00 169.87,622.45,12.00 52.70,806.72,12.00"/>
+        <lane id="nb_exit_1" index="1" speed="27.78" length="399.49" shape="232.76,451.90,12.00 167.00,621.00,12.00 50.00,805.00,12.00"/>
+        <lane id="nb_exit_2" index="2" speed="27.78" length="399.49" shape="229.78,450.74,12.00 164.13,619.55,12.00 47.30,803.28,12.00"/>
+    </edge>
+    <edge id="nb_main" from="nb_split" to="nb_merge" priority="3" spreadType="center" shape="316.00,93.00,12.00 296.00,214.00,12.00 266.00,341.00,12.00 230.00,459.00,12.00">
+        <lane id="nb_main_0" index="0" speed="27.78" length="339.46" shape="316.77,107.94,12.00 299.14,214.63,12.00 269.09,341.84,12.00 239.61,438.48,12.00"/>
+        <lane id="nb_main_1" index="1" speed="27.78" length="339.46" shape="313.62,107.42,12.00 296.00,214.00,12.00 266.00,341.00,12.00 236.54,437.55,12.00"/>
+        <lane id="nb_main_2" index="2" speed="27.78" length="339.46" shape="310.46,106.90,12.00 292.86,213.37,12.00 262.91,340.16,12.00 233.48,436.61,12.00"/>
+    </edge>
+    <edge id="north_loop" from="weave_out" to="wb_merge" priority="1" spreadType="center" shape="465.00,640.00,2.00 468.00,706.00,4.00 473.00,771.00,7.00 477.00,860.00,7.00 481.00,900.00,7.00 492.00,935.00,7.00 506.00,956.00,6.50 527.00,971.00,6.00 551.00,977.00,5.60 573.00,976.00,5.20 594.00,968.00,4.70 612.00,951.00,4.20 622.00,930.00,3.70 624.00,908.00,3.20 618.00,886.00,2.60 601.00,864.00,1.90 578.00,845.00,1.10 541.00,823.00">
+        <lane id="north_loop_0" index="0" speed="13.89" length="567.25" shape="466.07,663.57,2.00 468.00,706.00,4.00 473.00,771.00,7.00 477.00,860.00,7.00 481.00,900.00,7.00 492.00,935.00,7.00 506.00,956.00,6.50 527.00,971.00,6.00 551.00,977.00,5.60 573.00,976.00,5.20 594.00,968.00,4.70 612.00,951.00,4.20 622.00,930.00,3.70 624.00,908.00,3.20 618.00,886.00,2.60 601.00,864.00,1.90 578.00,845.00,1.10 558.60,833.46"/>
+    </edge>
+    <edge id="outer_loop" from="sb_split" to="weave_in" priority="1" spreadType="center" shape="52.00,727.00,12.00 62.00,647.00,10.00 65.00,577.00,6.00 61.00,523.00,4.00 50.00,472.00,2.00 20.00,400.00 5.00,355.00 0.00,330.00 2.00,306.00 10.00,275.00 25.00,252.00 51.00,230.00 85.00,213.00 134.00,198.00 183.00,192.00 224.00,194.00 268.00,206.00 308.00,226.00 354.00,263.00 394.00,306.00 422.00,346.00,1.00 435.00,373.00,2.00 441.00,388.00,2.00">
+        <lane id="outer_loop_0" index="0" speed="13.89" length="961.79" shape="56.06,694.55,12.00 62.00,647.00,10.00 65.00,577.00,6.00 61.00,523.00,4.00 50.00,472.00,2.00 20.00,400.00 5.00,355.00 0.00,330.00 2.00,306.00 10.00,275.00 25.00,252.00 51.00,230.00 85.00,213.00 134.00,198.00 183.00,192.00 224.00,194.00 268.00,206.00 308.00,226.00 354.00,263.00 394.00,306.00 422.00,346.00,1.00 435.00,373.00,2.00 435.78,374.95,2.00"/>
+    </edge>
+    <edge id="return_north" from="return_fork" to="nb_merge" priority="1" spreadType="center" shape="435.00,478.00,2.00 423.00,454.00,3.00 408.00,429.00,4.00 388.00,409.00,5.00 366.00,396.00,6.00 340.00,391.00,7.00 317.00,393.00,8.00 294.00,400.00,9.00 267.00,417.00,10.70 244.00,440.00,12.00 230.00,459.00,12.00">
+        <lane id="return_north_0" index="0" speed="13.89" length="240.03" shape="431.12,470.25,2.00 423.00,454.00,3.00 408.00,429.00,4.00 388.00,409.00,5.00 366.00,396.00,6.00 340.00,391.00,7.00 317.00,393.00,8.00 294.00,400.00,9.00 267.00,417.00,10.70 244.00,440.00,12.00 243.63,440.50,12.00"/>
+    </edge>
+    <edge id="return_south" from="return_fork" to="sb_merge" priority="1" spreadType="center" shape="435.00,478.00,2.00 434.00,437.00,2.00 429.00,399.00,1.50 416.00,360.00,1.00 387.00,315.00 348.00,276.00 302.00,242.00 261.00,223.00 220.00,212.00 178.00,210.00,0.50 131.00,218.00,1.00 83.00,236.00,2.00 48.00,259.00,3.00 25.00,289.00,4.00 17.00,318.00,5.00 20.00,346.00,6.00 33.00,373.00,7.00 54.00,397.00,8.00 80.00,410.00,9.00 111.00,412.00,9.50 141.00,405.00,10.00 167.00,390.00,11.00 196.00,356.00,12.00">
+        <lane id="return_south_0" index="0" speed="13.89" length="845.17" shape="434.79,469.34,2.00 434.00,437.00,2.00 429.00,399.00,1.50 416.00,360.00,1.00 387.00,315.00 348.00,276.00 302.00,242.00 261.00,223.00 220.00,212.00 178.00,210.00,0.50 131.00,218.00,1.00 83.00,236.00,2.00 48.00,259.00,3.00 25.00,289.00,4.00 17.00,318.00,5.00 20.00,346.00,6.00 33.00,373.00,7.00 54.00,397.00,8.00 80.00,410.00,9.00 111.00,412.00,9.50 141.00,405.00,10.00 167.00,390.00,11.00 178.64,376.35,12.00"/>
+    </edge>
+    <edge id="sb_entry" from="nw_in" to="sb_split" priority="3" spreadType="center">
+        <lane id="sb_entry_0" index="0" speed="27.78" length="85.58" shape="24.00,792.88,12.00 53.92,712.71,12.00"/>
+        <lane id="sb_entry_1" index="1" speed="27.78" length="85.58" shape="27.00,794.00,12.00 56.92,713.82,12.00"/>
+        <lane id="sb_entry_2" index="2" speed="27.78" length="85.58" shape="30.00,795.12,12.00 59.91,714.94,12.00"/>
+    </edge>
+    <edge id="sb_exit" from="sb_merge" to="s_exit" priority="3" spreadType="center" shape="196.00,356.00,12.00 256.00,156.00,12.00 299.00,0.00,12.00">
+        <lane id="sb_exit_0" index="0" speed="27.78" length="376.86" shape="191.14,361.05,12.00 252.92,155.11,12.00 295.92,-0.85,12.00"/>
+        <lane id="sb_exit_1" index="1" speed="27.78" length="376.86" shape="194.21,361.97,12.00 256.00,156.00,12.00 299.00,-0.00,12.00"/>
+        <lane id="sb_exit_2" index="2" speed="27.78" length="376.86" shape="197.27,362.89,12.00 259.08,156.89,12.00 302.08,0.85,12.00"/>
+    </edge>
+    <edge id="sb_main" from="sb_split" to="sb_merge" priority="3" spreadType="center" shape="52.00,727.00,12.00 122.00,563.00,12.00 196.00,356.00,12.00">
+        <lane id="sb_main_0" index="0" speed="27.78" length="339.70" shape="61.73,696.04,12.00 119.02,561.83,12.00 184.19,379.54,12.00"/>
+        <lane id="sb_main_1" index="1" speed="27.78" length="339.70" shape="64.68,697.30,12.00 122.00,563.00,12.00 187.20,380.62,12.00"/>
+        <lane id="sb_main_2" index="2" speed="27.78" length="339.70" shape="67.62,698.55,12.00 124.98,564.17,12.00 190.21,381.70,12.00"/>
+    </edge>
+    <edge id="south_ramp" from="nb_split" to="weave_in" priority="1" spreadType="center" shape="316.00,93.00,12.00 324.00,112.00,12.00 340.00,148.00,10.50 366.00,199.00,7.50 410.00,281.00,4.00 429.00,331.00,3.00 439.00,368.00,2.30 441.00,388.00,2.00">
+        <lane id="south_ramp_0" index="0" speed="13.89" length="294.06" shape="322.03,107.32,12.00 324.00,112.00,12.00 340.00,148.00,10.50 366.00,199.00,7.50 410.00,281.00,4.00 429.00,331.00,3.00 439.00,368.00,2.30 439.72,375.24,2.19"/>
+    </edge>
+    <edge id="wb_entry" from="e_in" to="wb_merge" priority="2" spreadType="center" shape="1050.00,799.00 777.00,821.00 621.00,830.00 541.00,823.00">
+        <lane id="wb_entry_0" index="0" speed="19.44" length="490.32" shape="1050.13,800.59 777.11,822.60 620.98,831.60 560.91,826.35"/>
+        <lane id="wb_entry_1" index="1" speed="19.44" length="490.32" shape="1049.87,797.41 776.89,819.40 621.02,828.40 561.19,823.16"/>
+    </edge>
+    <edge id="wb_exit" from="wb_merge" to="w_exit" priority="2" spreadType="center" shape="541.00,823.00 484.00,817.00 421.00,802.00 325.00,766.00 164.00,698.00">
+        <lane id="wb_exit_0" index="0" speed="19.44" length="400.81" shape="542.26,824.74 483.73,818.58 420.53,803.53 324.41,767.49 163.38,699.47"/>
+        <lane id="wb_exit_1" index="1" speed="19.44" length="400.81" shape="542.59,821.56 484.27,815.42 421.47,800.47 325.59,764.51 164.62,696.53"/>
+    </edge>
+    <edge id="weave" from="weave_in" to="weave_out" priority="2" spreadType="center" shape="441.00,388.00,2.00 450.00,423.00,2.00 457.00,473.00,2.00 461.00,537.00,2.00 465.00,640.00,2.00">
+        <lane id="weave_0" index="0" speed="13.89" length="271.53" shape="440.35,379.06,2.00 451.57,422.69,2.00 458.59,472.84,2.00 462.60,536.92,2.00 466.94,648.81,2.00"/>
+        <lane id="weave_1" index="1" speed="13.89" length="271.53" shape="437.25,379.85,2.00 448.43,423.31,2.00 455.41,473.16,2.00 459.40,537.08,2.00 463.75,648.94,2.00"/>
+    </edge>
+    <edge id="west_ramp" from="eb_split" to="return_fork" priority="1" spreadType="center" shape="228.00,708.00 262.00,716.00 330.00,731.00,1.00 363.00,738.00,1.50 385.00,738.00,2.00 405.00,731.00,2.00 422.00,715.00,2.00 433.00,691.00,2.00 439.00,650.00,2.00 441.00,596.00,2.00 439.00,532.00,2.00 435.00,478.00,2.00">
+        <lane id="west_ramp_0" index="0" speed="13.89" length="411.47" shape="258.78,715.24 262.00,716.00 330.00,731.00,1.00 363.00,738.00,1.50 385.00,738.00,2.00 405.00,731.00,2.00 422.00,715.00,2.00 433.00,691.00,2.00 439.00,650.00,2.00 441.00,596.00,2.00 439.00,532.00,2.00 435.13,479.81,2.00"/>
+    </edge>
+
+    <junction id="e_exit" type="dead_end" x="1050.00" y="780.00" incLanes="eb_exit_0 eb_exit_1" intLanes="" shape="1049.74,776.81 1050.26,783.19"/>
+    <junction id="e_in" type="dead_end" x="1050.00" y="799.00" incLanes="" intLanes="" shape="1049.74,795.81 1050.26,802.19"/>
+    <junction id="e_local_exit" type="dead_end" x="1045.00" y="723.00" incLanes="east_local_0" intLanes="" shape="1044.53,721.47 1045.47,724.53"/>
+    <junction id="east_fork" type="priority" x="784.00" y="786.00" incLanes="east_ramp_0" intLanes=":east_fork_0_0 :east_fork_1_0" shape="799.96,789.38 800.31,786.20 800.31,785.88 799.98,782.70 796.24,783.15 793.48,783.55 791.21,783.90 788.94,784.17 786.17,784.34 782.41,784.40 782.41,787.60 786.16,787.66 788.93,787.85 791.21,788.13 793.47,788.49 796.23,788.91">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="eb_merge" type="priority" x="845.00" y="797.00" incLanes="east_join_0 eb_main_0 eb_main_1" intLanes=":eb_merge_0_0 :eb_merge_1_0 :eb_merge_1_1" shape="842.45,800.42 841.92,794.04 837.84,794.28 834.82,794.20 832.33,793.82 829.87,793.14 826.94,792.17 823.01,790.93 822.55,794.14 822.40,795.61 822.91,801.99">
+        <request index="0" response="110" foes="110" cont="0"/>
+        <request index="1" response="000" foes="001" cont="0"/>
+        <request index="2" response="000" foes="001" cont="0"/>
+    </junction>
+    <junction id="eb_split" type="priority" x="228.00" y="708.00" incLanes="eb_entry_0 eb_entry_1" intLanes=":eb_split_0_0 :eb_split_1_0 :eb_split_1_1" shape="255.67,723.34 258.19,717.46 258.41,716.80 259.14,713.68 253.77,712.52 246.44,711.18 243.18,710.40 239.33,709.15 234.23,707.14 231.76,713.05">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="nb_merge" type="priority" x="230.00" y="459.00" z="12.00" incLanes="return_north_0 nb_main_0 nb_main_1 nb_main_2" intLanes=":nb_merge_0_0 :nb_merge_1_0 :nb_merge_1_1 :nb_merge_1_2" shape="244.92,441.45,12.00 242.34,439.55,12.00 241.14,438.95,12.00 231.95,436.15,12.00 228.29,450.16,12.00 237.24,453.64,12.00 238.41,450.81,12.00 239.44,448.78,12.00 240.45,447.20,12.00 241.61,445.70,12.00 243.05,443.90,12.00">
+        <request index="0" response="1110" foes="1110" cont="0"/>
+        <request index="1" response="0000" foes="0001" cont="0"/>
+        <request index="2" response="0000" foes="0001" cont="0"/>
+        <request index="3" response="0000" foes="0001" cont="0"/>
+    </junction>
+    <junction id="nb_split" type="priority" x="316.00" y="93.00" z="12.00" incLanes="nb_entry_0 nb_entry_1 nb_entry_2" intLanes=":nb_split_0_0 :nb_split_1_0 :nb_split_1_1 :nb_split_1_2" shape="320.56,107.94,12.00 323.51,106.70,12.00 322.43,104.30,12.00 321.57,102.50,12.00 320.95,100.97,12.00 320.57,99.40,12.00 320.46,97.48,12.00 320.63,94.90,12.00 311.08,93.90,12.00 308.88,106.64,12.00 318.35,108.20,12.00">
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+    <junction id="nw_exit" type="dead_end" x="50.00" y="805.00" z="12.00" incLanes="nb_exit_0 nb_exit_1 nb_exit_2" intLanes="" shape="54.05,807.58,12.00 45.95,802.42,12.00"/>
+    <junction id="nw_in" type="dead_end" x="27.00" y="794.00" z="12.00" incLanes="" intLanes="" shape="31.50,795.68,12.00 22.50,792.32,12.00"/>
+    <junction id="return_fork" type="priority" x="435.00" y="478.00" z="2.00" incLanes="west_ramp_0" intLanes=":return_fork_0_0 :return_fork_1_0" shape="433.54,479.93,2.00 436.73,479.69,2.00 436.39,469.30,2.00 433.19,469.37,2.00 432.55,469.53,2.00 429.69,470.96,2.00 430.71,472.80,2.00 432.30,475.26,2.00 432.87,476.41,2.00 433.28,477.88,2.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="s_exit" type="dead_end" x="299.00" y="0.00" z="12.00" incLanes="sb_exit_0 sb_exit_1 sb_exit_2" intLanes="" shape="294.37,-1.28,12.00 303.63,1.28,12.00"/>
+    <junction id="s_in" type="dead_end" x="325.00" y="7.00" z="12.00" incLanes="" intLanes="" shape="320.23,6.50,12.00 329.77,7.50,12.00"/>
+    <junction id="sb_merge" type="priority" x="196.00" y="356.00" z="12.00" incLanes="return_south_0 sb_main_0 sb_main_1 sb_main_2" intLanes=":sb_merge_0_0 :sb_merge_1_0 :sb_merge_1_1 :sb_merge_1_2" shape="198.81,363.35,12.00 189.61,360.59,12.00 188.30,364.47,12.00 187.01,367.23,12.00 185.56,369.32,12.00 183.78,371.22,12.00 181.48,373.37,12.00 178.49,376.25,12.00 181.20,378.07,12.00 182.68,379.00,12.00 191.72,382.24,12.00">
+        <request index="0" response="1110" foes="1110" cont="0"/>
+        <request index="1" response="0000" foes="0001" cont="0"/>
+        <request index="2" response="0000" foes="0001" cont="0"/>
+        <request index="3" response="0000" foes="0001" cont="0"/>
+    </junction>
+    <junction id="sb_split" type="priority" x="52.00" y="727.00" z="12.00" incLanes="sb_entry_0 sb_entry_1 sb_entry_2" intLanes=":sb_split_0_0 :sb_split_1_0 :sb_split_1_1 :sb_split_1_2" shape="69.09,699.18,12.00 60.26,695.41,12.00 59.07,695.11,12.00 55.91,694.53,12.00 55.33,701.20,12.00 55.03,703.53,12.00 54.53,705.83,12.00 53.71,708.54,12.00 52.42,712.15,12.00 61.41,715.50,12.00">
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+    <junction id="w_exit" type="dead_end" x="164.00" y="698.00" incLanes="wb_exit_0 wb_exit_1" intLanes="" shape="162.75,700.95 165.25,695.05"/>
+    <junction id="w_in" type="dead_end" x="166.00" y="682.00" incLanes="" intLanes="" shape="164.76,684.95 167.24,679.05"/>
+    <junction id="wb_merge" type="priority" x="541.00" y="823.00" incLanes="north_loop_0 wb_entry_0 wb_entry_1" intLanes=":wb_merge_0_0 :wb_merge_1_0 :wb_merge_1_1" shape="558.79,833.00 560.02,829.95 560.77,827.94 561.33,821.57 542.76,819.97 542.09,826.33 545.93,826.79 548.78,827.31 551.06,828.04 553.21,829.13 555.65,830.74">
+        <request index="0" response="110" foes="110" cont="0"/>
+        <request index="1" response="000" foes="001" cont="0"/>
+        <request index="2" response="000" foes="001" cont="0"/>
+    </junction>
+    <junction id="weave_in" type="priority" x="441.00" y="388.00" z="2.00" incLanes="south_ramp_0 outer_loop_0" intLanes=":weave_in_0_0 :weave_in_1_0" shape="435.70,380.25,2.00 441.90,378.66,2.00 441.59,377.35,2.00 441.51,376.89,2.00 441.45,376.42,2.00 441.39,375.85,2.00 441.32,375.08,2.00 438.13,375.40,2.00 438.10,375.95,2.00 437.99,375.89,2.00 437.81,375.60,2.00 437.57,375.09,2.00 437.26,374.35,2.00 434.29,375.54,2.00 434.93,377.25,2.00 435.11,377.86,2.00 435.27,378.48,2.00 435.45,379.24,2.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="weave_out" type="priority" x="465.00" y="640.00" z="2.00" incLanes="weave_0 weave_1" intLanes=":weave_out_0_0 :weave_out_1_0" shape="464.47,663.65,2.00 467.67,663.50,2.00 467.88,663.47,2.00 471.03,662.87,2.00 470.39,659.88,2.00 469.84,657.67,2.00 469.38,655.86,2.00 469.01,654.03,2.00 468.73,651.80,2.00 468.54,648.75,2.00 462.15,649.00,2.00 462.40,652.14,2.00 462.80,654.44,2.00 463.29,656.32,2.00 463.78,658.20,2.00 464.20,660.50,2.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+
+    <connection from="east_join" to="eb_exit" fromLane="0" toLane="0" via=":eb_merge_0_0" dir="s" state="m"/>
+    <connection from="east_ramp" to="east_local" fromLane="0" toLane="0" via=":east_fork_0_0" dir="R" state="M"/>
+    <connection from="east_ramp" to="east_join" fromLane="0" toLane="0" via=":east_fork_1_0" dir="s" state="M"/>
+    <connection from="eb_entry" to="west_ramp" fromLane="0" toLane="0" via=":eb_split_0_0" dir="R" state="M"/>
+    <connection from="eb_entry" to="eb_main" fromLane="0" toLane="0" via=":eb_split_1_0" dir="s" state="M"/>
+    <connection from="eb_entry" to="eb_main" fromLane="1" toLane="1" via=":eb_split_1_1" dir="s" state="M"/>
+    <connection from="eb_main" to="eb_exit" fromLane="0" toLane="0" via=":eb_merge_1_0" dir="s" state="M"/>
+    <connection from="eb_main" to="eb_exit" fromLane="1" toLane="1" via=":eb_merge_1_1" dir="s" state="M"/>
+    <connection from="nb_entry" to="south_ramp" fromLane="0" toLane="0" via=":nb_split_0_0" dir="R" state="M"/>
+    <connection from="nb_entry" to="nb_main" fromLane="0" toLane="0" via=":nb_split_1_0" dir="s" state="M"/>
+    <connection from="nb_entry" to="nb_main" fromLane="1" toLane="1" via=":nb_split_1_1" dir="s" state="M"/>
+    <connection from="nb_entry" to="nb_main" fromLane="2" toLane="2" via=":nb_split_1_2" dir="s" state="M"/>
+    <connection from="nb_main" to="nb_exit" fromLane="0" toLane="0" via=":nb_merge_1_0" dir="s" state="M"/>
+    <connection from="nb_main" to="nb_exit" fromLane="1" toLane="1" via=":nb_merge_1_1" dir="s" state="M"/>
+    <connection from="nb_main" to="nb_exit" fromLane="2" toLane="2" via=":nb_merge_1_2" dir="s" state="M"/>
+    <connection from="north_loop" to="wb_exit" fromLane="0" toLane="0" via=":wb_merge_0_0" dir="s" state="m"/>
+    <connection from="outer_loop" to="weave" fromLane="0" toLane="1" via=":weave_in_1_0" dir="s" state="M"/>
+    <connection from="return_north" to="nb_exit" fromLane="0" toLane="0" via=":nb_merge_0_0" dir="s" state="m"/>
+    <connection from="return_south" to="sb_exit" fromLane="0" toLane="0" via=":sb_merge_0_0" dir="s" state="m"/>
+    <connection from="sb_entry" to="outer_loop" fromLane="0" toLane="0" via=":sb_split_0_0" dir="R" state="M"/>
+    <connection from="sb_entry" to="sb_main" fromLane="0" toLane="0" via=":sb_split_1_0" dir="s" state="M"/>
+    <connection from="sb_entry" to="sb_main" fromLane="1" toLane="1" via=":sb_split_1_1" dir="s" state="M"/>
+    <connection from="sb_entry" to="sb_main" fromLane="2" toLane="2" via=":sb_split_1_2" dir="s" state="M"/>
+    <connection from="sb_main" to="sb_exit" fromLane="0" toLane="0" via=":sb_merge_1_0" dir="s" state="M"/>
+    <connection from="sb_main" to="sb_exit" fromLane="1" toLane="1" via=":sb_merge_1_1" dir="s" state="M"/>
+    <connection from="sb_main" to="sb_exit" fromLane="2" toLane="2" via=":sb_merge_1_2" dir="s" state="M"/>
+    <connection from="south_ramp" to="weave" fromLane="0" toLane="0" via=":weave_in_0_0" dir="s" state="M"/>
+    <connection from="wb_entry" to="wb_exit" fromLane="0" toLane="0" via=":wb_merge_1_0" dir="s" state="M"/>
+    <connection from="wb_entry" to="wb_exit" fromLane="1" toLane="1" via=":wb_merge_1_1" dir="s" state="M"/>
+    <connection from="weave" to="east_ramp" fromLane="0" toLane="0" via=":weave_out_0_0" dir="R" state="M"/>
+    <connection from="weave" to="north_loop" fromLane="1" toLane="0" via=":weave_out_1_0" dir="s" state="M"/>
+    <connection from="west_ramp" to="return_north" fromLane="0" toLane="0" via=":return_fork_0_0" dir="R" state="M"/>
+    <connection from="west_ramp" to="return_south" fromLane="0" toLane="0" via=":return_fork_1_0" dir="s" state="M"/>
+
+    <connection from=":east_fork_0" to="east_local" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":east_fork_1" to="east_join" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":eb_merge_0" to="eb_exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":eb_merge_1" to="eb_exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":eb_merge_1" to="eb_exit" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":eb_split_0" to="west_ramp" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":eb_split_1" to="eb_main" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":eb_split_1" to="eb_main" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":nb_merge_0" to="nb_exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":nb_merge_1" to="nb_exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":nb_merge_1" to="nb_exit" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":nb_merge_1" to="nb_exit" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":nb_split_0" to="south_ramp" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":nb_split_1" to="nb_main" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":nb_split_1" to="nb_main" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":nb_split_1" to="nb_main" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":return_fork_0" to="return_north" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":return_fork_1" to="return_south" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":sb_merge_0" to="sb_exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":sb_merge_1" to="sb_exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":sb_merge_1" to="sb_exit" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":sb_merge_1" to="sb_exit" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":sb_split_0" to="outer_loop" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":sb_split_1" to="sb_main" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":sb_split_1" to="sb_main" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":sb_split_1" to="sb_main" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":wb_merge_0" to="wb_exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":wb_merge_1" to="wb_exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":wb_merge_1" to="wb_exit" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":weave_in_0" to="weave" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":weave_in_1" to="weave" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":weave_out_0" to="east_ramp" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":weave_out_1" to="north_loop" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

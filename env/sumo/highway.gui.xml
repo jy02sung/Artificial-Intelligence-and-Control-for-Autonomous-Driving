@@ -1,5 +1,25 @@
 <viewsettings>
-    <scheme name="real world"/>
-    <viewport zoom="6000" x="80.0" y="-4.8" angle="0"/>
+    <scheme name="Toegyewon - elevation (m)">
+        <opengl trueZ="1"/>
+        <background backgroundColor="246,246,241"/>
+        <edges laneEdgeMode="22" laneShowBorders="0" showLinkDecals="0" showLinkRules="0">
+            <colorScheme name="by height at geometry-segment start" interpolated="1">
+                <entry threshold="0" color="109,116,127"/>
+                <entry threshold="2" color="83,109,137"/>
+                <entry threshold="7" color="202,122,42"/>
+                <entry threshold="12" color="20,111,117"/>
+            </colorScheme>
+        </edges>
+        <junctions junctionMode="3">
+            <colorScheme name="by height" interpolated="1">
+                <entry threshold="0" color="109,116,127"/>
+                <entry threshold="2" color="83,109,137"/>
+                <entry threshold="7" color="202,122,42"/>
+                <entry threshold="12" color="20,111,117"/>
+            </colorScheme>
+        </junctions>
+        <vehicles vehicleMode="0" vehicleQuality="2"/>
+        <legend showColorLegend="1"/>
+    </scheme>
     <delay value="100.0"/>
 </viewsettings>

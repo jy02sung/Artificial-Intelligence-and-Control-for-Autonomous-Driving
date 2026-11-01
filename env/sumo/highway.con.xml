@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<connections>
+    <connection from="outer_loop" to="weave" fromLane="0" toLane="1" />
+    <connection from="south_ramp" to="weave" fromLane="0" toLane="0" />
+    <connection from="weave" to="east_ramp" fromLane="0" toLane="0" />
+    <connection from="weave" to="north_loop" fromLane="1" toLane="0" />
+</connections>

@@ -13,6 +13,7 @@ road_config.py만 수정하면 도로가 자동으로 다시 만들어진다.
 """
 import os
 import subprocess
+import xml.etree.ElementTree as ET
 
 from sumolib import checkBinary  # SUMO 실행파일(sumo, netconvert 등) 경로를 찾아주는 유틸
 from env.mdp_config import SIMULATION
@@ -20,6 +21,10 @@ try:
     from env.road_config import SCENERY
 except ImportError:      # 구버전 설정 하위호환
     SCENERY = {"trees": False}
+
+
+# 2D 뷰의 노면과 교량 상판에 같은 높이 색을 사용한다 (상대높이 m → RGB).
+HEIGHT_COLORS = {0: "109,116,127", 2: "83,109,137", 7: "202,122,42", 12: "20,111,117"}
 
 
 def build(road: dict, ego: dict, traffic: dict, out_dir: str) -> str:
@@ -33,26 +38,43 @@ def build(road: dict, ego: dict, traffic: dict, out_dir: str) -> str:
     """
     os.makedirs(out_dir, exist_ok=True)
 
-    # ──────────────────────────────────────────────────────
-    # 1) 노드 파일: 직선 도로의 양 끝점 2개
-    #    n0 = 원점(출발), n1 = length만큼 떨어진 지점(도착)
-    # ──────────────────────────────────────────────────────
-    with open(os.path.join(out_dir, "highway.nod.xml"), "w") as f:
-        f.write(f"""<nodes>
-    <node id="n0" x="0" y="0"/>
-    <node id="n1" x="{road['length']}" y="0"/>
-</nodes>
-""")
+    # ROAD에 좌표가 없는 종전 직선 도로 설정도 같은 형식으로 생성한다.
+    nodes = road.get("nodes", {"n0": (0, 0, 0), "n1": (road["length"], 0, 0)})
+    edges = road.get("edges", {"e0": ("n0", "n1", "highway", [])})
+    types = {"highway": (road["num_lanes"], road["speed_limit"]), **road.get("types", {})}
 
-    # ──────────────────────────────────────────────────────
-    # 2) 엣지 파일: n0 → n1 을 잇는 도로 구간 하나
-    #    numLanes = 차선 수, speed = 제한속도(m/s)
-    # ──────────────────────────────────────────────────────
-    with open(os.path.join(out_dir, "highway.edg.xml"), "w") as f:
-        f.write(f"""<edges>
-    <edge id="e0" from="n0" to="n1" numLanes="{road['num_lanes']}" speed="{road['speed_limit']}"/>
-</edges>
-""")
+    def save_xml(root, filename):
+        path = os.path.join(out_dir, filename)
+        tree = ET.ElementTree(root)
+        ET.indent(tree, space="    ")
+        tree.write(path, encoding="utf-8", xml_declaration=True)
+        return path
+
+    node_xml = ET.Element("nodes")
+    for name, (x, y, z) in nodes.items():
+        ET.SubElement(node_xml, "node", id=name, x=str(x), y=str(y), z=str(z))
+    node_path = save_xml(node_xml, "highway.nod.xml")
+
+    edge_xml = ET.Element("edges")
+    for name, (start, end, kind, via) in edges.items():
+        lanes, speed = types[kind]
+        points = [nodes[start], *via, nodes[end]]
+        shape = " ".join(f"{x},{y},{z}" for x, y, z in points)
+        ET.SubElement(edge_xml, "edge", {
+            "id": name, "from": start, "to": end, "numLanes": str(lanes),
+            "speed": str(speed), "shape": shape,
+            "priority": str(lanes), "spreadType": "center" if "nodes" in road else "right",
+        })
+    edge_path = save_xml(edge_xml, "highway.edg.xml")
+
+    connection_args = []
+    if road.get("connections"):
+        con_xml = ET.Element("connections")
+        for before, lane_in, after, lane_out in road["connections"]:
+            ET.SubElement(con_xml, "connection", {
+                "from": before, "to": after, "fromLane": str(lane_in), "toLane": str(lane_out),
+            })
+        connection_args = ["--connection-files", save_xml(con_xml, "highway.con.xml")]
 
     # ──────────────────────────────────────────────────────
     # 3) 라우트 파일: 차량 타입 2종 + 배경 교통 flow
@@ -63,7 +85,7 @@ def build(road: dict, ego: dict, traffic: dict, out_dir: str) -> str:
     #       TRAFFIC["controllers"]에 정의된 여러 차량추종모델(Krauss/IDM/
     #       EIDM/ACC 등)을 probability 비율로 섞는다. flow가 이 분포를
     #       type으로 쓰면, 투입되는 차량마다 SUMO가 확률적으로 타입을 뽑는다.
-    #    <route>  : 지나갈 엣지들의 나열. 여기선 e0 하나뿐.
+    #    <route>  : 경로별로 지나갈 엣지들의 나열.
     #    <flow>   : 교통 수요 정의. period="X"는 "X초마다 정확히 1대씩"
     #               → 등간격(uniform) 생성. (vehsPerHour와 등가지만
     #               "비슷한 간격으로 새로 생성"을 명시적으로 보장)
@@ -98,16 +120,8 @@ def build(road: dict, ego: dict, traffic: dict, out_dir: str) -> str:
             # sigma는 Krauss 계열에만 의미가 있으므로 지정된 경우에만 넣는다
             if "sigma" in c:
                 attrs.append(f'sigma="{c["sigma"]}"')
-            # ── 배경차 차선 유지 (keep_lane, 기본 True) ──
-            # 배경차의 자율 차선변경(전략/협조/속도이득/우측유지)을 전부 꺼서
-            # 각자 자기 차선을 지키게 한다. 이유:
-            #   배경차가 자유롭게 돌아다니면 (측정: 150스텝에 477회 변경)
-            #   차선 간 틈이 수시로 닫혀서, ego가 틈을 노려 파고드는
-            #   "칼치기 추월"을 학습할 안정적인 기회 자체가 사라진다.
-            #   배경차가 차선을 유지하면 "느린 차 뒤 → 옆 틈으로 변경 →
-            #   가속"이라는 추월 패턴이 재현 가능한 형태로 나타난다.
-            # 특정 컨트롤러만 돌아다니게 하려면 그 항목에 "keep_lane": False.
-            if c.get("keep_lane", True):
+            # 개별 컨트롤러 설정이 있으면 공통 차로 유지 설정보다 우선한다.
+            if c.get("keep_lane", traffic.get("keep_lane", True)):
                 attrs += ['lcStrategic="0"', 'lcCooperative="0"',
                           'lcSpeedGain="0"', 'lcKeepRight="0"']
             vtype_lines.append("        <vType " + " ".join(attrs) + "/>")
@@ -123,16 +137,26 @@ def build(road: dict, ego: dict, traffic: dict, out_dir: str) -> str:
                         f'vClass="passenger" guiShape="passenger/sedan"/>')
         flow_type = "car"
 
-    with open(os.path.join(out_dir, "highway.rou.xml"), "w") as f:
-        f.write(f"""<routes>
-    <vType id="ego_type" accel="{ego['accel']}" decel="{ego['decel']}" maxSpeed="{ego['max_speed']}" color="1,0,0" vClass="passenger" guiShape="passenger/sedan"/>
-{vtypes_block}
-    <route id="r0" edges="e0"/>
-    <flow id="traffic" type="{flow_type}" route="r0" begin="0" end="100000"
-          period="{3600.0 / traffic['vehs_per_hour']:.2f}"
-          departLane="{traffic['depart_lane']}" departSpeed="{traffic['depart_speed']}"/>
-</routes>
-""")
+    route_xml = ET.Element("routes")
+    ET.SubElement(route_xml, "vType", {
+        "id": "ego_type", "accel": str(ego["accel"]), "decel": str(ego["decel"]),
+        "maxSpeed": str(ego["max_speed"]), "color": "1,0,0",
+        "vClass": "passenger", "guiShape": "passenger/sedan",
+    })
+    route_xml.append(ET.fromstring(vtypes_block))
+    routes = road.get("routes", {"r0": ("e0", 1)})
+    total_weight = sum(weight for _, weight in routes.values())
+    for name, (route_edges, _) in routes.items():
+        ET.SubElement(route_xml, "route", id=name, edges=route_edges)
+    for name, (_, weight) in routes.items():
+        rate = traffic["vehs_per_hour"] * weight / total_weight
+        if rate > 0:
+            ET.SubElement(route_xml, "flow", {
+                "id": f"traffic_{name}" if "routes" in road else "traffic", "type": flow_type, "route": name,
+                "begin": "0", "end": "100000", "period": f"{3600 / rate:.2f}",
+                "departLane": str(traffic["depart_lane"]), "departSpeed": str(traffic["depart_speed"]),
+            })
+    save_xml(route_xml, "highway.rou.xml")
 
     # ──────────────────────────────────────────────────────
     # 4) GUI 기본 시각화 설정
@@ -153,25 +177,39 @@ def build(road: dict, ego: dict, traffic: dict, out_dir: str) -> str:
     zoom = float(road["length"]) / view_width * 100.0
     center_x = view_width * 0.4                                   # 시작점이 화면 왼쪽에 오게
     center_y = -3.2 * int(road["num_lanes"]) / 2.0
+    viewport = "" if "nodes" in road else (
+        f'    <viewport zoom="{zoom:.0f}" x="{center_x:.1f}" y="{center_y:.1f}" angle="0"/>\n'
+    )  # 다중 도로망은 SUMO가 시작 화면에 전체 범위를 맞춘다.
+    scheme = '<scheme name="real world"/>'
+    if road.get("bridges"):
+        entries = "\n".join(
+            f'                <entry threshold="{height}" color="{color}"/>'
+            for height, color in HEIGHT_COLORS.items()
+        )
+        # SUMO 1.27: lane mode 22 = 각 형상 구간의 높이, junction mode 3 = 노드 높이.
+        scheme = f'''<scheme name="Toegyewon - elevation (m)">
+        <opengl trueZ="1"/>
+        <background backgroundColor="246,246,241"/>
+        <edges laneEdgeMode="22" laneShowBorders="0" showLinkDecals="0" showLinkRules="0">
+            <colorScheme name="by height at geometry-segment start" interpolated="1">
+{entries}
+            </colorScheme>
+        </edges>
+        <junctions junctionMode="3">
+            <colorScheme name="by height" interpolated="1">
+{entries}
+            </colorScheme>
+        </junctions>
+        <vehicles vehicleMode="0" vehicleQuality="2"/>
+        <legend showColorLegend="1"/>
+    </scheme>'''
     gui_settings_path = os.path.join(out_dir, "highway.gui.xml")
     with open(gui_settings_path, "w") as f:
         f.write(f"""<viewsettings>
-    <scheme name="real world"/>
-    <viewport zoom="{zoom:.0f}" x="{center_x:.1f}" y="{center_y:.1f}" angle="0"/>
-    <delay value="{gui_delay}"/>
+    {scheme}
+{viewport}    <delay value="{gui_delay}"/>
 </viewsettings>
 """)
-
-    # ──────────────────────────────────────────────────────
-    # 4.7) 도로변 장식(나무) — 순수 시각 요소
-    #
-    # SUMO의 <poly>(다각형)로 "초록 수관 + 갈색 줄기"를 그려 도로
-    # 양옆에 심는다. additional 파일로 로드되며 차량 물리와 완전히
-    # 무관하다 (충돌/관측/보상 어디에도 안 잡힘).
-    # 좌표계: 차선은 y ∈ [0, -3.2×차선수] 영역 → 왼쪽 숲은 y > 0,
-    # 오른쪽 숲은 y < -3.2×차선수 - side_offset 에 배치.
-    # ──────────────────────────────────────────────────────
-    _write_scenery(out_dir, road)
 
     # ──────────────────────────────────────────────────────
     # 5) sumocfg: "이 net 파일과 이 route 파일로 시뮬레이션해라"
@@ -197,12 +235,13 @@ def build(road: dict, ego: dict, traffic: dict, out_dir: str) -> str:
     netconvert = checkBinary("netconvert")
     subprocess.run(
         [netconvert,
-         "--node-files", os.path.join(out_dir, "highway.nod.xml"),
-         "--edge-files", os.path.join(out_dir, "highway.edg.xml"),
+         "--node-files", node_path,
+         "--edge-files", edge_path, *connection_args,
          "-o", os.path.join(out_dir, "highway.net.xml")],
         check=True,           # 실패하면 예외를 던져서 바로 알 수 있게
-        capture_output=True,  # 출력은 조용히 삼킴
+        stdout=subprocess.DEVNULL,  # 실패 이유와 형상 경고는 stderr로 보인다.
     )
+    _write_scenery(out_dir, road)  # 변환된 차로 좌표에 맞춰 교량 표시를 배치한다.
     return cfg_path
 
 
@@ -226,6 +265,37 @@ def _blob(cx: float, cy: float, r: float, rng, n: int = 14,
     return " ".join(pts)
 
 
+def _bridge_markings(out_dir, bridges):
+    """교차점 양쪽으로 10 m씩 연장한 상판과 난간을 GUI 추가 도형으로 만든다."""
+    from sumolib import geomhelper, net
+
+    network = net.readNet(os.path.join(out_dir, "highway.net.xml"))
+    polygons = []
+    for upper, lower_edges, height in bridges:
+        deck = network.getEdge(upper)
+        center = deck.getShape()
+        offsets = []
+        for lower in lower_edges:
+            offsets.extend(geomhelper.intersectsAtLengths2D(center, network.getEdge(lower).getShape()))
+        if not offsets:
+            continue
+        start = max(0, min(offsets) - 10)
+        end = min(geomhelper.polyLength(center), max(offsets) + 10)
+        parts = geomhelper.splitPolygonAtLengths2D(center, [start, end])
+        span = parts[1 if start > 0 else 0]
+        width = sum(lane.getWidth() for lane in deck.getLanes())
+        # 레이어는 지상 차량보다 높고 상부 차량보다 낮아 지나는 순서가 보인다.
+        for part, extra_width, layer, color in (
+            ("rail", 2.8, height - 0.4, "53,61,66"),
+            ("deck", 0, height - 0.2, HEIGHT_COLORS[height]),
+        ):
+            outline = geomhelper.line2boundary(span, width + extra_width)
+            shape = " ".join(f"{x:.2f},{y:.2f}" for x, y in outline)
+            polygons.append(f'    <poly id="bridge_{upper}_{part}" type="bridge" '
+                            f'color="{color}" layer="{layer}" fill="1" shape="{shape}"/>')
+    return polygons
+
+
 def _write_scenery(out_dir: str, road: dict):
     """도로변 나무를 highway.scenery.xml (additional 파일)로 생성.
 
@@ -242,9 +312,11 @@ def _write_scenery(out_dir: str, road: dict):
     import random
     path = os.path.join(out_dir, "highway.scenery.xml")
     cfg = SCENERY if isinstance(SCENERY, dict) else {}
+    bridges = road.get("bridges", [])
+    markings = _bridge_markings(out_dir, bridges) if bridges else []
     if not cfg.get("trees", False):
         with open(path, "w") as f:
-            f.write("<additional/>\n")
+            f.write("\n".join(["<additional>", *markings, "</additional>"]) + "\n")
         return
 
     rng = random.Random(int(cfg.get("seed", 7)))
@@ -263,7 +335,7 @@ def _write_scenery(out_dir: str, road: dict):
     ]
     bush_greens = ["70,124,58", "84,136,64", "62,112,52"]
 
-    lines = ["<additional>"]
+    lines = ["<additional>", *markings]
     tid = [0]
 
     def draw_tree(x, y, r):

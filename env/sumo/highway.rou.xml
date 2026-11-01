@@ -1,13 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
 <routes>
-    <vType id="ego_type" accel="5.4" decel="5.4" maxSpeed="33.33" color="1,0,0" vClass="passenger" guiShape="passenger/sedan"/>
+    <vType id="ego_type" accel="5.4" decel="5.4" maxSpeed="33.33" color="1,0,0" vClass="passenger" guiShape="passenger/sedan" />
     <vTypeDistribution id="carDist">
-        <vType id="car_krauss" probability="0.3500" carFollowModel="Krauss" accel="2.0" decel="4.5" tau="1.0" minGap="2.5" maxSpeed="14.0" speedDev="0.15" color="1,1,0" vClass="passenger" guiShape="passenger/sedan" sigma="0.3" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
-        <vType id="car_idm" probability="0.3000" carFollowModel="IDM" accel="1.8" decel="3.5" tau="1.2" minGap="2.0" maxSpeed="16.0" speedDev="0.1" color="0,1,1" vClass="passenger" guiShape="passenger/sedan" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
-        <vType id="car_eidm" probability="0.2000" carFollowModel="EIDM" accel="2.0" decel="4.0" tau="1.1" minGap="2.0" maxSpeed="16.5" speedDev="0.1" color="1,0.6,0" vClass="passenger" guiShape="passenger/sedan" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
-        <vType id="car_acc" probability="0.1500" carFollowModel="ACC" accel="2.0" decel="4.0" tau="1.5" minGap="2.0" maxSpeed="19.0" speedDev="0.05" color="1,0,1" vClass="passenger" guiShape="passenger/sedan" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0"/>
+        <vType id="car_krauss" probability="0.3500" carFollowModel="Krauss" accel="2.0" decel="4.5" tau="1.0" minGap="2.5" maxSpeed="14.0" speedDev="0.15" color="1,1,0" vClass="passenger" guiShape="passenger/sedan" sigma="0.3" />
+        <vType id="car_idm" probability="0.3000" carFollowModel="IDM" accel="1.8" decel="3.5" tau="1.2" minGap="2.0" maxSpeed="16.0" speedDev="0.1" color="0,1,1" vClass="passenger" guiShape="passenger/sedan" />
+        <vType id="car_eidm" probability="0.2000" carFollowModel="EIDM" accel="2.0" decel="4.0" tau="1.1" minGap="2.0" maxSpeed="16.5" speedDev="0.1" color="1,0.6,0" vClass="passenger" guiShape="passenger/sedan" />
+        <vType id="car_acc" probability="0.1500" carFollowModel="ACC" accel="2.0" decel="4.0" tau="1.5" minGap="2.0" maxSpeed="19.0" speedDev="0.05" color="1,0,1" vClass="passenger" guiShape="passenger/sedan" />
     </vTypeDistribution>
-    <route id="r0" edges="e0"/>
-    <flow id="traffic" type="carDist" route="r0" begin="0" end="100000"
-          period="4.50"
-          departLane="random" departSpeed="8.0"/>
+    <route id="r0" edges="sb_entry outer_loop weave east_ramp east_join eb_exit" />
+    <route id="green" edges="nb_entry south_ramp weave north_loop wb_exit" />
+    <route id="east_local" edges="sb_entry outer_loop weave east_ramp east_local" />
+    <route id="southbound" edges="sb_entry sb_main sb_exit" />
+    <route id="northbound" edges="nb_entry nb_main nb_exit" />
+    <route id="eastbound" edges="eb_entry eb_main eb_exit" />
+    <route id="westbound" edges="wb_entry wb_exit" />
+    <route id="west_to_north" edges="eb_entry west_ramp return_north nb_exit" />
+    <route id="west_to_south" edges="eb_entry west_ramp return_south sb_exit" />
+    <flow id="traffic_r0" type="carDist" route="r0" begin="0" end="100000" period="25.00" departLane="random" departSpeed="8.0" />
+    <flow id="traffic_green" type="carDist" route="green" begin="0" end="100000" period="25.00" departLane="random" departSpeed="8.0" />
+    <flow id="traffic_east_local" type="carDist" route="east_local" begin="0" end="100000" period="75.00" departLane="random" departSpeed="8.0" />
+    <flow id="traffic_southbound" type="carDist" route="southbound" begin="0" end="100000" period="34.62" departLane="random" departSpeed="8.0" />
+    <flow id="traffic_northbound" type="carDist" route="northbound" begin="0" end="100000" period="34.62" departLane="random" departSpeed="8.0" />
+    <flow id="traffic_eastbound" type="carDist" route="eastbound" begin="0" end="100000" period="45.00" departLane="random" departSpeed="8.0" />
+    <flow id="traffic_westbound" type="carDist" route="westbound" begin="0" end="100000" period="45.00" departLane="random" departSpeed="8.0" />
+    <flow id="traffic_west_to_north" type="carDist" route="west_to_north" begin="0" end="100000" period="75.00" departLane="random" departSpeed="8.0" />
+    <flow id="traffic_west_to_south" type="carDist" route="west_to_south" begin="0" end="100000" period="75.00" departLane="random" departSpeed="8.0" />
 </routes>
