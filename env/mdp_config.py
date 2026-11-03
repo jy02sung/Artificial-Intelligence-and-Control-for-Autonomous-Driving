@@ -209,3 +209,8 @@ SIMULATION.update(
     gui_overview_zoom=92., gui_center_x=550., gui_center_y=-85.,
     gui_vehicle_scale=1.5,
 )
+
+# IC 학습/평가: 정책이 낸 위험한 차선 변경을 별도 규칙으로 대신 막지 않습니다.
+# 유효 차로 범위 검사와 충돌 검출/페널티는 유지됩니다. HV의 정상 차량추종과
+# SUMO 차선변경 모델은 별개입니다. 이 설정 변경 후 기존 정책 성능은 재평가해야 합니다.
+ACTION["lane_change_safety"]["enabled"] = False
