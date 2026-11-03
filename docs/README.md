@@ -6,3 +6,11 @@
 | --- | --- | --- |
 | [프로젝트 최종 목적 및 완료 체크리스트](project-goals-checklist.md) | 최종 목적, 단계별 완료 기준, 평가 목표와 제출 결과물 | 팀 논의용 초안 / 도로 미정 |
 | [기존 학습 데이터와 추가 권장 데이터](data-inventory-and-proposals.md) | 현재 관측·저장 데이터, 추가 입력과 주행 상황, PPO/BC 적용 차이 | 기존 코드 확인 완료 / 추가 항목은 제안 |
+
+## 2026-11-03 갱신
+
+현재 주제는 퇴계원IC이며 영훈님 최종 맵 업로드를 기다립니다. 이전 문서의 도로 미정 표시는 작성 당시 상태입니다.
+
+- [최신 수업 자료 동기화](course-materials-sync.md)
+- [독립 비교 실험 설계 및 설정 자동 기록 확인](experiment-design.md)
+- [평가·제출 기준 원문](../project_materials/6_Project_Evaluation.md)

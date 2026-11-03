@@ -114,3 +114,13 @@ results, 생성 데이터, 가상환경, 캐시 및 비밀 설정 파일은 .git
 ### 초기 검증 (2026-10-27)
 
 Python 구문 검사, SUMO 10초 headless 실행, 환경 reset/10 step, PPO 초기화를 확인했습니다. 관측 `(31,)`, 행동 `(2,)`입니다. 새 저장소에서 전체 학습을 다시 실행한 것은 아닙니다.
+
+## 최신 수업 자료와 실험 계획
+
+- [프로젝트 준비](project_materials/5_Project_Preparation.md)
+- [중간·최종발표 및 평가 기준](project_materials/6_Project_Evaluation.md)
+- [팀별 컨설팅](project_materials/7_Project_Consulting.md)
+- [퇴계원IC 독립 비교 실험 설계](docs/experiment-design.md) — 계획 단계, 맵·학습 변경 없음
+- [수업 원본 동기화 내역](docs/course-materials-sync.md)
+
+PPO는 실행 결과 폴더에 세 Python 설정 파일을 저장합니다. 보상·파라미터 실험은 이 스냅샷을 활용하며, 학습 중 설정을 수정하지 않습니다. 종료 시 저장의 한계와 보완 계획은 실험 설계에 기록했습니다.
