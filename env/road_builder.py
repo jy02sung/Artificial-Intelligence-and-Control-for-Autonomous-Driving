@@ -432,6 +432,16 @@ def _ic_write_routes(directory, road, ego, traffic):
         add(routes, "vType", **attrs)
         if probability > 0:
             ids.append("car_"+name); probabilities.append(str(probability/total))
+    bus_share = float(traffic.get("bus_share", 0))
+    if not 0 <= bus_share <= 1:
+        raise ValueError("bus_share must be between zero and one")
+    if bus_share:
+        probabilities = [str(float(p) * (1 - bus_share)) for p in probabilities]
+        add(routes, "vType", id="bus_idm", vClass="bus", guiShape="bus",
+            length=12, width=2.5, carFollowModel="IDM", accel=1.2, decel=3.5,
+            emergencyDecel=7, tau=1.5, minGap=3, maxSpeed=25)
+        ids.append("bus_idm")
+        probabilities.append(str(bus_share))
     add(routes, "vTypeDistribution", id="carDist", vTypes=" ".join(ids),
         probabilities=" ".join(probabilities))
     # 원본 reset()이 사용하는 차량 타입 ID와 경로 ID를 유지합니다.
