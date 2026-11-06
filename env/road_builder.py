@@ -343,7 +343,15 @@ def _ic_build(road, ego, traffic, out_dir):
         attrs.update({"from": start, "to": end})
         if points:
             attrs["shape"] = " ".join(",".join(f"{v:.3f}" for v in p) for p in points)
-        add(edges, "edge", **attrs)
+        edge = add(edges, "edge", **attrs)
+        if eid in road.get("solid_lane_edges", ()):
+            for idx in range(count):
+                permissions = {}
+                if idx + 1 < count:
+                    permissions["changeLeft"] = "custom1"
+                if idx > 0:
+                    permissions["changeRight"] = "custom1"
+                add(edge, "lane", index=idx, **permissions)
     save(directory/"highway.edg.xml", edges)
     connections = ET.Element("connections")
     for before, after, src, dst in road["connections"]:
@@ -432,6 +440,19 @@ def _ic_write_routes(directory, road, ego, traffic):
         add(routes, "vType", **attrs)
         if probability > 0:
             ids.append("car_"+name); probabilities.append(str(probability/total))
+    violator_share = float(traffic.get("violator_share", 0))
+    if not 0 <= violator_share <= 0.05:
+        raise ValueError("violator_share must be between zero and 0.05")
+    if violator_share:
+        for index, type_id in enumerate(ids.copy()):
+            car = routes.find(f"vType[@id='{type_id}']")
+            variant = {**car.attrib, "id": type_id + "_violator",
+                       "vClass": "custom1", "guiShape": "passenger/sedan"}
+            add(routes, "vType", **variant)
+            share = float(probabilities[index])
+            probabilities[index] = str(share * (1 - violator_share))
+            ids.append(variant["id"])
+            probabilities.append(str(share * violator_share))
     bus_share = float(traffic.get("bus_share", 0))
     if not 0 <= bus_share <= 1:
         raise ValueError("bus_share must be between zero and one")
@@ -633,7 +654,7 @@ def _ic_write_display(directory, road):
             points=[p if len(p)==3 else (*p,0.) for p in points]
             width=float(lane.get("width",road["lane_width"]))
             right=shifted(points,width/2-.06)
-            marking(decor,lane.get("id")+"_right",right,dashed=(i>0))
+            marking(decor,lane.get("id")+"_right",right,dashed=(i > 0 and edge.get("id") not in road.get("solid_lane_edges", ())))
             if i==len(lanes)-1:
                 marking(decor,lane.get("id")+"_left",shifted(points,-width/2+.06))
     # Painted, non-drivable widening taper: added lanes begin after the narrow

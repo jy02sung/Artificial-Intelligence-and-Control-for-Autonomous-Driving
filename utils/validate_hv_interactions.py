@@ -34,7 +34,7 @@ from env.road_builder import build
 def analyse(directory, seed):
     stats = ET.parse(directory / 'statistics.xml').getroot()
     trips = ET.parse(directory / 'trips.xml').getroot().findall('tripinfo')
-    hv = {t.get('id'): t.get('vType') for t in trips if t.get('vType').startswith('car_')}
+    hv = {t.get('id'): t.get('vType') for t in trips if t.get('vType').startswith(('car_', 'bus_'))}
     changes = [e.attrib for e in ET.parse(directory / 'lanechanges.xml').getroot()
                if e.tag == 'change' and e.get('id') in hv]
     near = [c for c in changes if any(c.get(k, 'None') != 'None'
@@ -101,7 +101,7 @@ def analyse(directory, seed):
     result['network_check_passed'] = (vehicles['running'] == '0' and vehicles['waiting'] == '0'
         and int(vehicles['inserted']) == len(trips) and teleports['total'] == '0'
         and safety['collisions'] == '0' and safety['emergencyStops'] == '0'
-        and set(result['type_counts']) == {'car_krauss','car_idm','car_eidm','car_acc'})
+        and {'car_krauss','car_idm','car_eidm','car_acc'} <= set(result['type_counts']))
     # Hard braking is an observed interaction outcome, not automatically a broken network.
     # Preserve its count and log for comfort/safety review instead of suppressing it.
     result['hard_braking_review_required'] = int(safety['emergencyBraking']) > 0
