@@ -54,7 +54,10 @@ if "SUMO_HOME" not in os.environ:
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 
-import traci
+if os.environ.get("IC_LIBSUMO") == "1":
+    import libsumo as traci
+else:
+    import traci
 from sumolib import checkBinary
 
 
@@ -196,7 +199,7 @@ class SumoHighwayEnv(gym.Env):
             "--no-warnings", "true",   # 콘솔 경고 끄기
             "--no-step-log", "true",   # 스텝 로그 끄기
             # 매 에피소드 다른 시드 → 배경 교통 패턴이 달라져서 과적합 방지
-            "--seed", str(np.random.randint(0, 100000)),
+            "--seed", str(self.sumo_seed if getattr(self, "sumo_seed", None) is not None else np.random.randint(0, 100000)),
         ]
         if self.gui:
             cmd += ["--quit-on-end"]      # 에피소드 종료 시 창 정리
@@ -272,7 +275,7 @@ class SumoHighwayEnv(gym.Env):
             traci.simulationStep()
 
         # ego 차량 투입 — 반드시 "도로 시작점(0m)"에서 출발
-        traci.vehicle.add(self.ego_id, "r0", typeID="ego_type",
+        traci.vehicle.add(self.ego_id, getattr(self, "episode_route", "r0"), typeID="ego_type",
                           departLane=self.ego_depart_lane,
                           departPos="0",
                           departSpeed=self.ego_depart_speed)
@@ -755,8 +758,10 @@ class SumoHighwayEnv(gym.Env):
             if same_lane_leader is not None:
                 ego_gap = same_lane_leader[0]
             reward = float(self.rw["speed_weight"]) * ego_speed / self.vmax
-            if (ego_gap is not None and
-                    ego_gap < float(self.rw["close_gap_threshold"])):
+            gap_threshold = float(self.rw["close_gap_threshold"])
+            if self.rw.get("time_gap_s") is not None:
+                gap_threshold = 2.5 + ego_speed * self.rw["time_gap_s"]
+            if ego_gap is not None and ego_gap < gap_threshold:
                 reward -= float(self.rw["close_gap_penalty"])
 
             # ---- 막힘 페널티: 느린 앞차 뒤에 갇혀 있는 동안 매 스텝 감점 ----
