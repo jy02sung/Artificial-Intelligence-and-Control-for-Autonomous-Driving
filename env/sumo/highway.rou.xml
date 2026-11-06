@@ -4,7 +4,12 @@
   <vType id="car_idm" vClass="passenger" length="4.8" carFollowModel="IDM" accel="1.8" decel="3.5" emergencyDecel="9" tau="1.2" minGap="2.0" maxSpeed="33.33" speedFactor="1" speedDev="0.1" />
   <vType id="car_eidm" vClass="passenger" length="4.8" carFollowModel="EIDM" accel="2.0" decel="4.0" emergencyDecel="9" tau="1.1" minGap="2.0" maxSpeed="33.33" speedFactor="1" speedDev="0.1" />
   <vType id="car_acc" vClass="passenger" length="4.8" carFollowModel="ACC" accel="2.0" decel="4.0" emergencyDecel="9" tau="1.5" minGap="2.0" maxSpeed="33.33" speedFactor="1" speedDev="0.05" />
-  <vTypeDistribution id="carDist" vTypes="car_krauss car_idm car_eidm car_acc" probabilities="0.35000000000000003 0.30000000000000004 0.20000000000000004 0.15000000000000002" />
+  <vType id="car_krauss_violator" vClass="custom1" length="4.8" carFollowModel="Krauss" accel="2.0" decel="4.5" emergencyDecel="9" tau="1.0" minGap="2.5" maxSpeed="33.33" speedFactor="1" speedDev="0.15" sigma="0.3" guiShape="passenger/sedan" />
+  <vType id="car_idm_violator" vClass="custom1" length="4.8" carFollowModel="IDM" accel="1.8" decel="3.5" emergencyDecel="9" tau="1.2" minGap="2.0" maxSpeed="33.33" speedFactor="1" speedDev="0.1" guiShape="passenger/sedan" />
+  <vType id="car_eidm_violator" vClass="custom1" length="4.8" carFollowModel="EIDM" accel="2.0" decel="4.0" emergencyDecel="9" tau="1.1" minGap="2.0" maxSpeed="33.33" speedFactor="1" speedDev="0.1" guiShape="passenger/sedan" />
+  <vType id="car_acc_violator" vClass="custom1" length="4.8" carFollowModel="ACC" accel="2.0" decel="4.0" emergencyDecel="9" tau="1.5" minGap="2.0" maxSpeed="33.33" speedFactor="1" speedDev="0.05" guiShape="passenger/sedan" />
+  <vType id="bus_idm" vClass="bus" guiShape="bus" length="12" width="2.5" carFollowModel="IDM" accel="1.2" decel="3.5" emergencyDecel="7" tau="1.5" minGap="3" maxSpeed="25" />
+  <vTypeDistribution id="carDist" vTypes="car_krauss car_idm car_eidm car_acc car_krauss_violator car_idm_violator car_eidm_violator car_acc_violator bus_idm" probabilities="0.32585000000000003 0.27930000000000005 0.18620000000000003 0.13965000000000002 0.0066500000000000005 0.005700000000000001 0.003800000000000001 0.0028500000000000005 0.05" />
   <vType id="ego_type" accel="5.4" decel="5.4" maxSpeed="27.78" color="1,.25,.28" vClass="passenger" length="4.8" minGap="2.5" guiShape="passenger/sedan" />
   <route id="south_through" edges="sb_in sb_bridge sb_main sb_accel sb_out" />
   <route id="north_through" edges="nb_in nb_main nb_accel nb_out" />

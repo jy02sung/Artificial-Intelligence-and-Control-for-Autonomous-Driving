@@ -6059,3 +6059,13 @@ TRAFFIC.update(
     },
 )
 TRAFFIC["prefill"]["enabled"] = False
+
+# Two Sano approach lanes feed one receiving lane here.
+ROAD.setdefault("node_options", {}).setdefault("sano_local_merge", {})["type"] = "zipper"
+
+# Bus share of the existing demand (remaining vehicles use the four car models).
+TRAFFIC["bus_share"] = 0.05
+
+# Provisional solid boundaries on the southbound bridge, not a field survey.
+ROAD["solid_lane_edges"] = ("sb_bridge",)
+TRAFFIC["violator_share"] = 0.02  # Fraction of non-bus background cars.
