@@ -105,6 +105,25 @@ def analyse(directory, seed):
     # Hard braking is an observed interaction outcome, not automatically a broken network.
     # Preserve its count and log for comfort/safety review instead of suppressing it.
     result['hard_braking_review_required'] = int(safety['emergencyBraking']) > 0
+    if 'west_to_local' in ROAD.get('routes', {}):
+        # Measure actual SUMO lane changes and destinations, not just lane connections.
+        exit_trips = [t for t in trips if t.get('id', '').startswith('flow_west_to_local.')]
+        ramp_trips = [t for t in trips if t.get('id', '').startswith(
+            ('flow_north_to_west.', 'flow_south_to_west.'))]
+        exit_ids = {t.get('id') for t in exit_trips}
+        ramp_ids = {t.get('id') for t in ramp_trips}
+        weave = [c for c in changes if c['from'].startswith('west_accel_')]
+        into_exit = {c['id'] for c in weave if c['id'] in exit_ids and c['to'] == 'west_accel_0'}
+        into_main = {c['id'] for c in weave if c['id'] in ramp_ids
+                     and c['from'] == 'west_accel_0' and c['to'] == 'west_accel_1'}
+        result['west_auxiliary'] = dict(lane_change_events=len(weave),
+            main_to_exit_arrivals=len(exit_ids), main_to_exit_changed_to_lane0=len(into_exit),
+            ramp_to_main_arrivals=len(ramp_ids), ramp_to_main_changed_0_to_1=len(into_main),
+            exit_arrival_lanes=dict(Counter(t.get('arrivalLane') for t in exit_trips)),
+            max_exit_wait=max((float(t.get('waitingTime')) for t in exit_trips), default=0),
+            observed_both_movements=bool(exit_ids and ramp_ids)
+                and into_exit == exit_ids and into_main == ramp_ids
+                and all(t.get('arrivalLane') == 'west_local_exit_0' for t in exit_trips))
     (directory / 'metrics.json').write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8')
     print(json.dumps({k:result[k] for k in ('seed','type_counts','safety','teleports','network_check_passed')}), flush=True)
     return result

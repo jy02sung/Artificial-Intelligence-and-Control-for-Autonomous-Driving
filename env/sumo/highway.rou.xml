@@ -27,13 +27,12 @@
   <route id="sano_south_to_east" edges="sano_nb_in sano_nb_to_east sano_eb_accel sano_eb_finish sano_eb_out" />
   <route id="sano_south_to_west" edges="sano_nb_in sano_nb_under_south sano_nb_under_main sano_nb_to_west sano_west_ramp_split sano_to_west_main sano_wb_accel west_in west_accel west_out" />
   <route id="sano_north_to_west" edges="sano_sb_in sano_sb_to_west sano_west_ramp_split sano_to_west_main sano_wb_accel west_in west_accel west_out" />
-  <route id="sano_east_to_collector" edges="sano_wb_in sano_west_collector sano_west_collector_bridge sano_west_collector_out sano_collector_out" />
-  <route id="sano_north_to_collector" edges="sano_sb_in sano_sb_to_west sano_west_ramp_split sano_to_collector sano_collector_out" />
+  <route id="west_to_local" edges="sano_wb_in sano_wb_main sano_wb_exit_lane sano_wb_bridge sano_wb_descend sano_wb_accel west_in west_accel west_local_exit" />
   <route id="r0" edges="nb_in north_exit north_exit_widen north_approach weave flyover north_loop west_accel west_out" />
   <flow id="flow_south_through" type="carDist" route="south_through" begin="0" end="500.0" vehsPerHour="1600.0" departLane="best" departSpeed="max" color="0.86,0.90,0.96" />
   <flow id="flow_north_through" type="carDist" route="north_through" begin="0" end="500.0" vehsPerHour="1600.0" departLane="best" departSpeed="max" color="0.86,0.90,0.96" />
   <flow id="flow_east_through" type="carDist" route="east_through" begin="0" end="500.0" vehsPerHour="2100.0" departLane="best" departSpeed="max" color="1,0.86,0.24" />
-  <flow id="flow_west_through" type="carDist" route="west_through" begin="0" end="500.0" vehsPerHour="1900.0" departLane="best" departSpeed="max" color="1,0.86,0.24" />
+  <flow id="flow_west_through" type="carDist" route="west_through" begin="0" end="500.0" vehsPerHour="1890.0" departLane="best" departSpeed="max" color="1,0.86,0.24" />
   <flow id="flow_south_to_east" type="carDist" route="south_to_east" begin="0" end="500.0" vehsPerHour="700.0" departLane="best" departSpeed="max" color="0.18,0.78,1" />
   <flow id="flow_south_to_west" type="carDist" route="south_to_west" begin="0" end="500.0" vehsPerHour="500.0" departLane="best" departSpeed="max" color="0.18,0.78,1" />
   <flow id="flow_south_to_local" type="carDist" route="south_to_local" begin="0" end="500.0" vehsPerHour="200.0" departLane="best" departSpeed="max" color="0.18,0.78,1" />
@@ -46,13 +45,12 @@
   <flow id="flow_sano_west_to_south" type="carDist" route="sano_west_to_south" begin="0" end="500.0" vehsPerHour="200.0" departLane="best" departSpeed="max" color="1,0.86,0.24" />
   <flow id="flow_sano_west_to_north" type="carDist" route="sano_west_to_north" begin="0" end="500.0" vehsPerHour="200.0" departLane="best" departSpeed="max" color="1,0.86,0.24" />
   <flow id="flow_sano_east_to_south" type="carDist" route="sano_east_to_south" begin="0" end="500.0" vehsPerHour="250.0" departLane="best" departSpeed="max" color="1,0.86,0.24" />
-  <flow id="flow_sano_east_to_collector" type="carDist" route="sano_east_to_collector" begin="0" end="500.0" vehsPerHour="350.0" departLane="best" departSpeed="max" color="1,0.86,0.24" />
   <flow id="flow_sano_north_through" type="carDist" route="sano_north_through" begin="0" end="500.0" vehsPerHour="500.0" departLane="best" departSpeed="max" color="1,0.60,0.32" />
   <flow id="flow_sano_south_through" type="carDist" route="sano_south_through" begin="0" end="500.0" vehsPerHour="500.0" departLane="best" departSpeed="max" color="1,0.60,0.32" />
   <flow id="flow_sano_south_to_east" type="carDist" route="sano_south_to_east" begin="0" end="500.0" vehsPerHour="240.0" departLane="best" departSpeed="max" color="1,0.60,0.32" />
   <flow id="flow_sano_south_to_west" type="carDist" route="sano_south_to_west" begin="0" end="500.0" vehsPerHour="180.0" departLane="best" departSpeed="max" color="1,0.60,0.32" />
-  <flow id="flow_sano_north_to_west" type="carDist" route="sano_north_to_west" begin="0" end="500.0" vehsPerHour="240.0" departLane="best" departSpeed="max" color="1,0.60,0.32" />
-  <flow id="flow_sano_north_to_collector" type="carDist" route="sano_north_to_collector" begin="0" end="500.0" vehsPerHour="160.0" departLane="best" departSpeed="max" color="1,0.60,0.32" />
+  <flow id="flow_sano_north_to_west" type="carDist" route="sano_north_to_west" begin="0" end="500.0" vehsPerHour="400.0" departLane="best" departSpeed="max" color="1,0.60,0.32" />
+  <flow id="flow_west_to_local" type="carDist" route="west_to_local" begin="0" end="500.0" vehsPerHour="360.0" departLane="best" departSpeed="max" color="1,0.86,0.24" />
   <vType id="ego_demo_type" vClass="passenger" length="4.8" minGap="2.5" accel="2.6" decel="4.5" emergencyDecel="9" tau="1.2" maxSpeed="33.33" speedFactor="1" speedDev="0.05" carFollowModel="Krauss" sigma="0" color="1,.25,.28" />
   <vehicle id="ego_demo" type="ego_demo_type" route="north_to_west" depart="40" departLane="best" departSpeed="12" />
 </routes>

@@ -220,5 +220,46 @@
     "physical_routes_demand_preserved": true,
     "model_assumptions": "Upper/lower structure requested by user; numeric elevations and extended ramp geometry are synthetic.",
     "validation": "../docs/assets/sano/grade_separation_validation.json"
+  },
+  "northwest_collector_removal": {
+    "removed_edges": [
+      "sano_collector_out",
+      "sano_to_collector",
+      "sano_west_collector",
+      "sano_west_collector_bridge",
+      "sano_west_collector_out"
+    ],
+    "removed_nodes": [
+      "sano_collector_boundary",
+      "sano_collector_join",
+      "sano_west_collector_bridge_end",
+      "sano_west_collector_bridge_start"
+    ],
+    "reassigned_flows": {
+      "sano_east_to_collector": {
+        "to": "west_through",
+        "vehs_per_hour": 350
+      },
+      "sano_north_to_collector": {
+        "to": "sano_north_to_west",
+        "vehs_per_hour": 160
+      }
+    },
+    "retained_west_auxiliary_exit": true,
+    "shared_local_ramp_lanes": 1,
+    "east_boundary_approach_lanes": 2,
+    "backup": "toegyewon-sano-with-west-exit-before-collector-removal-2026-11-05.zip",
+    "date": "2026-11-07",
+    "assumption": "User-requested educational simplification: remove the northwest collector and its feeder; reroute their demand to the existing westbound mainline. Not a claim of real-world road removal.",
+    "validation": "../docs/assets/sano/west_weave_collector_removal_validation.json"
+  },
+  "west_auxiliary_exit": {
+    "date": "2026-11-07",
+    "assumption": "Synthetic extension of the shared three-lane merge/diverge section to 228.24 m and an independent one-lane exit. Mainline arrivals must move into lane 0 to exit; ramp arrivals must move to lanes 1/2 to continue west. Normal SUMO HV lane-change behavior is used.",
+    "common_length_m": 228.2413080636159,
+    "exit_length_m": 166.15097251897498,
+    "exit_flow_vehicles_per_hour": 360,
+    "total_demand_unchanged": true,
+    "validation": "../docs/assets/sano/west_weave_collector_removal_validation.json"
   }
 }

@@ -693,6 +693,10 @@ def _ic_write_display(directory, road):
     if "sano_nb_flyover_split" in road["nodes"]:
         add(decor, "poi", id="SANO_OVERPASS", x=812, y=222,
             color="21,36,29", layer=20)
+    if "west_local_end" in road["nodes"]:
+        x, y, _ = road["nodes"]["west_local_end"]
+        add(decor, "poi", id="WEST_LOCAL_EXIT", x=x, y=y+17,
+            color="21,36,29", layer=20)
     save(directory/"highway.scenery.xml",decor)
 
 
