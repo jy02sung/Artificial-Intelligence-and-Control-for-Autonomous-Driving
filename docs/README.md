@@ -8,3 +8,11 @@
 | [기존 학습 데이터와 추가 권장 데이터](data-inventory-and-proposals.md) | 현재 관측·저장 데이터, 추가 입력과 주행 상황, PPO/BC 적용 차이 | 기존 코드 확인 완료 / 추가 항목은 제안 |
 | [퇴계원 IC 도로 구현](toegyewon-ic.md) | 실행 방법, 도로 구조, 차량 색, 검증 결과 및 모델 가정 | kyh 도로 구현 / 학습·성능 평가는 후속 작업 |
 | [퇴계원·사노 IC 확장](sano-ic.md) | 백업, 사노 IC 연결 구조, 4종 HV 상호작용, AV 제어 검증 | 현재 도로·HV 구현 / 실제 AV 학습·성능 평가는 후속 작업 |
+
+## 2026-11-03 갱신
+
+현재 주제는 퇴계원IC이며 영훈님 최종 맵 업로드를 기다립니다. 이전 문서의 도로 미정 표시는 작성 당시 상태입니다.
+
+- [최신 수업 자료 동기화](course-materials-sync.md)
+- [독립 비교 실험 설계 및 설정 자동 기록 확인](experiment-design.md)
+- [평가·제출 기준 원문](../project_materials/6_Project_Evaluation.md)

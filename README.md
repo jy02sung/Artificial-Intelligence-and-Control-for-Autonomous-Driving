@@ -131,3 +131,12 @@ python -m utils.validate_hv_interactions
 # AV 제어 연결, 위험 명령 판정, 주변 HV 존재 여부 확인
 python -m utils.check_av_control
 ```
+## 최신 수업 자료와 실험 계획
+
+- [프로젝트 준비](project_materials/5_Project_Preparation.md)
+- [중간·최종발표 및 평가 기준](project_materials/6_Project_Evaluation.md)
+- [팀별 컨설팅](project_materials/7_Project_Consulting.md)
+- [퇴계원IC 독립 비교 실험 설계](docs/experiment-design.md) — 계획 단계, 맵·학습 변경 없음
+- [수업 원본 동기화 내역](docs/course-materials-sync.md)
+
+PPO는 실행 결과 폴더에 세 Python 설정 파일을 저장합니다. 보상·파라미터 실험은 이 스냅샷을 활용하며, 학습 중 설정을 수정하지 않습니다. 종료 시 저장의 한계와 보완 계획은 실험 설계에 기록했습니다.
