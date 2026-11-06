@@ -23,7 +23,7 @@ from utils.logger import RunLogger
 from collect_pomdp_data import collect, iter_transitions
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "results" / "ic_campaign_v1"
+OUT = ROOT / "results" / "ic_campaign_v2"
 SEEDS = (11, 22, 33)
 CORE = ("R0", "BLOCK", "GAP", "PREP", "ZIP", "RAMP")
 LOADS = {"low": .6, "base": 1., "high": 1.4}
@@ -41,7 +41,9 @@ def environment(variants, seed, load="base"):
     traffic = dict(TRAFFIC, demo_vehicle=False, vehs_per_hour=LOADS[load]*TRAFFIC["vehs_per_hour"])
     cfg = OUT/"maps"/load/"highway.sumocfg"
     if not cfg.exists(): build(ROAD,EGO,traffic,str(cfg.parent))
-    return ICExperimentEnv(str(cfg),ROAD,EGO,SIMULATION,OBSERVATION,ACTION,REWARD,traffic,variants,seed)
+    # Let SUMO choose an insertable route-compatible lane and safe starting speed.
+    ego=dict(EGO,depart_lane="best",depart_speed="max")
+    return ICExperimentEnv(str(cfg),ROAD,ego,SIMULATION,OBSERVATION,ACTION,REWARD,traffic,variants,seed)
 
 def evaluate(agent, variants, seeds, loads):
     rows = []
@@ -94,6 +96,8 @@ def train_run(name, variants, seed, budget, lr=None, gamma=None):
     if marker.exists(): return json.loads(marker.read_text(encoding="utf8"))
     directory.mkdir(parents=True,exist_ok=True)
     env=environment(variants,seed)
+    env.load_paths={k:environment(variants,seed,k).cfg_path for k in LOADS}
+    env.load_schedule=[]
     hp=dict(HPARAMS,seed=seed,device="cpu")
     if lr is not None: hp["lr"]=lr
     if gamma is not None: hp["gamma"]=gamma

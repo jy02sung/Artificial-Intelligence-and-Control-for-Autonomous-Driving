@@ -16,6 +16,7 @@ class ICExperimentEnv(SumoHighwayEnv):
         if "BLOCK" in self.variants: rw["blocked_penalty"] = 0
         if "GAP" in self.variants: rw["time_gap_s"] = 1.
         super().__init__(cfg, road, ego, sim, obs, action, rw, traffic=traffic)
+        self.insert_wait_steps = round(120/self.step_length)
         self.routes = road["routes"]
         self.route_rng = np.random.default_rng(seed)
         self.schedule = []
@@ -36,7 +37,10 @@ class ICExperimentEnv(SumoHighwayEnv):
         self.sumo_seed = int(seed if seed is not None else self.route_rng.integers(1, 2**30))
         self.last_zip_side = None
         self.prep_scored = set()
-        self.last_distance = None
+        if getattr(self, "load_paths", None):
+            if not self.load_schedule:
+                self.load_schedule=list(self.route_rng.permutation(sorted(self.load_paths)))
+            self.cfg_path=self.load_paths[self.load_schedule.pop()]
         self.zips = 0
         return super().reset(seed=seed)
 
@@ -82,7 +86,7 @@ class ICExperimentEnv(SumoHighwayEnv):
         other = bool(self.approach(ZIP[1-ZIP.index(e)])) if e in ZIP else False
         return np.append(base, [np.clip(best/3,-1,1), min(dist/200,1) if dist is not None else -1,
                                 np.clip(offset/3,-1,1), min(limit/self.vmax,1), float(e in RAMPS),
-                                float(other)]).astype(np.float32)
+                                (1. if self.last_zip_side==e else .5) if other else 0.]).astype(np.float32)
 
     def step(self, action):
         before = self.context()

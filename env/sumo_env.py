@@ -296,12 +296,13 @@ class SumoHighwayEnv(gym.Env):
         # 에피소드가 진행되어 즉시 종료되는 버그가 되므로, 삽입될 때까지
         # (최대 30스텝) 기다린다. 지연되어도 요청한 차선은 유지된다.
         _wait = 0
-        while self.ego_id not in traci.vehicle.getIDList() and _wait < 30:
+        wait_limit = getattr(self, "insert_wait_steps", 30)
+        while self.ego_id not in traci.vehicle.getIDList() and _wait < wait_limit:
             traci.simulationStep()
             _wait += 1
         if self.ego_id not in traci.vehicle.getIDList():
             raise RuntimeError(
-                "ego 삽입 실패: 도로 입구가 30스텝 이상 막혀 있습니다. "
+                f"ego 삽입 실패: 경로 {getattr(self, 'episode_route', 'r0')}, {wait_limit}스텝 대기. "
                 "TRAFFIC['vehs_per_hour']를 낮추거나 depart_speed를 확인하세요.")
 
         # GUI 기본 시점: ego를 화면 중앙에서 추적하고 충분히 가까이 확대한다.
