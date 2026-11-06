@@ -6059,3 +6059,6 @@ TRAFFIC.update(
     },
 )
 TRAFFIC["prefill"]["enabled"] = False
+
+# Two Sano approach lanes feed one receiving lane here.
+ROAD.setdefault("node_options", {}).setdefault("sano_local_merge", {})["type"] = "zipper"

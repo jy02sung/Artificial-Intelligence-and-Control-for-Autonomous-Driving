@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-07T01:39:12.280085+09:00 by Eclipse SUMO netconvert 1.27.1
+<!-- generated on 2026-11-07T02:05:33.318592+09:00 by Eclipse SUMO netconvert 1.27.1
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -704,8 +704,8 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="sano_local_merge" type="priority" x="620.00" y="245.00" incLanes="sano_sb_to_west_0 sano_nb_to_west_0" intLanes=":sano_local_merge_0_0 :sano_local_merge_1_0" shape="620.00,248.50 620.00,243.25 620.00,246.75">
-        <request index="0" response="00" foes="10" cont="0"/>
+    <junction id="sano_local_merge" type="zipper" x="620.00" y="245.00" incLanes="sano_sb_to_west_0 sano_nb_to_west_0" intLanes=":sano_local_merge_0_0 :sano_local_merge_1_0" shape="620.00,248.50 620.00,243.25 620.00,246.75">
+        <request index="0" response="10" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
     <junction id="sano_nb_flyover_split" type="priority" x="739.19" y="214.92" z="5.00" incLanes="sano_nb_under_main_0 sano_nb_under_main_1 sano_nb_under_main_2" intLanes=":sano_nb_flyover_split_0_0 :sano_nb_flyover_split_0_1 :sano_nb_flyover_split_2_0" shape="737.62,215.69,5.00 743.91,212.62,5.00 743.85,212.50,5.00 734.53,217.34,5.00 735.74,213.26,5.00 738.90,214.78,5.00">
@@ -908,7 +908,7 @@
     <connection from="sano_nb_in" to="sano_nb_under_south" fromLane="1" toLane="0" via=":sano_nb_split_1_0" dir="s" state="M"/>
     <connection from="sano_nb_in" to="sano_nb_under_south" fromLane="2" toLane="1" via=":sano_nb_split_1_1" dir="s" state="M"/>
     <connection from="sano_nb_to_east" to="sano_eb_accel" fromLane="0" toLane="0" via=":sano_eb_join_0_0" dir="s" state="M"/>
-    <connection from="sano_nb_to_west" to="sano_west_ramp_split" fromLane="0" toLane="0" via=":sano_local_merge_1_0" dir="s" state="m"/>
+    <connection from="sano_nb_to_west" to="sano_west_ramp_split" fromLane="0" toLane="0" via=":sano_local_merge_1_0" dir="s" state="Z"/>
     <connection from="sano_nb_under_main" to="sano_nb_out" fromLane="0" toLane="0" via=":sano_nb_flyover_split_0_0" dir="s" state="M"/>
     <connection from="sano_nb_under_main" to="sano_nb_out" fromLane="1" toLane="1" via=":sano_nb_flyover_split_0_1" dir="s" state="M"/>
     <connection from="sano_nb_under_main" to="sano_nb_to_west" fromLane="2" toLane="0" via=":sano_nb_flyover_split_2_0" dir="l" state="M"/>
@@ -920,7 +920,7 @@
     <connection from="sano_sb_in" to="sano_sb_to_west" fromLane="0" toLane="0" via=":sano_sb_split_0_0" dir="s" state="M"/>
     <connection from="sano_sb_in" to="sano_sb_cross_approach" fromLane="1" toLane="0" via=":sano_sb_split_1_0" dir="s" state="M"/>
     <connection from="sano_sb_in" to="sano_sb_cross_approach" fromLane="2" toLane="1" via=":sano_sb_split_1_1" dir="s" state="M"/>
-    <connection from="sano_sb_to_west" to="sano_west_ramp_split" fromLane="0" toLane="0" via=":sano_local_merge_0_0" dir="s" state="M"/>
+    <connection from="sano_sb_to_west" to="sano_west_ramp_split" fromLane="0" toLane="0" via=":sano_local_merge_0_0" dir="s" state="Z"/>
     <connection from="sano_sb_under_main" to="sano_sb_out" fromLane="1" toLane="1" via=":sano_sb_exit_join_1_0" dir="s" state="M"/>
     <connection from="sano_sb_under_main" to="sano_sb_out" fromLane="2" toLane="2" via=":sano_sb_exit_join_1_1" dir="s" state="M"/>
     <connection from="sano_sb_under_north" to="sano_sb_under_main" fromLane="0" toLane="1" via=":sano_sb_loop_join_0_0" dir="s" state="M"/>
