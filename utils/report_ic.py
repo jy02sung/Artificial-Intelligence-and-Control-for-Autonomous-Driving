@@ -18,6 +18,18 @@ def render():
         baseline=next((b for b in results if b["id"]==f"R0-{r['seed']}-{r['budget']}"),None)
         difference="—" if not baseline else " / ".join(f"{100*(r[k]-baseline[k]):+.1f}%p" for k in ("arrival","collision"))
         lines.append(f"|{r['id']}|{r['seed']}|{r['budget']:,}|{len(evaluation['rows'])}|{r['arrival']:.1%}|{r['collision']:.1%}|{r['timeout']:.1%}|{difference}|{r['training_seconds']/60:.1f}|")
+    lines += ["", "지퍼 준수와 준비 성공률은 해당 사건만 분모로 사용한다. 해당 사건이 없으면 ‘관측 없음’으로 표시한다.",
+              "", "|조건|100m 준비|지퍼 준수|램프 과속 시간 비율|최대 초과(km/h)|완주 평균(초)|",
+              "|---|---:|---:|---:|---:|---:|"]
+    def ratio(n, d):
+        return f"{n}/{d} ({n/d:.1%})" if d else "관측 없음"
+    for p,r in zip(rows,results):
+        episodes=json.loads((p.parent/f"eval-{r['budget']}.json").read_text(encoding="utf8"))["rows"]
+        def total(k):
+            return sum(e[k] for e in episodes)
+        times=[e["seconds"] for e in episodes if e["arrival"]]
+        seconds=f"{mean(times):.1f}" if times else "완주 없음"
+        lines.append(f"|{r['id']}|{ratio(total('ready'),total('prep'))}|{ratio(total('compliant'),total('zipper'))}|{ratio(total('over_steps'),total('ramp_steps'))}|{max(e['peak_excess_mps'] for e in episodes)*3.6:.1f}|{seconds}|")
     for p in rows:
         r=json.loads(p.read_text(encoding="utf8"))
         events=json.loads((p.parent/f"eval-{r['budget']}.json").read_text(encoding="utf8"))["rows"]
@@ -31,3 +43,15 @@ def render():
 
 if __name__=="__main__":
     (ROOT/"docs/ic-ppo-results.md").write_text(render(),encoding="utf8")
+    from torch.utils.tensorboard import SummaryWriter
+    for folder in (OUT/"runs").glob("*"):
+        for result in folder.glob("eval-*.json"):
+            # One evaluation event file per checkpoint, so repeated exports do not duplicate points.
+            target=folder/"tb"
+            marker=folder/(result.stem+".exported")
+            if marker.exists(): continue
+            data=json.loads(result.read_text(encoding="utf8"))
+            with SummaryWriter(str(target)) as writer:
+                for key,value in data["rates"].items():
+                    writer.add_scalar("eval/"+key,value,data["step"])
+            marker.touch()
