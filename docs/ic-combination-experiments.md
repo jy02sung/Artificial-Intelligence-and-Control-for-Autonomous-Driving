@@ -354,3 +354,40 @@ COMBO 첫 seed의 완주 개선은 반복에서 재현되지 않았다. 평균 �
 |route|0.6250|129|
 |zipper|-0.0250|1|
 |ramp|-2.4887|631|
+
+## 조합 3-seed 반복 완료 (2026-11-07)
+
+|조건|평균 완주율|평균 충돌률|평균 시간 초과율|
+|---|---:|---:|---:|
+|R0|46.1%|42.4%|11.5%|
+|COMBO|33.6%|36.1%|30.3%|
+|COMBO025|32.4%|21.5%|46.1%|
+
+완료된 조합 실행기는 정상 종료됐다. 모든 조건은 동일한 seed11·22·33, 각 20만 스텝, 최종 정책 110회 평가다. 첫 seed의 조합 개선을 전체로 일반화할 수 없으며 최종 성공 목표에 도달한 조합은 없다. 원래 보상 조합과 0.25배 조합의 상대 차이는 크기에 대한 민감도 근거이나 최적 크기나 보상 개념 자체의 타당성을 확정하지 않는다. 학습률·감마 비교와 시간 초과 원인 재현은 계속된다.
+
+COMBO025 seed33: 완주 27.3%, 충돌 20.0%, 시간 초과 52.7%. 실행 경로 `results/ic_campaign_v2/runs/COMBO025-33-200000`, 기록 커밋 `029e3fd43b119a17d4cbc8fb4d04e9f76ad697c5`. 재개 후 평가에는 timeout_diagnostic이 추가됐으며 보상·정책은 유지됐다.
+
+|경로|R0 완주/충돌/시간초과|COMBO025 완주/충돌/시간초과|
+|---|---|---|
+|east_through|2 / 3 / 0|2 / 3 / 0|
+|east_to_north|3 / 2 / 0|5 / 0 / 0|
+|east_to_south|3 / 2 / 0|5 / 0 / 0|
+|north_through|5 / 0 / 0|2 / 2 / 1|
+|north_to_east|1 / 3 / 1|0 / 2 / 3|
+|north_to_local|1 / 1 / 3|0 / 1 / 4|
+|north_to_west|1 / 4 / 0|0 / 2 / 3|
+|outer_to_south|3 / 2 / 0|5 / 0 / 0|
+|sano_east_to_south|4 / 1 / 0|0 / 0 / 5|
+|sano_north_through|5 / 0 / 0|0 / 1 / 4|
+|sano_north_to_west|2 / 3 / 0|0 / 1 / 4|
+|sano_south_through|5 / 0 / 0|5 / 0 / 0|
+|sano_south_to_east|5 / 0 / 0|0 / 0 / 5|
+|sano_south_to_west|3 / 2 / 0|0 / 0 / 5|
+|sano_west_to_north|0 / 2 / 3|0 / 3 / 2|
+|sano_west_to_south|0 / 2 / 3|0 / 3 / 2|
+|south_through|5 / 0 / 0|5 / 0 / 0|
+|south_to_east|0 / 5 / 0|0 / 0 / 5|
+|south_to_local|0 / 5 / 0|0 / 0 / 5|
+|south_to_west|0 / 5 / 0|0 / 0 / 5|
+|west_through|1 / 4 / 0|1 / 4 / 0|
+|west_to_local|0 / 0 / 5|0 / 0 / 5|
