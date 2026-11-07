@@ -1,6 +1,8 @@
 # Artificial-Intelligence-and-Control-for-Autonomous-Driving
 
-SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. 이 `kyh` 브랜치에는 수업 스켈레톤 구조를 유지한 퇴계원·사노 IC 교육용 도로와 네 종류 일반 차량(HV)을 연결했습니다. 실제 도로를 단순화한 모델이며, 프로젝트 주제와 학습·평가 계획은 팀 문서에서 관리합니다.
+SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다.
+
+**2026-11-07: 실제 도로 형상 재검토로 학습·수집 중단.** `python view_road.py`는 첨부 OSM에서 재구성한 정적 검토 맵을 엽니다. 기존 학습 맵·정책·결과는 보존되어 있으며 새 맵에 아직 연결하지 않았습니다. [수정 내용·검증·남은 확인 사항](docs/ic-osm-map-rebuild.md)을 먼저 확인하세요.
 
 ## 프로젝트 바로가기
 
@@ -11,7 +13,7 @@ SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다. 이 
 
 ## 팀 문서
 
-- [현재 퇴계원·사노 IC 도로 및 HV 검증 안내](docs/sano-ic.md) — 다리 입체분리, 주변 환경, 차량 상호작용, `python view_road.py` 실행
+- [기존 단순화 맵의 도로 및 HV 검증 기록](docs/sano-ic.md) — 다리 입체분리, 주변 환경, 차량 상호작용, `python view_road.py` 실행
 - [이전 퇴계원 IC 도로 구현 기록](docs/toegyewon-ic.md)
 - [문서 목록](docs/README.md)
 - [프로젝트 최종 목적 및 완료 체크리스트](docs/project-goals-checklist.md) — 수업 목표와 팀 권장 작업 구분

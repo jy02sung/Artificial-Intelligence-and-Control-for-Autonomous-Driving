@@ -1,0 +1,151 @@
+{
+  "status": "review_required",
+  "geometry_deviations": [
+    {
+      "edge": "282003260#2",
+      "error_m": 1.6025284712673775,
+      "point": [
+        2113.95,
+        1975.36
+      ]
+    },
+    {
+      "edge": "543621236",
+      "error_m": 3.198866194542326,
+      "point": [
+        1374.21,
+        1573.33
+      ]
+    },
+    {
+      "edge": "556956810",
+      "error_m": 1.597481511850974,
+      "point": [
+        1378.58,
+        1575.08
+      ]
+    },
+    {
+      "edge": "620099038#1",
+      "error_m": 1.6008448659082577,
+      "point": [
+        1404.39,
+        2003.18
+      ]
+    },
+    {
+      "edge": "620099050#0",
+      "error_m": 1.6060121652378752,
+      "point": [
+        1407.55,
+        2002.92
+      ]
+    },
+    {
+      "edge": "620375265#0",
+      "error_m": 1.5986243328150147,
+      "point": [
+        586.93,
+        1798.13
+      ]
+    },
+    {
+      "edge": "620375272",
+      "error_m": 1.5973604100847614,
+      "point": [
+        2116.69,
+        1976.98
+      ]
+    },
+    {
+      "edge": "844532298#3",
+      "error_m": 1.5934268556070723,
+      "point": [
+        584.62,
+        1800.22
+      ]
+    }
+  ],
+  "no_simulation_steps_or_training": true,
+  "source_geometry_edges_checked": 822,
+  "max_projected_source_error_m": 3.198866194542326,
+  "explicit_oneway_lane_tag_checks": 115,
+  "roads_with_unverified_lane_defaults": 671,
+  "routes": {
+    "south_to_east": {
+      "edges": [
+        "86198728",
+        "37927508",
+        "86198720",
+        "170059988",
+        "170059996",
+        "170059995",
+        "170059994",
+        "1063527748"
+      ],
+      "length_m": 1102.6100000000001
+    },
+    "north_to_east": {
+      "edges": [
+        "52873356",
+        "37927512",
+        "170059991",
+        "170059994",
+        "1063527748"
+      ],
+      "length_m": 1192.81
+    },
+    "north_to_west": {
+      "edges": [
+        "52873356",
+        "37927512",
+        "170059991",
+        "170059994",
+        "844484876",
+        "86198717",
+        "170059992"
+      ],
+      "length_m": 1440.46
+    },
+    "outer_to_south": {
+      "edges": [
+        "169929488#0",
+        "169929488#1",
+        "1414146968",
+        "372821396",
+        "544292617",
+        "544292616",
+        "844484877"
+      ],
+      "length_m": 1511.71
+    },
+    "return_to_north": {
+      "edges": [
+        "170059993",
+        "544293888#0",
+        "37375274",
+        "844484878#1",
+        "86198722",
+        "86198708"
+      ],
+      "length_m": 934.3000000000001
+    },
+    "return_to_south": {
+      "edges": [
+        "170059993",
+        "544293888#0",
+        "544293888#1",
+        "86198710",
+        "170059989",
+        "206426298",
+        "844484877"
+      ],
+      "length_m": 1737.3700000000001
+    }
+  },
+  "limitations": [
+    "Lane-to-lane mapping and signals inferred by SUMO where OSM lacks detail",
+    "No measured road elevations; layer topology preserved without physical Z inference",
+    "Conversion warnings retained; no traffic-capacity or AV certification"
+  ]
+}
