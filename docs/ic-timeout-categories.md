@@ -279,3 +279,27 @@
 |west_to_local|{'route_lane_blocked': 5}|
 
 학습 seed33, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/R0-33-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `887dcc4cc9d1a086907520f725909ba2336bd04ec1115e438f35b4e0bd834771`.
+
+## RAMP-11-200000 진단 완료 (2026-11-07)
+
+시간 초과 42건 모두 원래 종료시간·결과가 재현됐다. 종료 직전 기준 분류: {'route_lane_blocked': 42}. 이전 정체의 기여 여부는 확정하지 않는다.
+
+|경로|분류별 건수|
+|---|---|
+|east_through|{'route_lane_blocked': 2}|
+|north_through|{'route_lane_blocked': 1}|
+|sano_east_to_south|{'route_lane_blocked': 4}|
+|sano_north_through|{'route_lane_blocked': 5}|
+|sano_north_to_west|{'route_lane_blocked': 5}|
+|sano_south_through|{'route_lane_blocked': 1}|
+|sano_south_to_east|{'route_lane_blocked': 5}|
+|sano_south_to_west|{'route_lane_blocked': 1}|
+|sano_west_to_north|{'route_lane_blocked': 3}|
+|sano_west_to_south|{'route_lane_blocked': 3}|
+|south_to_east|{'route_lane_blocked': 1}|
+|south_to_local|{'route_lane_blocked': 1}|
+|south_to_west|{'route_lane_blocked': 2}|
+|west_through|{'route_lane_blocked': 4}|
+|west_to_local|{'route_lane_blocked': 4}|
+
+학습 seed11, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/RAMP-11-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `7fca92c1f62626bae8e10cd8d6baa9fd05dcf7d52960c4b7f3340770c321df4d`.
