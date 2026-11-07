@@ -100,7 +100,7 @@ def build():
         points=move2side(points,1.6)
         auxiliary.set('shape',' '.join(f'{x:.2f},{y:.2f}' for x,y in points))
     north_nodes=ET.Element('nodes')
-    for nid,(x,y) in adjustments.get('north_boundary_nodes',{}).items():
+    for nid,(x,y) in {**adjustments.get('north_boundary_nodes',{}),**adjustments.get('junction_node_adjustments',{})}.items():
         ET.SubElement(north_nodes,'node',id=nid,x=str(x),y=str(y))
     ET.ElementTree(north_nodes).write(DEST/'north-boundary.nod.xml',encoding='utf8',xml_declaration=True)
     pocket_edge=next((e for e in corrections if e.get('id')==adjustments['pocket']['approach']),None)
