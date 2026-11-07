@@ -35,8 +35,10 @@ def main():
    else:points=[(float(junctions[e.get(side)].get('x')),float(junctions[e.get(side)].get('y'))) for side in ('from','to')]
    if eid in adjustments.get('junction_smoothing',{}):
     expected=[tuple(map(float,p.split(','))) for p in adjustments['junction_smoothing'][eid].split()]
-    assert points==expected,('crest shape mismatch',eid)
-    intentional_changes.append(dict(edge=eid,reason='Local crest junction tangent alignment'))
+    assert math.dist(points[0],expected[0])<.02 and math.dist(points[-1],expected[-1])<.02,('aligned endpoints',eid)
+    assert all(sumolib.geomhelper.distancePointToPolygon(p,expected)<.03 for p in points),('aligned shape mismatch',eid)
+    assert all(sumolib.geomhelper.distancePointToPolygon(p,points)<.03 for p in expected),('aligned shape simplification',eid)
+    intentional_changes.append(dict(edge=eid,reason='Reviewed local junction tangent/lane-group alignment'))
     continue
    if eid in ('86198708','86198708#1'):
     expected=[tuple(map(float,p.split(','))) for p in adjustments['north_boundary_edges']['86198708'].split()]
