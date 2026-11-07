@@ -1,6 +1,6 @@
 # 수정 맵 후속 실험 결과
 
-현재 단계: **evaluated shared-N0-22**
+현재 단계: **evaluated shared-N0-33**
 
 합성 수요이며 실측 교통량이 아니다. 강제 경로 보정은 사용하지 않는다. [실험 조건·통과 기준](ic-next-stages-plan.md).
 
@@ -69,6 +69,22 @@
 | runs\shared-N0-22 | route_14 | 20/20 | 0 | 0 | {} |
 | runs\shared-N0-22 | route_15 | 20/20 | 0 | 0 | {} |
 | runs\shared-N0-22 | route_16 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_01 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_02 | 0/20 | 0 | 20 | {'route_lane_blocked': 20} |
+| runs\shared-N0-33 | route_03 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_04 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_05 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_06 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_07 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_08 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_09 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_10 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_11 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_12 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_13 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_14 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_15 | 20/20 | 0 | 0 | {} |
+| runs\shared-N0-33 | route_16 | 20/20 | 0 | 0 | {} |
 
 ## 보상 진단 (완료된 평가)
 
@@ -76,6 +92,7 @@
 |---|---:|---:|---|
 | shared-N0-11 | 240/500 | 32405/121684 | {'base': 3161.876902921448, 'route': 0.0, 'zipper': 0.0, 'ramp': 0.0} |
 | shared-N0-22 | 420/500 | 35246/36591 | {'base': 3228.2219460323763, 'route': 0.0, 'zipper': 0.0, 'ramp': 0.0} |
+| shared-N0-33 | 380/500 | 32298/121857 | {'base': 3160.606605486663, 'route': 0.0, 'zipper': 0.0, 'ramp': 0.0} |
 
 각 run의 manifest에 실행 커밋·seed·맵/코드/모델 해시·설정·선행 모델을 보존한다. 모델과 사례 추적은 로컬 results/navigation_followup_v2에만 저장한다.
 
