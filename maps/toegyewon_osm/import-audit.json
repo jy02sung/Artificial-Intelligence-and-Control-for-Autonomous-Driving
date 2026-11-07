@@ -144,8 +144,8 @@
     "true"
   ],
   "sumo_version": "Eclipse SUMO netconvert 1.27.1",
-  "external_edges": 91,
-  "lanes": 207,
+  "external_edges": 90,
+  "lanes": 202,
   "restriction_relations_kept": [],
   "incomplete_restrictions_omitted": [
     "8603403",
@@ -1884,28 +1884,6 @@
     {
       "edge": "86198725",
       "osm_way": "86198725",
-      "lanes": 5,
-      "osm_lanes": "4",
-      "osm_directional_lanes": {},
-      "oneway": "yes",
-      "highway": "motorway",
-      "maxspeed": "100",
-      "layer": "2",
-      "bridge": "yes",
-      "turn_lanes": {},
-      "lane_override": {
-        "num_lanes": 5,
-        "basis": "User requested southbound auxiliary lane retained 50m beyond ramp fork; outer lane drops later",
-        "confidence": "user_requested"
-      },
-      "geometry_rounding": false,
-      "layout_adjustment": null,
-      "marking_status": "solid_verified",
-      "lane_source": "Project override (user_requested)"
-    },
-    {
-      "edge": "86198725#1",
-      "osm_way": "86198725",
       "lanes": 4,
       "osm_lanes": "4",
       "osm_directional_lanes": {},
@@ -1915,11 +1893,15 @@
       "layer": "2",
       "bridge": "yes",
       "turn_lanes": {},
-      "lane_override": null,
+      "lane_override": {
+        "num_lanes": 4,
+        "basis": "User requested simple 5 -> 4 through + 1 ramp fork; no separate downstream lane drop",
+        "confidence": "user_requested"
+      },
       "geometry_rounding": false,
       "layout_adjustment": null,
-      "marking_status": "unverified",
-      "lane_source": "OSM tag (directional split may apply)"
+      "marking_status": "solid_verified",
+      "lane_source": "Project override (user_requested)"
     },
     {
       "edge": "86198728",

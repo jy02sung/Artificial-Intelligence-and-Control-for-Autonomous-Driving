@@ -10,7 +10,7 @@ def main():
  source=ET.parse(DEST/'source.osm').getroot();ways={w.get('id'):w for w in source.findall('way')};nodes={n.get('id'):(float(n.get('lon')),float(n.get('lat'))) for n in source.findall('node')}
  root=ET.parse(DEST/'network.net.xml').getroot();junctions={j.get('id'):j for j in root.findall('junction')};edges={e.get('id'):e for e in root.findall('edge') if e.get('function')!='internal'}
  scope=json.loads((DEST/'scope.json').read_text(encoding='utf8'))
- assert set(edges)==set(scope['edges'])|{'86198725#1','86198708#1','844484877#1','170059993#1','206426298#1'}, 'Unexpected missing or extra scope edges'
+ assert set(edges)==set(scope['edges'])|{'86198708#1','844484877#1','170059993#1','206426298#1'}, 'Unexpected missing or extra scope edges'
  audit=json.loads((DEST/'import-audit.json').read_text(encoding='utf8'));lane_checks=0
  for row in audit['edges']:
   if row['oneway']=='yes' and row['osm_lanes'] and row['osm_lanes'].isdigit() and not row.get('lane_override'):
@@ -33,10 +33,10 @@ def main():
    if wid not in cache:cache[wid]=[traci.simulation.convertGeo(*nodes[n.get('ref')],fromGeo=True) for n in w.findall('nd')]
    if e.get('shape'):points=[tuple(map(float,p.split(',')[:2])) for p in e.get('shape').split()]
    else:points=[(float(junctions[e.get(side)].get('x')),float(junctions[e.get(side)].get('y'))) for side in ('from','to')]
-   if eid in ('86198725','86198725#1'):
+   if eid=='86198725':
     expected=[tuple(map(float,p.split(','))) for p in adjustments['junction_smoothing']['86198725'].split()]
     assert all(sumolib.geomhelper.distancePointToPolygon(p,expected)<1.7 for p in points)
-    intentional_changes.append(dict(edge=eid,reason='Southbound auxiliary extension and outer lane drop'))
+    intentional_changes.append(dict(edge=eid,reason='Southbound four-lane continuation after exclusive ramp fork'))
     continue
    if eid in adjustments.get('junction_smoothing',{}):
     expected=[tuple(map(float,p.split(','))) for p in adjustments['junction_smoothing'][eid].split()]
@@ -72,32 +72,16 @@ def main():
  for eid in markings['solid']:
   lanes=edges[eid].findall('lane')
   for i,lane in enumerate(lanes):
-   if i<len(lanes)-1 and not(eid=='86198725' and i==0):assert lane.get('changeLeft')==markings['solid_allowed_classes'],lane.attrib
-   if i>0 and not(eid=='86198725' and i==1):assert lane.get('changeRight')==markings['solid_allowed_classes'],lane.attrib
+   if i<len(lanes)-1:assert lane.get('changeLeft')==markings['solid_allowed_classes'],lane.attrib
+   if i>0:assert lane.get('changeRight')==markings['solid_allowed_classes'],lane.attrib
  for eid in markings['dashed']:
   assert all(l.get('changeLeft') is None and l.get('changeRight') is None for l in edges[eid].findall('lane')),eid
  connections={(c.get('from'),int(c.get('fromLane')),c.get('to'),int(c.get('toLane'))) for c in root.findall('connection')}
- assert len(edges['86198725'].findall('lane'))==5
- assert len(edges['86198725#1'].findall('lane'))==4
- for i in range(5):assert ('86198728',i,'86198725',i) in connections
- for i in range(4):assert ('86198725',i+1,'86198725#1',i) in connections
- for i in range(1,5):
-  ps=[tuple(map(float,p.split(','))) for p in edges['86198725'].findall('lane')[i].get('shape').split()]
-  q=tuple(map(float,edges['86198725#1'].findall('lane')[i-1].get('shape').split()[0].split(',')))
-  a,b=ps[-2:];dx,dy=b[0]-a[0],b[1]-a[1]
-  assert abs(dx*(q[1]-b[1])-dy*(q[0]-b[0]))/math.hypot(dx,dy)<.05
- # The taper must retain the full five-lane entrance, including lane 0.
- taper=[tuple(map(float,p.split(','))) for p in junctions['86198725.50'].get('shape').split()]
- assert len(taper)==4, 'Taper should have straight sides, not a convex bulge'
- for eid,at in [('86198725',-1),('86198725#1',0)]:
-  lanes=edges[eid].findall('lane')
-  for lane,side in [(lanes[0],-1),(lanes[-1],1)]:
-   pts=[tuple(map(float,p.split(','))) for p in lane.get('shape').split()]
-   a,b=pts[-2:] if at==-1 else pts[:2]
-   dx,dy=b[0]-a[0],b[1]-a[1];length=math.hypot(dx,dy)
-   x,y=pts[at];half=float(lane.get('width','3.2'))/2
-   corner=(x-side*dy/length*half,y+side*dx/length*half)
-   assert min(math.dist(corner,q) for q in taper)<.03, (eid,side,'missing pavement at lane boundary')
+ # Five approach lanes split into four through lanes and one exclusive ramp lane.
+ assert len(edges['86198725'].findall('lane'))==4
+ expected={('86198728',i+1,'86198725',i) for i in range(4)}|{('86198728',0,'37927508',0)}
+ assert {c for c in connections if c[0]=='86198728'}==expected
+ assert '86198725.50' not in junctions
  # Northbound lower ramp: 4 + 1 -> 5, then 4 until the next merge.
  for eid,n in [('844484878#0',4),('844484878#1',5),('86198722',5),('86198708',5),('86198708#1',4)]:
   assert len(edges[eid].findall('lane'))==n,eid
