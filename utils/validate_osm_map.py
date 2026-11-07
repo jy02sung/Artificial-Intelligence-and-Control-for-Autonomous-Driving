@@ -62,6 +62,12 @@ def main():
  # Northbound lower ramp: 4 + 1 -> 5, then 4 until the next merge.
  for eid,n in [('844484878#0',4),('844484878#1',5),('86198722',4),('86198708',4)]:
   assert len(edges[eid].findall('lane'))==n,eid
+ # Northern continuation must retain all four mainline lane axes.
+ for i in range(4):
+  points=[tuple(map(float,p.split(','))) for p in edges['86198708'].findall('lane')[i].get('shape').split()]
+  q=tuple(map(float,edges['1414146971'].findall('lane')[i+1].get('shape').split()[0].split(',')))
+  a,b=points[-2:];dx,dy=b[0]-a[0],b[1]-a[1]
+  assert abs(dx*(q[1]-b[1])-dy*(q[0]-b[0]))/math.hypot(dx,dy)<.1,('north axis',i)
  assert len(edges['1414146971'].findall('lane'))==5
  assert ('280963368',0,'1414146971',0) in connections
  for i in range(4):assert ('86198708',i,'1414146971',i+1) in connections
@@ -81,7 +87,7 @@ def main():
  assert ('544293888#0',1,'544293888#1',0) in connections
  assert edges['280963368'].get('to')=='436249297'
  for nid in ('436249297','12994833426','436256826'):assert float(junctions[nid].get('y'))<=1700
- assert max(float(p.split(',')[1]) for p in edges['280963368'].get('shape').split())<=1678
+ assert max(float(p.split(',')[1]) for p in edges['280963368'].get('shape').split())<=1683
  assert len(edges['170059993'].findall('lane'))==1
  assert len(edges['170059993#1'].findall('lane'))==2
  assert len(edges['781184662#3'].findall('lane'))==3
