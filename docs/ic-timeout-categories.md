@@ -104,3 +104,27 @@
 ## COMBO025 seed11 진단 완료 (2026-11-07)
 
 시간 초과 39건 모두 원래 종료시간·결과가 재현됐으며 종료 직전 경로 연결 차로 실패 정지로 분류됐다. 학습 seed11, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO025-11-200000.json`, 진단 코드 `029e3fd`. 정책 SHA256 `49a5b897fa11ac0ac2992ab2c0a507548b130fbcb2cb5b061f8bba3c26d4ba24`.
+
+## COMBO025 seed22 진단 완료 (2026-11-07)
+
+시간 초과 55건 모두 원래 종료시간 및 결과가 재현됐다. 분류: {'route_lane_blocked': 55}. 종료 직전 상태 분류이며 이전 정체의 기여는 확정하지 않는다.
+
+|경로|분류별 건수|
+|---|---|
+|east_through|{'route_lane_blocked': 2}|
+|north_through|{'route_lane_blocked': 2}|
+|north_to_east|{'route_lane_blocked': 5}|
+|north_to_west|{'route_lane_blocked': 5}|
+|sano_north_through|{'route_lane_blocked': 5}|
+|sano_north_to_west|{'route_lane_blocked': 1}|
+|sano_south_through|{'route_lane_blocked': 1}|
+|sano_south_to_west|{'route_lane_blocked': 4}|
+|sano_west_to_north|{'route_lane_blocked': 3}|
+|sano_west_to_south|{'route_lane_blocked': 3}|
+|south_to_east|{'route_lane_blocked': 5}|
+|south_to_local|{'route_lane_blocked': 5}|
+|south_to_west|{'route_lane_blocked': 5}|
+|west_through|{'route_lane_blocked': 4}|
+|west_to_local|{'route_lane_blocked': 5}|
+
+학습 seed22, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO025-22-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `5bf1b2a082fa7540bc2d3417a6db0ea78838ded5812b0db048b293e5b8d292e0`.
