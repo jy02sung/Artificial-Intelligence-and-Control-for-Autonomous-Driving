@@ -53,10 +53,14 @@ def evaluate(agent, variants, seeds, loads):
             for route,seed in product(ROAD["routes"],seeds):
                 obs,_ = env.reset(seed=seed,options={"route":route})
                 changes = prep = ready = opportunities = compliant = ramp_steps = over_steps = 0
+                route_checks = route_ready = 0
                 peak = 0.
                 while True:
                     obs,_,done,cut,info = env.step(agent.predict(obs,deterministic=True))
                     event=info["ic_event"]
+                    if event.get("route_lane_ready") is not None:
+                        route_checks += 1
+                        route_ready += int(event["route_lane_ready"])
                     changes += int(info["lane_after"] is not None and info["lane_before"] != info["lane_after"])
                     if event["prep100"] is not None:
                         prep+=1; ready+=int(event["prep100"])
@@ -69,7 +73,8 @@ def evaluate(agent, variants, seeds, loads):
                           collision=info["collided"],timeout=cut and not done,wrong_exit=event["wrong_exit"],
                           seconds=env.step_count*env.step_length,changes=changes,prep=prep,ready=ready,
                           zipper=opportunities,compliant=compliant,ramp_steps=ramp_steps,
-                          over_steps=over_steps,peak_excess_mps=peak))
+                          over_steps=over_steps,peak_excess_mps=peak,
+                          route_checks=route_checks,route_ready=route_ready))
         finally: env.close()
     return rows
 

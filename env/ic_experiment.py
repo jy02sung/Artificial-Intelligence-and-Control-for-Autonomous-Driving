@@ -37,6 +37,7 @@ class ICExperimentEnv(SumoHighwayEnv):
         self.sumo_seed = int(seed if seed is not None else self.route_rng.integers(1, 2**30))
         self.last_zip_side = None
         self.prep_scored = set()
+        self.route_lane_scored = set()
         if getattr(self, "load_paths", None):
             if not self.load_schedule:
                 self.load_schedule=list(self.route_rng.permutation(sorted(self.load_paths)))
@@ -45,8 +46,27 @@ class ICExperimentEnv(SumoHighwayEnv):
         return super().reset(seed=seed)
 
     def _apply_lane_change(self, lane_change):
+        if "START1" in self.variants and self.step_count * self.step_length < 1.:
+            return False
         if lane_change and traci.vehicle.getRoadID(self.ego_id) in self.solid: return False
         return super()._apply_lane_change(lane_change)
+
+    def _route_lane_ready(self):
+        """Score actual route-compatible lanes once per split, including short links."""
+        v = traci.vehicle
+        edge = v.getRoadID(self.ego_id)
+        idx = v.getRouteIndex(self.ego_id)
+        path = self.routes[self.episode_route]
+        if idx < 0 or idx + 1 >= len(path) or len(self.links.get(edge, {})) < 2:
+            return None
+        target = self.links[edge].get(path[idx+1])
+        if not target or len(target) == self.counts[edge] or idx in self.route_lane_scored:
+            return None
+        left = traci.lane.getLength(v.getLaneID(self.ego_id)) - v.getLanePosition(self.ego_id)
+        if left > 100:
+            return None
+        self.route_lane_scored.add(idx)
+        return v.getLaneIndex(self.ego_id) in target
 
     def context(self):
         v = traci.vehicle
@@ -101,7 +121,12 @@ class ICExperimentEnv(SumoHighwayEnv):
         bonus = 0.
         prep = None
         lane_distance = None
+        route_ready = None
         if after:
+            if self.variants.intersection(("ROUTE100", "MEASURE_ROUTE")):
+                route_ready = self._route_lane_ready()
+                if route_ready is not None and "ROUTE100" in self.variants:
+                    bonus += .1 if route_ready else -.1
             e2,l2,limit2,d2,s2,off2,_ = after
             if edge==e2 and split==s2 and lane!=l2 and l2==0: lane_distance=d2
             if split and split==s2 and d2 is not None and distance is not None and distance>100>=d2 and split not in self.prep_scored:
@@ -132,7 +157,7 @@ class ICExperimentEnv(SumoHighwayEnv):
             overspeed = max(0.,info["speed"]-after[2])
             if "RAMP" in self.variants: bonus -= .1*(overspeed/after[2])*self.step_length/.5
         if not done: r = r*self.step_length/.5 + bonus
-        event=dict(route=self.episode_route,sumo_seed=self.sumo_seed,prep100=prep,
+        event=dict(route=self.episode_route,sumo_seed=self.sumo_seed,prep100=prep,route_lane_ready=route_ready,
                    exit_lane_change_distance_m=lane_distance,zipper_count=self.zips,
                    zipper_compliant=zipper,ramp=bool(after and after[0] in RAMPS),
                    ramp_excess_mps=overspeed,wrong_exit=bool(done and not arrived and not info["collided"]))
