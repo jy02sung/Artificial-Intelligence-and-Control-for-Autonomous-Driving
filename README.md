@@ -135,6 +135,9 @@ python -m utils.check_av_control
 ```
 ## 최신 수업 자료와 실험 계획
 
+- [내비게이션 관측 기반 순수 PPO 재학습 설계](docs/ic-navigation-learning-plan.md) — 원본 평가조건 확인, 강제 차로 보정 제외, 설계 완료·학습 미시작.
+
+
 - [프로젝트 준비](project_materials/5_Project_Preparation.md)
 - [중간·최종발표 및 평가 기준](project_materials/6_Project_Evaluation.md)
 - [팀별 컨설팅](project_materials/7_Project_Consulting.md)
