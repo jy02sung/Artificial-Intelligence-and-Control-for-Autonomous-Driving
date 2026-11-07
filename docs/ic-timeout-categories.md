@@ -40,3 +40,19 @@
 |south_to_west|5|0|
 
 실행/증거: `results/ic_campaign_v2/timeout-diagnostics/BLOCK-11-200000.json`. 학습 seed11, 평가 seed1001~1005. 진단 코드 `029e3fd`. 정책 SHA256: `95f5b85151a62301fe3114e427802b91cfdaa220af2606b4cfd6563ccc01415f`. 원본 평가는 유지한다. 나머지 모델 진단은 진행 중이다.
+
+## COMBO seed11 진단 완료 (2026-11-07)
+
+시간 초과 26건 모두 원래 종료시간과 결과가 재현됐으며 26건 모두 마지막 약 60초 기준 경로 연결 차로를 놓쳐 차로 끝에 정지한 것으로 분류됐다. 앞차 정체/주행 중 시간 소진/혼합 분류는 0건이다. 이전 구간의 정체나 차선 변경 기회 부족이 차로 선택 실패에 기여했는지는 이 종료 직전 분류만으로 확정할 수 없다.
+
+|경로|차로 연결 실패 정지|
+|---|---:|
+|north_to_local|2|
+|sano_north_through|1|
+|sano_west_to_north|4|
+|sano_west_to_south|4|
+|south_to_east|5|
+|south_to_local|5|
+|west_to_local|5|
+
+학습 seed11, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO-11-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `78f27d67b982144bc0b1071e44d2e325c84cc37be69536bb055f0bd2ba3c0bec`. 원본 평가 결과는 보존했다.
