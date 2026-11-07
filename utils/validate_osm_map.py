@@ -86,6 +86,18 @@ def main():
   q=tuple(map(float,edges['86198725#1'].findall('lane')[i-1].get('shape').split()[0].split(',')))
   a,b=ps[-2:];dx,dy=b[0]-a[0],b[1]-a[1]
   assert abs(dx*(q[1]-b[1])-dy*(q[0]-b[0]))/math.hypot(dx,dy)<.05
+ # The taper must retain the full five-lane entrance, including lane 0.
+ taper=[tuple(map(float,p.split(','))) for p in junctions['86198725.50'].get('shape').split()]
+ assert len(taper)==4, 'Taper should have straight sides, not a convex bulge'
+ for eid,at in [('86198725',-1),('86198725#1',0)]:
+  lanes=edges[eid].findall('lane')
+  for lane,side in [(lanes[0],-1),(lanes[-1],1)]:
+   pts=[tuple(map(float,p.split(','))) for p in lane.get('shape').split()]
+   a,b=pts[-2:] if at==-1 else pts[:2]
+   dx,dy=b[0]-a[0],b[1]-a[1];length=math.hypot(dx,dy)
+   x,y=pts[at];half=float(lane.get('width','3.2'))/2
+   corner=(x-side*dy/length*half,y+side*dx/length*half)
+   assert min(math.dist(corner,q) for q in taper)<.03, (eid,side,'missing pavement at lane boundary')
  # Northbound lower ramp: 4 + 1 -> 5, then 4 until the next merge.
  for eid,n in [('844484878#0',4),('844484878#1',5),('86198722',5),('86198708',5),('86198708#1',4)]:
   assert len(edges[eid].findall('lane'))==n,eid

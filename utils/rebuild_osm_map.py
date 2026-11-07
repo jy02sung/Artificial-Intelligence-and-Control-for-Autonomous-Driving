@@ -166,15 +166,11 @@ def build():
             for key in ('changeLeft','changeRight'):lane.attrib.pop(key,None)
             if i<len(lanes)-1 and not (segment.get('id')=='86198725' and i==0):lane.set('changeLeft',markings['solid_allowed_classes'])
             if i>0 and not (segment.get('id')=='86198725' and i==1):lane.set('changeRight',markings['solid_allowed_classes'])
-    # The dropped outer lane must not create a convex pavement bulge into the gore.
+    # Linear taper joins the full five-lane entrance to the four-lane exit.
+    # Preserve the disappearing lane's entrance footprint instead of cutting it away.
     drop=next(j for j in final_tree.getroot().findall('junction') if j.get('id')=='86198725.50')
     contour=drop.get('shape').split()
-    # Through lane 1 becomes lane 0: align the entire connecting pavement to that boundary.
-    incoming=next(e for e in final_tree.getroot().findall('edge') if e.get('id')=='86198725').findall('lane')[1]
-    a,b=[tuple(map(float,p.split(','))) for p in incoming.get('shape').split()[-2:]]
-    dx,dy=b[0]-a[0],b[1]-a[1];n=math.hypot(dx,dy)
-    right=f'{b[0]+dy/n*1.6:.2f},{b[1]-dx/n*1.6:.2f}'
-    drop.set('shape',' '.join([contour[0],contour[1],right,contour[-1]]))
+    drop.set('shape',' '.join([contour[0],contour[1],contour[-2],contour[-1]]))
     final_tree.write(DEST/'network.net.xml',encoding='utf8',xml_declaration=True)
     net=final_tree.getroot();external=[e for e in net.findall('edge') if e.get('function')!='internal']
     audit=[]
