@@ -20,6 +20,7 @@ from train import ROAD, EGO, TRAFFIC, SIMULATION, OBSERVATION, ACTION, REWARD, H
 from algorithms.ppo import PPO
 from utils.buffer import RolloutBuffer
 from utils.logger import RunLogger
+from utils.ic_timeout_trace import TimeoutTrace
 from collect_pomdp_data import collect, iter_transitions
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -57,7 +58,9 @@ def evaluate(agent, variants, seeds, loads):
                 reward_sums = dict(base=0., route=0., zipper=0., ramp=0.)
                 reward_counts = dict(base=0, route=0, zipper=0, ramp=0)
                 peak = 0.
+                trace = TimeoutTrace()
                 while True:
+                    if env.step_count % 5 == 0: trace.sample(env)
                     obs,_,done,cut,info = env.step(agent.predict(obs,deterministic=True))
                     event=info["ic_event"]
                     for key, value in event.get("reward_components", {}).items():
@@ -80,7 +83,8 @@ def evaluate(agent, variants, seeds, loads):
                           zipper=opportunities,compliant=compliant,ramp_steps=ramp_steps,
                           over_steps=over_steps,peak_excess_mps=peak,
                           route_checks=route_checks,route_ready=route_ready,
-                          reward_sums=reward_sums,reward_counts=reward_counts))
+                          reward_sums=reward_sums,reward_counts=reward_counts,
+                          timeout_diagnostic=trace.result() if cut and not done else None))
         finally: env.close()
     return rows
 
