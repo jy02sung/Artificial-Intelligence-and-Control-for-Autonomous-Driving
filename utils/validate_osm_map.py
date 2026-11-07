@@ -59,6 +59,14 @@ def main():
  for eid in markings['dashed']:
   assert all(l.get('changeLeft') is None and l.get('changeRight') is None for l in edges[eid].findall('lane')),eid
  connections={(c.get('from'),int(c.get('fromLane')),c.get('to'),int(c.get('toLane'))) for c in root.findall('connection')}
+ # Northbound lower ramp: 4 + 1 -> 5, then 4 until the next merge.
+ for eid,n in [('844484878#0',4),('844484878#1',5),('86198722',4),('86198708',4)]:
+  assert len(edges[eid].findall('lane'))==n,eid
+ assert ('37375274',0,'844484878#1',0) in connections
+ for i in range(4):
+  assert ('844484878#0',i,'844484878#1',i+1) in connections
+  assert ('844484878#1',i+1,'86198722',i) in connections
+  assert ('86198722',i,'86198708',i) in connections
  assert ('544293888#0',0,'37375274',0) in connections
  assert ('544293888#0',1,'544293888#1',0) in connections
  assert edges['280963368'].get('to')=='436249297'

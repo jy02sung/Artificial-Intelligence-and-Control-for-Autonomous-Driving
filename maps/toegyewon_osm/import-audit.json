@@ -145,7 +145,7 @@
   ],
   "sumo_version": "Eclipse SUMO netconvert 1.27.1",
   "external_edges": 89,
-  "lanes": 196,
+  "lanes": 195,
   "restriction_relations_kept": [],
   "incomplete_restrictions_omitted": [
     "8603403",
@@ -1721,7 +1721,7 @@
     {
       "edge": "844484878#1",
       "osm_way": "844484878",
-      "lanes": 4,
+      "lanes": 5,
       "osm_lanes": "4",
       "osm_directional_lanes": {},
       "oneway": "yes",
@@ -1730,16 +1730,20 @@
       "layer": null,
       "bridge": null,
       "turn_lanes": {},
-      "lane_override": null,
+      "lane_override": {
+        "num_lanes": 5,
+        "confidence": "user_correction_approximate_taper",
+        "basis": "User correction 2026-11-07: four mainline lanes, five immediately after lower ramp 37375274 joins, then four until the next northern merge. Taper placed at existing node 436249299; exact distance not surveyed."
+      },
       "geometry_rounding": false,
       "layout_adjustment": null,
       "marking_status": "unverified",
-      "lane_source": "OSM tag (directional split may apply)"
+      "lane_source": "Project override (user_correction_approximate_taper)"
     },
     {
       "edge": "86198708",
       "osm_way": "86198708",
-      "lanes": 5,
+      "lanes": 4,
       "osm_lanes": "5",
       "osm_directional_lanes": {},
       "oneway": "yes",
@@ -1748,11 +1752,15 @@
       "layer": "2",
       "bridge": "yes",
       "turn_lanes": {},
-      "lane_override": null,
+      "lane_override": {
+        "num_lanes": 4,
+        "confidence": "user_correction_approximate_taper",
+        "basis": "User correction 2026-11-07: four mainline lanes, five immediately after lower ramp 37375274 joins, then four until the next northern merge. Taper placed at existing node 436249299; exact distance not surveyed."
+      },
       "geometry_rounding": false,
       "layout_adjustment": null,
       "marking_status": "unverified",
-      "lane_source": "OSM tag (directional split may apply)"
+      "lane_source": "Project override (user_correction_approximate_taper)"
     },
     {
       "edge": "86198709",
@@ -1829,7 +1837,7 @@
     {
       "edge": "86198722",
       "osm_way": "86198722",
-      "lanes": 5,
+      "lanes": 4,
       "osm_lanes": "5",
       "osm_directional_lanes": {},
       "oneway": "yes",
@@ -1838,11 +1846,15 @@
       "layer": "1",
       "bridge": "yes",
       "turn_lanes": {},
-      "lane_override": null,
+      "lane_override": {
+        "num_lanes": 4,
+        "confidence": "user_correction_approximate_taper",
+        "basis": "User correction 2026-11-07: four mainline lanes, five immediately after lower ramp 37375274 joins, then four until the next northern merge. Taper placed at existing node 436249299; exact distance not surveyed."
+      },
       "geometry_rounding": false,
       "layout_adjustment": null,
       "marking_status": "solid_verified",
-      "lane_source": "OSM tag (directional split may apply)"
+      "lane_source": "Project override (user_correction_approximate_taper)"
     },
     {
       "edge": "86198725",
