@@ -34,6 +34,31 @@
       "841607184#0",
       "841607184#1",
       2
+    ],
+    [
+      "372821396",
+      "544292617",
+      2
+    ],
+    [
+      "544292617",
+      "544292616",
+      2
+    ],
+    [
+      "169728799",
+      "280963368",
+      1
+    ],
+    [
+      "280963368",
+      "548446463",
+      1
+    ],
+    [
+      "548446463",
+      "1414146972",
+      1
     ]
   ],
   "solid_edges_checked": 4,
@@ -41,11 +66,34 @@
   "status": "passed",
   "geometry_deviations": [],
   "no_simulation_steps_or_training": true,
-  "source_geometry_edges_checked": 83,
-  "max_projected_source_error_m": 0.009478274704899892,
-  "explicit_oneway_lane_tag_checks": 41,
-  "roads_with_unverified_lane_defaults": 29,
+  "source_geometry_edges_checked": 90,
+  "max_projected_source_error_m": 1.6052350305684537,
+  "explicit_oneway_lane_tag_checks": 44,
+  "roads_with_unverified_lane_defaults": 30,
   "routes": {
+    "west_fork_to_north_mainline": {
+      "edges": [
+        "169929488#0",
+        "169728799",
+        "280963368",
+        "548446463",
+        "1414146972",
+        "86198714"
+      ],
+      "length_m": 770.4
+    },
+    "south_ramp_through_taper": {
+      "edges": [
+        "169929488#1",
+        "1414146968",
+        "372821396",
+        "544292617",
+        "544292616",
+        "844484877",
+        "844484877#1"
+      ],
+      "length_m": 1452.4699999999998
+    },
     "south_to_east": {
       "edges": [
         "86198728",
@@ -91,7 +139,7 @@
         "544292616",
         "844484877"
       ],
-      "length_m": 1493.5700000000002
+      "length_m": 1144.24
     },
     "return_to_north": {
       "edges": [
@@ -102,7 +150,7 @@
         "86198722",
         "86198708"
       ],
-      "length_m": 938.25
+      "length_m": 934.3000000000001
     },
     "return_to_south": {
       "edges": [
@@ -114,7 +162,7 @@
         "206426298",
         "844484877"
       ],
-      "length_m": 1737.3700000000001
+      "length_m": 1380.91
     },
     "toegyewon_to_sano": {
       "edges": [
@@ -145,7 +193,7 @@
         "544292616",
         "844484877"
       ],
-      "length_m": 2137.44
+      "length_m": 1788.15
     },
     "sano_north_to_south": {
       "edges": [
@@ -167,6 +215,11 @@
       ],
       "length_m": 487.09999999999997
     }
+  },
+  "geometry_tolerances_m": {
+    "unchanged": 0.05,
+    "rounded_curves": 1.0,
+    "auxiliary_lane_drop_center_shift": 1.65
   },
   "limitations": [
     "Lane-to-lane mapping and signals inferred by SUMO where OSM lacks detail",

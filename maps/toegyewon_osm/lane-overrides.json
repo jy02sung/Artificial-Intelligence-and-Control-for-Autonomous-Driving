@@ -92,9 +92,30 @@
   },
   "372821396": {
     "num_lanes": 2,
-    "confidence": "transition_extent_provisional",
-    "basis": "User satellite reference 2026-11-07: westbound approach remains 3 lanes until fork; upper branch one lane, lower branch two lanes. For 372821396, two-lane continuation retained up to existing OSM boundary; downstream taper position needs precise survey.",
-    "evidence": "docs/assets/osm-audit/westbound-three-lane-split.png",
+    "confidence": "visible",
+    "basis": "Naver satellite inspected continuously from the curve through the parallel approach to the mainline merge. Two ramp lanes; do not drop at OSM way boundaries. Downstream auxiliary-lane taper audited separately.",
+    "evidence": "docs/assets/osm-audit/south-ramp-two-lanes-gore.png",
     "source_osm_lanes": null
+  },
+  "544292617": {
+    "num_lanes": 2,
+    "confidence": "visible",
+    "basis": "Naver satellite inspected continuously from the curve through the parallel approach to the mainline merge. Two ramp lanes; do not drop at OSM way boundaries. Downstream auxiliary-lane taper audited separately.",
+    "evidence": "docs/assets/osm-audit/south-ramp-two-lanes-gore.png",
+    "source_osm_lanes": null
+  },
+  "544292616": {
+    "num_lanes": 2,
+    "confidence": "visible",
+    "basis": "Naver satellite inspected continuously from the curve through the parallel approach to the mainline merge. Two ramp lanes; do not drop at OSM way boundaries. Downstream auxiliary-lane taper audited separately.",
+    "evidence": "docs/assets/osm-audit/south-ramp-two-lanes-gore.png",
+    "source_osm_lanes": null
+  },
+  "844484877": {
+    "num_lanes": 5,
+    "confidence": "satellite_approximate_taper",
+    "basis": "Five lanes including auxiliary lane after south merge, then four at the end of the auxiliary taper (near 37.6338 N). Split uses existing source vertex near that location; imagery is not a survey.",
+    "source_osm_lanes": "4",
+    "evidence": "docs/assets/osm-audit/south-auxiliary-lane-taper-overview.png"
   }
 }

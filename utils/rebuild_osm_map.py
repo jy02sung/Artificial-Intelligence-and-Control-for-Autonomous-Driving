@@ -1,4 +1,5 @@
 """Rebuild the review map directly from the user-supplied OSM, no hand-shaped roads."""
+import math
 import hashlib
 import json
 import subprocess
@@ -44,6 +45,24 @@ def build():
         if eid not in scope['edges']:raise ValueError(f'Override outside selected scope: {eid}')
         ET.SubElement(corrections,'edge',id=eid,numLanes=str(item['num_lanes']))
     full_edges={e.get('id'):e for e in full.findall('edge')}
+    # Round survey-polyline corners locally, never moving endpoints or the road corridor.
+    # Quadratic corner cuts are bounded to <= 1 m from the original polyline.
+    rounded={}
+    for eid in ('544295537','169929488#1','169728799','280963368','372821396'):
+        pts=[tuple(map(float,p.split(','))) for p in full_edges[eid].get('shape').split()]
+        out=[pts[0]]
+        for a,b,c in zip(pts,pts[1:],pts[2:]):
+            ab=math.dist(a,b);bc=math.dist(b,c);d=min(4.,ab*.2,bc*.2)
+            u=tuple(b[k]+(a[k]-b[k])*d/ab for k in range(2))
+            v=tuple(b[k]+(c[k]-b[k])*d/bc for k in range(2))
+            out.append(u)
+            for t in (.25,.5,.75,1.):
+                out.append(tuple((1-t)**2*u[k]+2*t*(1-t)*b[k]+t*t*v[k] for k in range(2)))
+        out.append(pts[-1]);rounded[eid]=out
+        edge=next((e for e in corrections if e.get('id')==eid),None)
+        if edge is None:edge=ET.SubElement(corrections,'edge',id=eid)
+        edge.set('shape',' '.join(f'{x:.2f},{y:.2f}' for x,y in out))
+
     for eid in markings['solid']:
         if eid not in scope['edges']:raise ValueError(f'Marking outside scope: {eid}')
         edge=next((e for e in corrections if e.get('id')==eid),None)
@@ -56,7 +75,7 @@ def build():
             ET.SubElement(edge,'lane',**attrs)
     ET.ElementTree(corrections).write(DEST/'lane-overrides.edg.xml',encoding='utf8',xml_declaration=True)
     # A net.xml import keeps obsolete lane links unless explicitly reset (SUMO PlainXML).
-    affected=set(overrides)|set(markings['solid'])
+    affected=set(overrides)|set(markings['solid'])|set(rounded)
     incoming={c.get('from') for c in full.findall('connection') if c.get('to') in affected}
     reset_edges=(affected|incoming)&set(scope['edges'])
     links=ET.Element('connections')
@@ -70,12 +89,21 @@ def build():
     crop=subprocess.run(crop_args,cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
     with (DEST/'conversion-warnings.txt').open('a',encoding='utf8') as log:log.write('\nScope crop:\n'+crop.stdout+'\n'+crop.stderr)
     crop.check_returncode()
+    # Keep the auxiliary lane through the observed downstream taper, not just to the OSM merge node.
+    shape=[tuple(map(float,p.split(','))) for p in full_edges['844484877'].get('shape').split()]
+    split_distance=sum(math.dist(a,b) for a,b in zip(shape[:3],shape[1:4]))
+    patch=ET.Element('edges');edge=ET.SubElement(patch,'edge',id='844484877')
+    ET.SubElement(edge,'split',pos=f'{split_distance:.2f}',lanes='1 2 3 4',idBefore='844484877',idAfter='844484877#1')
+    ET.ElementTree(patch).write(DEST/'auxiliary-taper.edg.xml',encoding='utf8',xml_declaration=True)
+    tapered=subprocess.run([checkBinary('netconvert'),'--sumo-net-file','network.net.xml','--edge-files','auxiliary-taper.edg.xml','--output-file','network.net.xml','--no-turnarounds','true'],cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
+    with (DEST/'conversion-warnings.txt').open('a',encoding='utf8') as log:log.write('\nAuxiliary taper:\n'+tapered.stdout+'\n'+tapered.stderr)
+    tapered.check_returncode()
     net=ET.parse(DEST/'network.net.xml').getroot();external=[e for e in net.findall('edge') if e.get('function')!='internal']
     audit=[]
     for e in external:
         way_id=e.get('id').lstrip('-').split('#')[0];way=ways.get(way_id)
         tags={t.get('k'):t.get('v') for t in way.findall('tag')} if way is not None else {}
-        audit.append(dict(edge=e.get('id'),osm_way=way_id,lanes=len(e.findall('lane')),osm_lanes=tags.get('lanes'),osm_directional_lanes={k:v for k,v in tags.items() if k.startswith('lanes:')},oneway=tags.get('oneway'),highway=tags.get('highway'),maxspeed=tags.get('maxspeed'),layer=tags.get('layer'),bridge=tags.get('bridge'),turn_lanes={k:v for k,v in tags.items() if k.startswith('turn:lanes')},lane_override=overrides.get(e.get('id')),marking_status='solid_verified' if e.get('id') in markings['solid'] else 'dashed_verified' if e.get('id') in markings['dashed'] else 'mixed_unresolved' if e.get('id') in markings['unresolved'] else 'not_applicable' if len(e.findall('lane'))==1 else 'unverified',lane_source='Project override ('+overrides[e.get('id')].get('confidence','visible')+')' if e.get('id') in overrides else 'OSM tag (directional split may apply)' if 'lanes' in tags or any(k.startswith('lanes:') for k in tags) else 'SUMO road-type default, unverified'))
+        audit.append(dict(edge=e.get('id'),osm_way=way_id,lanes=len(e.findall('lane')),osm_lanes=tags.get('lanes'),osm_directional_lanes={k:v for k,v in tags.items() if k.startswith('lanes:')},oneway=tags.get('oneway'),highway=tags.get('highway'),maxspeed=tags.get('maxspeed'),layer=tags.get('layer'),bridge=tags.get('bridge'),turn_lanes={k:v for k,v in tags.items() if k.startswith('turn:lanes')},lane_override=overrides.get(e.get('id')),geometry_rounding=e.get('id') in rounded,marking_status='solid_verified' if e.get('id') in markings['solid'] else 'dashed_verified' if e.get('id') in markings['dashed'] else 'mixed_unresolved' if e.get('id') in markings['unresolved'] else 'not_applicable' if len(e.findall('lane'))==1 else 'unverified',lane_source='Project override ('+overrides[e.get('id')].get('confidence','visible')+')' if e.get('id') in overrides else 'OSM tag (directional split may apply)' if 'lanes' in tags or any(k.startswith('lanes:') for k in tags) else 'SUMO road-type default, unverified'))
     report=dict(source_sha256=hashlib.sha256((DEST/'source.osm').read_bytes()).hexdigest(),source_bounds=bounds.attrib,scope=scope,crop_command=crop_args[1:],command=args[1:],sumo_version=subprocess.check_output([checkBinary('netconvert'),'--version'],text=True).splitlines()[0],external_edges=len(external),lanes=sum(len(e.findall('lane')) for e in external),restriction_relations_kept=kept,incomplete_restrictions_omitted=dropped,edges=audit)
     (DEST/'import-audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')
     # Native lane rendering avoids the old crossing rectangles and hand-drawn stripes.
