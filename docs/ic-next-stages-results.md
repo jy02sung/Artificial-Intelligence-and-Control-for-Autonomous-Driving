@@ -1,6 +1,6 @@
 # 수정 맵 후속 실험 결과
 
-현재 단계: **evaluated shared-N1-33**
+현재 단계: **blocked: shared policy gate**
 
 합성 수요이며 실측 교통량이 아니다. 강제 경로 보정은 사용하지 않는다. [실험 조건·통과 기준](ic-next-stages-plan.md).
 
