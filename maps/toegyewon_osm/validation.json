@@ -1,4 +1,10 @@
 {
+  "intentional_geometry_changes": [
+    {
+      "edge": "280963368",
+      "reason": "User requested earlier merge, original OSM geometry intentionally changed"
+    }
+  ],
   "lane_continuity_checks": [
     [
       "544295537",
@@ -51,14 +57,9 @@
       1
     ],
     [
-      "280963368",
-      "548446463",
-      1
-    ],
-    [
-      "548446463",
-      "1414146972",
-      1
+      "170059993#1",
+      "544293888#0",
+      2
     ]
   ],
   "solid_edges_checked": 4,
@@ -66,21 +67,19 @@
   "status": "passed",
   "geometry_deviations": [],
   "no_simulation_steps_or_training": true,
-  "source_geometry_edges_checked": 90,
-  "max_projected_source_error_m": 1.6052350305684537,
-  "explicit_oneway_lane_tag_checks": 44,
-  "roads_with_unverified_lane_defaults": 30,
+  "source_geometry_edges_checked": 87,
+  "max_projected_source_error_m": 1.6227741178386457,
+  "explicit_oneway_lane_tag_checks": 40,
+  "roads_with_unverified_lane_defaults": 29,
   "routes": {
     "west_fork_to_north_mainline": {
       "edges": [
         "169929488#0",
         "169728799",
         "280963368",
-        "548446463",
-        "1414146972",
-        "86198714"
+        "1414146971"
       ],
-      "length_m": 770.4
+      "length_m": 443.59999999999997
     },
     "south_ramp_through_taper": {
       "edges": [
@@ -92,7 +91,7 @@
         "844484877",
         "844484877#1"
       ],
-      "length_m": 1452.4699999999998
+      "length_m": 1464.56
     },
     "south_to_east": {
       "edges": [
@@ -139,30 +138,33 @@
         "544292616",
         "844484877"
       ],
-      "length_m": 1144.24
+      "length_m": 1156.33
     },
     "return_to_north": {
       "edges": [
         "170059993",
+        "170059993#1",
         "544293888#0",
         "37375274",
         "844484878#1",
         "86198722",
         "86198708"
       ],
-      "length_m": 934.3000000000001
+      "length_m": 915.9599999999998
     },
     "return_to_south": {
       "edges": [
         "170059993",
+        "170059993#1",
         "544293888#0",
         "544293888#1",
         "86198710",
         "170059989",
         "206426298",
+        "206426298#1",
         "844484877"
       ],
-      "length_m": 1380.91
+      "length_m": 1373.36
     },
     "toegyewon_to_sano": {
       "edges": [
@@ -193,7 +195,7 @@
         "544292616",
         "844484877"
       ],
-      "length_m": 1788.15
+      "length_m": 1800.2400000000002
     },
     "sano_north_to_south": {
       "edges": [

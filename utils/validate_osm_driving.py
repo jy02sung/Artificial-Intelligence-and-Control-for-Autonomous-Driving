@@ -1,0 +1,40 @@
+"""Small network passage regression, not AV training or traffic performance evaluation."""
+import json, os
+os.environ['IC_LIBSUMO']='1'
+from env.sumo_env import traci
+from sumolib import checkBinary
+import sumolib
+from utils.rebuild_osm_map import DEST
+
+def main():
+    net=sumolib.net.readNet(str(DEST/'network.net.xml'))
+    cases=[('short_north','169929488#0','1414146971',0),
+           ('pocket_right','170059993#1','1414146971',0),
+           ('pocket_left','170059993#1','206426298#1',1),
+           ('pocket_entry_right','170059993','1414146971',0),
+           ('pocket_entry_left','170059993','206426298#1',0),
+           ('loop_merge','170059989','206426298#1',0)]
+    cases += [(f'mainline_{i}','37927509','206426298#1',i) for i in range(4)]
+    cases += [(f'south_ramp_{i}','169929488#1','844484877#1',i) for i in range(2)]
+    rows=[]
+    for name,start,end,lane in cases:
+        path,_=net.getShortestPath(net.getEdge(start),net.getEdge(end),vClass='passenger')
+        assert path,name
+        route=[e.getID() for e in path]
+        traci.start([checkBinary('sumo'),'-c',str(DEST/'review.sumocfg'),'--no-step-log','true','--time-to-teleport','-1'])
+        arrived=False;collisions=0;teleports=0
+        try:
+            traci.route.add('route',route)
+            traci.vehicle.add('probe','route',departLane=str(lane),departSpeed='5')
+            for t in range(600):
+                traci.simulationStep()
+                collisions+=traci.simulation.getCollidingVehiclesNumber()
+                teleports+=traci.simulation.getStartingTeleportNumber()
+                if 'probe' in traci.simulation.getArrivedIDList():arrived=True;break
+        finally:traci.close()
+        rows.append(dict(case=name,route=route,depart_lane=lane,arrived=arrived,seconds=t+1,collisions=collisions,teleports=teleports))
+    report=dict(purpose='SUMO default-driver network passage only; no HV traffic, no AV/RL evaluation',cases=rows)
+    (DEST/'ramp-smoke-validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8')
+    assert all(r['arrived'] and not r['collisions'] and not r['teleports'] for r in rows),rows
+    print(f"{len(rows)}/{len(rows)} passed; no collisions or teleports")
+if __name__=='__main__':main()

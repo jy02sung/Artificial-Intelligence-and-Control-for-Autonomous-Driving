@@ -117,5 +117,23 @@
     "basis": "Five lanes including auxiliary lane after south merge, then four at the end of the auxiliary taper (near 37.6338 N). Split uses existing source vertex near that location; imagery is not a survey.",
     "source_osm_lanes": "4",
     "evidence": "docs/assets/osm-audit/south-auxiliary-lane-taper-overview.png"
+  },
+  "544293888#0": {
+    "num_lanes": 2,
+    "confidence": "visible",
+    "basis": "User satellite screenshot: two-lane pocket before fork. Right lane leads to 37375274, left lane to 544293888#1.",
+    "source_osm_lanes": null
+  },
+  "37927509": {
+    "num_lanes": 4,
+    "source_osm_lanes": "3",
+    "confidence": "user_satellite_correction",
+    "basis": "User satellite confirms four mainline lanes remain before the single-lane loop merge; OSM three-lane tag is overridden."
+  },
+  "206426298": {
+    "num_lanes": 5,
+    "source_osm_lanes": "4",
+    "confidence": "visible_count_approximate_taper",
+    "basis": "User satellite: four mainline lanes plus one loop ramp = five, then four downstream. Taper uses source vertex near end of auxiliary section; not surveyed."
   }
 }

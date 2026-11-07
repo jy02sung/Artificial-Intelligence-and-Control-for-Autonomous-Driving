@@ -63,7 +63,12 @@ def build():
         if edge is None:edge=ET.SubElement(corrections,'edge',id=eid)
         edge.set('shape',' '.join(f'{x:.2f},{y:.2f}' for x,y in out))
 
+    adjustments=json.loads((DEST/'layout-adjustments.json').read_text(encoding='utf8'))
+    north=adjustments['north_merge'];edge=next(e for e in corrections if e.get('id')==north['edge'])
+    edge.set('to',north['to']);edge.set('shape',north['shape'])
+    ET.SubElement(corrections,'edge',id=adjustments['pocket']['approach'],numLanes='2')
     for eid in markings['solid']:
+
         if eid not in scope['edges']:raise ValueError(f'Marking outside scope: {eid}')
         edge=next((e for e in corrections if e.get('id')==eid),None)
         if edge is None:edge=ET.SubElement(corrections,'edge',id=eid)
@@ -75,7 +80,7 @@ def build():
             ET.SubElement(edge,'lane',**attrs)
     ET.ElementTree(corrections).write(DEST/'lane-overrides.edg.xml',encoding='utf8',xml_declaration=True)
     # A net.xml import keeps obsolete lane links unless explicitly reset (SUMO PlainXML).
-    affected=set(overrides)|set(markings['solid'])|set(rounded)
+    affected=set(overrides)|set(markings['solid'])|set(rounded)|{adjustments['pocket']['approach'],'86198708'}
     incoming={c.get('from') for c in full.findall('connection') if c.get('to') in affected}
     reset_edges=(affected|incoming)&set(scope['edges'])
     links=ET.Element('connections')
@@ -85,7 +90,13 @@ def build():
     for before,after in sorted({(c['from'],c['to']) for c in explicit}):ET.SubElement(links,'delete',{'from':before,'to':after})
     for c in explicit:ET.SubElement(links,'connection',{k:str(v) for k,v in c.items()})
     ET.ElementTree(links).write(DEST/'connection-resets.con.xml',encoding='utf8',xml_declaration=True)
-    crop_args=[checkBinary('netconvert'),'--sumo-net-file','full-import.net.xml','--edge-files','lane-overrides.edg.xml','--connection-files','connection-resets.con.xml','--keep-edges.explicit',','.join(scope['edges']),'--output-file','network.net.xml','--no-turnarounds','true','--geometry.remove','false']
+    # Bound this merge polygon: automatic re-import clipping can swallow the nearby loop.
+    node_patch=ET.Element('nodes')
+    cx,cy=1664.64,1170.28;ux,uy=13.29,-75.39;norm=math.hypot(ux,uy);ux/=norm;uy/=norm
+    polygon=[(cx+a*ux-b*uy,cy+a*uy+b*ux) for a,b in ((-12,-9),(-12,9),(12,9),(12,-9))]
+    ET.SubElement(node_patch,'node',id='436249330',shape=' '.join(f'{x:.2f},{y:.2f}' for x,y in polygon))
+    ET.ElementTree(node_patch).write(DEST/'merge-shape.nod.xml',encoding='utf8',xml_declaration=True)
+    crop_args=[checkBinary('netconvert'),'--sumo-net-file','full-import.net.xml','--edge-files','lane-overrides.edg.xml','--connection-files','connection-resets.con.xml','--node-files','merge-shape.nod.xml','--keep-edges.explicit',','.join(scope['edges']),'--output-file','network.net.xml','--no-turnarounds','true','--geometry.remove','false']
     crop=subprocess.run(crop_args,cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
     with (DEST/'conversion-warnings.txt').open('a',encoding='utf8') as log:log.write('\nScope crop:\n'+crop.stdout+'\n'+crop.stderr)
     crop.check_returncode()
@@ -94,8 +105,20 @@ def build():
     split_distance=sum(math.dist(a,b) for a,b in zip(shape[:3],shape[1:4]))
     patch=ET.Element('edges');edge=ET.SubElement(patch,'edge',id='844484877')
     ET.SubElement(edge,'split',pos=f'{split_distance:.2f}',lanes='1 2 3 4',idBefore='844484877',idAfter='844484877#1')
+    pocket=ET.SubElement(patch,'edge',id=adjustments['pocket']['approach'])
+    ET.SubElement(pocket,'split',pos='0',lanes='1')
+    ET.SubElement(pocket,'split',pos=str(-adjustments['pocket']['last_m']),lanes='0 1',idBefore='170059993',idAfter='170059993#1')
     ET.ElementTree(patch).write(DEST/'auxiliary-taper.edg.xml',encoding='utf8',xml_declaration=True)
-    tapered=subprocess.run([checkBinary('netconvert'),'--sumo-net-file','network.net.xml','--edge-files','auxiliary-taper.edg.xml','--output-file','network.net.xml','--no-turnarounds','true'],cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
+    shape2=[tuple(map(float,p.split(','))) for p in full_edges['206426298'].get('shape').split()]
+    loop_split=sum(math.dist(a,b) for a,b in zip(shape2[:3],shape2[1:4]))
+    loop=ET.SubElement(patch,'edge',id='206426298')
+    ET.SubElement(loop,'split',pos=f'{loop_split:.2f}',lanes='1 2 3 4',idBefore='206426298',idAfter='206426298#1')
+    ET.ElementTree(patch).write(DEST/'auxiliary-taper.edg.xml',encoding='utf8',xml_declaration=True)
+    # Lane reduction at the pocket entrance invalidates the old target lane index.
+    split_links=ET.Element('connections')
+    ET.SubElement(split_links,'connection',{'from':'781184662#1','reset':'true'})
+    ET.ElementTree(split_links).write(DEST/'split-resets.con.xml',encoding='utf8',xml_declaration=True)
+    tapered=subprocess.run([checkBinary('netconvert'),'--sumo-net-file','network.net.xml','--edge-files','auxiliary-taper.edg.xml','--connection-files','split-resets.con.xml','--node-files','merge-shape.nod.xml','--output-file','network.net.xml','--no-turnarounds','true'],cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
     with (DEST/'conversion-warnings.txt').open('a',encoding='utf8') as log:log.write('\nAuxiliary taper:\n'+tapered.stdout+'\n'+tapered.stderr)
     tapered.check_returncode()
     net=ET.parse(DEST/'network.net.xml').getroot();external=[e for e in net.findall('edge') if e.get('function')!='internal']
@@ -103,7 +126,7 @@ def build():
     for e in external:
         way_id=e.get('id').lstrip('-').split('#')[0];way=ways.get(way_id)
         tags={t.get('k'):t.get('v') for t in way.findall('tag')} if way is not None else {}
-        audit.append(dict(edge=e.get('id'),osm_way=way_id,lanes=len(e.findall('lane')),osm_lanes=tags.get('lanes'),osm_directional_lanes={k:v for k,v in tags.items() if k.startswith('lanes:')},oneway=tags.get('oneway'),highway=tags.get('highway'),maxspeed=tags.get('maxspeed'),layer=tags.get('layer'),bridge=tags.get('bridge'),turn_lanes={k:v for k,v in tags.items() if k.startswith('turn:lanes')},lane_override=overrides.get(e.get('id')),geometry_rounding=e.get('id') in rounded,marking_status='solid_verified' if e.get('id') in markings['solid'] else 'dashed_verified' if e.get('id') in markings['dashed'] else 'mixed_unresolved' if e.get('id') in markings['unresolved'] else 'not_applicable' if len(e.findall('lane'))==1 else 'unverified',lane_source='Project override ('+overrides[e.get('id')].get('confidence','visible')+')' if e.get('id') in overrides else 'OSM tag (directional split may apply)' if 'lanes' in tags or any(k.startswith('lanes:') for k in tags) else 'SUMO road-type default, unverified'))
+        audit.append(dict(edge=e.get('id'),osm_way=way_id,lanes=len(e.findall('lane')),osm_lanes=tags.get('lanes'),osm_directional_lanes={k:v for k,v in tags.items() if k.startswith('lanes:')},oneway=tags.get('oneway'),highway=tags.get('highway'),maxspeed=tags.get('maxspeed'),layer=tags.get('layer'),bridge=tags.get('bridge'),turn_lanes={k:v for k,v in tags.items() if k.startswith('turn:lanes')},lane_override=overrides.get(e.get('id')),geometry_rounding=e.get('id') in rounded and e.get('id')!=north['edge'],layout_adjustment='user_requested_north_shortening' if e.get('id')==north['edge'] else 'advance_fork_pocket' if e.get('id') in ('170059993','170059993#1','544293888#0') else None,marking_status='solid_verified' if e.get('id') in markings['solid'] else 'dashed_verified' if e.get('id') in markings['dashed'] else 'mixed_unresolved' if e.get('id') in markings['unresolved'] else 'not_applicable' if len(e.findall('lane'))==1 else 'unverified',lane_source='Project override ('+overrides[e.get('id')].get('confidence','visible')+')' if e.get('id') in overrides else 'OSM tag (directional split may apply)' if 'lanes' in tags or any(k.startswith('lanes:') for k in tags) else 'SUMO road-type default, unverified'))
     report=dict(source_sha256=hashlib.sha256((DEST/'source.osm').read_bytes()).hexdigest(),source_bounds=bounds.attrib,scope=scope,crop_command=crop_args[1:],command=args[1:],sumo_version=subprocess.check_output([checkBinary('netconvert'),'--version'],text=True).splitlines()[0],external_edges=len(external),lanes=sum(len(e.findall('lane')) for e in external),restriction_relations_kept=kept,incomplete_restrictions_omitted=dropped,edges=audit)
     (DEST/'import-audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')
     # Native lane rendering avoids the old crossing rectangles and hand-drawn stripes.

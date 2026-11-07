@@ -10,7 +10,7 @@ def main():
  source=ET.parse(DEST/'source.osm').getroot();ways={w.get('id'):w for w in source.findall('way')};nodes={n.get('id'):(float(n.get('lon')),float(n.get('lat'))) for n in source.findall('node')}
  root=ET.parse(DEST/'network.net.xml').getroot();junctions={j.get('id'):j for j in root.findall('junction')};edges={e.get('id'):e for e in root.findall('edge') if e.get('function')!='internal'}
  scope=json.loads((DEST/'scope.json').read_text(encoding='utf8'))
- assert set(edges)==set(scope['edges'])|{'844484877#1'}, 'Unexpected missing or extra scope edges'
+ assert set(edges)==set(scope['edges'])|{'844484877#1','170059993#1','206426298#1'}, 'Unexpected missing or extra scope edges'
  audit=json.loads((DEST/'import-audit.json').read_text(encoding='utf8'));lane_checks=0
  for row in audit['edges']:
   if row['oneway']=='yes' and row['osm_lanes'] and row['osm_lanes'].isdigit() and not row.get('lane_override'):
@@ -24,7 +24,8 @@ def main():
  assert edges['544292616'].get('to')==edges['844484877'].get('from')=='1000493465'
  assert not any(c.get('from')=='86198728' and c.get('to','').startswith('169929488') for c in root.findall('connection'))
  # Audit raw centerlines against OSM nodes. SUMO overlap avoidance can shift endpoints; report rather than conceal these deviations.
- max_error=0.;checked=0;cache={};deviations=[]
+ max_error=0.;checked=0;cache={};deviations=[];intentional_changes=[]
+ adjustments=json.loads((DEST/'layout-adjustments.json').read_text(encoding='utf8'))
  traci.start([checkBinary('sumo'),'-c',str(DEST/'review.sumocfg'),'--no-step-log','true'])
  try:
   for eid,e in edges.items():
@@ -32,13 +33,18 @@ def main():
    if wid not in cache:cache[wid]=[traci.simulation.convertGeo(*nodes[n.get('ref')],fromGeo=True) for n in w.findall('nd')]
    if e.get('shape'):points=[tuple(map(float,p.split(',')[:2])) for p in e.get('shape').split()]
    else:points=[(float(junctions[e.get(side)].get('x')),float(junctions[e.get(side)].get('y'))) for side in ('from','to')]
+   if eid==adjustments['north_merge']['edge']:
+    expected=[tuple(map(float,p.split(','))) for p in adjustments['north_merge']['shape'].split()]
+    assert points==expected,'Shortened merge differs from approved adjustment'
+    intentional_changes.append(dict(edge=eid,reason='User requested earlier merge, original OSM geometry intentionally changed'))
+    continue
    for p in points:
     def segment_distance(a,b):
      dx=b[0]-a[0];dy=b[1]-a[1];length2=dx*dx+dy*dy
      t=max(0.,min(1.,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/length2)) if length2 else 0.
      return math.hypot(p[0]-a[0]-t*dx,p[1]-a[1]-t*dy)
     error=min(segment_distance(a,b) for a,b in zip(cache[wid],cache[wid][1:]));max_error=max(max_error,error)
-    tolerance=1.65 if eid=='844484877#1' else 1.0 if eid in {'544295537','169929488#1','169728799','280963368','372821396'} else .05  # half-lane center shift after rightmost lane drop
+    tolerance=1.65 if eid in {'844484877#1','170059993','170059993#1','206426298#1'} else 1.0 if eid in {'544295537','169929488#1','169728799','280963368','372821396'} else .05  # half-lane center shift after rightmost lane drop
     if error>tolerance:deviations.append(dict(edge=eid,error_m=error,point=p))
    checked+=1
  finally:traci.close()
@@ -51,22 +57,31 @@ def main():
  for eid in markings['dashed']:
   assert all(l.get('changeLeft') is None and l.get('changeRight') is None for l in edges[eid].findall('lane')),eid
  connections={(c.get('from'),int(c.get('fromLane')),c.get('to'),int(c.get('toLane'))) for c in root.findall('connection')}
+ assert ('544293888#0',0,'37375274',0) in connections
+ assert ('544293888#0',1,'544293888#1',0) in connections
+ assert edges['280963368'].get('to')=='436249297'
+ assert len(edges['170059993'].findall('lane'))==1
+ assert len(edges['170059993#1'].findall('lane'))==2
  expected_fork={('169929488#0',0,'169728799',0),('169929488#0',1,'169929488#1',0),('169929488#0',2,'169929488#1',1)}
  assert {c for c in connections if c[0]=='169929488#0'}==expected_fork
- continuity=[('544295537','169929488#0',3),('169929488#1','1414146968',2),('1414146968','372821396',2),('1413342573','544295537',3),('169929478','169929482',2),('597119334','597119333',2),('841607184#0','841607184#1',2),('372821396','544292617',2),('544292617','544292616',2),('169728799','280963368',1),('280963368','548446463',1),('548446463','1414146972',1)]
+ continuity=[('544295537','169929488#0',3),('169929488#1','1414146968',2),('1414146968','372821396',2),('1413342573','544295537',3),('169929478','169929482',2),('597119334','597119333',2),('841607184#0','841607184#1',2),('372821396','544292617',2),('544292617','544292616',2),('169728799','280963368',1),('170059993#1','544293888#0',2)]
  for before,after,count in continuity:
   for lane in range(count):assert (before,lane,after,lane) in connections,(before,after,lane)
+ assert float(edges['170059989'].find('lane').get('length'))>250, 'Merge polygon swallowed the loop ramp'
+ assert len(edges['37927509'].findall('lane'))==4
+ assert len(edges['206426298'].findall('lane'))==5
+ assert len(edges['206426298#1'].findall('lane'))==4
  assert len(edges['844484877#1'].findall('lane'))==4
- for lane in range(4):assert ('206426298',lane,'844484877',lane+1) in connections
+ for lane in range(4):assert ('206426298#1',lane,'844484877',lane+1) in connections
  for lane in range(2):assert ('544292616',lane,'844484877',lane) in connections
  for lane in range(1,5):assert ('844484877',lane,'844484877#1',lane-1) in connections
  net=sumolib.net.readNet(str(DEST/'network.net.xml'))
- pairs=[('west_fork_to_north_mainline','169929488#0','86198714'),('south_ramp_through_taper','169929488#1','844484877#1'),('south_to_east','86198728','1063527748'),('north_to_east','52873356','1063527748'),('north_to_west','52873356','170059992'),('outer_to_south','169929488#0','844484877'),('return_to_north','170059993','86198708'),('return_to_south','170059993','844484877'),('toegyewon_to_sano','86198728','169929482'),('sano_to_toegyewon','169929493','844484877'),('sano_north_to_south','596640907','72387791#1'),('sano_south_to_north','841607178#15','841607184#3')]
+ pairs=[('west_fork_to_north_mainline','169929488#0','1414146971'),('south_ramp_through_taper','169929488#1','844484877#1'),('south_to_east','86198728','1063527748'),('north_to_east','52873356','1063527748'),('north_to_west','52873356','170059992'),('outer_to_south','169929488#0','844484877'),('return_to_north','170059993','86198708'),('return_to_south','170059993','844484877'),('toegyewon_to_sano','86198728','169929482'),('sano_to_toegyewon','169929493','844484877'),('sano_north_to_south','596640907','72387791#1'),('sano_south_to_north','841607178#15','841607184#3')]
  paths={}
  for label,start,end in pairs:
   path,cost=net.getShortestPath(net.getEdge(start),net.getEdge(end),vClass='passenger')
   assert path,label
   paths[label]=dict(edges=[e.getID() for e in path],length_m=cost)
- report=dict(lane_continuity_checks=continuity,solid_edges_checked=len(markings['solid']),dashed_edges_checked=len(markings['dashed']),status='review_required' if deviations else 'passed',geometry_deviations=deviations,no_simulation_steps_or_training=True,source_geometry_edges_checked=checked,max_projected_source_error_m=max_error,explicit_oneway_lane_tag_checks=lane_checks,roads_with_unverified_lane_defaults=sum(r['lane_source'].startswith('SUMO') for r in audit['edges']),routes=paths,geometry_tolerances_m={'unchanged':0.05,'rounded_curves':1.0,'auxiliary_lane_drop_center_shift':1.65},limitations=['Lane-to-lane mapping and signals inferred by SUMO where OSM lacks detail','No measured road elevations; layer topology preserved without physical Z inference','Conversion warnings retained; no traffic-capacity or AV certification'])
+ report=dict(intentional_geometry_changes=intentional_changes,lane_continuity_checks=continuity,solid_edges_checked=len(markings['solid']),dashed_edges_checked=len(markings['dashed']),status='review_required' if deviations else 'passed',geometry_deviations=deviations,no_simulation_steps_or_training=True,source_geometry_edges_checked=checked,max_projected_source_error_m=max_error,explicit_oneway_lane_tag_checks=lane_checks,roads_with_unverified_lane_defaults=sum(r['lane_source'].startswith('SUMO') for r in audit['edges']),routes=paths,geometry_tolerances_m={'unchanged':0.05,'rounded_curves':1.0,'auxiliary_lane_drop_center_shift':1.65},limitations=['Lane-to-lane mapping and signals inferred by SUMO where OSM lacks detail','No measured road elevations; layer topology preserved without physical Z inference','Conversion warnings retained; no traffic-capacity or AV certification'])
  (DEST/'validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8');print(json.dumps(report,ensure_ascii=False,indent=2))
 if __name__=='__main__':main()
