@@ -119,6 +119,7 @@ class ICExperimentEnv(SumoHighwayEnv):
         info["arrived"] = bool(arrived)
         if done and not info["collided"] and not arrived: r = 0.
         bonus = 0.
+        components = dict(route=0., zipper=0., ramp=0.)
         prep = None
         lane_distance = None
         route_ready = None
@@ -126,7 +127,8 @@ class ICExperimentEnv(SumoHighwayEnv):
             if self.variants.intersection(("ROUTE100", "MEASURE_ROUTE")):
                 route_ready = self._route_lane_ready()
                 if route_ready is not None and "ROUTE100" in self.variants:
-                    bonus += .1 if route_ready else -.1
+                    components["route"] = .1 if route_ready else -.1
+                    bonus += components["route"]
             e2,l2,limit2,d2,s2,off2,_ = after
             if edge==e2 and split==s2 and lane!=l2 and l2==0: lane_distance=d2
             if split and split==s2 and d2 is not None and distance is not None and distance>100>=d2 and split not in self.prep_scored:
@@ -149,17 +151,25 @@ class ICExperimentEnv(SumoHighwayEnv):
                 self.zips += 1
                 if all(contenders) and self.last_zip_side is not None:
                     zipper = int(side!=self.last_zip_side)
-                    if "ZIP" in self.variants: bonus += .1 if zipper else -.1
+                    if "ZIP" in self.variants:
+                        components["zipper"] = .1 if zipper else -.1
+                        bonus += components["zipper"]
             self.last_zip_side = side
         elif passed: self.last_zip_side = None
         overspeed = 0.
         if after and after[0] in RAMPS:
             overspeed = max(0.,info["speed"]-after[2])
-            if "RAMP" in self.variants: bonus -= .1*(overspeed/after[2])*self.step_length/.5
+            if "RAMP" in self.variants:
+                components["ramp"] = -.1*(overspeed/after[2])*self.step_length/.5
+                bonus += components["ramp"]
+        scale = .25 if "SCALE025" in self.variants else 1.
+        bonus *= scale
+        components = {k: v*scale if not done else 0. for k,v in components.items()}
         if not done: r = r*self.step_length/.5 + bonus
         event=dict(route=self.episode_route,sumo_seed=self.sumo_seed,prep100=prep,route_lane_ready=route_ready,
                    exit_lane_change_distance_m=lane_distance,zipper_count=self.zips,
                    zipper_compliant=zipper,ramp=bool(after and after[0] in RAMPS),
                    ramp_excess_mps=overspeed,wrong_exit=bool(done and not arrived and not info["collided"]))
+        event["reward_components"] = dict(base=r-sum(components.values()), **components)
         info["ic_event"] = event
         return obs,r,done,cut,info

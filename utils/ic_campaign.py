@@ -54,10 +54,15 @@ def evaluate(agent, variants, seeds, loads):
                 obs,_ = env.reset(seed=seed,options={"route":route})
                 changes = prep = ready = opportunities = compliant = ramp_steps = over_steps = 0
                 route_checks = route_ready = 0
+                reward_sums = dict(base=0., route=0., zipper=0., ramp=0.)
+                reward_counts = dict(base=0, route=0, zipper=0, ramp=0)
                 peak = 0.
                 while True:
                     obs,_,done,cut,info = env.step(agent.predict(obs,deterministic=True))
                     event=info["ic_event"]
+                    for key, value in event.get("reward_components", {}).items():
+                        reward_sums[key] += value
+                        reward_counts[key] += int(value != 0)
                     if event.get("route_lane_ready") is not None:
                         route_checks += 1
                         route_ready += int(event["route_lane_ready"])
@@ -74,7 +79,8 @@ def evaluate(agent, variants, seeds, loads):
                           seconds=env.step_count*env.step_length,changes=changes,prep=prep,ready=ready,
                           zipper=opportunities,compliant=compliant,ramp_steps=ramp_steps,
                           over_steps=over_steps,peak_excess_mps=peak,
-                          route_checks=route_checks,route_ready=route_ready))
+                          route_checks=route_checks,route_ready=route_ready,
+                          reward_sums=reward_sums,reward_counts=reward_counts))
         finally: env.close()
     return rows
 
@@ -94,7 +100,7 @@ class Checkpoints(RunLogger):
             self.save_csv()
             self.next_checkpoint += 20_000
 
-def train_run(name, variants, seed, budget, lr=None, gamma=None):
+def train_run(name, variants, seed, budget, lr=None, gamma=None, final_only=False):
     key=f"{name}-{seed}-{budget}"
     directory=OUT/"runs"/key
     marker=directory/"complete.json"
@@ -126,6 +132,8 @@ def train_run(name, variants, seed, budget, lr=None, gamma=None):
         env.close(); log.close()
     # Evaluate saved policies out of process from training state, on identical cases.
     checkpoints=sorted(directory.glob("policy-*.pt"),key=lambda p:int(p.stem.split("-")[-1]))
+    if final_only:
+        checkpoints = [p for p in checkpoints if p.stem == f"policy-{budget}"]
     final=None
     for path in checkpoints:
         step=int(path.stem.split("-")[-1])
