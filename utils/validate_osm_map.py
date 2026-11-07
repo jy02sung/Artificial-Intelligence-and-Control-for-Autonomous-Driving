@@ -62,12 +62,14 @@ def main():
  assert edges['280963368'].get('to')=='436249297'
  assert len(edges['170059993'].findall('lane'))==1
  assert len(edges['170059993#1'].findall('lane'))==2
+ assert len(edges['781184662#3'].findall('lane'))==3
+ for c in [('797789364',0,'781184662#3',0),('781184662#2',0,'781184662#3',1),('781184662#2',1,'781184662#3',2),('781184662#3',0,'169929484',0),('781184662#3',1,'169929497',0),('781184662#3',2,'169929497',1)]:assert c in connections,c
  expected_fork={('169929488#0',0,'169728799',0),('169929488#0',1,'169929488#1',0),('169929488#0',2,'169929488#1',1)}
  assert {c for c in connections if c[0]=='169929488#0'}==expected_fork
  continuity=[('544295537','169929488#0',3),('169929488#1','1414146968',2),('1414146968','372821396',2),('1413342573','544295537',3),('169929478','169929482',2),('597119334','597119333',2),('841607184#0','841607184#1',2),('372821396','544292617',2),('544292617','544292616',2),('169728799','280963368',1),('170059993#1','544293888#0',2)]
  for before,after,count in continuity:
   for lane in range(count):assert (before,lane,after,lane) in connections,(before,after,lane)
- assert float(edges['170059989'].find('lane').get('length'))>250, 'Merge polygon swallowed the loop ramp'
+ assert sum(float(edges[e].find('lane').get('length')) for e in ('170059989','170059989#1'))>250, 'Merge polygon swallowed the loop ramp'
  assert len(edges['37927509'].findall('lane'))==4
  assert len(edges['206426298'].findall('lane'))==5
  assert len(edges['206426298#1'].findall('lane'))==4

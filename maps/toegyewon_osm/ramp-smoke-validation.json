@@ -28,7 +28,7 @@
       ],
       "depart_lane": 0,
       "arrived": true,
-      "seconds": 40,
+      "seconds": 41,
       "collisions": 0,
       "teleports": 0
     },
@@ -40,12 +40,13 @@
         "544293888#1",
         "86198710",
         "170059989",
+        "170059989#1",
         "206426298",
         "206426298#1"
       ],
       "depart_lane": 1,
       "arrived": true,
-      "seconds": 44,
+      "seconds": 43,
       "collisions": 0,
       "teleports": 0
     },
@@ -76,12 +77,13 @@
         "544293888#1",
         "86198710",
         "170059989",
+        "170059989#1",
         "206426298",
         "206426298#1"
       ],
       "depart_lane": 0,
       "arrived": true,
-      "seconds": 55,
+      "seconds": 54,
       "collisions": 0,
       "teleports": 0
     },
@@ -89,6 +91,7 @@
       "case": "loop_merge",
       "route": [
         "170059989",
+        "170059989#1",
         "206426298",
         "206426298#1"
       ],
@@ -146,7 +149,7 @@
       ],
       "depart_lane": 3,
       "arrived": true,
-      "seconds": 24,
+      "seconds": 25,
       "collisions": 0,
       "teleports": 0
     },
@@ -163,7 +166,7 @@
       ],
       "depart_lane": 0,
       "arrived": true,
-      "seconds": 69,
+      "seconds": 70,
       "collisions": 0,
       "teleports": 0
     },
@@ -181,6 +184,68 @@
       "depart_lane": 1,
       "arrived": true,
       "seconds": 70,
+      "collisions": 0,
+      "teleports": 0
+    },
+    {
+      "case": "middle_right",
+      "route": [
+        "781184662#3",
+        "169929484"
+      ],
+      "depart_lane": 0,
+      "arrived": true,
+      "seconds": 19,
+      "collisions": 0,
+      "teleports": 0
+    },
+    {
+      "case": "middle_through_1",
+      "route": [
+        "781184662#3",
+        "169929497"
+      ],
+      "depart_lane": 1,
+      "arrived": true,
+      "seconds": 18,
+      "collisions": 0,
+      "teleports": 0
+    },
+    {
+      "case": "middle_through_2",
+      "route": [
+        "781184662#3",
+        "169929497"
+      ],
+      "depart_lane": 2,
+      "arrived": true,
+      "seconds": 18,
+      "collisions": 0,
+      "teleports": 0
+    },
+    {
+      "case": "middle_entering",
+      "route": [
+        "797789364",
+        "781184662#3",
+        "169929484"
+      ],
+      "depart_lane": 0,
+      "arrived": true,
+      "seconds": 19,
+      "collisions": 0,
+      "teleports": 0
+    },
+    {
+      "case": "middle_mainline",
+      "route": [
+        "781184662#2",
+        "781184662#3",
+        "169929497"
+      ],
+      "depart_lane": 0,
+      "arrived": true,
+      "seconds": 33,
       "collisions": 0,
       "teleports": 0
     }

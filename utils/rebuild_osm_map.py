@@ -33,6 +33,12 @@ def build():
     result=subprocess.run(args,cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
     (DEST/'conversion-warnings.txt').write_text(result.stdout+'\n'+result.stderr,encoding='utf8')
     result.check_returncode()
+    # Split the returning loop before lane/junction recomputation. Otherwise its nearby
+    # endpoints can make netconvert clip away the complete loop at the merge polygon.
+    loop_patch=ET.Element('edges');loop=ET.SubElement(loop_patch,'edge',id='170059989')
+    ET.SubElement(loop,'split',pos='120',idBefore='170059989',idAfter='170059989#1')
+    ET.ElementTree(loop_patch).write(DEST/'loop-split.edg.xml',encoding='utf8',xml_declaration=True)
+    subprocess.run([checkBinary('netconvert'),'--sumo-net-file','full-import.net.xml','--edge-files','loop-split.edg.xml','--output-file','full-import.net.xml','--no-turnarounds','true'],cwd=DEST,capture_output=True,check=True)
     scope=json.loads((DEST/'scope.json').read_text(encoding='utf8'))
     full=ET.parse(DEST/'full-import.net.xml').getroot()
     existing={e.get('id') for e in full.findall('edge')}
@@ -90,13 +96,7 @@ def build():
     for before,after in sorted({(c['from'],c['to']) for c in explicit}):ET.SubElement(links,'delete',{'from':before,'to':after})
     for c in explicit:ET.SubElement(links,'connection',{k:str(v) for k,v in c.items()})
     ET.ElementTree(links).write(DEST/'connection-resets.con.xml',encoding='utf8',xml_declaration=True)
-    # Bound this merge polygon: automatic re-import clipping can swallow the nearby loop.
-    node_patch=ET.Element('nodes')
-    cx,cy=1664.64,1170.28;ux,uy=13.29,-75.39;norm=math.hypot(ux,uy);ux/=norm;uy/=norm
-    polygon=[(cx+a*ux-b*uy,cy+a*uy+b*ux) for a,b in ((-12,-9),(-12,9),(12,9),(12,-9))]
-    ET.SubElement(node_patch,'node',id='436249330',shape=' '.join(f'{x:.2f},{y:.2f}' for x,y in polygon))
-    ET.ElementTree(node_patch).write(DEST/'merge-shape.nod.xml',encoding='utf8',xml_declaration=True)
-    crop_args=[checkBinary('netconvert'),'--sumo-net-file','full-import.net.xml','--edge-files','lane-overrides.edg.xml','--connection-files','connection-resets.con.xml','--node-files','merge-shape.nod.xml','--keep-edges.explicit',','.join(scope['edges']),'--output-file','network.net.xml','--no-turnarounds','true','--geometry.remove','false']
+    crop_args=[checkBinary('netconvert'),'--sumo-net-file','full-import.net.xml','--edge-files','lane-overrides.edg.xml','--connection-files','connection-resets.con.xml','--keep-edges.explicit',','.join(scope['edges']),'--output-file','network.net.xml','--no-turnarounds','true','--geometry.remove','false']
     crop=subprocess.run(crop_args,cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
     with (DEST/'conversion-warnings.txt').open('a',encoding='utf8') as log:log.write('\nScope crop:\n'+crop.stdout+'\n'+crop.stderr)
     crop.check_returncode()
@@ -118,7 +118,7 @@ def build():
     split_links=ET.Element('connections')
     ET.SubElement(split_links,'connection',{'from':'781184662#1','reset':'true'})
     ET.ElementTree(split_links).write(DEST/'split-resets.con.xml',encoding='utf8',xml_declaration=True)
-    tapered=subprocess.run([checkBinary('netconvert'),'--sumo-net-file','network.net.xml','--edge-files','auxiliary-taper.edg.xml','--connection-files','split-resets.con.xml','--node-files','merge-shape.nod.xml','--output-file','network.net.xml','--no-turnarounds','true'],cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
+    tapered=subprocess.run([checkBinary('netconvert'),'--sumo-net-file','network.net.xml','--edge-files','auxiliary-taper.edg.xml','--connection-files','split-resets.con.xml','--output-file','network.net.xml','--no-turnarounds','true'],cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
     with (DEST/'conversion-warnings.txt').open('a',encoding='utf8') as log:log.write('\nAuxiliary taper:\n'+tapered.stdout+'\n'+tapered.stderr)
     tapered.check_returncode()
     net=ET.parse(DEST/'network.net.xml').getroot();external=[e for e in net.findall('edge') if e.get('function')!='internal']

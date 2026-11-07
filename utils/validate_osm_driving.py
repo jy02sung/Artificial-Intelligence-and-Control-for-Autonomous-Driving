@@ -16,6 +16,11 @@ def main():
            ('loop_merge','170059989','206426298#1',0)]
     cases += [(f'mainline_{i}','37927509','206426298#1',i) for i in range(4)]
     cases += [(f'south_ramp_{i}','169929488#1','844484877#1',i) for i in range(2)]
+    cases += [('middle_right','781184662#3','169929484',0),
+              ('middle_through_1','781184662#3','169929497',1),
+              ('middle_through_2','781184662#3','169929497',2),
+              ('middle_entering','797789364','169929484',0),
+              ('middle_mainline','781184662#2','169929497',0)]
     rows=[]
     for name,start,end,lane in cases:
         path,_=net.getShortestPath(net.getEdge(start),net.getEdge(end),vClass='passenger')
