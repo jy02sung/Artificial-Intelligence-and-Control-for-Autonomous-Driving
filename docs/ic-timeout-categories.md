@@ -19,3 +19,24 @@
 상태 파일은 실행 중이었지만 Python/SUMO 프로세스가 모두 존재하지 않는 것을 두 번 확인했다. 기존 오류 로그는 비어 있어 종료 원인은 확정할 수 없다. 정책과 완료된 평가 파일은 보존됐으며, 세 작업(campaign, combination_trials, timeout_audit)을 재개했다. 학습 완료 정책을 재사용하고 저장된 평가 및 진단 사례를 건너뛴다. 종료 당시 진행 중이던 미저장 평가 묶음은 다시 실행한다.
 
 재개 로그: `results/ic_campaign_v2/{campaign,combination,timeout-audit}-resume-20261107-1514.{stdout,stderr}.log`. 재개 코드 기준 `029e3fd`(시간 초과 계측 추가)이며 이전 평가와 관측·보상·행동 정의는 동일하다. 재개 후 평가는 시간 초과 진단 필드가 추가된다. 코드 변경 없는 실행 복구이므로 별도 코드 수정은 하지 않았다.
+
+## BLOCK seed11 진단 완료 (2026-11-07)
+
+시간 초과 45건 모두 원래 종료시간과 시간 초과 결과가 재현됐다. 마지막 약 60초 기준 차로 연결 실패 후 차로 끝 정지 41건, 혼합·미확인 4건이다. 앞차 정체 또는 계속 주행으로 단독 분류된 사례는 0건이다. 이는 기준을 충족한 분류이며 정체가 전혀 없었다는 뜻은 아니다.
+
+|경로|차로 연결 실패 정지|혼합·미확인|
+|---|---:|---:|
+|north_through|2|0|
+|north_to_east|5|0|
+|north_to_local|2|0|
+|north_to_west|5|0|
+|sano_north_to_west|4|0|
+|sano_south_to_east|5|0|
+|sano_south_to_west|4|0|
+|sano_west_to_north|0|2|
+|sano_west_to_south|0|2|
+|south_to_east|5|0|
+|south_to_local|4|0|
+|south_to_west|5|0|
+
+실행/증거: `results/ic_campaign_v2/timeout-diagnostics/BLOCK-11-200000.json`. 학습 seed11, 평가 seed1001~1005. 진단 코드 `029e3fd`. 정책 SHA256: `95f5b85151a62301fe3114e427802b91cfdaa220af2606b4cfd6563ccc01415f`. 원본 평가는 유지한다. 나머지 모델 진단은 진행 중이다.
