@@ -90,7 +90,7 @@ def build():
     # Center-spreading five lanes on the old four-lane axis shifts every through lane.
     from sumolib.geomhelper import move2side
     junctions={j.get('id'):j for j in full.findall('junction')}
-    for eid in ('844484878#1','86198722','86198708'):
+    for eid in ('844484878#1','86198722','86198708','86198725'):
         auxiliary=next(e for e in corrections if e.get('id')==eid)
         source_edge=full_edges[eid]
         if auxiliary.get('shape'):
@@ -138,6 +138,8 @@ def build():
     split_distance=sum(math.dist(a,b) for a,b in zip(shape[:3],shape[1:4]))
     patch=ET.Element('edges');edge=ET.SubElement(patch,'edge',id='844484877')
     ET.SubElement(edge,'split',pos=f'{split_distance:.2f}',lanes='1 2 3 4',idBefore='844484877',idAfter='844484877#1')
+    south_drop=ET.SubElement(patch,'edge',id='86198725')
+    ET.SubElement(south_drop,'split',pos=str(adjustments['southbound_auxiliary_drop']['after_fork_m']),lanes='1 2 3 4',idBefore='86198725',idAfter='86198725#1')
     north_drop=ET.SubElement(patch,'edge',id='86198708')
     ET.SubElement(north_drop,'split',pos=str(-adjustments['north_auxiliary_drop']['remaining_m_before_merge']),lanes='1 2 3 4',idBefore='86198708',idAfter='86198708#1')
     pocket=ET.SubElement(patch,'edge',id=adjustments['pocket']['approach'])
@@ -156,7 +158,16 @@ def build():
     tapered=subprocess.run([checkBinary('netconvert'),'--sumo-net-file','network.net.xml','--edge-files','auxiliary-taper.edg.xml','--connection-files','split-resets.con.xml','--output-file','network.net.xml','--no-turnarounds','true'],cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
     with (DEST/'conversion-warnings.txt').open('a',encoding='utf8') as log:log.write('\nAuxiliary taper:\n'+tapered.stdout+'\n'+tapered.stderr)
     tapered.check_returncode()
-    net=ET.parse(DEST/'network.net.xml').getroot();external=[e for e in net.findall('edge') if e.get('function')!='internal']
+    final_tree=ET.parse(DEST/'network.net.xml')
+    for segment in final_tree.getroot().findall('edge'):
+        if segment.get('id') not in ('86198725','86198725#1'):continue
+        lanes=segment.findall('lane')
+        for i,lane in enumerate(lanes):
+            for key in ('changeLeft','changeRight'):lane.attrib.pop(key,None)
+            if i<len(lanes)-1 and not (segment.get('id')=='86198725' and i==0):lane.set('changeLeft',markings['solid_allowed_classes'])
+            if i>0 and not (segment.get('id')=='86198725' and i==1):lane.set('changeRight',markings['solid_allowed_classes'])
+    final_tree.write(DEST/'network.net.xml',encoding='utf8',xml_declaration=True)
+    net=final_tree.getroot();external=[e for e in net.findall('edge') if e.get('function')!='internal']
     audit=[]
     for e in external:
         way_id=e.get('id').lstrip('-').split('#')[0];way=ways.get(way_id)

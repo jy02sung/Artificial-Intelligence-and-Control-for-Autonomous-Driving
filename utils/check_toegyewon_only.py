@@ -17,12 +17,19 @@ ic.RAMPS={eid for eid,e in EDGES.items() if e.get('type','').endswith('_link')}
 ROAD_NEW=dict(ROAD,routes=MAN['routes'],edges=[(eid,e.get('from'),e.get('to'),len(e.findall('lane'))) for eid,e in EDGES.items()],connections=[(c.get('from'),c.get('to'),int(c.get('fromLane')),int(c.get('toLane'))) for c in XML.findall('connection') if c.get('from') in EDGES and c.get('to') in EDGES],solid_lane_edges=[eid for eid,e in EDGES.items() if any(l.get('changeLeft') or l.get('changeRight') for l in e.findall('lane'))])
 COMMIT=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
 def stamp():return dict(git=COMMIT,network_sha256=digest(MAP/'network.net.xml'),simulation_seed=1001)
+def checked_existing(target):
+ if not target.exists():return False
+ saved=json.loads(target.read_text())
+ if saved['network_sha256']!=digest(MAP/'network.net.xml'):
+  raise RuntimeError('Map changed: preserve old results and select a new DEST version before running')
+ return True
+
 def hv():
  for route,path in MAN['routes'].items():
   for lane in range(len(EDGES[path[0]].findall('lane'))):
    for ctrl in ('krauss','idm','eidm','acc'):
     key=f'{route}-lane{lane}-{ctrl}';target=DEST/'hv'/(key+'.json')
-    if target.exists():continue
+    if checked_existing(target):continue
     save(DEST/'status.json',dict(stage='H0',case=key))
     traci.start([checkBinary('sumo'),'-c',str(MAP/'review.sumocfg'),'--step-length','.2','--no-step-log','true','--seed','1001','--no-warnings','true'])
     arrived=inserted=False;collision=teleport=0;last={}
@@ -46,7 +53,7 @@ def av(diagnostic=False):
   if not diagnostic:meta=json.loads((modeldir/'complete.json').read_text())
   for route in MAN['routes']:
    key=f'{route}-'+('diagnostic' if diagnostic else f'R0-{seed}');target=DEST/('b' if diagnostic else 'av')/(key+'.json')
-   if target.exists():continue
+   if checked_existing(target):continue
    save(DEST/'status.json',dict(stage='B0' if diagnostic else 'A0',case=key))
    env=ic.ICExperimentEnv(str(MAP/'review.sumocfg'),ROAD_NEW,dict(EGO,depart_lane='best',depart_speed='max'),SIMULATION,OBSERVATION,ACTION,REWARD,dict(TRAFFIC,vehs_per_hour=0,prefill={'enabled':False}),(),11)
    row=dict(route=route,path=MAN['routes'][route],training_seed=seed if not diagnostic else None,controller='diagnostic' if diagnostic else 'R0',**stamp())
