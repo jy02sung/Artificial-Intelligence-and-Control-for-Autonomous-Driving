@@ -85,7 +85,9 @@ def av(diagnostic=False):
     save(target,row)
    finally:env.close()
 def main():
- p=argparse.ArgumentParser();p.add_argument('stage',choices=['hv','av','b']);a=p.parse_args()
+ global DEST
+ p=argparse.ArgumentParser();p.add_argument('stage',choices=['hv','av','b']);p.add_argument('--output',type=Path,default=DEST);a=p.parse_args()
+ DEST=a.output.resolve()
  try:
   if a.stage=='hv':hv()
   else:av(a.stage=='b')
