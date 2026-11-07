@@ -29,3 +29,39 @@
 기본 모델의 출발 1초 이내 충돌 9건을 같은 경로·시드로 재현했다. SUMO 판정은 9건 모두 측면 충돌이다. 같은 모델로 첫 1초간 차로 변경만 억제하자 9건 모두 첫 1초를 통과했다. 전체 경로 안전성은 별도로 평가한다. 원본 기록은 results/ic_campaign_v2/baseline_failure_audit.json 및 early_contact_audit.json에 있다.
 
 후속 비교는 python -m utils.ic_failure_trials로 실행한다. 기준 모델과 출발 1초 차로 유지 설정은 동일 가중치로 110회씩 비교한다. ROUTE100은 기본 PPO에 보상 한 항목만 추가하고 동일 seed 11로 처음부터 20만 스텝 학습한다. 분기 차로 끝에서 100m 이내에 처음 관측한 시점에 다음 도로와 연결된 차로면 +0.1, 아니면 −0.1을 1회 적용한다. 짧은 구간은 진입 시점부터 평가한다. 평가용 교통 시드는 1001~1005다.
+
+## 출발 1초 차로 유지의 전체 경로 평가
+
+02b6653 코드에서 고정된 R0 seed 11의 20만 스텝 정책으로 22경로 × 교통 seed 1001~1005를 비교했다. reference 재현은 기존 110개 결과의 모든 기존 필드와 일치했다.
+
+|조건|완주|충돌|시간 초과|
+|---|---:|---:|---:|
+|기준|55/110|35/110|20/110|
+|첫 1초 차로 유지|54/110|33/110|23/110|
+
+출발 직후 9건의 충돌을 피한 효과가 전체 경로의 동일한 개선으로 이어지지는 않았다. 전체 충돌은 2건 감소했지만 완주는 1건 감소하고 시간 초과는 3건 증가했다. 이후 사고 및 차로 선택 실패까지 평가해야 한다. 원본은 results/ic_campaign_v2/failure-trials/reference.json 및 first-second.json이다.
+
+|경로|기준 완주/충돌/초과|첫 1초 유지 완주/충돌/초과|
+|---|---|---|
+|south_through|0/2/3|0/1/4|
+|north_through|3/2/0|4/1/0|
+|east_through|2/3/0|0/5/0|
+|west_through|3/2/0|3/2/0|
+|south_to_east|0/3/2|0/1/4|
+|south_to_west|2/3/0|2/3/0|
+|south_to_local|0/3/2|0/1/4|
+|north_to_east|4/1/0|4/1/0|
+|north_to_west|2/1/2|2/1/2|
+|north_to_local|4/1/0|4/1/0|
+|east_to_north|5/0/0|5/0/0|
+|east_to_south|5/0/0|5/0/0|
+|outer_to_south|5/0/0|5/0/0|
+|sano_west_to_south|0/2/3|0/3/2|
+|sano_west_to_north|0/2/3|0/3/2|
+|sano_east_to_south|4/1/0|4/1/0|
+|sano_north_through|2/3/0|2/3/0|
+|sano_south_through|4/1/0|4/1/0|
+|sano_south_to_east|5/0/0|5/0/0|
+|sano_south_to_west|3/2/0|3/2/0|
+|sano_north_to_west|2/3/0|2/3/0|
+|west_to_local|0/0/5|0/0/5|
