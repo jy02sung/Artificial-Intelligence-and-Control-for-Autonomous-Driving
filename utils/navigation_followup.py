@@ -6,7 +6,7 @@ from utils import train_navigation_route04 as base
 from env.road_builder import _ic_write_routes
 
 ROOT=base.ROOT
-OUT=ROOT/'results/navigation_followup_v1'
+OUT=ROOT/'results/navigation_followup_v2'
 DOC=ROOT/'docs/ic-next-stages-results.md'
 SEEDS=(11,22,33)
 ROUTES=list(base.MAN['routes'])
@@ -76,7 +76,7 @@ def publish(label):
         rows=read(p);m=collections.Counter();rw=collections.Counter()
         for row in rows:m.update(row.get('metrics',{}));rw.update(row.get('reward_sums',{}))
         lines.append(f"| {p.parent.name} | {m['route_ready']}/{m['route_checks']} | {m['overspeed_steps']}/{m['ramp_steps']} | {dict(rw)} |")
-    lines+=['','각 run의 manifest에 실행 커밋·seed·맵/코드/모델 해시·설정·선행 모델을 보존한다. 모델과 사례 추적은 로컬 results/navigation_followup_v1에만 저장한다.',
+    lines+=['','각 run의 manifest에 실행 커밋·seed·맵/코드/모델 해시·설정·선행 모델을 보존한다. 모델과 사례 추적은 로컬 results/navigation_followup_v2에만 저장한다.',
             '', '현재 맵의 우선권을 유지했다. 옛 사노 지퍼 이벤트는 적용되지 않으므로 ZIP 보상은 검증 대기다. 평가 미달 이후 단계는 자동 차단한다.']
     DOC.write_text('\n'.join(lines)+'\n',encoding='utf8')
     rel=str(DOC.relative_to(ROOT))
@@ -190,12 +190,12 @@ def manifest(directory,**kwargs):
     save(directory/'manifest.json',dict(**stamp(),sources=hashes,action_overrides=False,**kwargs))
 
 
-def frozen():
+def frozen(loads):
     for route in ('route_04','route_14'):
         for mode in ('N0','N1','N2'):
             for seed in SEEDS:
                 source=ROOT/f'results/navigation_{route.replace("_", "")}_v1/runs/{mode}-{seed}-200000'
-                for load in ('low','base'):
+                for load in loads:
                     d=OUT/'frozen'/f'{route}-{mode}-{seed}-{load}'
                     if (d/'complete.json').exists():
                         cached_run(d);continue
@@ -242,13 +242,16 @@ def main():
             for mode in ('N0','N1'):
                 train('smoke-v2',mode,11,'low',budget=2048,smoke=True)
             state('smoke_complete');return
-        passed=[]
+        passed={}
         for load in ('low','base'):
+            passed[load]=[]
             for seed in (1001,1002,1003):
-                check_disk();passed.append(hv_case(load,seed));publish('HV '+load+' '+str(seed))
-        if not all(passed):
+                check_disk();passed[load].append(hv_case(load,seed));publish('HV '+load+' '+str(seed))
+        if not all(passed['low']):
             state('blocked_hv',reason='HV passage gate failed; dependent AV/training not started');publish('blocked: HV gate');return
-        frozen()
+        eligible=[load for load,values in passed.items() if all(values)]
+        save(OUT/'eligible-loads.json',dict(eligible=eligible,blocked=[load for load in passed if load not in eligible]))
+        frozen(eligible)
         sources={};success=True
         for mode in ('N0','N1'):
             for seed in SEEDS:
@@ -257,6 +260,9 @@ def main():
         if not success:
             state('blocked_shared',reason='N1 failed per-route gate');publish('blocked: shared policy gate');return
         for load in ('low','base'):
+            if load not in eligible:
+                state('blocked_base_demand',reason='Low-demand work complete; base HV insertion gate failed; no base training or reward tests')
+                publish('low-demand complete; base demand blocked');return
             success=True
             for seed in SEEDS:
                 d,rows=train('traffic-'+load,'N1',seed,load,sources[seed]);sources[seed]=d/'model.pt';success=success and gate(rows,ROUTES)
