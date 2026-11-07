@@ -28,17 +28,26 @@ def build():
         else:dropped.append(relation.get('id'))
     ET.ElementTree(prepared).write(DEST/'road-input.osm',encoding='utf8',xml_declaration=True)
     bbox=','.join(bounds.get(k) for k in ('minlon','minlat','maxlon','maxlat'))
-    args=[checkBinary('netconvert'),'--osm-files','road-input.osm','--output-file','network.net.xml','--keep-edges.by-vclass','passenger,bus','--keep-edges.in-geo-boundary',bbox,'--geometry.remove','false','--ramps.guess','false','--osm.layer-elevation','0','--osm.turn-lanes','true','--osm.lane-access','true','--no-turnarounds','true','--junctions.corner-detail','8','--junctions.internal-link-detail','12','--output.original-names','true']
+    args=[checkBinary('netconvert'),'--osm-files','road-input.osm','--output-file','full-import.net.xml','--keep-edges.by-vclass','passenger,bus','--keep-edges.in-geo-boundary',bbox,'--geometry.remove','false','--ramps.guess','false','--osm.layer-elevation','0','--osm.turn-lanes','true','--osm.lane-access','true','--no-turnarounds','true','--junctions.corner-detail','8','--junctions.internal-link-detail','12','--output.original-names','true']
     result=subprocess.run(args,cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
     (DEST/'conversion-warnings.txt').write_text(result.stdout+'\n'+result.stderr,encoding='utf8')
     result.check_returncode()
+    scope=json.loads((DEST/'scope.json').read_text(encoding='utf8'))
+    full=ET.parse(DEST/'full-import.net.xml').getroot()
+    existing={e.get('id') for e in full.findall('edge')}
+    missing=set(scope['edges'])-existing
+    if missing:raise ValueError(f'Scope edges missing from source import: {missing}')
+    crop_args=[checkBinary('netconvert'),'--sumo-net-file','full-import.net.xml','--keep-edges.explicit',','.join(scope['edges']),'--output-file','network.net.xml','--no-turnarounds','true','--geometry.remove','false']
+    crop=subprocess.run(crop_args,cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
+    with (DEST/'conversion-warnings.txt').open('a',encoding='utf8') as log:log.write('\nScope crop:\n'+crop.stdout+'\n'+crop.stderr)
+    crop.check_returncode()
     net=ET.parse(DEST/'network.net.xml').getroot();external=[e for e in net.findall('edge') if e.get('function')!='internal']
     audit=[]
     for e in external:
         way_id=e.get('id').lstrip('-').split('#')[0];way=ways.get(way_id)
         tags={t.get('k'):t.get('v') for t in way.findall('tag')} if way is not None else {}
         audit.append(dict(edge=e.get('id'),osm_way=way_id,lanes=len(e.findall('lane')),osm_lanes=tags.get('lanes'),osm_directional_lanes={k:v for k,v in tags.items() if k.startswith('lanes:')},oneway=tags.get('oneway'),highway=tags.get('highway'),maxspeed=tags.get('maxspeed'),layer=tags.get('layer'),bridge=tags.get('bridge'),turn_lanes={k:v for k,v in tags.items() if k.startswith('turn:lanes')},lane_source='OSM tag (directional split may apply)' if 'lanes' in tags or any(k.startswith('lanes:') for k in tags) else 'SUMO road-type default, unverified'))
-    report=dict(source_sha256=hashlib.sha256((DEST/'source.osm').read_bytes()).hexdigest(),source_bounds=bounds.attrib,command=args[1:],sumo_version=subprocess.check_output([checkBinary('netconvert'),'--version'],text=True).splitlines()[0],external_edges=len(external),lanes=sum(len(e.findall('lane')) for e in external),restriction_relations_kept=kept,incomplete_restrictions_omitted=dropped,edges=audit)
+    report=dict(source_sha256=hashlib.sha256((DEST/'source.osm').read_bytes()).hexdigest(),source_bounds=bounds.attrib,scope=scope,crop_command=crop_args[1:],command=args[1:],sumo_version=subprocess.check_output([checkBinary('netconvert'),'--version'],text=True).splitlines()[0],external_edges=len(external),lanes=sum(len(e.findall('lane')) for e in external),restriction_relations_kept=kept,incomplete_restrictions_omitted=dropped,edges=audit)
     (DEST/'import-audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')
     # Native lane rendering avoids the old crossing rectangles and hand-drawn stripes.
     view=ET.Element('viewsettings');scheme=ET.SubElement(view,'scheme',name='OSM source geometry - review')
@@ -48,7 +57,7 @@ def build():
     anchors=[j for j in net.findall('junction') if j.get('id') in ('498837378','1000493460','436249310')]
     x=sum(float(j.get('x')) for j in anchors)/len(anchors)
     y=sum(float(j.get('y')) for j in anchors)/len(anchors)
-    ET.SubElement(view,'viewport',x=str(x),y=str(y),zoom='200')
+    ET.SubElement(view,'viewport',x=str(x),y=str(y),zoom='150')
     ET.indent(view);ET.ElementTree(view).write(DEST/'view.xml',encoding='utf8',xml_declaration=True)
     cfg=ET.Element('configuration');inp=ET.SubElement(cfg,'input');ET.SubElement(inp,'net-file',value='network.net.xml')
     gui=ET.SubElement(cfg,'gui_only');ET.SubElement(gui,'gui-settings-file',value='view.xml')

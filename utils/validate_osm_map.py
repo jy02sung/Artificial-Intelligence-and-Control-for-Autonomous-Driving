@@ -9,6 +9,8 @@ from utils.rebuild_osm_map import DEST
 def main():
  source=ET.parse(DEST/'source.osm').getroot();ways={w.get('id'):w for w in source.findall('way')};nodes={n.get('id'):(float(n.get('lon')),float(n.get('lat'))) for n in source.findall('node')}
  root=ET.parse(DEST/'network.net.xml').getroot();junctions={j.get('id'):j for j in root.findall('junction')};edges={e.get('id'):e for e in root.findall('edge') if e.get('function')!='internal'}
+ scope=json.loads((DEST/'scope.json').read_text(encoding='utf8'))
+ assert set(edges)==set(scope['edges']), 'Unexpected missing or extra scope edges'
  audit=json.loads((DEST/'import-audit.json').read_text(encoding='utf8'));lane_checks=0
  for row in audit['edges']:
   if row['oneway']=='yes' and row['osm_lanes'] and row['osm_lanes'].isdigit():
@@ -34,7 +36,7 @@ def main():
    checked+=1
  finally:traci.close()
  net=sumolib.net.readNet(str(DEST/'network.net.xml'))
- pairs=[('south_to_east','86198728','1063527748'),('north_to_east','52873356','1063527748'),('north_to_west','52873356','170059992'),('outer_to_south','169929488#0','844484877'),('return_to_north','170059993','86198708'),('return_to_south','170059993','844484877')]
+ pairs=[('south_to_east','86198728','1063527748'),('north_to_east','52873356','1063527748'),('north_to_west','52873356','170059992'),('outer_to_south','169929488#0','844484877'),('return_to_north','170059993','86198708'),('return_to_south','170059993','844484877'),('toegyewon_to_sano','86198728','169929482'),('sano_to_toegyewon','169929493','844484877'),('sano_north_to_south','596640907','72387791#1'),('sano_south_to_north','841607178#15','841607184#3')]
  paths={}
  for label,start,end in pairs:
   path,cost=net.getShortestPath(net.getEdge(start),net.getEdge(end),vClass='passenger')
