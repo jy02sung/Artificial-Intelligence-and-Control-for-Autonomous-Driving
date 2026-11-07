@@ -230,3 +230,127 @@ ROUTE100은 현재 분기 도로의 끝에서 100m 이내에 처음 관측한 �
 |west_to_local|0 / 0 / 5|0 / 1 / 4|0 / 0 / 5|
 
 실행 경로: `results/ic_campaign_v2/runs/COMBO025-NO-RAMP-11-200000`. 기록된 실행 커밋: `2b5604a869ef0ae3d055ead94bef4de5d8d3df16`. 원본 `eval-200000.json`, 설정 `complete.json`. 조합 프로세스는 dc43dd9에서 시작한 동일 코드로 지속 실행됐으며 이후 커밋은 결과 문서 변경이다.
+
+## 조합 반복 검증 중간 결과 (2026-11-07)
+
+원래 크기 COMBO는 seed 11·22·33 반복 완료. 동일 20만 스텝과 교통 seed1001~1005, 22경로를 사용했다. COMBO025는 seed33이 아직 학습 중이므로 3-seed 평균을 보고하지 않는다.
+
+|조건|seed|완주|충돌|시간 초과|R0 대비 완주 차이|
+|---|---:|---:|---:|---:|---:|
+|COMBO-11|11|51.8%|24.5%|23.6%|+1.8%p|
+|COMBO-22|22|15.5%|53.6%|30.9%|-28.2%p|
+|COMBO-33|33|33.6%|30.0%|36.4%|-10.9%p|
+|COMBO025-11|11|36.4%|28.2%|35.5%|-13.6%p|
+|COMBO025-22|22|33.6%|16.4%|50.0%|-10.0%p|
+
+|3-seed 조건|완주 평균 ± 표본 표준편차|충돌 평균 ± 표본 표준편차|시간 초과 평균|
+|---|---:|---:|---:|
+|R0|46.06% ± 3.44%p|42.42% ± 10.92%p|11.52%|
+|COMBO|33.64% ± 18.18%p|36.06% ± 15.46%p|30.30%|
+
+COMBO 첫 seed의 완주 개선은 반복에서 재현되지 않았다. 평균 완주 −12.4%p, 충돌 −6.1%p, 시간 초과 +18.8%p이며 완주율 편차도 크다. 충돌 감소와 정체 증가의 교환관계는 관찰되지만, 각 시간 초과의 직접 원인은 재현 진단 전까지 확정하지 않는다. 보상 크기 축소는 seed11에서 회복되지 않았고 seed22에서는 원래 조합보다 개선됐으므로 크기의 효과도 seed에 따라 달랐다. 이는 보상 개념 자체가 잘못됐다는 결론보다 학습 안정성과 보상 정의·관측 정보의 적합성을 검토해야 할 근거다.
+
+### COMBO-22-200000
+실행 경로: `results/ic_campaign_v2/runs/COMBO-22-200000`. 기록 커밋: `c9a4599ee38392d94af1407574c1acb6e6f7f667`. 설정 `complete.json`, 평가 `eval-200000.json`. 실행 프로세스의 코드 로드는 dc43dd9이며 이후 변경은 결과 문서다.
+
+|경로|R0 완주/충돌/시간초과|조합 완주/충돌/시간초과|
+|---|---|---|
+|east_through|5 / 0 / 0|0 / 4 / 1|
+|east_to_north|1 / 4 / 0|3 / 2 / 0|
+|east_to_south|1 / 4 / 0|4 / 1 / 0|
+|north_through|5 / 0 / 0|2 / 2 / 1|
+|north_to_east|1 / 4 / 0|0 / 1 / 4|
+|north_to_local|2 / 3 / 0|0 / 1 / 4|
+|north_to_west|2 / 3 / 0|0 / 3 / 2|
+|outer_to_south|0 / 2 / 3|2 / 3 / 0|
+|sano_east_to_south|4 / 1 / 0|0 / 5 / 0|
+|sano_north_through|0 / 5 / 0|0 / 5 / 0|
+|sano_north_to_west|3 / 2 / 0|0 / 1 / 4|
+|sano_south_through|5 / 0 / 0|0 / 4 / 1|
+|sano_south_to_east|0 / 5 / 0|0 / 5 / 0|
+|sano_south_to_west|3 / 2 / 0|0 / 0 / 5|
+|sano_west_to_north|0 / 5 / 0|0 / 2 / 3|
+|sano_west_to_south|2 / 3 / 0|0 / 2 / 3|
+|south_through|5 / 0 / 0|5 / 0 / 0|
+|south_to_east|0 / 5 / 0|0 / 3 / 2|
+|south_to_local|0 / 5 / 0|0 / 3 / 2|
+|south_to_west|0 / 5 / 0|0 / 3 / 2|
+|west_through|5 / 0 / 0|1 / 4 / 0|
+|west_to_local|4 / 1 / 0|0 / 5 / 0|
+
+|보상 항목|누적합|비영 적용 스텝|
+|---|---:|---:|
+|base|-8.9516|15216|
+|route|3.2000|116|
+|zipper|-0.4000|4|
+|ramp|-4.2932|511|
+
+### COMBO-33-200000
+실행 경로: `results/ic_campaign_v2/runs/COMBO-33-200000`. 기록 커밋: `11f90fe0930862c0484098c191da3ec7097d52d8`. 설정 `complete.json`, 평가 `eval-200000.json`. 실행 프로세스의 코드 로드는 dc43dd9이며 이후 변경은 결과 문서다.
+
+|경로|R0 완주/충돌/시간초과|조합 완주/충돌/시간초과|
+|---|---|---|
+|east_through|2 / 3 / 0|5 / 0 / 0|
+|east_to_north|3 / 2 / 0|5 / 0 / 0|
+|east_to_south|3 / 2 / 0|4 / 1 / 0|
+|north_through|5 / 0 / 0|2 / 3 / 0|
+|north_to_east|1 / 3 / 1|0 / 1 / 4|
+|north_to_local|1 / 1 / 3|1 / 1 / 3|
+|north_to_west|1 / 4 / 0|0 / 1 / 4|
+|outer_to_south|3 / 2 / 0|5 / 0 / 0|
+|sano_east_to_south|4 / 1 / 0|0 / 1 / 4|
+|sano_north_through|5 / 0 / 0|0 / 5 / 0|
+|sano_north_to_west|2 / 3 / 0|0 / 1 / 4|
+|sano_south_through|5 / 0 / 0|5 / 0 / 0|
+|sano_south_to_east|5 / 0 / 0|0 / 0 / 5|
+|sano_south_to_west|3 / 2 / 0|0 / 0 / 5|
+|sano_west_to_north|0 / 2 / 3|1 / 4 / 0|
+|sano_west_to_south|0 / 2 / 3|1 / 4 / 0|
+|south_through|5 / 0 / 0|5 / 0 / 0|
+|south_to_east|0 / 5 / 0|0 / 2 / 3|
+|south_to_local|0 / 5 / 0|0 / 2 / 3|
+|south_to_west|0 / 5 / 0|0 / 2 / 3|
+|west_through|1 / 4 / 0|2 / 3 / 0|
+|west_to_local|0 / 0 / 5|1 / 2 / 2|
+
+|보상 항목|누적합|비영 적용 스텝|
+|---|---:|---:|
+|base|455.9743|27965|
+|route|7.9000|157|
+|zipper|0.4000|4|
+|ramp|-9.1619|827|
+
+### COMBO025-22-200000
+실행 경로: `results/ic_campaign_v2/runs/COMBO025-22-200000`. 기록 커밋: `11f90fe0930862c0484098c191da3ec7097d52d8`. 설정 `complete.json`, 평가 `eval-200000.json`. 실행 프로세스의 코드 로드는 dc43dd9이며 이후 변경은 결과 문서다.
+
+|경로|R0 완주/충돌/시간초과|조합 완주/충돌/시간초과|
+|---|---|---|
+|east_through|5 / 0 / 0|0 / 3 / 2|
+|east_to_north|1 / 4 / 0|5 / 0 / 0|
+|east_to_south|1 / 4 / 0|5 / 0 / 0|
+|north_through|5 / 0 / 0|2 / 1 / 2|
+|north_to_east|1 / 4 / 0|0 / 0 / 5|
+|north_to_local|2 / 3 / 0|4 / 1 / 0|
+|north_to_west|2 / 3 / 0|0 / 0 / 5|
+|outer_to_south|0 / 2 / 3|5 / 0 / 0|
+|sano_east_to_south|4 / 1 / 0|5 / 0 / 0|
+|sano_north_through|0 / 5 / 0|0 / 0 / 5|
+|sano_north_to_west|3 / 2 / 0|0 / 4 / 1|
+|sano_south_through|5 / 0 / 0|1 / 3 / 1|
+|sano_south_to_east|0 / 5 / 0|5 / 0 / 0|
+|sano_south_to_west|3 / 2 / 0|0 / 1 / 4|
+|sano_west_to_north|0 / 5 / 0|0 / 2 / 3|
+|sano_west_to_south|2 / 3 / 0|0 / 2 / 3|
+|south_through|5 / 0 / 0|5 / 0 / 0|
+|south_to_east|0 / 5 / 0|0 / 0 / 5|
+|south_to_local|0 / 5 / 0|0 / 0 / 5|
+|south_to_west|0 / 5 / 0|0 / 0 / 5|
+|west_through|5 / 0 / 0|0 / 1 / 4|
+|west_to_local|4 / 1 / 0|0 / 0 / 5|
+
+|보상 항목|누적합|비영 적용 스텝|
+|---|---:|---:|
+|base|424.6812|22205|
+|route|0.6250|129|
+|zipper|-0.0250|1|
+|ramp|-2.4887|631|
