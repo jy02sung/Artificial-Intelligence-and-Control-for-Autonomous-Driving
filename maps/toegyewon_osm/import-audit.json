@@ -145,7 +145,7 @@
   ],
   "sumo_version": "Eclipse SUMO netconvert 1.27.1",
   "external_edges": 89,
-  "lanes": 195,
+  "lanes": 196,
   "restriction_relations_kept": [],
   "incomplete_restrictions_omitted": [
     "8603403",
@@ -218,7 +218,7 @@
     {
       "edge": "1414146971",
       "osm_way": "1414146971",
-      "lanes": 4,
+      "lanes": 5,
       "osm_lanes": "4",
       "osm_directional_lanes": {},
       "oneway": "yes",
@@ -227,11 +227,15 @@
       "layer": null,
       "bridge": null,
       "turn_lanes": {},
-      "lane_override": null,
+      "lane_override": {
+        "num_lanes": 5,
+        "confidence": "user_requested_boundary_layout",
+        "basis": "User correction: northern shortened boundary retains four mainline lanes plus one entering ramp lane through exit; do not force immediate merge into four lanes."
+      },
       "geometry_rounding": false,
       "layout_adjustment": null,
       "marking_status": "unverified",
-      "lane_source": "OSM tag (directional split may apply)"
+      "lane_source": "Project override (user_requested_boundary_layout)"
     },
     {
       "edge": "169728799",

@@ -46,7 +46,7 @@ def main():
      return math.hypot(p[0]-a[0]-t*dx,p[1]-a[1]-t*dy)
     error=min(segment_distance(a,b) for a,b in zip(cache[wid],cache[wid][1:]));max_error=max(max_error,error)
     smooth=next(row for row in audit['edges'] if row['edge']==eid).get('geometry_rounding',False)
-    tolerance=(4.05 if smooth else .05)+(1.65 if eid in {'844484877#1','170059993','170059993#1','206426298#1'} else 0)
+    tolerance=(4.05 if smooth else .05)+(1.65 if eid in {'844484877#1','170059993','170059993#1','206426298#1','844484878#1'} else 0)
     if error>tolerance:deviations.append(dict(edge=eid,error_m=error,point=p))
    checked+=1
  finally:traci.close()
@@ -62,6 +62,16 @@ def main():
  # Northbound lower ramp: 4 + 1 -> 5, then 4 until the next merge.
  for eid,n in [('844484878#0',4),('844484878#1',5),('86198722',4),('86198708',4)]:
   assert len(edges[eid].findall('lane'))==n,eid
+ assert len(edges['1414146971'].findall('lane'))==5
+ assert ('280963368',0,'1414146971',0) in connections
+ for i in range(4):assert ('86198708',i,'1414146971',i+1) in connections
+ # Through lanes must not shift sideways by half a lane at the auxiliary drop.
+ for i in range(4):
+  incoming=[tuple(map(float,p.split(','))) for p in edges['844484878#1'].findall('lane')[i+1].get('shape').split()]
+  outgoing=tuple(map(float,edges['86198722'].findall('lane')[i].get('shape').split()[0].split(',')))
+  u,v=incoming[-2:];dx,dy=v[0]-u[0],v[1]-u[1]
+  lateral=abs(dx*(outgoing[1]-v[1])-dy*(outgoing[0]-v[0]))/math.hypot(dx,dy)
+  assert lateral<.25,('mainline alignment',i,lateral)
  assert ('37375274',0,'844484878#1',0) in connections
  for i in range(4):
   assert ('844484878#0',i,'844484878#1',i+1) in connections

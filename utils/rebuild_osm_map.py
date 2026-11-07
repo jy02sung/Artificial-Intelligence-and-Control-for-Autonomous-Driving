@@ -82,6 +82,15 @@ def build():
         edge=next((e for e in corrections if e.get('id')==eid),None)
         if edge is None:edge=ET.SubElement(corrections,'edge',id=eid)
         edge.set('shape',shape)
+    # Added auxiliary lane belongs on the driving-right side; retain mainline alignment.
+    # Center-spreading five lanes on the old four-lane axis shifts every through lane.
+    from sumolib.geomhelper import move2side
+    auxiliary=next(e for e in corrections if e.get('id')=='844484878#1')
+    source_edge=full_edges['844484878#1']
+    junctions={j.get('id'):j for j in full.findall('junction')}
+    points=[(float(junctions[source_edge.get(side)].get('x')),float(junctions[source_edge.get(side)].get('y'))) for side in ('from','to')]
+    points=move2side(points,1.6)
+    auxiliary.set('shape',' '.join(f'{x:.2f},{y:.2f}' for x,y in points))
     north_nodes=ET.Element('nodes')
     for nid,(x,y) in adjustments.get('north_boundary_nodes',{}).items():
         ET.SubElement(north_nodes,'node',id=nid,x=str(x),y=str(y))
