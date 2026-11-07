@@ -41,10 +41,11 @@ class ProbeEnv(ic.ICExperimentEnv):
 
 def main():
  torch.set_num_threads(1)
- failures=[json.loads(p.read_text()) for p in sorted((ROOT/'results/toegyewon_only_v2/av').glob('*.json')) if not json.loads(p.read_text())['arrival']]
+ originals=[json.loads(p.read_text()) for p in sorted((ROOT/'results/toegyewon_only_v2/av').glob('*.json'))]
+ failures=[r for r in originals if not r['arrival']]
  assert len(failures)==16
  for mode in ('baseline','route_guidance','route_observation'):
-  for original in failures:
+  for original in (originals if mode=='route_guidance' else failures):
    route=original['route'];seed=original['training_seed'];key=f'{route}-{seed}-{mode}';target=DEST/'cases'/(key+'.json')
    if target.exists():continue
    save(DEST/'status.json',dict(stage='running',case=key))
@@ -88,5 +89,5 @@ def main():
     if mode=='baseline':assert row['arrival']==original['arrival'] and row['collision']==original['collision'] and row['timeout']==original['timeout']
     save(target,row)
    finally:env.close()
- save(DEST/'status.json',dict(stage='complete',cases=48,**stamp()))
+ save(DEST/'status.json',dict(stage='complete',cases=80,**stamp()))
 if __name__=='__main__':main()
