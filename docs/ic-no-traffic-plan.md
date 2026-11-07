@@ -32,3 +32,5 @@ B/C에서 통과 가능한 시작 조건을 먼저 검증한 후 경로당20개 
 결과: results/ic_no_traffic_v1/status.json, cases/*.json, traces/*.jsonl
 기존 1차 결과: results/ic_campaign_v2 (보존)
 완료된 단계별로 코드·설계·결과를 별도 커밋한다. 현재 자동 실행 범위는 A0이며 B/C는 A0 증거에 따라 구현한다. 기존 캠페인을 자동 재개하지 않는다.
+
+진행 결과: [A0/B0 무교통 검증](ic-no-traffic-results.md). A0 4/9 완주, B0 진단 제어 3/3 완주. 기본 조건의 통과 가능성을 확인했으며 관측·학습 검증으로 이어간다.
