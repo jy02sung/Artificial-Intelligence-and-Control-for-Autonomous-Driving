@@ -22,6 +22,7 @@ def main():
               ('middle_entering','797789364','169929484',0),
               ('middle_mainline','781184662#2','169929497',0)]
     cases += [(f'north_auxiliary_{i}','844484878#1','1414146971',i) for i in range(5)]
+    cases += [('crest_entering_ramp','169728849','169929488#1',0)]
     rows=[]
     for name,start,end,lane in cases:
         path,_=net.getShortestPath(net.getEdge(start),net.getEdge(end),vClass='passenger')

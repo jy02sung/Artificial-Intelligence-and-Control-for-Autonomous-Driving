@@ -76,6 +76,10 @@ def build():
         edge.set('shape',' '.join(f'{x:.2f},{y:.2f}' for x,y in out))
 
     adjustments=json.loads((DEST/'layout-adjustments.json').read_text(encoding='utf8'))
+    for eid,shape in adjustments.get('junction_smoothing',{}).items():
+        edge=next((e for e in corrections if e.get('id')==eid),None)
+        if edge is None:edge=ET.SubElement(corrections,'edge',id=eid)
+        edge.set('shape',shape)
     north=adjustments['north_merge'];edge=next(e for e in corrections if e.get('id')==north['edge'])
     edge.set('to',north['to']);edge.set('shape',north['shape'])
     for eid,shape in adjustments.get('north_boundary_edges',{}).items():

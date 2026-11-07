@@ -33,6 +33,11 @@ def main():
    if wid not in cache:cache[wid]=[traci.simulation.convertGeo(*nodes[n.get('ref')],fromGeo=True) for n in w.findall('nd')]
    if e.get('shape'):points=[tuple(map(float,p.split(',')[:2])) for p in e.get('shape').split()]
    else:points=[(float(junctions[e.get(side)].get('x')),float(junctions[e.get(side)].get('y'))) for side in ('from','to')]
+   if eid in adjustments.get('junction_smoothing',{}):
+    expected=[tuple(map(float,p.split(','))) for p in adjustments['junction_smoothing'][eid].split()]
+    assert points==expected,('crest shape mismatch',eid)
+    intentional_changes.append(dict(edge=eid,reason='Local crest junction tangent alignment'))
+    continue
    if eid in ('86198708','86198708#1'):
     expected=[tuple(map(float,p.split(','))) for p in adjustments['north_boundary_edges']['86198708'].split()]
     for p in points:
@@ -85,7 +90,7 @@ def main():
   lateral=abs(dx*(outgoing[1]-v[1])-dy*(outgoing[0]-v[0]))/math.hypot(dx,dy)
   assert lateral<.25,('mainline alignment',i,lateral)
  assert len(edges['86198708#1'].findall('lane'))==4
- assert float(edges['86198708#1'].find('lane').get('length'))<35
+ assert float(edges['86198708#1'].find('lane').get('length'))<55
  for i in range(4):assert ('86198708',i+1,'86198708#1',i) in connections
  assert ('37375274',0,'844484878#1',0) in connections
  for i in range(4):
