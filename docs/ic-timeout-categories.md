@@ -151,3 +151,25 @@
 |west_to_local|{'route_lane_blocked': 5}|
 
 학습 seed11, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO025-NO-RAMP-11-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `76bc7f1aeb1aea775e1fdbf0dee6c232a7f8c132b751a60381e48a86447468bc`.
+
+## COMBO025-NO-ROUTE100-11-200000 진단 완료 (2026-11-07)
+
+시간 초과 51건 모두 원래 종료시간 및 결과가 재현됐다. 분류: {'route_lane_blocked': 51}. 종료 직전 상태 분류이며 이전 정체의 기여는 확정하지 않는다.
+
+|경로|분류별 건수|
+|---|---|
+|east_through|{'route_lane_blocked': 1}|
+|north_to_east|{'route_lane_blocked': 5}|
+|north_to_local|{'route_lane_blocked': 1}|
+|north_to_west|{'route_lane_blocked': 5}|
+|sano_east_to_south|{'route_lane_blocked': 5}|
+|sano_north_to_west|{'route_lane_blocked': 5}|
+|sano_south_to_east|{'route_lane_blocked': 5}|
+|sano_south_to_west|{'route_lane_blocked': 4}|
+|sano_west_to_north|{'route_lane_blocked': 4}|
+|south_to_east|{'route_lane_blocked': 5}|
+|south_to_local|{'route_lane_blocked': 4}|
+|south_to_west|{'route_lane_blocked': 5}|
+|west_through|{'route_lane_blocked': 2}|
+
+학습 seed11, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO025-NO-ROUTE100-11-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `4e6a0f26cb3ac1b16b49df3e47a978dcc5676059b247bdf95ed76308b2c051ea`.
