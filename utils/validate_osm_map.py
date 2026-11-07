@@ -10,7 +10,7 @@ def main():
  source=ET.parse(DEST/'source.osm').getroot();ways={w.get('id'):w for w in source.findall('way')};nodes={n.get('id'):(float(n.get('lon')),float(n.get('lat'))) for n in source.findall('node')}
  root=ET.parse(DEST/'network.net.xml').getroot();junctions={j.get('id'):j for j in root.findall('junction')};edges={e.get('id'):e for e in root.findall('edge') if e.get('function')!='internal'}
  scope=json.loads((DEST/'scope.json').read_text(encoding='utf8'))
- assert set(edges)==set(scope['edges'])|{'844484877#1','170059993#1','206426298#1'}, 'Unexpected missing or extra scope edges'
+ assert set(edges)==set(scope['edges'])|{'86198708#1','844484877#1','170059993#1','206426298#1'}, 'Unexpected missing or extra scope edges'
  audit=json.loads((DEST/'import-audit.json').read_text(encoding='utf8'));lane_checks=0
  for row in audit['edges']:
   if row['oneway']=='yes' and row['osm_lanes'] and row['osm_lanes'].isdigit() and not row.get('lane_override'):
@@ -33,6 +33,12 @@ def main():
    if wid not in cache:cache[wid]=[traci.simulation.convertGeo(*nodes[n.get('ref')],fromGeo=True) for n in w.findall('nd')]
    if e.get('shape'):points=[tuple(map(float,p.split(',')[:2])) for p in e.get('shape').split()]
    else:points=[(float(junctions[e.get(side)].get('x')),float(junctions[e.get(side)].get('y'))) for side in ('from','to')]
+   if eid in ('86198708','86198708#1'):
+    expected=[tuple(map(float,p.split(','))) for p in adjustments['north_boundary_edges']['86198708'].split()]
+    for p in points:
+     assert sumolib.geomhelper.distancePointToPolygon(p,expected)<1.7,('north offset corridor',eid,p)
+    intentional_changes.append(dict(edge=eid,reason='Auxiliary lane axis and split before north merge'))
+    continue
    if eid==adjustments['north_merge']['edge'] or eid in adjustments.get('north_boundary_edges',{}):
     expected_shape=adjustments['north_merge']['shape'] if eid==adjustments['north_merge']['edge'] else adjustments['north_boundary_edges'][eid]
     expected=[tuple(map(float,p.split(','))) for p in expected_shape.split()]
@@ -46,7 +52,7 @@ def main():
      return math.hypot(p[0]-a[0]-t*dx,p[1]-a[1]-t*dy)
     error=min(segment_distance(a,b) for a,b in zip(cache[wid],cache[wid][1:]));max_error=max(max_error,error)
     smooth=next(row for row in audit['edges'] if row['edge']==eid).get('geometry_rounding',False)
-    tolerance=(4.05 if smooth else .05)+(1.65 if eid in {'844484877#1','170059993','170059993#1','206426298#1','844484878#1'} else 0)
+    tolerance=(4.05 if smooth else .05)+(1.65 if eid in {'844484877#1','170059993','170059993#1','206426298#1','844484878#1','86198722'} else 0)
     if error>tolerance:deviations.append(dict(edge=eid,error_m=error,point=p))
    checked+=1
  finally:traci.close()
@@ -60,28 +66,31 @@ def main():
   assert all(l.get('changeLeft') is None and l.get('changeRight') is None for l in edges[eid].findall('lane')),eid
  connections={(c.get('from'),int(c.get('fromLane')),c.get('to'),int(c.get('toLane'))) for c in root.findall('connection')}
  # Northbound lower ramp: 4 + 1 -> 5, then 4 until the next merge.
- for eid,n in [('844484878#0',4),('844484878#1',5),('86198722',4),('86198708',4)]:
+ for eid,n in [('844484878#0',4),('844484878#1',5),('86198722',5),('86198708',5),('86198708#1',4)]:
   assert len(edges[eid].findall('lane'))==n,eid
  # Northern continuation must retain all four mainline lane axes.
  for i in range(4):
-  points=[tuple(map(float,p.split(','))) for p in edges['86198708'].findall('lane')[i].get('shape').split()]
+  points=[tuple(map(float,p.split(','))) for p in edges['86198708#1'].findall('lane')[i].get('shape').split()]
   q=tuple(map(float,edges['1414146971'].findall('lane')[i+1].get('shape').split()[0].split(',')))
   a,b=points[-2:];dx,dy=b[0]-a[0],b[1]-a[1]
   assert abs(dx*(q[1]-b[1])-dy*(q[0]-b[0]))/math.hypot(dx,dy)<.1,('north axis',i)
  assert len(edges['1414146971'].findall('lane'))==5
  assert ('280963368',0,'1414146971',0) in connections
- for i in range(4):assert ('86198708',i,'1414146971',i+1) in connections
+ for i in range(4):assert ('86198708#1',i,'1414146971',i+1) in connections
  # Through lanes must not shift sideways by half a lane at the auxiliary drop.
  for i in range(4):
-  incoming=[tuple(map(float,p.split(','))) for p in edges['844484878#1'].findall('lane')[i+1].get('shape').split()]
-  outgoing=tuple(map(float,edges['86198722'].findall('lane')[i].get('shape').split()[0].split(',')))
+  incoming=[tuple(map(float,p.split(','))) for p in edges['86198708'].findall('lane')[i+1].get('shape').split()]
+  outgoing=tuple(map(float,edges['86198708#1'].findall('lane')[i].get('shape').split()[0].split(',')))
   u,v=incoming[-2:];dx,dy=v[0]-u[0],v[1]-u[1]
   lateral=abs(dx*(outgoing[1]-v[1])-dy*(outgoing[0]-v[0]))/math.hypot(dx,dy)
   assert lateral<.25,('mainline alignment',i,lateral)
+ assert len(edges['86198708#1'].findall('lane'))==4
+ assert float(edges['86198708#1'].find('lane').get('length'))<35
+ for i in range(4):assert ('86198708',i+1,'86198708#1',i) in connections
  assert ('37375274',0,'844484878#1',0) in connections
  for i in range(4):
   assert ('844484878#0',i,'844484878#1',i+1) in connections
-  assert ('844484878#1',i+1,'86198722',i) in connections
+  assert ('844484878#1',i+1,'86198722',i+1) in connections
   assert ('86198722',i,'86198708',i) in connections
  assert ('544293888#0',0,'37375274',0) in connections
  assert ('544293888#0',1,'544293888#1',0) in connections
