@@ -44,8 +44,8 @@ def main():
  originals=[json.loads(p.read_text()) for p in sorted((ROOT/'results/toegyewon_only_v2/av').glob('*.json'))]
  failures=[r for r in originals if not r['arrival']]
  assert len(failures)==16
- for mode in ('baseline','route_guidance','route_observation'):
-  for original in (originals if mode=='route_guidance' else failures):
+ for mode in ('baseline','route_guidance','route_observation','route_guard'):
+  for original in (originals if mode in ('route_guidance','route_guard') else failures):
    route=original['route'];seed=original['training_seed'];key=f'{route}-{seed}-{mode}';target=DEST/'cases'/(key+'.json')
    if target.exists():continue
    save(DEST/'status.json',dict(stage='running',case=key))
@@ -67,6 +67,10 @@ def main():
       remaining=traci.lane.getLength(v.getLaneID(env.ego_id))-v.getLanePosition(env.ego_id)
       raw=agent.predict(obs,deterministic=True).copy();action=raw.copy()
       if mode=='route_guidance':action[1]=np.sign(best)
+      if mode=='route_guard' and allowed:
+       proposed=env._quantize_lane_change(float(action[1]))
+       if wrong:action[1]=desired
+       elif lane+proposed not in allowed:action[1]=0.
       command=env._quantize_lane_change(float(action[1]))
       snapshot=dict(t=env.step_count*.2,edge=edge,lane=lane,next_edge=nxt,allowed=allowed,desired=desired,remaining=remaining,speed=v.getSpeed(env.ego_id),context=ctx,observation=obs.tolist(),policy_action=raw.tolist(),executed_action=action.tolist(),command=command)
       if env.step_count%5==0:trace.sample(env)
@@ -89,5 +93,5 @@ def main():
     if mode=='baseline':assert row['arrival']==original['arrival'] and row['collision']==original['collision'] and row['timeout']==original['timeout']
     save(target,row)
    finally:env.close()
- save(DEST/'status.json',dict(stage='complete',cases=80,**stamp()))
+ save(DEST/'status.json',dict(stage='complete',cases=128,**stamp()))
 if __name__=='__main__':main()
