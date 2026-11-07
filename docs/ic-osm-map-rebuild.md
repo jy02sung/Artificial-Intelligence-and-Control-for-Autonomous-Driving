@@ -49,3 +49,15 @@ python view_road.py
 ## 출처
 
 사용자 제공 OpenStreetMap 추출물. © OpenStreetMap contributors, [ODbL](https://www.openstreetmap.org/copyright). 원본 SHA-256: d49c7f2c84e3ddf3adb66fd34982e0d983cf386bf518d4edff70ec6e1f3a3ea6. 원본에 없는 현실 정보는 별도 지도·현장 검증이 필요하다.
+
+## 사노IC 서측 3→1차로 오류 보정 (2026-11-07)
+
+사용자 화면에서 지적한 서향 교량 1413342573(3차로) 뒤의 544295537에는 원본 lanes 태그가 없어 기본값 1차로가 적용됐다. 네이버 위성사진으로 교량 서측에서 분기 지점 1808903166까지 3차로가 이어지는 것을 확인하여 이 구간만 3차로로 보정했다. 주변의 다른 미확인 구간까지 일괄 확장하지 않았다.
+
+원본 source.osm은 수정하지 않는다. lane-overrides.json에 근거와 값을 저장하고, 재생성 시 별도 보정 파일을 적용한다. import-audit.json은 원본 태그 없음과 보정값 3을 구분한다. 이번 수정은 주행·학습 검증이 아니다. 최신 구간·차로 수는 import-audit.json을 따른다.
+
+출처: [네이버 사노IC 위성지도](https://map.naver.com/p/search/사노IC?c=17.00,0,0,1,dh), 확인일 2026-11-07. 영상 촬영일은 확인하지 못했다.
+
+## 추가 위성사진 감사
+
+[차로·표선 보정 및 미확정 사항](ic-satellite-audit.md)을 참고한다. 현재 82개 구간, 167개 차로이며, 차로 수 보정 9개 구간 중 3개는 연속성 추정이다. 실선 확인 4구간, 점선 확인 2구간만 확정 적용했다.

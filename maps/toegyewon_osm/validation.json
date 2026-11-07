@@ -1,11 +1,35 @@
 {
+  "lane_continuity_checks": [
+    [
+      "1413342573",
+      "544295537",
+      3
+    ],
+    [
+      "169929478",
+      "169929482",
+      2
+    ],
+    [
+      "597119334",
+      "597119333",
+      2
+    ],
+    [
+      "841607184#0",
+      "841607184#1",
+      2
+    ]
+  ],
+  "solid_edges_checked": 4,
+  "dashed_edges_checked": 2,
   "status": "passed",
   "geometry_deviations": [],
   "no_simulation_steps_or_training": true,
   "source_geometry_edges_checked": 82,
   "max_projected_source_error_m": 0.009478274704899892,
   "explicit_oneway_lane_tag_checks": 41,
-  "roads_with_unverified_lane_defaults": 41,
+  "roads_with_unverified_lane_defaults": 32,
   "routes": {
     "south_to_east": {
       "edges": [
@@ -52,7 +76,7 @@
         "544292616",
         "844484877"
       ],
-      "length_m": 1540.92
+      "length_m": 1525.36
     },
     "return_to_north": {
       "edges": [
@@ -91,7 +115,7 @@
         "169929478",
         "169929482"
       ],
-      "length_m": 1831.4600000000003
+      "length_m": 1830.64
     },
     "sano_to_toegyewon": {
       "edges": [
@@ -106,7 +130,7 @@
         "544292616",
         "844484877"
       ],
-      "length_m": 2194.82
+      "length_m": 2169.23
     },
     "sano_north_to_south": {
       "edges": [
@@ -116,7 +140,7 @@
         "72387791#0",
         "72387791#1"
       ],
-      "length_m": 598.56
+      "length_m": 586.9
     },
     "sano_south_to_north": {
       "edges": [
@@ -126,7 +150,7 @@
         "841607184#2",
         "841607184#3"
       ],
-      "length_m": 498.59000000000003
+      "length_m": 487.09999999999997
     }
   },
   "limitations": [

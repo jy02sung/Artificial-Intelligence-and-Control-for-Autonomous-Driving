@@ -37,7 +37,32 @@ def build():
     existing={e.get('id') for e in full.findall('edge')}
     missing=set(scope['edges'])-existing
     if missing:raise ValueError(f'Scope edges missing from source import: {missing}')
-    crop_args=[checkBinary('netconvert'),'--sumo-net-file','full-import.net.xml','--keep-edges.explicit',','.join(scope['edges']),'--output-file','network.net.xml','--no-turnarounds','true','--geometry.remove','false']
+    overrides=json.loads((DEST/'lane-overrides.json').read_text(encoding='utf8'))
+    markings=json.loads((DEST/'markings.json').read_text(encoding='utf8'))
+    corrections=ET.Element('edges')
+    for eid,item in overrides.items():
+        if eid not in scope['edges']:raise ValueError(f'Override outside selected scope: {eid}')
+        ET.SubElement(corrections,'edge',id=eid,numLanes=str(item['num_lanes']))
+    full_edges={e.get('id'):e for e in full.findall('edge')}
+    for eid in markings['solid']:
+        if eid not in scope['edges']:raise ValueError(f'Marking outside scope: {eid}')
+        edge=next((e for e in corrections if e.get('id')==eid),None)
+        if edge is None:edge=ET.SubElement(corrections,'edge',id=eid)
+        count=overrides.get(eid,{}).get('num_lanes',len(full_edges[eid].findall('lane')))
+        for i in range(count):
+            attrs={'index':str(i)}
+            if i<count-1:attrs['changeLeft']=markings['solid_allowed_classes']
+            if i>0:attrs['changeRight']=markings['solid_allowed_classes']
+            ET.SubElement(edge,'lane',**attrs)
+    ET.ElementTree(corrections).write(DEST/'lane-overrides.edg.xml',encoding='utf8',xml_declaration=True)
+    # A net.xml import keeps obsolete lane links unless explicitly reset (SUMO PlainXML).
+    affected=set(overrides)|set(markings['solid'])
+    incoming={c.get('from') for c in full.findall('connection') if c.get('to') in affected}
+    reset_edges=(affected|incoming)&set(scope['edges'])
+    links=ET.Element('connections')
+    for eid in sorted(reset_edges):ET.SubElement(links,'connection',{'from':eid,'reset':'true'})
+    ET.ElementTree(links).write(DEST/'connection-resets.con.xml',encoding='utf8',xml_declaration=True)
+    crop_args=[checkBinary('netconvert'),'--sumo-net-file','full-import.net.xml','--edge-files','lane-overrides.edg.xml','--connection-files','connection-resets.con.xml','--keep-edges.explicit',','.join(scope['edges']),'--output-file','network.net.xml','--no-turnarounds','true','--geometry.remove','false']
     crop=subprocess.run(crop_args,cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')
     with (DEST/'conversion-warnings.txt').open('a',encoding='utf8') as log:log.write('\nScope crop:\n'+crop.stdout+'\n'+crop.stderr)
     crop.check_returncode()
@@ -46,13 +71,13 @@ def build():
     for e in external:
         way_id=e.get('id').lstrip('-').split('#')[0];way=ways.get(way_id)
         tags={t.get('k'):t.get('v') for t in way.findall('tag')} if way is not None else {}
-        audit.append(dict(edge=e.get('id'),osm_way=way_id,lanes=len(e.findall('lane')),osm_lanes=tags.get('lanes'),osm_directional_lanes={k:v for k,v in tags.items() if k.startswith('lanes:')},oneway=tags.get('oneway'),highway=tags.get('highway'),maxspeed=tags.get('maxspeed'),layer=tags.get('layer'),bridge=tags.get('bridge'),turn_lanes={k:v for k,v in tags.items() if k.startswith('turn:lanes')},lane_source='OSM tag (directional split may apply)' if 'lanes' in tags or any(k.startswith('lanes:') for k in tags) else 'SUMO road-type default, unverified'))
+        audit.append(dict(edge=e.get('id'),osm_way=way_id,lanes=len(e.findall('lane')),osm_lanes=tags.get('lanes'),osm_directional_lanes={k:v for k,v in tags.items() if k.startswith('lanes:')},oneway=tags.get('oneway'),highway=tags.get('highway'),maxspeed=tags.get('maxspeed'),layer=tags.get('layer'),bridge=tags.get('bridge'),turn_lanes={k:v for k,v in tags.items() if k.startswith('turn:lanes')},lane_override=overrides.get(e.get('id')),marking_status='solid_verified' if e.get('id') in markings['solid'] else 'dashed_verified' if e.get('id') in markings['dashed'] else 'mixed_unresolved' if e.get('id') in markings['unresolved'] else 'not_applicable' if len(e.findall('lane'))==1 else 'unverified',lane_source='Project override ('+overrides[e.get('id')].get('confidence','visible')+')' if e.get('id') in overrides else 'OSM tag (directional split may apply)' if 'lanes' in tags or any(k.startswith('lanes:') for k in tags) else 'SUMO road-type default, unverified'))
     report=dict(source_sha256=hashlib.sha256((DEST/'source.osm').read_bytes()).hexdigest(),source_bounds=bounds.attrib,scope=scope,crop_command=crop_args[1:],command=args[1:],sumo_version=subprocess.check_output([checkBinary('netconvert'),'--version'],text=True).splitlines()[0],external_edges=len(external),lanes=sum(len(e.findall('lane')) for e in external),restriction_relations_kept=kept,incomplete_restrictions_omitted=dropped,edges=audit)
     (DEST/'import-audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')
     # Native lane rendering avoids the old crossing rectangles and hand-drawn stripes.
     view=ET.Element('viewsettings');scheme=ET.SubElement(view,'scheme',name='OSM source geometry - review')
     ET.SubElement(scheme,'background',backgroundColor='235,239,233')
-    ET.SubElement(scheme,'edges',laneShowBorders='true',showDirection='true',showLinkDecals='true',widthExaggeration='1')
+    ET.SubElement(scheme,'edges',laneShowBorders='true',showDirection='false',showLinkDecals='true',widthExaggeration='1')
     ET.SubElement(view,'delay',value='100')
     anchors=[j for j in net.findall('junction') if j.get('id') in ('498837378','1000493460','436249310')]
     x=sum(float(j.get('x')) for j in anchors)/len(anchors)
