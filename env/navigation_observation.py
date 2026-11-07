@@ -40,8 +40,13 @@ class NavigationEnv(ICExperimentEnv):
     def __init__(self,*args,observation_mode='N0',navigation=None,**kwargs):
         assert observation_mode in ('N0','N1','N2')
         self.observation_mode=observation_mode;self.navigation=navigation
-        self.action_checks=0;self.route_override_count=0
+        self.action_checks=0;self.route_override_count=0;self.episode_seeds=[]
         super().__init__(*args,**kwargs)
+
+    def reset(self,seed=None,options=None):
+        result=super().reset(seed=seed,options=options)
+        self.episode_seeds.append(self.sumo_seed)
+        return result
 
     def navigation_context(self):
         v=traci.vehicle;e=v.getRoadID(self.ego_id)
@@ -71,6 +76,7 @@ class NavigationEnv(ICExperimentEnv):
         obs,r,done,cut,info=super().step(action)
         assert np.array_equal(original,np.asarray(action))
         assert np.isclose(info['lane_change_raw'],np.clip(original[self.lane_change_index],-1,1))
+        assert np.isclose(info['accel_raw'],np.clip(original[self.accel_index],-1,1))
         self.action_checks+=1
         info['policy_action_raw']=original.tolist();info['environment_action_raw']=original.tolist()
         info['route_override_count']=self.route_override_count

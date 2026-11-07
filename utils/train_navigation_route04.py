@@ -13,6 +13,9 @@ for c in XML.findall('connection'):
   key=(c.get('from'),c.get('to'));LINK_LENGTHS[key]=max(LINK_LENGTHS.get(key,0.),INTERNAL.get(c.get('via'),0.))
 NAV=RouteNavigation({e:len(x.findall('lane')) for e,x in EDGES.items()},ROAD_NEW['connections'],LENGTHS,link_lengths=LINK_LENGTHS)
 
+def stamp():
+ return dict(git=COMMIT,network_sha256=digest(MAP/'network.net.xml'),simulation_seed_policy='training: seeded per-episode generator; evaluation: explicit 20001..20020')
+
 def environment(mode,seed,lane='best',speed='max',route='route_04'):
  road=dict(ROAD_NEW,routes={route:MAN['routes'][route]})
  return NavigationEnv(str(MAP/'review.sumocfg'),road,dict(EGO,depart_lane=lane,depart_speed=speed),SIMULATION,OBSERVATION,ACTION,REWARD,dict(TRAFFIC,vehs_per_hour=0,prefill={'enabled':False}),(),seed,observation_mode=mode,navigation=NAV)
@@ -22,9 +25,9 @@ class Log(Checkpoints):
   super().__init__(directory,agent,budget);self.env=env
   if self.writer is None:raise RuntimeError('TensorBoard unavailable')
  def log_train(self,step,metrics,verbose=False):
-  assert all(np.isfinite(v) for v in metrics.values() if isinstance(v,(float,int)))
+  assert all(np.isfinite(v) for k,v in metrics.items() if k!="ep_rew_mean" and isinstance(v,(float,int)))
   super().log_train(step,metrics,verbose=False)
-  save(self.directory/'action-audit.json',dict(checked_steps=self.env.action_checks,route_override_count=self.env.route_override_count))
+  save(self.directory/'action-audit.json',dict(checked_steps=self.env.action_checks,route_override_count=self.env.route_override_count,episode_seeds=self.env.episode_seeds))
 
 def evaluate(agent,mode):
  rows=[]
