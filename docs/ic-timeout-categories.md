@@ -80,3 +80,23 @@
 |south_to_west|{'route_lane_blocked': 2}|
 
 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO-22-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `100b7aca62795bff4ba903ac99a1e5d66bc4843925432c9abb652d7012241668`.
+
+## COMBO seed33 진단 완료 (2026-11-07)
+
+시간 초과 40건 모두 원래 종료시간 및 결과가 재현됐다. 분류: {'route_lane_blocked': 40}. 종료 직전 상태의 분류이며 앞선 정체의 기여는 별도 분석이 필요하다.
+
+|경로|분류별 건수|
+|---|---|
+|north_to_east|{'route_lane_blocked': 4}|
+|north_to_local|{'route_lane_blocked': 3}|
+|north_to_west|{'route_lane_blocked': 4}|
+|sano_east_to_south|{'route_lane_blocked': 4}|
+|sano_north_to_west|{'route_lane_blocked': 4}|
+|sano_south_to_east|{'route_lane_blocked': 5}|
+|sano_south_to_west|{'route_lane_blocked': 5}|
+|south_to_east|{'route_lane_blocked': 3}|
+|south_to_local|{'route_lane_blocked': 3}|
+|south_to_west|{'route_lane_blocked': 3}|
+|west_to_local|{'route_lane_blocked': 2}|
+
+학습 seed33, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO-33-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `d23e6e83a01a4937885519c284d963cf3e58db6e5aa017c32afa8d55a551da8a`.
