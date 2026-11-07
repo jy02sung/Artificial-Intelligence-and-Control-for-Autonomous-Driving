@@ -104,6 +104,8 @@
     "lane-overrides.edg.xml",
     "--connection-files",
     "connection-resets.con.xml",
+    "--node-files",
+    "north-boundary.nod.xml",
     "--keep-edges.explicit",
     "1063527748,1413342573,1414146968,1414146971,169728799,169728835,169728849,169929470#0,169929470#1,169929474,169929478,169929482,169929484,169929487,169929488#0,169929488#1,169929489,169929493,169929495,169929497,169929502,169929503#0,169929503#1,169929503#2,170059988,170059989,170059989#1,170059991,170059992,170059993,170059994,170059995,170059996,206426298,280963368,372821396,372832348,37375274,37927508,37927509,37927512,52873356,544292616,544292617,544293888#0,544293888#1,544295537,556956811,556956812#0,556956812#1,556956813,556956815,556956816,596640907,597119332,597119333,597119334,72387788#0,72387788#1,72387791#0,72387791#1,72387844,781184662#1,781184662#2,781184662#3,797789364,841607178#15,841607184#0,841607184#1,841607184#2,841607184#3,841607184#4,844484874,844484875,844484876,844484877,844484878#0,844484878#1,86198708,86198709,86198710,86198717,86198720,86198722,86198725,86198728",
     "--output-file",
@@ -166,7 +168,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -208,7 +210,7 @@
         "evidence": "docs/assets/osm-audit/westbound-three-lane-split.png",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (visible)"
@@ -262,7 +264,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "dashed_verified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -280,7 +282,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"
@@ -316,7 +318,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"
@@ -334,7 +336,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -352,7 +354,7 @@
       "bridge": "yes",
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "solid_verified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -377,7 +379,7 @@
         "source_url": "https://map.naver.com/p/search/사노IC?c=18.00,0,0,1,dh",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (visible)"
@@ -395,7 +397,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -413,7 +415,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"
@@ -479,7 +481,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -497,7 +499,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "dashed_verified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -515,7 +517,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -533,7 +535,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -551,7 +553,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"
@@ -569,7 +571,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "SUMO road-type default, unverified"
@@ -587,7 +589,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "SUMO road-type default, unverified"
@@ -605,7 +607,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "SUMO road-type default, unverified"
@@ -623,7 +625,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -641,7 +643,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -659,7 +661,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -677,7 +679,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -695,7 +697,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"
@@ -713,7 +715,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": "advance_fork_pocket",
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"
@@ -731,7 +733,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": "advance_fork_pocket",
       "marking_status": "unverified",
       "lane_source": "SUMO road-type default, unverified"
@@ -767,7 +769,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -785,7 +787,7 @@
       "bridge": "yes",
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -808,7 +810,7 @@
         "confidence": "visible_count_approximate_taper",
         "basis": "User satellite: four mainline lanes plus one loop ramp = five, then four downstream. Taper uses source vertex near end of auxiliary section; not surveyed."
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (visible_count_approximate_taper)"
@@ -826,7 +828,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -886,7 +888,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -904,7 +906,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -945,7 +947,7 @@
         "confidence": "user_satellite_correction",
         "basis": "User satellite confirms four mainline lanes remain before the single-lane loop merge; OSM three-lane tag is overridden."
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (user_satellite_correction)"
@@ -963,7 +965,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -981,7 +983,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -1029,7 +1031,7 @@
         "evidence": "docs/assets/osm-audit/south-ramp-two-lanes-gore.png",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (visible)"
@@ -1052,7 +1054,7 @@
         "basis": "User satellite screenshot: two-lane pocket before fork. Right lane leads to 37375274, left lane to 544293888#1.",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": "advance_fork_pocket",
       "marking_status": "unverified",
       "lane_source": "Project override (visible)"
@@ -1070,7 +1072,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -1129,7 +1131,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -1226,7 +1228,7 @@
         "source_url": "https://map.naver.com/p/search/사노IC?c=18.00,0,0,1,dh",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (visible)"
@@ -1269,7 +1271,7 @@
         "source_url": "https://map.naver.com/p/search/사노IC?c=18.00,0,0,1,dh",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (continuity_inference)"
@@ -1294,7 +1296,7 @@
         "source_url": "https://map.naver.com/p/search/사노IC?c=18.00,0,0,1,dh",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (visible)"
@@ -1312,7 +1314,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"
@@ -1348,7 +1350,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "SUMO road-type default, unverified"
@@ -1366,7 +1368,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "SUMO road-type default, unverified"
@@ -1384,7 +1386,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"
@@ -1402,7 +1404,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "SUMO road-type default, unverified"
@@ -1420,7 +1422,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "SUMO road-type default, unverified"
@@ -1443,7 +1445,7 @@
         "confidence": "user_satellite_correction",
         "basis": "Keep 2 trunk lanes plus 1 entering lane between node 7461635551 and next fork 1810880223; user screenshot 2026-11-07."
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (user_satellite_correction)"
@@ -1461,7 +1463,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"
@@ -1479,7 +1481,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "SUMO road-type default, unverified"
@@ -1504,7 +1506,7 @@
         "source_url": "https://map.naver.com/p/search/사노IC?c=18.00,0,0,1,dh",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (continuity_inference)"
@@ -1529,7 +1531,7 @@
         "source_url": "https://map.naver.com/p/search/사노IC?c=18.00,0,0,1,dh",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (continuity_inference)"
@@ -1554,7 +1556,7 @@
         "source_url": "https://map.naver.com/p/search/사노IC?c=18.00,0,0,1,dh",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (visible)"
@@ -1579,7 +1581,7 @@
         "source_url": "https://map.naver.com/p/search/사노IC?c=18.00,0,0,1,dh",
         "source_osm_lanes": null
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (visible)"
@@ -1597,7 +1599,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"
@@ -1615,7 +1617,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "SUMO road-type default, unverified"
@@ -1633,7 +1635,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -1651,7 +1653,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -1675,7 +1677,7 @@
         "source_osm_lanes": "4",
         "evidence": "docs/assets/osm-audit/south-auxiliary-lane-taper-overview.png"
       },
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "Project override (satellite_approximate_taper)"
@@ -1693,7 +1695,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -1711,7 +1713,7 @@
       "bridge": null,
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "unverified",
       "lane_source": "OSM tag (directional split may apply)"
@@ -1783,7 +1785,7 @@
       "bridge": "yes",
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -1801,7 +1803,7 @@
       "bridge": "yes",
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "OSM tag (directional split may apply)"
@@ -1819,7 +1821,7 @@
       "bridge": "yes",
       "turn_lanes": {},
       "lane_override": null,
-      "geometry_rounding": false,
+      "geometry_rounding": true,
       "layout_adjustment": null,
       "marking_status": "not_applicable",
       "lane_source": "SUMO road-type default, unverified"

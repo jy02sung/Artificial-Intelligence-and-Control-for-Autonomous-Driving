@@ -1,7 +1,19 @@
 {
   "intentional_geometry_changes": [
     {
+      "edge": "1414146971",
+      "reason": "User requested earlier merge, original OSM geometry intentionally changed"
+    },
+    {
       "edge": "280963368",
+      "reason": "User requested earlier merge, original OSM geometry intentionally changed"
+    },
+    {
+      "edge": "86198708",
+      "reason": "User requested earlier merge, original OSM geometry intentionally changed"
+    },
+    {
+      "edge": "86198728",
       "reason": "User requested earlier merge, original OSM geometry intentionally changed"
     }
   ],
@@ -67,8 +79,8 @@
   "status": "passed",
   "geometry_deviations": [],
   "no_simulation_steps_or_training": true,
-  "source_geometry_edges_checked": 88,
-  "max_projected_source_error_m": 1.6227741178386457,
+  "source_geometry_edges_checked": 85,
+  "max_projected_source_error_m": 2.2833002422626802,
   "explicit_oneway_lane_tag_checks": 41,
   "roads_with_unverified_lane_defaults": 28,
   "routes": {
@@ -79,7 +91,7 @@
         "280963368",
         "1414146971"
       ],
-      "length_m": 443.59999999999997
+      "length_m": 269.11
     },
     "south_ramp_through_taper": {
       "edges": [
@@ -91,7 +103,7 @@
         "844484877",
         "844484877#1"
       ],
-      "length_m": 1464.56
+      "length_m": 1463.4499999999998
     },
     "south_to_east": {
       "edges": [
@@ -104,7 +116,7 @@
         "170059994",
         "1063527748"
       ],
-      "length_m": 1106.49
+      "length_m": 1034.19
     },
     "north_to_east": {
       "edges": [
@@ -114,7 +126,7 @@
         "170059994",
         "1063527748"
       ],
-      "length_m": 1192.81
+      "length_m": 1188.15
     },
     "north_to_west": {
       "edges": [
@@ -126,7 +138,7 @@
         "86198717",
         "170059992"
       ],
-      "length_m": 1440.46
+      "length_m": 1431.01
     },
     "outer_to_south": {
       "edges": [
@@ -138,7 +150,7 @@
         "544292616",
         "844484877"
       ],
-      "length_m": 1156.33
+      "length_m": 1155.8999999999999
     },
     "return_to_north": {
       "edges": [
@@ -150,7 +162,7 @@
         "86198722",
         "86198708"
       ],
-      "length_m": 915.9599999999998
+      "length_m": 790.24
     },
     "return_to_south": {
       "edges": [
@@ -165,7 +177,7 @@
         "206426298#1",
         "844484877"
       ],
-      "length_m": 1377.82
+      "length_m": 1370.63
     },
     "toegyewon_to_sano": {
       "edges": [
@@ -181,7 +193,7 @@
         "169929478",
         "169929482"
       ],
-      "length_m": 1830.64
+      "length_m": 1757.1400000000003
     },
     "sano_to_toegyewon": {
       "edges": [
@@ -196,7 +208,7 @@
         "544292616",
         "844484877"
       ],
-      "length_m": 1800.2400000000002
+      "length_m": 1799.7000000000003
     },
     "sano_north_to_south": {
       "edges": [
@@ -206,7 +218,7 @@
         "72387791#0",
         "72387791#1"
       ],
-      "length_m": 586.9
+      "length_m": 586.72
     },
     "sano_south_to_north": {
       "edges": [
@@ -216,12 +228,12 @@
         "841607184#2",
         "841607184#3"
       ],
-      "length_m": 487.09999999999997
+      "length_m": 486.64
     }
   },
   "geometry_tolerances_m": {
     "unchanged": 0.05,
-    "rounded_curves": 1.0,
+    "rounded_curves": 4.05,
     "auxiliary_lane_drop_center_shift": 1.65
   },
   "limitations": [
