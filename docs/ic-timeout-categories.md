@@ -213,3 +213,55 @@
 |west_to_local|{'route_lane_blocked': 5}|
 
 학습 seed11, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/GAP-11-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `82ef9577a6560ed34b02d1f7bc8907826ef8c24cda86f1caa9a7ba8fb8085a7e`.
+
+## PREP-11-200000 진단 완료 (2026-11-07)
+
+시간 초과 58건 모두 원래 종료시간·결과가 재현됐다. 종료 직전 기준 분류: {'route_lane_blocked': 58}. 이전 정체의 기여 여부는 확정하지 않는다.
+
+|경로|분류별 건수|
+|---|---|
+|east_through|{'route_lane_blocked': 2}|
+|north_through|{'route_lane_blocked': 1}|
+|north_to_east|{'route_lane_blocked': 2}|
+|north_to_west|{'route_lane_blocked': 3}|
+|sano_north_through|{'route_lane_blocked': 5}|
+|sano_north_to_west|{'route_lane_blocked': 5}|
+|sano_south_through|{'route_lane_blocked': 5}|
+|sano_south_to_west|{'route_lane_blocked': 5}|
+|sano_west_to_north|{'route_lane_blocked': 3}|
+|sano_west_to_south|{'route_lane_blocked': 3}|
+|south_to_east|{'route_lane_blocked': 5}|
+|south_to_local|{'route_lane_blocked': 5}|
+|south_to_west|{'route_lane_blocked': 5}|
+|west_through|{'route_lane_blocked': 4}|
+|west_to_local|{'route_lane_blocked': 5}|
+
+학습 seed는 run 이름 참조, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/PREP-11-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `470d2f0f1a3413309d95fc2cc1d60ef0e7c32fb2ff8efef847f8477a3e41037a`.
+
+
+## R0-11-200000 진단 완료 (2026-11-07)
+
+시간 초과 20건 모두 원래 종료시간·결과가 재현됐다. 종료 직전 기준 분류: {'route_lane_blocked': 20}. 이전 정체의 기여 여부는 확정하지 않는다.
+
+|경로|분류별 건수|
+|---|---|
+|north_to_west|{'route_lane_blocked': 2}|
+|sano_west_to_north|{'route_lane_blocked': 3}|
+|sano_west_to_south|{'route_lane_blocked': 3}|
+|south_through|{'route_lane_blocked': 3}|
+|south_to_east|{'route_lane_blocked': 2}|
+|south_to_local|{'route_lane_blocked': 2}|
+|west_to_local|{'route_lane_blocked': 5}|
+
+학습 seed는 run 이름 참조, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/R0-11-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `b0811919876f05b845d4422bf2afa45a10def53c44be6aea062b8145fb4e2ec2`.
+
+
+## R0-22-200000 진단 완료 (2026-11-07)
+
+시간 초과 3건 모두 원래 종료시간·결과가 재현됐다. 종료 직전 기준 분류: {'route_lane_blocked': 3}. 이전 정체의 기여 여부는 확정하지 않는다.
+
+|경로|분류별 건수|
+|---|---|
+|outer_to_south|{'route_lane_blocked': 3}|
+
+학습 seed는 run 이름 참조, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/R0-22-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `58c788444ac0b231ac20145d8d669e4a824f1e36aff4aa5109f4f2df2f727283`.
