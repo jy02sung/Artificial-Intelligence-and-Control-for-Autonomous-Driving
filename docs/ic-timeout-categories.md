@@ -100,3 +100,7 @@
 |west_to_local|{'route_lane_blocked': 2}|
 
 학습 seed33, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO-33-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `d23e6e83a01a4937885519c284d963cf3e58db6e5aa017c32afa8d55a551da8a`.
+
+## COMBO025 seed11 진단 완료 (2026-11-07)
+
+시간 초과 39건 모두 원래 종료시간·결과가 재현됐으며 종료 직전 경로 연결 차로 실패 정지로 분류됐다. 학습 seed11, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO025-11-200000.json`, 진단 코드 `029e3fd`. 정책 SHA256 `49a5b897fa11ac0ac2992ab2c0a507548b130fbcb2cb5b061f8bba3c26d4ba24`.
