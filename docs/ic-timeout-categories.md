@@ -376,3 +376,30 @@
 |west_to_local|{'route_lane_blocked': 5}|
 
 학습 seed33, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO025-33-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `ea9f60fa1b2e6882fdc2619a9cc4ecf000dcc8eda7c83937c53e15827e0e1063`.
+
+## H-LR-11-200000 진단 완료 (2026-11-07)
+
+시간 초과 79건 모두 원래 종료시간·결과가 재현됐다. 종료 직전 기준 분류: {'route_lane_blocked': 79}. 이전 정체의 기여 여부는 확정하지 않는다.
+
+|경로|분류별 건수|
+|---|---|
+|east_through|{'route_lane_blocked': 2}|
+|north_through|{'route_lane_blocked': 3}|
+|north_to_east|{'route_lane_blocked': 5}|
+|north_to_west|{'route_lane_blocked': 5}|
+|sano_east_to_south|{'route_lane_blocked': 5}|
+|sano_north_through|{'route_lane_blocked': 5}|
+|sano_north_to_west|{'route_lane_blocked': 5}|
+|sano_south_through|{'route_lane_blocked': 5}|
+|sano_south_to_east|{'route_lane_blocked': 5}|
+|sano_south_to_west|{'route_lane_blocked': 5}|
+|sano_west_to_north|{'route_lane_blocked': 3}|
+|sano_west_to_south|{'route_lane_blocked': 3}|
+|south_through|{'route_lane_blocked': 3}|
+|south_to_east|{'route_lane_blocked': 5}|
+|south_to_local|{'route_lane_blocked': 5}|
+|south_to_west|{'route_lane_blocked': 5}|
+|west_through|{'route_lane_blocked': 5}|
+|west_to_local|{'route_lane_blocked': 5}|
+
+학습 seed11, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/H-LR-11-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `e1b5c49e4bf32c8e13a47f466af9b55c6f60734b36b0cf24cb50f48dc0f37535`.
