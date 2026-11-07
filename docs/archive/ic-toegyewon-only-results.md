@@ -1,6 +1,8 @@
+> **과거 기록** — 작성 당시의 설계·맵·결과입니다. 현재 적용 기준은 [최신 문서 목록](../README.md)을 확인하세요.
+
 # 퇴계원 단독 맵: 기본 차량 검증 결과
 
-전체 맵은 보존하고 별도 맵으로 H0→A0→B0 검증을 완료했다. 실행 코드 커밋 `def608f`이며 네트워크/정책 SHA256, simulation seed1001, 경로별 원자료는 [JSON](experiments/toegyewon-only-v1.json)에 기록했다.
+전체 맵은 보존하고 별도 맵으로 H0→A0→B0 검증을 완료했다. 실행 코드 커밋 `def608f`이며 네트워크/정책 SHA256, simulation seed1001, 경로별 원자료는 JSON (로컬 보관: `docs/experiments/toegyewon-only-v1.json`; GitHub 미포함)에 기록했다.
 
 | 단계 | 결과 | 해석 |
 |---|---:|---|

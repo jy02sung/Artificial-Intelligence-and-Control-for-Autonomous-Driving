@@ -1,3 +1,5 @@
+> **과거 기록** — 작성 당시의 설계·맵·결과입니다. 현재 적용 기준은 [최신 문서 목록](../README.md)을 확인하세요.
+
 # 퇴계원IC 단계별 개발 및 독립 비교 실험 설계
 
 11월 7일 현재 기준 맵은 영훈님 kyh의 4f3a867이다. 맵 통합 PR #2와 트래픽 PR #3을 main에 병합했다. [교통 검증](traffic-validation.md)과 [학습 진행 기록](ic-ppo-progress.md)에 실제 실행 결과를 남긴다. 아래 보상·파라미터 표의 미실행 후보와 완료된 결과는 구분한다.
@@ -234,7 +236,7 @@ results/run_YYYYMMDD_HHMMSS/manifest.json   # 실제 실행 식별 정보
 
 ## 11. 수업 평가 기준에 따른 우선순위와 제출 조건
 
-근거: [평가 문서](../project_materials/6_Project_Evaluation.md), [준비 문서](../project_materials/5_Project_Preparation.md), [컨설팅 문서](../project_materials/7_Project_Consulting.md). 원문은 변경하지 않고 보존한다.
+근거: [평가 문서](../../project_materials/6_Project_Evaluation.md), [준비 문서](../../project_materials/5_Project_Preparation.md), [컨설팅 문서](../../project_materials/7_Project_Consulting.md). 원문은 변경하지 않고 보존한다.
 
 | 수업 기준 | 설계에 반영할 증거/작업 |
 |---|---|

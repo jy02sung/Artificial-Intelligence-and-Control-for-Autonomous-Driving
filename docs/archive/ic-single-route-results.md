@@ -1,3 +1,5 @@
+> **과거 기록** — 작성 당시의 설계·맵·결과입니다. 현재 적용 기준은 [최신 문서 목록](../README.md)을 확인하세요.
+
 # south_to_east 단일 경로 관측 실험 결과
 
 ## 1. 최초 시작 조건 검증
@@ -35,7 +37,7 @@ seed11, 200,000스텝, 처음부터 학습. 20/20 완주(100%), 충돌0/20, 시�
 
 20개 동일조건 재생도 도착·소요시간이 재현됐다. 제한속도 초과 판정은 현재차로 제한속도보다0.1m/s 초과이며, 전체 측정스텝 중94.11%, 램프 측정스텝 중100%가 초과했다. 최대초과16.67m/s(약60.01km/h). 평균 차로변경19.95회. 완주 달성과 안전·법규 준수는 구분한다.
 
-설정·각 조건별 결과·주행 감사: [original.json](experiments/ic-single-route-v1/original.json). 원본실행은 results/ic_single_route_v1/original.
+설정·각 조건별 결과·주행 감사: original.json (로컬 보관: `docs/experiments/ic-single-route-v1/original.json`; GitHub 미포함). 원본실행은 results/ic_single_route_v1/original.
 
 
 ## 5. 수정 관측 학습 및 대응 비교 완료
@@ -93,4 +95,4 @@ seed11 각200,000스텝의 최종정책을 같은20개 시작조건에서 평가
 
 수정 정책 SHA256: `ade5ded21d7c3f5b096dff63122ac2b04393ecd00279a99df2fe3936eb050ffa`. 학습 소요442.02초.
 
-설정·조건별 결과·주행 감사: [corrected.json](experiments/ic-single-route-v1/corrected.json). 학습 코드 커밋은 두 조건 모두0afa18c. 실행폴더 results/ic_single_route_v1/{original,corrected}. 각 폴더에 manifest, progress, model, policy 체크포인트, TensorBoard, evaluation, driving-audit를 보존했다.
+설정·조건별 결과·주행 감사: corrected.json (로컬 보관: `docs/experiments/ic-single-route-v1/corrected.json`; GitHub 미포함). 학습 코드 커밋은 두 조건 모두0afa18c. 실행폴더 results/ic_single_route_v1/{original,corrected}. 각 폴더에 manifest, progress, model, policy 체크포인트, TensorBoard, evaluation, driving-audit를 보존했다.

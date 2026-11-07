@@ -1,3 +1,5 @@
+> **과거 기록** — 작성 당시의 설계·맵·결과입니다. 현재 적용 기준은 [최신 문서 목록](../README.md)을 확인하세요.
+
 # 11월 7일 퇴계원·사노IC 교통 검증
 
 영훈님 맵 4f3a867을 [PR #2](https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/pull/2)로 통합했다. 같은 수요·경로, 시드 42/7/23, 0.2초 간격으로 1,200초씩 실행했다. 각 실행은 일반 차량 2,013대와 시연 차량 1대를 포함한다.

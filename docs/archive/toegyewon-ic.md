@@ -1,10 +1,12 @@
+> **과거 기록** — 작성 당시의 설계·맵·결과입니다. 현재 적용 기준은 [최신 문서 목록](../README.md)을 확인하세요.
+
 # 퇴계원 IC 도로 구현 — 백업 기준
 
 이 문서는 사노 IC 추가 전 커밋 `662fd15`의 도로와 검증 기록입니다. 현재 `kyh-sano-ic` 브랜치의 실행 결과와 범위는 [퇴계원·사노 IC 확장 안내](sano-ic.md)를 보세요.
 
 교수님 스켈레톤의 파일·폴더와 함수 인터페이스를 유지하면서 퇴계원 IC 교육용 도로를 연결했습니다. 사용자 제공 위성사진과 OpenStreetMap 중심선을 참고했으며, 가독성과 주행을 위해 합류·분기 형상을 단순화했습니다. 정밀 측량 기반 디지털 트윈은 아닙니다.
 
-![전체 도로](assets/toegyewon/overview.png)
+![전체 도로](../assets/toegyewon/overview.png)
 
 ## 주변 환경 장식
 
@@ -20,9 +22,9 @@ SCENERY.update(ic_landscape=False, landscape_seed=21)
 
 `True`로 되돌린 뒤 `python view_road.py`를 실행하면 배경이 다시 표시됩니다. 전체 보기의 중심과 배율은 `env/mdp_config.py` 하단 GUI 설정에 있습니다.
 
-![주변 환경 확대 화면](assets/toegyewon/landscape_detail.png)
+![주변 환경 확대 화면](../assets/toegyewon/landscape_detail.png)
 
-[주변 환경 검증 기록](assets/toegyewon/scenery_validation.json): 물리 설정 XML 동일, 장식 표시 전환·재현성 확인, seed 42에서 1,759대 완주 및 충돌·긴급 제동·텔레포트 0.
+[주변 환경 검증 기록](../assets/toegyewon/scenery_validation.json): 물리 설정 XML 동일, 장식 표시 전환·재현성 확인, seed 42에서 1,759대 완주 및 충돌·긴급 제동·텔레포트 0.
 
 ## 실행
 
@@ -55,11 +57,11 @@ python view_road.py --netedit
 
 위 차로 구성에는 사용자 요청에 따른 단순화가 포함됩니다. 합성 교통량은 총 12,600대/시간을 0~500초 동안 투입합니다. 실제 교통량 조사값은 아닙니다.
 
-![위쪽 두 진출로](assets/toegyewon/entry_detail.png)
+![위쪽 두 진출로](../assets/toegyewon/entry_detail.png)
 
-![동쪽 합류·분기](assets/toegyewon/east_lane_detail.png)
+![동쪽 합류·분기](../assets/toegyewon/east_lane_detail.png)
 
-![다리 아래 서쪽 분기](assets/toegyewon/west_lane_detail.png)
+![다리 아래 서쪽 분기](../assets/toegyewon/west_lane_detail.png)
 
 ## 차량 색
 
@@ -100,7 +102,7 @@ python view_road.py --netedit
 - 도로 관련 Python 파일 네 개만 변경되며, 팀의 나머지 Python 파일은 기준 브랜치와 동일.
 - 원본 함수 인자·폴더 구조를 보존하고, 기존 경로가 서로 연결되는 것을 확인.
 
-[도로 검증 기록](assets/toegyewon/road_validation_report.json)과 [팀 통합 검증 기록](assets/toegyewon/integration_validation.json)을 구분해 보관합니다. 전체 PPO/BC 학습이나 정책 성능 평가는 수행하지 않았습니다.
+[도로 검증 기록](../assets/toegyewon/road_validation_report.json)과 [팀 통합 검증 기록](../assets/toegyewon/integration_validation.json)을 구분해 보관합니다. 전체 PPO/BC 학습이나 정책 성능 평가는 수행하지 않았습니다.
 
 최근 합류 정리 이후에는 같은 합성 수요에서도 심한 정체가 거의 발생하지 않습니다. 혼잡을 연구하려면 출발 수요·진출 비율·차로 변경 조건 등을 별도로 설계하고 평가해야 합니다.
 
@@ -108,6 +110,6 @@ python view_road.py --netedit
 
 ## 좌표 출처와 가정
 
-도로 중심선은 동경 127.132°, 북위 37.640°를 기준으로 미터 좌표로 변환했습니다. 물리 차로 폭 3.5m, 교량 층 높이 8m, 본선·램프 속도 및 일부 보조 차로는 모델 가정입니다. 상세 출처와 형상 조정은 [좌표 출처 JSON](../project_materials/toegyewon_geometry_sources.json)에 기록했습니다.
+도로 중심선은 동경 127.132°, 북위 37.640°를 기준으로 미터 좌표로 변환했습니다. 물리 차로 폭 3.5m, 교량 층 높이 8m, 본선·램프 속도 및 일부 보조 차로는 모델 가정입니다. 상세 출처와 형상 조정은 [좌표 출처 JSON](../../project_materials/toegyewon_geometry_sources.json)에 기록했습니다.
 
 좌표·도로 데이터: [OpenStreetMap contributors](https://www.openstreetmap.org/#map=17/37.640/127.132), [ODbL 및 저작자 표시](https://www.openstreetmap.org/copyright). OSM에서 유래한 도로 형상 데이터는 ODbL 1.0에 따릅니다. 교수님 코드의 라이선스를 변경하는 의미는 아닙니다.

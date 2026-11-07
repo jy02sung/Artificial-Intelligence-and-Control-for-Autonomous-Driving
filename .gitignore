@@ -14,7 +14,6 @@ results/
 *.pth
 *.log
 data/*
-!data/dataset.npz
 !data/README.md
 
 /maps/toegyewon_osm/auxiliary-taper.edg.xml
@@ -28,3 +27,7 @@ data/*
 /maps/toegyewon_osm/north-boundary.nod.xml
 
 /maps/toegyewon_osm/geometry-review/
+
+# Experiment case exports stay local; keep small reproducible plans tracked.
+/docs/experiments/**/*.json
+!/docs/experiments/*plan*.json

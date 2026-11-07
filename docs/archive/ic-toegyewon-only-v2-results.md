@@ -1,3 +1,5 @@
+> **과거 기록** — 작성 당시의 설계·맵·결과입니다. 현재 적용 기준은 [최신 문서 목록](../README.md)을 확인하세요.
+
 # 퇴계원 수정 맵 16경로 기본 AV 재평가
 
 16개 경로 × 기존 R0 정책 3개(seed11/22/33), 총48회를 새로 실행했다. 재학습 없이 200,000스텝 체크포인트를 그대로 사용했다. 무교통, simulation seed1001, best 차로/max 속도 출발, 결정적 행동, 최대900초 조건이다.
@@ -50,4 +52,4 @@
 
 결과/추적: `results/toegyewon_only_v2/av`, `results/toegyewon_only_v2/traces`. 이전 결과는 보존했다.
 
-[48건 원자료·정책 해시](experiments/toegyewon-only-v2.json) · [이전 결과](ic-toegyewon-only-results.md)
+48건 원자료·정책 해시 (로컬 보관: `docs/experiments/toegyewon-only-v2.json`; GitHub 미포함) · [이전 결과](ic-toegyewon-only-results.md)

@@ -1,3 +1,5 @@
+> **과거 기록** — 작성 당시의 설계·맵·결과입니다. 현재 적용 기준은 [최신 문서 목록](../README.md)을 확인하세요.
+
 # 첨부 OSM 기반 퇴계원·사노 IC 맵 재구성
 
 2026-11-07. 사용자가 제공한 map.osm을 기준으로 다시 구성했다. 기존 맵은 교육용 단순화 모델이므로 실제 도로와 동일하다고 볼 수 없다. 학습·데이터 수집은 중단 상태다.
@@ -34,8 +36,8 @@
 
 ## 파일과 실행
 
-- [원본 OSM](../maps/toegyewon_osm/source.osm), [SUMO 맵](../maps/toegyewon_osm/network.net.xml), [열기 설정](../maps/toegyewon_osm/review.sumocfg)
-- [변환 감사 기록](../maps/toegyewon_osm/import-audit.json), [정적 검증](../maps/toegyewon_osm/validation.json), [변환 경고](../maps/toegyewon_osm/conversion-warnings.txt)
+- [원본 OSM](../../maps/toegyewon_osm/source.osm), [SUMO 맵](../../maps/toegyewon_osm/network.net.xml), [열기 설정](../../maps/toegyewon_osm/review.sumocfg)
+- [변환 감사 기록](../../maps/toegyewon_osm/import-audit.json), [정적 검증](../../maps/toegyewon_osm/validation.json), [변환 경고](../../maps/toegyewon_osm/conversion-warnings.txt)
 
 ```bash
 python -m utils.rebuild_osm_map

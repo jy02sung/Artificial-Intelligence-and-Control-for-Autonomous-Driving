@@ -1,3 +1,5 @@
+> **과거 기록** — 작성 당시의 설계·맵·결과입니다. 현재 적용 기준은 [최신 문서 목록](../README.md)을 확인하세요.
+
 # 퇴계원 실패 경로: 출발 조건·관측·행동 축 진단
 
 대상은 route_04(남쪽 북향 본선→동쪽 금강로), route_14(북쪽 남향 본선→동쪽 금강로). 새 학습 없이 기존 R0 seed11·22·33을 검사했다. 맵·보상·행동 제약·관측을 바꾸지 않았다.
@@ -15,7 +17,7 @@
 
 출발 조건 변화만으로 실패가 해결되지 않았다. 동일 조건 진단 제어는 통과하므로 시험한 조건에서 물리적 통과 불능·출발 거부가 원인이라는 설명은 지지되지 않는다. 모든 가능한 위치·속도에 대한 보장은 아니다.
 
-원자료: [시작 조건 사례](experiments/toegyewon-start-v1.json). 실행 코드 커밋 `adaec18`, 경로 `results/toegyewon_start_v1`.
+원자료: 시작 조건 사례 (로컬 보관: `docs/experiments/toegyewon-start-v1.json`; GitHub 미포함). 실행 코드 커밋 `adaec18`, 경로 `results/toegyewon_start_v1`.
 
 ## O: 실제 관측과 명령
 
@@ -41,7 +43,7 @@
 
 무개입 기준6건은0/6, 차로·속도 모두 안내한 앞선 진단6건은6/6이다. 개입은 정책 성능 개선 결과가 아니라 실패 원인을 분리하는 시험이다. 가감속을 유지하고 차로 선택만 바꾸어 완주한 것은 이 조건에서 차로 판단이 충분히 중요한 직접 원인임을 뒷받침한다. 속도 영향이 다른 조건에서도 없다는 뜻은 아니다.
 
-원자료: [관측·독립 개입](experiments/toegyewon-observation-axes-v1.json). 실행 코드 `2cde268`, 경로 `results/toegyewon_axes_v1`.
+원자료: 관측·독립 개입 (로컬 보관: `docs/experiments/toegyewon-observation-axes-v1.json`; GitHub 미포함). 실행 코드 `2cde268`, 경로 `results/toegyewon_axes_v1`.
 
 ## 결론과 다음 검증
 

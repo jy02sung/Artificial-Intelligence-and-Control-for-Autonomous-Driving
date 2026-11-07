@@ -1,3 +1,5 @@
+> **과거 기록** — 작성 당시의 설계·맵·결과입니다. 현재 적용 기준은 [최신 문서 목록](../README.md)을 확인하세요.
+
 # 프로젝트 최종 목적 및 완료 체크리스트
 
 작성일: 2026-10-27 / 평가 문서 반영: 2026-11-03
@@ -104,12 +106,12 @@ GitHub 생성과 문서 준비만 완료된 상태이며, 선정 도로 구현·
 
 ## 근거 자료
 
-- [저장소에 보존된 프로젝트 소개·평가 기준](../project_materials/0_Project_Introduction.md): 도로·차량 주행·데이터 구축, 충돌률 기본 목표, 프로젝트 페이지·Hugging Face·보고서 항목.
+- [저장소에 보존된 프로젝트 소개·평가 기준](../../project_materials/0_Project_Introduction.md): 도로·차량 주행·데이터 구축, 충돌률 기본 목표, 프로젝트 페이지·Hugging Face·보고서 항목.
 - [수업 원본 프로젝트 준비 자료](https://github.com/bmil-ssu/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/main/project_materials/5_Project_Preparation.md): 구현부터 평가까지의 흐름, 100에피소드 이상 평가 권장. 2026-10-27 확인.
 
 ## 최신 평가 자료 및 해석
 
-- [전용 평가 기준](../project_materials/6_Project_Evaluation.md): 충돌률 <5%, 데이터 규모, 필수 영상, 제출 조건. 소개·준비 문서의 ≤5%와 달라 더 엄격한 평가 문서를 따른다.
-- [컨설팅 안내](../project_materials/7_Project_Consulting.md): 배정일·질문·문제 영상 준비.
-- [원본 동기화 내역](course-materials-sync.md): 원본 SHA와 반영 범위.
+- [전용 평가 기준](../../project_materials/6_Project_Evaluation.md): 충돌률 <5%, 데이터 규모, 필수 영상, 제출 조건. 소개·준비 문서의 ≤5%와 달라 더 엄격한 평가 문서를 따른다.
+- [컨설팅 안내](../../project_materials/7_Project_Consulting.md): 배정일·질문·문제 영상 준비.
+- [원본 동기화 내역](../course-materials-sync.md): 원본 SHA와 반영 범위.
 - 100에피소드는 준비 문서의 평가 명령 예시이자 팀의 최소 검증 권장치로 사용하며, 6번 평가 문서가 별도의 최소 횟수를 의무화한 것은 아니다.

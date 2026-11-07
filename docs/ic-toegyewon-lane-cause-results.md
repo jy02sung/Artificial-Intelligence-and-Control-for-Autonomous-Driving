@@ -60,6 +60,6 @@
 - 실행: `python -m utils.diagnose_toegyewon_lane_cause`
 - 요약 재생성: `python -m utils.summarize_toegyewon_lane_cause`
 - 원시 결과: `results/toegyewon_lane_cause_v1/cases`, `traces`
-- [요약 수치·실행 커밋·파일 해시](experiments/toegyewon-lane-cause-v1.json)
+- 요약 수치·실행 커밋·파일 해시 (로컬 보관: `docs/experiments/toegyewon-lane-cause-v1.json`; GitHub 미포함)
 
 다음 순수 강화학습 비교에서는 기존 관측과 수정 관측을 동일 경로/초기화seed/스텝/보상으로 각각 처음부터 학습해야 한다. 이번48/48을 PPO의 재학습 성능으로 사용하지 않는다.

@@ -2,7 +2,7 @@
 
 SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다.
 
-**2026-11-07: 실제 도로 형상 재검토로 학습·수집 중단.** `python view_road.py`는 첨부 OSM에서 재구성한 정적 검토 맵을 엽니다. 기존 학습 맵·정책·결과는 보존되어 있으며 새 맵에 아직 연결하지 않았습니다. [수정 내용·검증·남은 확인 사항](docs/ic-osm-map-rebuild.md)을 먼저 확인하세요.
+**2026-11-07: 맵 수정·AV 실패 원인 진단 완료, 순수 PPO 재학습 설계 단계.** [현재 문서 목록](docs/README.md) · [최신 실험 설계](docs/ic-navigation-learning-plan.md) · [과거 기록](docs/archive/README.md). 학습과 대량 수집은 아직 재개하지 않았습니다.
 
 ## 프로젝트 바로가기
 
@@ -13,11 +13,10 @@ SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다.
 
 ## 팀 문서
 
-- [기존 단순화 맵의 도로 및 HV 검증 기록](docs/sano-ic.md) — 다리 입체분리, 주변 환경, 차량 상호작용, `python view_road.py` 실행
-- [이전 퇴계원 IC 도로 구현 기록](docs/toegyewon-ic.md)
-- [문서 목록](docs/README.md)
-- [프로젝트 최종 목적 및 완료 체크리스트](docs/project-goals-checklist.md) — 수업 목표와 팀 권장 작업 구분
-- [기존 학습 데이터와 추가 권장 데이터](docs/data-inventory-and-proposals.md) — 도로 미정, 현재 구현과 향후 제안 구분
+- [현재 문서 목록](docs/README.md)
+- [현재 실험 설계](docs/ic-navigation-learning-plan.md)
+- [최신 AV 실패 원인 분석](docs/ic-toegyewon-lane-cause-results.md)
+- [과거 기록 보관함](docs/archive/README.md)
 
 ## 구성
 
@@ -117,22 +116,11 @@ results, 생성 데이터, 가상환경, 캐시 및 비밀 설정 파일은 .git
 
 `UnicodeEncodeError`가 발생하면 UTF-8 모드로 실행하세요: `python -X utf8 view_road.py` 또는 `python -X utf8 train.py`. PowerShell에서는 현재 세션에 `$env:PYTHONUTF8="1"`을 설정해도 됩니다.
 
-### 초기 검증 (2026-10-27)
+## 기록 및 데이터 보관
 
-Python 구문 검사, SUMO 10초 headless 실행, 환경 reset/10 step, PPO 초기화를 확인했습니다. 관측 `(31,)`, 행동 `(2,)`입니다. 새 저장소에서 전체 학습을 다시 실행한 것은 아닙니다.
+- [과거 설계·실패 실험 기록](docs/archive/README.md)
+- [데이터는 로컬, 요약은 GitHub](data/README.md)
 
-### 퇴계원·사노 IC 도로 확장
-
-기존 퇴계원 IC에 사노 IC를 연결한 확장본을 `kyh`에 반영했습니다. `python view_road.py`로 두 IC 전체를 볼 수 있습니다. [도로 구조·백업·실행·검증 안내](docs/sano-ic.md)를 확인하세요. 사노 IC 추가 전 버전은 커밋 `662fd15`에 보존되어 있습니다.
-
-현재 도로는 서쪽 3차로 합류·분기 구간과 독립 출구를 포함하며, 북서쪽 연결도로와 그 합류 램프는 제거했습니다. seed 42·7·23에서 각 1,200초 검증했고, 실행당 HV 2,013대와 시연차 1대가 모두 도착했습니다. 충돌·텔레포트 0회, HV 차선 변경 1,937~2,140회이며 급제동 경고는 각각 2·0·0회입니다. 학습된 AV의 성능 결과는 아닙니다. [현재 도로 검증 기록](docs/assets/sano/west_weave_collector_removal_validation.json)을 확인하세요.
-
-```bash
-# HV 상호작용과 주행 검증 (결과와 원시 로그는 results/에 저장)
-python -m utils.validate_hv_interactions
-# AV 제어 연결, 위험 명령 판정, 주변 HV 존재 여부 확인
-python -m utils.check_av_control
-```
 ## 최신 수업 자료와 실험 계획
 
 - [내비게이션 관측 기반 순수 PPO 재학습 설계](docs/ic-navigation-learning-plan.md) — 원본 평가조건 확인, 강제 차로 보정 제외, 설계 완료·학습 미시작.
@@ -141,7 +129,6 @@ python -m utils.check_av_control
 - [프로젝트 준비](project_materials/5_Project_Preparation.md)
 - [중간·최종발표 및 평가 기준](project_materials/6_Project_Evaluation.md)
 - [팀별 컨설팅](project_materials/7_Project_Consulting.md)
-- [퇴계원IC 독립 비교 실험 설계](docs/experiment-design.md) — 계획 단계, 맵·학습 변경 없음
 - [수업 원본 동기화 내역](docs/course-materials-sync.md)
 
-PPO는 실행 결과 폴더에 세 Python 설정 파일을 저장합니다. 보상·파라미터 실험은 이 스냅샷을 활용하며, 학습 중 설정을 수정하지 않습니다. 종료 시 저장의 한계와 보완 계획은 실험 설계에 기록했습니다.
+PPO는 실행 결과 폴더에 세 Python 설정 파일을 저장합니다. 보상·파라미터 실험은 이 스냅샷을 활용하며, 학습 중 설정을 수정하지 않습니다. 실행 시점의 코드·설정·맵 해시를 함께 보존하는 계획은 최신 실험 설계를 확인하세요.

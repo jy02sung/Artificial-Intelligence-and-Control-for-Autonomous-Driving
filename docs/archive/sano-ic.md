@@ -1,8 +1,10 @@
+> **과거 기록** — 작성 당시의 설계·맵·결과입니다. 현재 적용 기준은 [최신 문서 목록](../README.md)을 확인하세요.
+
 # 퇴계원·사노 IC 연결 도로
 
 기존 퇴계원 IC 동쪽에 사노 IC를 연결했습니다. 사용자가 제공한 위성사진과 OpenStreetMap 중심선을 참고한 교육용 모델입니다. 기존 스켈레톤의 폴더, 함수 인터페이스, 학습 코드를 유지합니다.
 
-![연결도로 정리 후 사노 IC와 금강로](assets/sano/north_collector_removed.png)
+![연결도로 정리 후 사노 IC와 금강로](../assets/sano/north_collector_removed.png)
 
 ## 현재 도로: 서쪽 엇갈림 구간과 북서쪽 연결도로 정리 (2026-11-07)
 
@@ -20,7 +22,7 @@
 
 각 시드를 1,200초 실행했습니다. ‘본선→독립 출구’와 ‘램프→본선’은 해당 방향의 차선 변경을 실제로 수행하고 도착한 차량 수입니다. 유입 경로별 차량 수의 정수화로 이전 설정보다 총 투입은 1대 적지만 설정 수요는 같습니다. 종료 시 주행 중/삽입 대기 차량과 긴급 정지는 모두 0입니다. seed 42의 급제동 경고 2회는 `west_in_1`, `sb_main_0`에서 발생했으며 삭제하거나 숨기지 않았습니다.
 
-[현재 도로의 전체 검증 기록](assets/sano/west_weave_collector_removal_validation.json). `python -m utils.validate_hv_interactions`로 HV 주행·상호작용과 새 엇갈림 구간의 차선 변경을 다시 측정할 수 있습니다. 기존 AV 제어 시험과 아래 날짜별 검증은 당시 도로 기준이며, 이번 결과는 학습된 AV 정책의 성능 평가가 아닙니다.
+[현재 도로의 전체 검증 기록](../assets/sano/west_weave_collector_removal_validation.json). `python -m utils.validate_hv_interactions`로 HV 주행·상호작용과 새 엇갈림 구간의 차선 변경을 다시 측정할 수 있습니다. 기존 AV 제어 시험과 아래 날짜별 검증은 당시 도로 기준이며, 이번 결과는 학습된 AV 정책의 성능 평가가 아닙니다.
 
 ## 백업과 작업 브랜치
 
@@ -60,9 +62,9 @@ python view_road.py --netedit
 
 초기 사노 IC 확장 당시 외부 도로 구간은 39개에서 **74개**, 차로 연결은 72개에서 **136개**, 차량 경로는 13개에서 **23개**가 됐습니다. 현재 수정본은 **70개 도로 구간, 127개 차로 연결, 22개 경로**이며 아래 초기 확장 설명과 이후 변경 기록을 구분합니다. 기존 39개 중 35개 도로 형상은 그대로이며, 동쪽 연결에 필요한 `east_accel`, `east_out`, `east_service_out`, `west_in`의 고도 또는 구간 분할만 수정했습니다. 기존 자율주행 차량의 `north_to_west` 경로는 유지했습니다.
 
-![현재 사노 IC 입체분리 구간](assets/sano/grade_separation_detail.png)
+![현재 사노 IC 입체분리 구간](../assets/sano/grade_separation_detail.png)
 
-![동쪽 독립 출구](assets/sano/east_exit.png)
+![동쪽 독립 출구](../assets/sano/east_exit.png)
 
 ## 교량과 모델 가정
 
@@ -106,7 +108,7 @@ SUMO 1.27.1에서 seed 42·7·23을 각각 1,200초 실행했습니다. 매 실�
 - seed 42에서 1,006대가 이 추종 조건과 동시에 0.5m/s² 이상 감속했습니다. 이것은 관측된 동시 발생 지표이며 모든 감속의 원인이 앞차라는 인과 검증은 아닙니다.
 - 급제동 3회는 각 실행에서 ACC 차량에 발생했습니다. seed 42의 로그와 차선 변경 기록에서는 느린 차량의 끼어들기 직후 발생했습니다. 경고를 숨기거나 차량을 제거해 숫자를 줄이지 않았으며, 승차감·안전성 분석 시 검토할 항목입니다. 네트워크 연결 정상 여부와 급제동 검토 여부는 별도로 기록합니다.
 
-[HV 검증 결과](assets/sano/hv_interaction_validation.json)는 완주·충돌뿐 아니라 모델별 수, 차선 변경 이유, 구간별 추종 표본을 포함합니다. 원시 로그/FCD는 검증 명령의 출력 폴더에 남습니다. 재실행:
+[HV 검증 결과](../assets/sano/hv_interaction_validation.json)는 완주·충돌뿐 아니라 모델별 수, 차선 변경 이유, 구간별 추종 표본을 포함합니다. 원시 로그/FCD는 검증 명령의 출력 폴더에 남습니다. 재실행:
 
 ```bat
 python -m utils.validate_hv_interactions
@@ -121,7 +123,7 @@ python -m utils.validate_hv_interactions
 1. **위험 명령 시험:** 별도의 무교통 시험 파일에서 옆 차로에 차를 배치하고 겹치는 차선 변경을 지시했습니다. 이 시험용 상대차만 차선을 고정했으며 실제 HV 교통에는 적용하지 않았습니다. 차단 규칙 ON이면 명령 차단, OFF이면 실제 충돌 검출·보상 -5·에피소드 종료를 확인했습니다. SUMO의 `collision.action=remove`로 제거되면 `arrived`도 참일 수 있지만 기존 보상과 평가기는 `collided`를 우선해 실패로 계산합니다.
 2. **주변 HV 확인:** 실제 교통 설정에서 학습 환경을 열고 60초간 고정 행동 `[0,0]`(속도·차로 유지)을 실행했습니다. 시작 시 HV 91~101대, AV의 연결 차로/인접 차로 40m 이내에서 서로 다른 HV 6~8대를 만났습니다. 300스텝 중 296~300스텝에 주변 HV가 있었고 관측 벡터도 정상입니다. 학습된 정책의 주행 성능 시험이 아닙니다.
 
-[AV 제어 검증 결과](assets/sano/av_control_validation.json). 재실행:
+[AV 제어 검증 결과](../assets/sano/av_control_validation.json). 재실행:
 
 ```bat
 python -m utils.check_av_control
@@ -137,7 +139,7 @@ python -m utils.check_av_control
 
 교량 사이 검사 구간(y=140~199m, 유효 단면 59개)에서 양방향 포장 경계 간 최소 간격은 7.335m입니다. 도로 간격과 교차부 영역은 보기 쉬운 교육용 모델을 위한 조정값입니다. 차량 경로·색·유입량은 그대로 유지했습니다.
 
-[차로 정리 후 검증](assets/sano/corridor_validation.json): seed 42, 7, 23에서 각각 2,015대 전원 도착, 충돌·긴급 정지·긴급 제동·텔레포트 0회. 아래의 초기 확장 검증과 구분해 기록했습니다.
+[차로 정리 후 검증](../assets/sano/corridor_validation.json): seed 42, 7, 23에서 각각 2,015대 전원 도착, 충돌·긴급 정지·긴급 제동·텔레포트 0회. 아래의 초기 확장 검증과 구분해 기록했습니다.
 
 ## 동쪽 연결도로 독립 출구 (2026-10-30)
 
@@ -145,7 +147,7 @@ python -m utils.check_av_control
 
 `north_to_local`, `south_to_local` 두 경로가 독립 출구에서 종료합니다. 나머지 경로와 차량 수·색은 그대로입니다. 이 독립 출구는 사용자 요청에 따른 설계이며 해당 구간의 실제 지도상 합류 형상과는 다릅니다.
 
-[독립 출구 검증](assets/sano/separate_exit_validation.json): 세 가지 seed에서 각각 2,015대 전원 도착, 독립 출구 차량 56대 전원 해당 출구로 도착, 충돌·긴급 정지·긴급 제동·텔레포트 0회. 생성된 SUMO 도로망에서도 독립 출구에서 본선으로 가는 연결이 없음을 확인했습니다.
+[독립 출구 검증](../assets/sano/separate_exit_validation.json): 세 가지 seed에서 각각 2,015대 전원 도착, 독립 출구 차량 56대 전원 해당 출구로 도착, 충돌·긴급 정지·긴급 제동·텔레포트 0회. 생성된 SUMO 도로망에서도 독립 출구에서 본선으로 가는 연결이 없음을 확인했습니다.
 
 ## X자 교차부 입체분리 (2026-11-02)
 
@@ -161,7 +163,7 @@ python -m utils.check_av_control
 - 새 교량과 하부 두 차로의 중심선 고도 차이는 각각 5m. 수정 도로와 관련된 비연결 차로 교차 40곳도 모두 5m 이상.
 - 생성 도로망의 신호 제어기 0개, 기존 X자 공유 노드 없음. 136개 차로 연결과 모든 차량 경로의 연속성 확인.
 
-[입체분리 검증 기록](assets/sano/grade_separation_validation.json). 이는 일반 차량 모델 검증이며 학습한 AV 성능 평가가 아닙니다. 기존 AV 경로는 유지했으며 신호·교차부 학습을 수행한 것은 아닙니다.
+[입체분리 검증 기록](../assets/sano/grade_separation_validation.json). 이는 일반 차량 모델 검증이며 학습한 AV 성능 평가가 아닙니다. 기존 AV 경로는 유지했으며 신호·교차부 학습을 수행한 것은 아닙니다.
 
 ## 이전 실험: 신호를 이용한 좌회전 대기 개선 (2026-11-02)
 
@@ -180,9 +182,9 @@ python -m utils.check_av_control
 | 맞은편 남행 직진 평균 대기 | 0초 | 5.31초 |
 | 전체 차량 누적 대기 | 3374.8초 | 759.8초 |
 
-변경 후 세 seed 모두 2,015대 전원 도착, 충돌·긴급 정지·긴급 제동·텔레포트 0회였습니다. 다른 seed의 좌회전 평균 대기는 12.69~13.84초입니다. 고가도로 연결과 독립 출구는 그대로이며, 신호 대기는 여전히 발생합니다. 실제 교통량·신호 자료로 보정하거나 RL 정책을 재학습한 결과는 아닙니다. [전체 비교 기록](assets/sano/signal_validation.json)
+변경 후 세 seed 모두 2,015대 전원 도착, 충돌·긴급 정지·긴급 제동·텔레포트 0회였습니다. 다른 seed의 좌회전 평균 대기는 12.69~13.84초입니다. 고가도로 연결과 독립 출구는 그대로이며, 신호 대기는 여전히 발생합니다. 실제 교통량·신호 자료로 보정하거나 RL 정책을 재학습한 결과는 아닙니다. [전체 비교 기록](../assets/sano/signal_validation.json)
 
-![보호 좌회전 신호 구간](assets/sano/signal_detail.png)
+![보호 좌회전 신호 구간](../assets/sano/signal_detail.png)
 
 ## 합류 차로 분리 기록 (2026-11-02)
 
@@ -194,13 +196,13 @@ python -m utils.check_av_control
 
 seed 42, 7, 23에서 각각 1,200초 비교한 결과, 변경 전 아래쪽 합류 접근로의 차량별 최대 누적 정지는 각각 **30.6초, 28.6초, 6.6초**였습니다. 변경 후 두 접근로·공통 구간·두 출구 연결도로에서 측정한 정지는 **세 seed 모두 0초**였습니다(0.2초 간격, 속도 0.1m/s 미만). 각 실행의 2,015대 전원 도착, 충돌·긴급 정지·긴급 제동·텔레포트 0회였습니다. 신호 앞 대기는 계속 존재하며, 다른 교통 수요에서도 무정지를 보장하는 결과는 아닙니다.
 
-[합류 개선 검증 기록](assets/sano/merge_validation.json)
+[합류 개선 검증 기록](../assets/sano/merge_validation.json)
 
-![각각 다른 차로로 진입하는 합류부](assets/sano/merge_detail.png)
+![각각 다른 차로로 진입하는 합류부](../assets/sano/merge_detail.png)
 
 ## 초기 확장 검증
 
-[검증 기록](assets/sano/validation.json)에 실행 결과와 보존한 파일 목록을 기록했습니다.
+[검증 기록](../assets/sano/validation.json)에 실행 결과와 보존한 파일 목록을 기록했습니다.
 
 - seed 42, 7, 23에서 각 1,200초 실행: **2,015대 전원 도착**.
 - 세 실행 모두 충돌, 긴급 정지, 긴급 제동, 텔레포트 0회. 종료 시 주행·삽입 대기 차량 0대.
@@ -213,4 +215,4 @@ seed 42, 7, 23에서 각각 1,200초 비교한 결과, 변경 전 아래쪽 합�
 
 ## 출처
 
-© OpenStreetMap contributors, [ODbL 출처와 이용 안내](https://www.openstreetmap.org/copyright). 사용자가 제공한 네이버 위성사진은 형상 대조용으로 참고했습니다. [사노 IC 지도](https://www.openstreetmap.org/#map=17/37.6415/127.1402)와 [구간별 출처·가정](../project_materials/sano_geometry_sources.json)을 함께 보관합니다. 기존 퇴계원 IC의 출처는 [이전 자료](../project_materials/toegyewon_geometry_sources.json)에 있습니다.
+© OpenStreetMap contributors, [ODbL 출처와 이용 안내](https://www.openstreetmap.org/copyright). 사용자가 제공한 네이버 위성사진은 형상 대조용으로 참고했습니다. [사노 IC 지도](https://www.openstreetmap.org/#map=17/37.6415/127.1402)와 [구간별 출처·가정](../../project_materials/sano_geometry_sources.json)을 함께 보관합니다. 기존 퇴계원 IC의 출처는 [이전 자료](../../project_materials/toegyewon_geometry_sources.json)에 있습니다.
