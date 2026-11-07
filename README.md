@@ -2,7 +2,7 @@
 
 SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다.
 
-**2026-11-07: 맵 수정·AV 실패 원인 진단 완료, 순수 PPO 재학습 설계 단계.** [현재 문서 목록](docs/README.md) · [최신 실험 설계](docs/ic-navigation-learning-plan.md) · [과거 기록](docs/archive/README.md). 학습과 대량 수집은 아직 재개하지 않았습니다.
+**2026-11-07: 맵 수정·AV 실패 원인 진단 완료, 04번 순수 PPO 비교 학습 진행 중.** [현재 문서 목록](docs/README.md) · [최신 실험 설계](docs/ic-navigation-learning-plan.md) · [과거 기록](docs/archive/README.md). [관측 검증·학습 진행](docs/ic-navigation-route04-progress.md). 대량 수집은 재개하지 않았습니다.
 
 ## 프로젝트 바로가기
 
@@ -123,7 +123,7 @@ results, 생성 데이터, 가상환경, 캐시 및 비밀 설정 파일은 .git
 
 ## 최신 수업 자료와 실험 계획
 
-- [내비게이션 관측 기반 순수 PPO 재학습 설계](docs/ic-navigation-learning-plan.md) — 원본 평가조건 확인, 강제 차로 보정 제외, 설계 완료·학습 미시작.
+- [내비게이션 관측 기반 순수 PPO 재학습 설계](docs/ic-navigation-learning-plan.md) — 원본 평가조건 확인, 강제 차로 보정 제외, 04번 비교 학습 진행 중.
 
 
 - [프로젝트 준비](project_materials/5_Project_Preparation.md)
