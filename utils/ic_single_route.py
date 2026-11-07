@@ -10,8 +10,8 @@ from env.ic_experiment import ICExperimentEnv
 from env.sumo_env import traci
 from utils.ic_timeout_trace import TimeoutTrace
 OUT=ROOT/'results/ic_single_route_v1'
-EVAL=[dict(id=f'l{l}-v{v}',lane=str(l),speed=str(v)) for l in range(6) for v in (5,15,25)]+[dict(id='best-stop',lane='best',speed='0'),dict(id='best-max',lane='best',speed='max')]
-TRAIN=[dict(lane=str(l),speed=str(v)) for l in range(6) for v in (7,17,27)]
+EVAL=[dict(id=f'l{l}-v{v}',lane=str(l),speed=str(v)) for l in range(6) for v in ((5,15,25) if l<3 else (0,5,15))]+[dict(id='best-stop',lane='best',speed='0'),dict(id='best-max',lane='best',speed='max')]
+TRAIN=[dict(lane=str(l),speed=str(v)) for l in range(6) for v in ((7,17,23) if l<3 else (3,7,13))]
 
 def route_features(env):
     """Distance along external route edges; internal connector lengths excluded."""
@@ -80,6 +80,11 @@ def validate():
         if not all(r['arrival'] for r in rows):
             save(OUT/'status.json',dict(stage='start_validation_failed',cases=len(rows),arrivals=sum(r['arrival'] for r in rows)))
             raise RuntimeError('Start validation failed; preserve cases and revise declared starting envelope')
+        training_rows=[]
+        for case in TRAIN:
+            training_rows.append(episode(env,case))
+            save(OUT/'training-start-validation.json',training_rows)
+        assert all(r['arrival'] for r in training_rows)
         # Verify only the two intended observation coordinates differ at identical starts.
         for case in EVAL:
             original,_=env.reset(seed=1001,options={'case':case})
@@ -104,7 +109,7 @@ def train(mode):
     agent=PPO(obs_dim=env.obs_dim,act_dim=env.act_dim,buffer=RolloutBuffer(),**hp)
     manifest=dict(mode=mode,hp=hp,budget=200000,seed=11,network_sha256=digest(PREFLIGHT/'map/highway.net.xml'),git=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),reward=REWARD,action=ACTION,simulation=SIMULATION,train_conditions=TRAIN,eval_conditions=EVAL)
     save(directory/'manifest.json',manifest);snapshot_configs(str(directory))
-    save(OUT/'status.json',dict(stage='training',mode=mode))
+    save(directory/'status.json',dict(stage='training',mode=mode))
     log=Checkpoints(directory,agent,200000);started=time.monotonic()
     try:
         if not (directory/'model.pt').exists():
@@ -117,7 +122,7 @@ def train(mode):
             rows.append(episode(env,case,agent));save(directory/'evaluation-partial.json',rows)
         save(directory/'evaluation.json',dict(rows=rows,arrival=sum(r['arrival'] for r in rows)/len(rows),collision=sum(r['collision'] for r in rows)/len(rows),timeout=sum(r['timeout'] for r in rows)/len(rows),model_sha256=digest(directory/'model.pt')))
     finally:env.close();log.close()
-    save(OUT/'status.json',dict(stage='evaluation_complete',mode=mode))
+    save(directory/'status.json',dict(stage='evaluation_complete',mode=mode))
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('stage',choices=['validate','original','corrected']);args=parser.parse_args()
