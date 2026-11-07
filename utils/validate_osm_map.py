@@ -46,7 +46,9 @@ def main():
  for eid in markings['dashed']:
   assert all(l.get('changeLeft') is None and l.get('changeRight') is None for l in edges[eid].findall('lane')),eid
  connections={(c.get('from'),int(c.get('fromLane')),c.get('to'),int(c.get('toLane'))) for c in root.findall('connection')}
- continuity=[('1413342573','544295537',3),('169929478','169929482',2),('597119334','597119333',2),('841607184#0','841607184#1',2)]
+ expected_fork={('169929488#0',0,'169728799',0),('169929488#0',1,'169929488#1',0),('169929488#0',2,'169929488#1',1)}
+ assert {c for c in connections if c[0]=='169929488#0'}==expected_fork
+ continuity=[('544295537','169929488#0',3),('169929488#1','1414146968',2),('1414146968','372821396',2),('1413342573','544295537',3),('169929478','169929482',2),('597119334','597119333',2),('841607184#0','841607184#1',2)]
  for before,after,count in continuity:
   for lane in range(count):assert (before,lane,after,lane) in connections,(before,after,lane)
  net=sumolib.net.readNet(str(DEST/'network.net.xml'))

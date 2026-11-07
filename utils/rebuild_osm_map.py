@@ -60,7 +60,11 @@ def build():
     incoming={c.get('from') for c in full.findall('connection') if c.get('to') in affected}
     reset_edges=(affected|incoming)&set(scope['edges'])
     links=ET.Element('connections')
-    for eid in sorted(reset_edges):ET.SubElement(links,'connection',{'from':eid,'reset':'true'})
+    explicit=json.loads((DEST/'connection-overrides.json').read_text(encoding='utf8'))['connections']
+    explicit_from={c['from'] for c in explicit}
+    for eid in sorted(reset_edges-explicit_from):ET.SubElement(links,'connection',{'from':eid,'reset':'true'})
+    for before,after in sorted({(c['from'],c['to']) for c in explicit}):ET.SubElement(links,'delete',{'from':before,'to':after})
+    for c in explicit:ET.SubElement(links,'connection',{k:str(v) for k,v in c.items()})
     ET.ElementTree(links).write(DEST/'connection-resets.con.xml',encoding='utf8',xml_declaration=True)
     crop_args=[checkBinary('netconvert'),'--sumo-net-file','full-import.net.xml','--edge-files','lane-overrides.edg.xml','--connection-files','connection-resets.con.xml','--keep-edges.explicit',','.join(scope['edges']),'--output-file','network.net.xml','--no-turnarounds','true','--geometry.remove','false']
     crop=subprocess.run(crop_args,cwd=DEST,capture_output=True,text=True,encoding='utf8',errors='replace')

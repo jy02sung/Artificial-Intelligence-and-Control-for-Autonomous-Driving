@@ -1,0 +1,23 @@
+{
+  "reason": "Preserve physical 3 = upper 1 + lower 2 fork; no forced 3-to-1 collapse. SUMO index 0 is driving-right (north at the westbound fork).",
+  "connections": [
+    {
+      "from": "169929488#0",
+      "to": "169728799",
+      "fromLane": 0,
+      "toLane": 0
+    },
+    {
+      "from": "169929488#0",
+      "to": "169929488#1",
+      "fromLane": 1,
+      "toLane": 0
+    },
+    {
+      "from": "169929488#0",
+      "to": "169929488#1",
+      "fromLane": 2,
+      "toLane": 1
+    }
+  ]
+}

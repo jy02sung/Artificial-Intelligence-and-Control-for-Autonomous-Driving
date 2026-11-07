@@ -1,7 +1,7 @@
 {
   "544295537": {
     "num_lanes": 3,
-    "basis": "Naver satellite visual inspection 2026-11-07: three westbound lanes continue west of bridge 1413342573 to the split at node 1808903166. Source OSM has no lanes tag; SUMO default 1 is not observed reality.",
+    "basis": "Satellite: 3 lanes continue through western curve to the fork via 169929488#0. Prior note incorrectly called node 1808903166 the split; actual fork is 1808903388.",
     "source_url": "https://map.naver.com/p/search/사노IC?c=17.00,0,0,1,dh",
     "source_osm_lanes": null
   },
@@ -67,6 +67,34 @@
     "confidence": "visible",
     "evidence": "docs/assets/osm-audit/sano-north-satellite.png",
     "source_url": "https://map.naver.com/p/search/사노IC?c=18.00,0,0,1,dh",
+    "source_osm_lanes": null
+  },
+  "169929488#0": {
+    "num_lanes": 3,
+    "confidence": "visible",
+    "basis": "User satellite reference 2026-11-07: westbound approach remains 3 lanes until fork; upper branch one lane, lower branch two lanes. For 372821396, two-lane continuation retained up to existing OSM boundary; downstream taper position needs precise survey.",
+    "evidence": "docs/assets/osm-audit/westbound-three-lane-split.png",
+    "source_osm_lanes": null
+  },
+  "169929488#1": {
+    "num_lanes": 2,
+    "confidence": "visible",
+    "basis": "User satellite reference 2026-11-07: westbound approach remains 3 lanes until fork; upper branch one lane, lower branch two lanes. For 372821396, two-lane continuation retained up to existing OSM boundary; downstream taper position needs precise survey.",
+    "evidence": "docs/assets/osm-audit/westbound-three-lane-split.png",
+    "source_osm_lanes": null
+  },
+  "1414146968": {
+    "num_lanes": 2,
+    "confidence": "visible",
+    "basis": "User satellite reference 2026-11-07: westbound approach remains 3 lanes until fork; upper branch one lane, lower branch two lanes. For 372821396, two-lane continuation retained up to existing OSM boundary; downstream taper position needs precise survey.",
+    "evidence": "docs/assets/osm-audit/westbound-three-lane-split.png",
+    "source_osm_lanes": null
+  },
+  "372821396": {
+    "num_lanes": 2,
+    "confidence": "transition_extent_provisional",
+    "basis": "User satellite reference 2026-11-07: westbound approach remains 3 lanes until fork; upper branch one lane, lower branch two lanes. For 372821396, two-lane continuation retained up to existing OSM boundary; downstream taper position needs precise survey.",
+    "evidence": "docs/assets/osm-audit/westbound-three-lane-split.png",
     "source_osm_lanes": null
   }
 }
