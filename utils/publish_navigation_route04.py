@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'results/navigation_route04_v1'
 DOC=ROOT/'docs/ic-navigation-route04-results.md'
+ROUTE_LABEL='04'
 
 def read(p):return json.loads(p.read_text(encoding='utf8'))
 def save(p,d):
@@ -33,10 +34,10 @@ def publish():
  lines+=['','## 실행 근거','','| 조건/seed | 실행 커밋 | 로컬 결과 | 모델 SHA256 |','|---|---|---|---|']
  for r in rows:lines.append(f"| {r['mode']}/{r['seed']} | `{r['git'][:7]}` | `{r['path']}` | `{r['model_sha']}` |")
  lines+=['','[설계](ic-navigation-learning-plan.md) · [구현·검증](ic-navigation-route04-progress.md)','','모델·원시JSON·TensorBoard는로컬results에만저장한다. 이표는완료이벤트마다자동갱신한다.14번이후단계나보상/학습률변경은이자동화에포함하지않는다.']
- DOC.write_text('\n'.join(lines)+'\n',encoding='utf8')
- git('add','docs/ic-navigation-route04-results.md')
- if git('diff','--cached','--name-only','--','docs/ic-navigation-route04-results.md'):
-  git('commit','--only','-m',f'Record route04 navigation comparison: {len(rows)} of 9 completed','--','docs/ic-navigation-route04-results.md')
+ DOC.write_text(('\n'.join(lines)+'\n').replace('04번',ROUTE_LABEL+'번').replace('ic-navigation-route04-progress.md','ic-navigation-route'+ROUTE_LABEL+'-progress.md').replace('14번이후단계','다음경로단계'),encoding='utf8')
+ git('add',str(DOC.relative_to(ROOT)))
+ if git('diff','--cached','--name-only','--',str(DOC.relative_to(ROOT))):
+  git('commit','--only','-m',f'Record route{ROUTE_LABEL} navigation comparison: {len(rows)} of 9 completed','--',str(DOC.relative_to(ROOT)))
   git('push','origin','main')
  save(OUT/'publisher.json',dict(runs=len(rows),stage='complete' if len(rows)==9 else 'monitoring',updated=time.time()))
  print(f'Published {len(rows)}/9 completed runs',flush=True)

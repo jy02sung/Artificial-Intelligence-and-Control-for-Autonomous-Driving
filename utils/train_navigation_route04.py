@@ -3,6 +3,7 @@ import argparse,time,os,shutil
 from utils.check_toegyewon_only import *
 from utils.ic_campaign import Checkpoints,RolloutBuffer
 from env.navigation_observation import NavigationEnv,RouteNavigation
+ROUTE='route_04'
 DEST=ROOT/'results/navigation_route04_v1'
 PLAN=json.loads((ROOT/'docs/experiments/ic-navigation-plan-v1.json').read_text())
 LENGTHS={e:max(float(l.get('length')) for l in x.findall('lane')) for e,x in EDGES.items()}
@@ -16,7 +17,8 @@ NAV=RouteNavigation({e:len(x.findall('lane')) for e,x in EDGES.items()},ROAD_NEW
 def stamp():
  return dict(git=COMMIT,network_sha256=digest(MAP/'network.net.xml'),simulation_seed_policy='training: seeded per-episode generator; evaluation: explicit 20001..20020')
 
-def environment(mode,seed,lane='best',speed='max',route='route_04'):
+def environment(mode,seed,lane='best',speed='max',route=None):
+ route=route or ROUTE
  road=dict(ROAD_NEW,routes={route:MAN['routes'][route]})
  return NavigationEnv(str(MAP/'review.sumocfg'),road,dict(EGO,depart_lane=lane,depart_speed=speed),SIMULATION,OBSERVATION,ACTION,REWARD,dict(TRAFFIC,vehs_per_hour=0,prefill={'enabled':False}),(),seed,observation_mode=mode,navigation=NAV)
 
@@ -56,11 +58,11 @@ def run(mode,seed,budget,smoke=False):
  hp=dict(PLAN['hparams'],seed=seed)
  env=environment(mode,seed);agent=PPO(obs_dim=env.obs_dim,act_dim=env.act_dim,buffer=RolloutBuffer(),**hp)
  snapshots=directory/'snapshot';snapshots.mkdir()
- sources=['env/navigation_observation.py','env/ic_experiment.py','env/sumo_env.py','utils/train_navigation_route04.py','algorithms/ppo.py','utils/networks.py','train.py','env/mdp_config.py','env/road_config.py','maps/toegyewon_only/network.net.xml','maps/toegyewon_only/routes.rou.xml','maps/toegyewon_only/review.sumocfg']
+ sources=['env/navigation_observation.py','env/ic_experiment.py','env/sumo_env.py','utils/train_navigation_route04.py','utils/train_navigation_route14.py','algorithms/ppo.py','utils/networks.py','train.py','env/mdp_config.py','env/road_config.py','maps/toegyewon_only/network.net.xml','maps/toegyewon_only/routes.rou.xml','maps/toegyewon_only/review.sumocfg']
  hashes={}
  for src in sources:
   target=snapshots/src;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/src,target);hashes[src]=digest(target)
- save(directory/'manifest.json',dict(mode=mode,seed=seed,budget=budget,hp=hp,route='route_04',observation_schema=mode+'-37-v1',action_overrides=False,road=env.road if hasattr(env,'road') else ROAD_NEW,ego=EGO,simulation=SIMULATION,observation=OBSERVATION,action=ACTION,reward=REWARD,traffic=dict(TRAFFIC,vehs_per_hour=0,prefill={'enabled':False}),actual_depart_lane='best',actual_depart_speed='max',hashes=hashes,**stamp()))
+ save(directory/'manifest.json',dict(mode=mode,seed=seed,budget=budget,hp=hp,route=ROUTE,observation_schema=mode+'-37-v1',action_overrides=False,road=env.road if hasattr(env,'road') else ROAD_NEW,ego=EGO,simulation=SIMULATION,observation=OBSERVATION,action=ACTION,reward=REWARD,traffic=dict(TRAFFIC,vehs_per_hour=0,prefill={'enabled':False}),actual_depart_lane='best',actual_depart_speed='max',hashes=hashes,**stamp()))
  agent.save(str(directory/'initial.pt'))
  logger=Log(directory,agent,budget,env);started=time.monotonic()
  try:
