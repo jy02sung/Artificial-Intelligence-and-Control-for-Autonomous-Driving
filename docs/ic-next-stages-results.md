@@ -1,6 +1,6 @@
 # 수정 맵 후속 실험 결과
 
-현재 단계: **frozen route_14-N1-33-low**
+현재 단계: **frozen route_14-N2-11-low**
 
 합성 수요이며 실측 교통량이 아니다. 강제 경로 보정은 사용하지 않는다. [실험 조건·통과 기준](ic-next-stages-plan.md).
 
@@ -34,6 +34,7 @@
 | frozen\route_14-N1-11-low | route_14 | 0/5 | 5 | 0 | {'collision': 5} |
 | frozen\route_14-N1-22-low | route_14 | 0/5 | 5 | 0 | {'collision': 5} |
 | frozen\route_14-N1-33-low | route_14 | 0/5 | 5 | 0 | {'collision': 5} |
+| frozen\route_14-N2-11-low | route_14 | 0/5 | 5 | 0 | {'collision': 5} |
 
 ## 보상 진단 (완료된 평가)
 
