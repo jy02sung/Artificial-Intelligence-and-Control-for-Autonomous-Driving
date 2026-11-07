@@ -194,3 +194,22 @@
 |south_to_west|{'route_lane_blocked': 5}|
 
 학습 seed11, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/COMBO025-NO-ZIP-11-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `9e410eed39d7eefccfb8b83662d48426ae336d38b02c83019cf26e79db8b6200`.
+
+## GAP-11-200000 진단 완료 (2026-11-07)
+
+시간 초과 25건 모두 원래 종료시간 및 결과가 재현됐다. 분류: {'mixed_or_unexplained': 14, 'route_lane_blocked': 11}. 종료 직전 상태 분류이며 이전 정체의 기여는 확정하지 않는다.
+
+|경로|분류별 건수|
+|---|---|
+|north_to_east|{'mixed_or_unexplained': 1}|
+|north_to_west|{'mixed_or_unexplained': 1}|
+|sano_north_to_west|{'mixed_or_unexplained': 1}|
+|sano_south_to_west|{'mixed_or_unexplained': 4}|
+|sano_west_to_north|{'route_lane_blocked': 3}|
+|sano_west_to_south|{'route_lane_blocked': 3}|
+|south_to_east|{'mixed_or_unexplained': 2}|
+|south_to_local|{'mixed_or_unexplained': 2}|
+|south_to_west|{'mixed_or_unexplained': 3}|
+|west_to_local|{'route_lane_blocked': 5}|
+
+학습 seed11, 평가 seed1001~1005. 증거 `results/ic_campaign_v2/timeout-diagnostics/GAP-11-200000.json`. 진단 코드 `029e3fd`. 정책 SHA256 `82ef9577a6560ed34b02d1f7bc8907826ef8c24cda86f1caa9a7ba8fb8085a7e`.
