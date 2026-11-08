@@ -47,6 +47,20 @@ def evaluate(agent, mode, seed):
 
 
 def publish():
+    # The legacy runner has no report lock. During migration, let it finish first.
+    while (OUT/'legacy-publisher.active').exists():
+        time.sleep(1)
+    lock=OUT/'report.lock'
+    while True:
+        try:
+            fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY);os.close(fd);break
+        except FileExistsError:time.sleep(1)
+    try:
+        _publish()
+    finally:lock.unlink()
+
+
+def _publish():
     lines=['## 비교 실행 결과','','동일 seed의 세 조건은 같은 초기 가중치에서 시작한다. 삽입 불가는 별도 표기하며 성공으로 처리하지 않는다.','','| 조건 | 학습 seed | 완주/전체 | 충돌 | 시간초과 | 삽입 불가 | 실행 경로 |','|---|---:|---:|---:|---:|---:|---|']
     details=[]
     for d in sorted((OUT/'runs').glob('*')):
@@ -66,21 +80,30 @@ def publish():
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--smoke',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--smoke',action='store_true');parser.add_argument('--seed',type=int,choices=(11,22,33));args=parser.parse_args()
     f.base.torch.set_num_threads(1);OUT.mkdir(parents=True,exist_ok=True)
-    lock=OUT/'active.lock';fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY);os.write(fd,str(os.getpid()).encode());os.close(fd)
-    def status(stage,**kw):f.save(OUT/'status.json',dict(stage=stage,pid=os.getpid(),updated=time.time(),**kw))
+    lock=OUT/(f'active-{args.seed}.lock' if args.seed else 'active.lock');fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY);os.write(fd,str(os.getpid()).encode());os.close(fd)
+    def status(stage,**kw):f.save(OUT/(f'status-{args.seed}.json' if args.seed else 'status.json'),dict(stage=stage,pid=os.getpid(),updated=time.time(),**kw))
     hashes={s:f.base.digest(f.ROOT/s) for s in SOURCES}
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=f.ROOT,text=True).strip()
     try:
         assert hashes['maps/toegyewon_only/network.net.xml']==f.base.PLAN['map_sha256']
-        for seed in ((11,) if args.smoke else (11,22,33)):
+        for seed in ((args.seed,) if args.seed else (11,) if args.smoke else (11,22,33)):
             initial_hash=None
             for mode in MODES:
                 f.check_disk()
                 assert all(f.base.digest(f.ROOT/s)==h for s,h in hashes.items()), 'Source changed during campaign'
                 budget=2048 if args.smoke else 800000
                 d=OUT/('smoke' if args.smoke else 'runs')/f'{mode}-{seed}'
+                if args.seed and (d/'complete.json').exists():
+                    previous=f.read(d/'manifest.json');complete=f.read(d/'complete.json')
+                    assert complete['steps']==budget and previous['hp']==dict(f.base.PLAN['hparams'],seed=seed)
+                    assert f.base.digest(d/'model.pt')==complete['model_sha']
+                    # Only orchestration changed during the sequential-to-parallel handoff.
+                    assert all(f.base.digest(f.ROOT/s)==h for s,h in previous['hashes'].items() if s!='utils/train_navigation_clarity.py')
+                    if initial_hash is None:initial_hash=previous['initial_sha']
+                    assert initial_hash==previous['initial_sha']
+                    continue
                 if d.exists():raise RuntimeError('Existing run preserved: '+str(d))
                 d.mkdir(parents=True)
                 hp=dict(f.base.PLAN['hparams'],seed=seed)
