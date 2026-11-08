@@ -28,6 +28,7 @@
 
 
 
+
 ## 비교 실행 결과
 
 동일 seed의 세 조건은 같은 초기 가중치에서 시작한다. 삽입 불가는 별도 표기하며 성공으로 처리하지 않는다.
@@ -39,6 +40,7 @@
 | baseline | 33 | 52/62 | 0 | 10 | 0 | `results\navigation_clarity_v1\runs\baseline-33` |
 | lookahead | 11 | 58/62 | 0 | 4 | 0 | `results\navigation_clarity_v1\runs\lookahead-11` |
 | lookahead | 22 | 41/62 | 0 | 21 | 0 | `results\navigation_clarity_v1\runs\lookahead-22` |
+| lookahead | 33 | 62/62 | 0 | 0 | 0 | `results\navigation_clarity_v1\runs\lookahead-33` |
 | validity | 11 | 30/62 | 0 | 32 | 0 | `results\navigation_clarity_v1\runs\validity-11` |
 | validity | 22 | 62/62 | 0 | 0 | 0 | `results\navigation_clarity_v1\runs\validity-22` |
 | validity | 33 | 44/62 | 0 | 18 | 0 | `results\navigation_clarity_v1\runs\validity-33` |
@@ -125,6 +127,22 @@
 - lookahead-22 / route_14: 0/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
 - lookahead-22 / route_15: 0/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
 - lookahead-22 / route_16: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_01: 3/3 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_02: 3/3 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_03: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_04: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_05: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_06: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_07: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_08: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_09: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_10: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_11: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_12: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_13: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_14: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_15: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
+- lookahead-33 / route_16: 4/4 완주. 실행 코드 `4f69d3a036e6db1f818931a1ba4ef36e321d48a4`.
 - validity-11 / route_01: 3/3 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
 - validity-11 / route_02: 3/3 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
 - validity-11 / route_03: 0/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
