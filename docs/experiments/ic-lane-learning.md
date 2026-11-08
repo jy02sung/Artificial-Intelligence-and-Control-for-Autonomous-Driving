@@ -36,6 +36,7 @@
 | baseline-33 | 301056 | 62/62 | 0 | 0 |
 | entropy-11 | 100352 | 57/62 | 0 | 5 |
 | entropy-11 | 200704 | 42/62 | 0 | 20 |
+| entropy-11 | 301056 | 59/62 | 0 | 3 |
 | entropy-22 | 100352 | 52/62 | 0 | 10 |
 | entropy-22 | 200704 | 62/62 | 0 | 0 |
 | entropy-22 | 301056 | 62/62 | 0 | 0 |
@@ -59,7 +60,7 @@
 | baseline-11 | 200704 | +0.00%p | 100352 (57/62) | 15 / 0 |
 | baseline-22 | 301056 | +0.00%p | 200704 (62/62) | 0 / 0 |
 | baseline-33 | 301056 | +0.00%p | 200704 (62/62) | 0 / 0 |
-| entropy-11 | 200704 | +0.00%p | 100352 (57/62) | 15 / 0 |
+| entropy-11 | 301056 | 기준 평가 대기 | 301056 (59/62) | 3 / 20 |
 | entropy-22 | 301056 | +0.00%p | 200704 (62/62) | 0 / 0 |
 | entropy-33 | 301056 | +0.00%p | 200704 (62/62) | 0 / 0 |
 | reward-11 | 301056 | 기준 평가 대기 | 100352 (62/62) | 0 / 4 |
@@ -119,21 +120,21 @@
 | baseline-33 | route_15 | 4/4 |
 | baseline-33 | route_16 | 4/4 |
 | entropy-11 | route_01 | 3/3 |
-| entropy-11 | route_02 | 0/3 |
+| entropy-11 | route_02 | 3/3 |
 | entropy-11 | route_03 | 4/4 |
 | entropy-11 | route_04 | 4/4 |
 | entropy-11 | route_05 | 4/4 |
-| entropy-11 | route_06 | 3/4 |
+| entropy-11 | route_06 | 4/4 |
 | entropy-11 | route_07 | 4/4 |
-| entropy-11 | route_08 | 0/4 |
+| entropy-11 | route_08 | 4/4 |
 | entropy-11 | route_09 | 4/4 |
-| entropy-11 | route_10 | 0/4 |
-| entropy-11 | route_11 | 0/4 |
+| entropy-11 | route_10 | 4/4 |
+| entropy-11 | route_11 | 4/4 |
 | entropy-11 | route_12 | 4/4 |
-| entropy-11 | route_13 | 4/4 |
-| entropy-11 | route_14 | 4/4 |
-| entropy-11 | route_15 | 4/4 |
-| entropy-11 | route_16 | 0/4 |
+| entropy-11 | route_13 | 3/4 |
+| entropy-11 | route_14 | 3/4 |
+| entropy-11 | route_15 | 3/4 |
+| entropy-11 | route_16 | 4/4 |
 | entropy-22 | route_01 | 3/3 |
 | entropy-22 | route_02 | 3/3 |
 | entropy-22 | route_03 | 4/4 |
