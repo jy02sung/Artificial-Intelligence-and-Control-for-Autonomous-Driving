@@ -48,6 +48,7 @@
 | baseline-33 | 501760 | 52/62 | 0 | 10 |
 | baseline-33 | 600064 | 62/62 | 0 | 0 |
 | baseline-33 | 700416 | 62/62 | 0 | 0 |
+| baseline-33 | 800000 | 52/62 | 0 | 10 |
 | entropy-11 | 100352 | 57/62 | 0 | 5 |
 | entropy-11 | 200704 | 42/62 | 0 | 20 |
 | entropy-11 | 301056 | 59/62 | 0 | 3 |
@@ -102,13 +103,13 @@
 |---|---:|---:|---:|---:|
 | baseline-11 | 700416 | +0.00%p | 401408 (62/62) | 0 / 12 |
 | baseline-22 | 800000 | +0.00%p | 200704 (62/62) | 0 / 0 |
-| baseline-33 | 700416 | +0.00%p | 200704 (62/62) | 0 / 0 |
+| baseline-33 | 800000 | +0.00%p | 200704 (62/62) | 10 / 0 |
 | entropy-11 | 700416 | +0.00%p | 401408 (62/62) | 0 / 0 |
 | entropy-22 | 800000 | +4.84%p | 200704 (62/62) | 0 / 0 |
-| entropy-33 | 800000 | 기준 평가 대기 | 200704 (62/62) | 16 / 0 |
+| entropy-33 | 800000 | -14.52%p | 200704 (62/62) | 16 / 0 |
 | reward-11 | 800000 | 기준 평가 대기 | 100352 (62/62) | 3 / 18 |
 | reward-22 | 800000 | +4.84%p | 100352 (62/62) | 0 / 0 |
-| reward-33 | 800000 | 기준 평가 대기 | 200704 (62/62) | 24 / 0 |
+| reward-33 | 800000 | -22.58%p | 200704 (62/62) | 24 / 0 |
 
 ### 최신 경로별 완주
 
@@ -147,13 +148,13 @@
 | baseline-22 | route_15 | 3/4 |
 | baseline-22 | route_16 | 4/4 |
 | baseline-33 | route_01 | 3/3 |
-| baseline-33 | route_02 | 3/3 |
+| baseline-33 | route_02 | 0/3 |
 | baseline-33 | route_03 | 4/4 |
 | baseline-33 | route_04 | 4/4 |
 | baseline-33 | route_05 | 4/4 |
 | baseline-33 | route_06 | 4/4 |
 | baseline-33 | route_07 | 4/4 |
-| baseline-33 | route_08 | 4/4 |
+| baseline-33 | route_08 | 0/4 |
 | baseline-33 | route_09 | 4/4 |
 | baseline-33 | route_10 | 4/4 |
 | baseline-33 | route_11 | 4/4 |
@@ -161,7 +162,7 @@
 | baseline-33 | route_13 | 4/4 |
 | baseline-33 | route_14 | 4/4 |
 | baseline-33 | route_15 | 4/4 |
-| baseline-33 | route_16 | 4/4 |
+| baseline-33 | route_16 | 1/4 |
 | entropy-11 | route_01 | 3/3 |
 | entropy-11 | route_02 | 3/3 |
 | entropy-11 | route_03 | 4/4 |
