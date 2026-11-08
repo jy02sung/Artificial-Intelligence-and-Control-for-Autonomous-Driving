@@ -49,7 +49,7 @@ def audit(name):
     directory=OUT/name;directory.mkdir(parents=True,exist_ok=True)
     def status(stage,**kw):f.save(directory/'status.json',dict(stage=stage,pid=os.getpid(),updated=time.time(),**kw))
     final=f.read(source/'evaluation.json');final_fail={key(r):r for r in final if not r['arrival']}
-    histories={key(r):[] for r in final_fail}
+    histories={k:[] for k in final_fail}
     checkpoints=sorted((int(p.stem.split('-')[1]),p) for p in source.glob('policy-*.pt'))
     hashes={str(step):f.base.digest(p) for step,p in checkpoints}
     f.save(directory/'manifest.json',dict(source=str(source),source_manifest=meta,checkpoint_hashes=hashes,coarse=COARSE,script_sha=f.base.digest(Path(__file__)),evaluation='exact original physical starts and simulation seeds',adaptive='scan all remaining saved checkpoints for final failures until a prior success is found'))
