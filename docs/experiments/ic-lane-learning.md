@@ -70,10 +70,12 @@
 | combined-22 | 200704 | 59/62 | 0 | 3 |
 | combined-22 | 301056 | 61/62 | 0 | 1 |
 | combined-22 | 401408 | 62/62 | 0 | 0 |
+| combined-22 | 501760 | 55/62 | 0 | 7 |
 | combined-33 | 100352 | 55/62 | 0 | 7 |
 | combined-33 | 200704 | 62/62 | 0 | 0 |
 | combined-33 | 301056 | 62/62 | 0 | 0 |
 | combined-33 | 401408 | 44/62 | 0 | 18 |
+| combined-33 | 501760 | 62/62 | 0 | 0 |
 | entropy-11 | 100352 | 57/62 | 0 | 5 |
 | entropy-11 | 200704 | 42/62 | 0 | 20 |
 | entropy-11 | 301056 | 59/62 | 0 | 3 |
@@ -131,7 +133,7 @@
 | 200704 | 89.25% | 89.25% | 96.24% | 96.24% |
 | 301056 | 98.39% | 98.39% | 99.46% | 99.46% |
 | 401408 | 90.32% | 88.71% | 90.32% | 90.32% |
-| 501760 | 91.40% | 100.00% | 97.85% | 평가 대기 |
+| 501760 | 91.40% | 100.00% | 97.85% | 96.24% |
 | 600064 | 93.55% | 100.00% | 100.00% | 평가 대기 |
 | 700416 | 98.39% | 98.39% | 90.32% | 평가 대기 |
 | 800000 | 93.01% | 86.56% | 85.48% | 평가 대기 |
@@ -144,8 +146,8 @@
 | baseline-22 | 800000 | +0.00%p | 200704 (62/62) | 0 / 0 |
 | baseline-33 | 800000 | +0.00%p | 200704 (62/62) | 10 / 0 |
 | combined-11 | 501760 | +9.68%p | 100352 (62/62) | 0 / 0 |
-| combined-22 | 401408 | +24.19%p | 100352 (62/62) | 0 / 1 |
-| combined-33 | 401408 | -24.19%p | 200704 (62/62) | 18 / 0 |
+| combined-22 | 501760 | -11.29%p | 100352 (62/62) | 7 / 0 |
+| combined-33 | 501760 | +16.13%p | 200704 (62/62) | 0 / 18 |
 | entropy-11 | 800000 | -9.68%p | 401408 (62/62) | 6 / 0 |
 | entropy-22 | 800000 | +4.84%p | 200704 (62/62) | 0 / 0 |
 | entropy-33 | 800000 | -14.52%p | 200704 (62/62) | 16 / 0 |
@@ -222,13 +224,13 @@
 | combined-11 | route_15 | 4/4 |
 | combined-11 | route_16 | 4/4 |
 | combined-22 | route_01 | 3/3 |
-| combined-22 | route_02 | 3/3 |
+| combined-22 | route_02 | 0/3 |
 | combined-22 | route_03 | 4/4 |
 | combined-22 | route_04 | 4/4 |
 | combined-22 | route_05 | 4/4 |
 | combined-22 | route_06 | 4/4 |
 | combined-22 | route_07 | 4/4 |
-| combined-22 | route_08 | 4/4 |
+| combined-22 | route_08 | 0/4 |
 | combined-22 | route_09 | 4/4 |
 | combined-22 | route_10 | 4/4 |
 | combined-22 | route_11 | 4/4 |
@@ -239,9 +241,9 @@
 | combined-22 | route_16 | 4/4 |
 | combined-33 | route_01 | 3/3 |
 | combined-33 | route_02 | 3/3 |
-| combined-33 | route_03 | 0/4 |
-| combined-33 | route_04 | 0/4 |
-| combined-33 | route_05 | 0/4 |
+| combined-33 | route_03 | 4/4 |
+| combined-33 | route_04 | 4/4 |
+| combined-33 | route_05 | 4/4 |
 | combined-33 | route_06 | 4/4 |
 | combined-33 | route_07 | 4/4 |
 | combined-33 | route_08 | 4/4 |
@@ -249,9 +251,9 @@
 | combined-33 | route_10 | 4/4 |
 | combined-33 | route_11 | 4/4 |
 | combined-33 | route_12 | 4/4 |
-| combined-33 | route_13 | 2/4 |
-| combined-33 | route_14 | 2/4 |
-| combined-33 | route_15 | 2/4 |
+| combined-33 | route_13 | 4/4 |
+| combined-33 | route_14 | 4/4 |
+| combined-33 | route_15 | 4/4 |
 | combined-33 | route_16 | 4/4 |
 | entropy-11 | route_01 | 3/3 |
 | entropy-11 | route_02 | 3/3 |
