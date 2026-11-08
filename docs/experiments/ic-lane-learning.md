@@ -29,9 +29,11 @@
 | baseline-11 | 100352 | 57/62 | 0 | 5 |
 | baseline-11 | 200704 | 42/62 | 0 | 20 |
 | baseline-11 | 301056 | 59/62 | 0 | 3 |
+| baseline-11 | 401408 | 62/62 | 0 | 0 |
 | baseline-22 | 100352 | 52/62 | 0 | 10 |
 | baseline-22 | 200704 | 62/62 | 0 | 0 |
 | baseline-22 | 301056 | 62/62 | 0 | 0 |
+| baseline-22 | 401408 | 47/62 | 0 | 15 |
 | baseline-33 | 100352 | 54/62 | 0 | 8 |
 | baseline-33 | 200704 | 62/62 | 0 | 0 |
 | baseline-33 | 301056 | 62/62 | 0 | 0 |
@@ -39,6 +41,7 @@
 | entropy-11 | 100352 | 57/62 | 0 | 5 |
 | entropy-11 | 200704 | 42/62 | 0 | 20 |
 | entropy-11 | 301056 | 59/62 | 0 | 3 |
+| entropy-11 | 401408 | 62/62 | 0 | 0 |
 | entropy-22 | 100352 | 52/62 | 0 | 10 |
 | entropy-22 | 200704 | 62/62 | 0 | 0 |
 | entropy-22 | 301056 | 62/62 | 0 | 0 |
@@ -64,14 +67,14 @@
 
 | 조건 / seed | 현재 단계 | 기준 대비 완주율 차이 | 관측 최고 단계 | 직전 대비 성공→실패 / 실패→성공 |
 |---|---:|---:|---:|---:|
-| baseline-11 | 301056 | +0.00%p | 301056 (59/62) | 3 / 20 |
-| baseline-22 | 301056 | +0.00%p | 200704 (62/62) | 0 / 0 |
+| baseline-11 | 401408 | +0.00%p | 401408 (62/62) | 0 / 3 |
+| baseline-22 | 401408 | +0.00%p | 200704 (62/62) | 15 / 0 |
 | baseline-33 | 401408 | +0.00%p | 200704 (62/62) | 3 / 0 |
-| entropy-11 | 301056 | +0.00%p | 301056 (59/62) | 3 / 20 |
-| entropy-22 | 401408 | 기준 평가 대기 | 200704 (62/62) | 15 / 0 |
+| entropy-11 | 401408 | +0.00%p | 401408 (62/62) | 0 / 3 |
+| entropy-22 | 401408 | +0.00%p | 200704 (62/62) | 15 / 0 |
 | entropy-33 | 401408 | -4.84%p | 200704 (62/62) | 6 / 0 |
-| reward-11 | 401408 | 기준 평가 대기 | 100352 (62/62) | 0 / 0 |
-| reward-22 | 401408 | 기준 평가 대기 | 100352 (62/62) | 0 / 1 |
+| reward-11 | 401408 | +0.00%p | 100352 (62/62) | 0 / 0 |
+| reward-22 | 401408 | +24.19%p | 100352 (62/62) | 0 / 1 |
 | reward-33 | 401408 | -24.19%p | 200704 (62/62) | 18 / 0 |
 
 ### 최신 경로별 완주
@@ -90,25 +93,25 @@
 | baseline-11 | route_10 | 4/4 |
 | baseline-11 | route_11 | 4/4 |
 | baseline-11 | route_12 | 4/4 |
-| baseline-11 | route_13 | 3/4 |
-| baseline-11 | route_14 | 3/4 |
-| baseline-11 | route_15 | 3/4 |
+| baseline-11 | route_13 | 4/4 |
+| baseline-11 | route_14 | 4/4 |
+| baseline-11 | route_15 | 4/4 |
 | baseline-11 | route_16 | 4/4 |
 | baseline-22 | route_01 | 3/3 |
 | baseline-22 | route_02 | 3/3 |
-| baseline-22 | route_03 | 4/4 |
+| baseline-22 | route_03 | 0/4 |
 | baseline-22 | route_04 | 4/4 |
 | baseline-22 | route_05 | 4/4 |
 | baseline-22 | route_06 | 4/4 |
 | baseline-22 | route_07 | 4/4 |
 | baseline-22 | route_08 | 4/4 |
 | baseline-22 | route_09 | 4/4 |
-| baseline-22 | route_10 | 4/4 |
-| baseline-22 | route_11 | 4/4 |
+| baseline-22 | route_10 | 3/4 |
+| baseline-22 | route_11 | 3/4 |
 | baseline-22 | route_12 | 4/4 |
-| baseline-22 | route_13 | 4/4 |
-| baseline-22 | route_14 | 4/4 |
-| baseline-22 | route_15 | 4/4 |
+| baseline-22 | route_13 | 0/4 |
+| baseline-22 | route_14 | 0/4 |
+| baseline-22 | route_15 | 3/4 |
 | baseline-22 | route_16 | 4/4 |
 | baseline-33 | route_01 | 3/3 |
 | baseline-33 | route_02 | 3/3 |
@@ -138,9 +141,9 @@
 | entropy-11 | route_10 | 4/4 |
 | entropy-11 | route_11 | 4/4 |
 | entropy-11 | route_12 | 4/4 |
-| entropy-11 | route_13 | 3/4 |
-| entropy-11 | route_14 | 3/4 |
-| entropy-11 | route_15 | 3/4 |
+| entropy-11 | route_13 | 4/4 |
+| entropy-11 | route_14 | 4/4 |
+| entropy-11 | route_15 | 4/4 |
 | entropy-11 | route_16 | 4/4 |
 | entropy-22 | route_01 | 3/3 |
 | entropy-22 | route_02 | 3/3 |
