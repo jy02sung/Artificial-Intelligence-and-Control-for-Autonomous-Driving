@@ -108,7 +108,7 @@ def train(spec):
     for path,h in old['hashes'].items():
         if path!='utils/train_navigation_clarity.py':assert f.base.digest(f.ROOT/path)==h,path
     hp=old['hp'];env=environment(mode,seed)
-    cls=ScheduledPPO if mode=='entropy' else f.base.PPO
+    cls=ScheduledPPO if mode in ('entropy','combined') else f.base.PPO
     agent=cls(obs_dim=47,act_dim=2,buffer=f.base.RolloutBuffer(),**hp)
     agent.save(str(d/'initial.pt'))
     assert f.base.digest(d/'initial.pt')==old['initial_sha'],'Initial weights mismatch'
@@ -116,8 +116,8 @@ def train(spec):
     manifest=dict(mode=mode,seed=seed,hp=hp,budget=budget,baseline_manifest=old,
         initial_sha=f.base.digest(d/'initial.pt'),action_overrides=False,
         script_sha=f.base.digest(Path(__file__)),commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=f.ROOT,text=True).strip(),
-        entropy_schedule='0.01 through 400000, linear to zero at 800000' if mode=='entropy' else 'constant 0.01',
-        lane_reward='100m, +0.1 per newly crossed lane-error level per edge/target/episode' if mode=='reward' else 'none')
+        entropy_schedule='0.01 through 400000, linear to zero at 800000' if mode in ('entropy','combined') else 'constant 0.01',
+        lane_reward='100m, +0.1 per newly crossed lane-error level per edge/target/episode' if mode in ('reward','combined') else 'none')
     f.save(d/'manifest.json',manifest);shutil.copy2(__file__,d/'runner.py')
     log=Log(d,agent,budget,env,name,smoke)
     try:
@@ -140,6 +140,13 @@ def report():
         r=f.read(path);rows=r['rows']
         groups.setdefault(path.parent.name,[]).append(r)
         lines.append(f"| {path.parent.name} | {r['step']} | {r['arrivals']}/{r['cases']} | {sum(x['collision'] for x in rows)} | {sum(x.get('timeout',False) for x in rows)} |")
+    lines+=['','### 단계별 완주율 (3 seed 합계)','','| 단계 | 기존 | 탐험 감소 | 차로 보상 | 조합 |','|---:|---:|---:|---:|---:|']
+    for step in sorted({r['step'] for records in groups.values() for r in records}):
+        cells=[]
+        for mode in ('baseline','entropy','reward','combined'):
+            rs=[r for s in (11,22,33) for r in groups.get(f'{mode}-{s}',[]) if r['step']==step]
+            cells.append(f"{100*sum(r['arrivals'] for r in rs)/sum(r['cases'] for r in rs):.2f}%" if len(rs)==3 else '평가 대기')
+        lines.append('| '+str(step)+' | '+' | '.join(cells)+' |')
     lines+=['','### 변화 추적','','| 조건 / seed | 현재 단계 | 기준 대비 완주율 차이 | 관측 최고 단계 | 직전 대비 성공→실패 / 실패→성공 |','|---|---:|---:|---:|---:|']
     for name,records in sorted(groups.items()):
         records.sort(key=lambda r:r['step']);latest=records[-1]
@@ -185,6 +192,7 @@ def checks():
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--smoke',action='store_true');p.add_argument('--check',action='store_true')
+    p.add_argument('--combined',action='store_true')
     p.add_argument('--eval');p.add_argument('--step',type=int);p.add_argument('--reference',action='store_true');args=p.parse_args()
     if args.check:checks();return
     if args.eval:evaluate(args.eval,args.step,args.reference);return
@@ -194,7 +202,8 @@ def main():
     try:
         # Generate shared static files once before children start.
         f.prepare('none')
-        specs=[(m,s,args.smoke) for m in ('entropy','reward') for s in ((11,) if args.smoke else (11,22,33))]
+        modes=('combined',) if args.combined else ('entropy','reward')
+        specs=[(m,s,args.smoke) for m in modes for s in ((11,) if args.smoke else (11,22,33))]
         with concurrent.futures.ProcessPoolExecutor(max_workers=6) as pool:
             pending={pool.submit(train,s):s for s in specs}
             while pending:
@@ -206,7 +215,8 @@ def main():
                 count=len(list((OUT/'evaluations').glob('*/*.json')))
                 if not args.smoke and count!=last_count:
                     report();last_count=count
-                f.save(OUT/('smoke-status.json' if args.smoke else 'status.json'),dict(stage='running' if pending else 'error' if errors else 'complete',pid=os.getpid(),completed=completed,errors=errors,pending=len(pending),updated=time.time()))
+                status_name=('combined-' if args.combined else '')+('smoke-status.json' if args.smoke else 'status.json')
+                f.save(OUT/status_name,dict(stage='running' if pending else 'error' if errors else 'complete',pid=os.getpid(),completed=completed,errors=errors,pending=len(pending),updated=time.time()))
     finally:lock.unlink()
 
 
