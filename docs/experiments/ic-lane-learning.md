@@ -29,9 +29,12 @@
 | baseline-11 | 100352 | 57/62 | 0 | 5 |
 | baseline-22 | 100352 | 52/62 | 0 | 10 |
 | baseline-33 | 100352 | 54/62 | 0 | 8 |
+| baseline-33 | 200704 | 62/62 | 0 | 0 |
 | entropy-11 | 100352 | 57/62 | 0 | 5 |
 | entropy-22 | 100352 | 52/62 | 0 | 10 |
+| entropy-22 | 200704 | 62/62 | 0 | 0 |
 | entropy-33 | 100352 | 54/62 | 0 | 8 |
+| entropy-33 | 200704 | 62/62 | 0 | 0 |
 | reward-11 | 100352 | 62/62 | 0 | 0 |
 | reward-11 | 200704 | 58/62 | 0 | 4 |
 | reward-22 | 100352 | 62/62 | 0 | 0 |
@@ -45,13 +48,13 @@
 |---|---:|---:|---:|---:|
 | baseline-11 | 100352 | +0.00%p | 100352 (57/62) | 0 / 0 |
 | baseline-22 | 100352 | +0.00%p | 100352 (52/62) | 0 / 0 |
-| baseline-33 | 100352 | +0.00%p | 100352 (54/62) | 0 / 0 |
+| baseline-33 | 200704 | +0.00%p | 200704 (62/62) | 0 / 8 |
 | entropy-11 | 100352 | +0.00%p | 100352 (57/62) | 0 / 0 |
-| entropy-22 | 100352 | +0.00%p | 100352 (52/62) | 0 / 0 |
-| entropy-33 | 100352 | +0.00%p | 100352 (54/62) | 0 / 0 |
+| entropy-22 | 200704 | 기준 평가 대기 | 200704 (62/62) | 0 / 10 |
+| entropy-33 | 200704 | +0.00%p | 200704 (62/62) | 0 / 8 |
 | reward-11 | 200704 | 기준 평가 대기 | 100352 (62/62) | 4 / 0 |
 | reward-22 | 200704 | 기준 평가 대기 | 100352 (62/62) | 3 / 0 |
-| reward-33 | 200704 | 기준 평가 대기 | 200704 (62/62) | 0 / 7 |
+| reward-33 | 200704 | +0.00%p | 200704 (62/62) | 0 / 7 |
 
 ### 최신 경로별 완주
 
@@ -101,8 +104,8 @@
 | baseline-33 | route_10 | 4/4 |
 | baseline-33 | route_11 | 4/4 |
 | baseline-33 | route_12 | 4/4 |
-| baseline-33 | route_13 | 0/4 |
-| baseline-33 | route_14 | 0/4 |
+| baseline-33 | route_13 | 4/4 |
+| baseline-33 | route_14 | 4/4 |
 | baseline-33 | route_15 | 4/4 |
 | baseline-33 | route_16 | 4/4 |
 | entropy-11 | route_01 | 3/3 |
@@ -133,10 +136,10 @@
 | entropy-22 | route_10 | 4/4 |
 | entropy-22 | route_11 | 4/4 |
 | entropy-22 | route_12 | 4/4 |
-| entropy-22 | route_13 | 0/4 |
-| entropy-22 | route_14 | 0/4 |
+| entropy-22 | route_13 | 4/4 |
+| entropy-22 | route_14 | 4/4 |
 | entropy-22 | route_15 | 4/4 |
-| entropy-22 | route_16 | 2/4 |
+| entropy-22 | route_16 | 4/4 |
 | entropy-33 | route_01 | 3/3 |
 | entropy-33 | route_02 | 3/3 |
 | entropy-33 | route_03 | 4/4 |
@@ -149,8 +152,8 @@
 | entropy-33 | route_10 | 4/4 |
 | entropy-33 | route_11 | 4/4 |
 | entropy-33 | route_12 | 4/4 |
-| entropy-33 | route_13 | 0/4 |
-| entropy-33 | route_14 | 0/4 |
+| entropy-33 | route_13 | 4/4 |
+| entropy-33 | route_14 | 4/4 |
 | entropy-33 | route_15 | 4/4 |
 | entropy-33 | route_16 | 4/4 |
 | reward-11 | route_01 | 3/3 |
