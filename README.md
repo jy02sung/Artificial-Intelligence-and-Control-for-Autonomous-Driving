@@ -11,6 +11,16 @@ SUMO 기반 자율주행 인공지능 및 제어 팀 프로젝트입니다.
 
 발표자료는 Canva에서 관리하며 저장소에는 링크만 제공합니다. Canva 접근·편집 권한은 Canva의 공유 설정을 따릅니다. 웹페이지는 `docs/index.html`에서 수정하며 GitHub Pages로 게시합니다.
 
+## 퇴계원IC · 16가지 주행 경로
+
+퇴계원IC 단독 시험 맵의 16개 경로를 같은 방향과 축척으로 정리했습니다. **초록은 출발, 빨강은 도착, 파란 화살표는 주행 방향**입니다.
+
+[![퇴계원IC의 16가지 주행 경로 콜라주](docs/assets/toegyewon-routes/toegyewon-16-routes.png)](docs/assets/toegyewon-routes/toegyewon-16-routes.png)
+
+[원본 크게 보기](docs/assets/toegyewon-routes/toegyewon-16-routes.png) · [경로별 이미지](docs/assets/toegyewon-routes) · [SUMO 시험 맵](maps/toegyewon_only) · [최신 학습 결과](docs/experiments/ic-lane-learning.md)
+
+SUMO에서 `maps/toegyewon_only/review.sumocfg`를 열면 이 시험 맵을 확인할 수 있습니다. 사노IC 포함 맵은 `maps/toegyewon_osm`에 별도로 보존합니다. 경로 그림은 차로별 주행 궤적이 아닌 도로 연결 경로를 나타냅니다.
+
 ## 팀 문서
 
 - [현재 문서 목록](docs/README.md)

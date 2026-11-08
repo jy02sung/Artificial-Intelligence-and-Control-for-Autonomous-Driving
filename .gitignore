@@ -31,3 +31,6 @@ data/*
 # Experiment case exports stay local; keep small reproducible plans tracked.
 /docs/experiments/**/*.json
 !/docs/experiments/*plan*.json
+
+# Superseded local OSM clipping; active maps and their source live under maps/.
+/scenarios/toegyewon/clipped.osm.xml
