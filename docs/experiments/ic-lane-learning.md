@@ -33,9 +33,11 @@
 | entropy-22 | 100352 | 52/62 | 0 | 10 |
 | entropy-33 | 100352 | 54/62 | 0 | 8 |
 | reward-11 | 100352 | 62/62 | 0 | 0 |
+| reward-11 | 200704 | 58/62 | 0 | 4 |
 | reward-22 | 100352 | 62/62 | 0 | 0 |
 | reward-22 | 200704 | 59/62 | 0 | 3 |
 | reward-33 | 100352 | 55/62 | 0 | 7 |
+| reward-33 | 200704 | 62/62 | 0 | 0 |
 
 ### 변화 추적
 
@@ -47,9 +49,9 @@
 | entropy-11 | 100352 | +0.00%p | 100352 (57/62) | 0 / 0 |
 | entropy-22 | 100352 | +0.00%p | 100352 (52/62) | 0 / 0 |
 | entropy-33 | 100352 | +0.00%p | 100352 (54/62) | 0 / 0 |
-| reward-11 | 100352 | +8.06%p | 100352 (62/62) | 0 / 0 |
+| reward-11 | 200704 | 기준 평가 대기 | 100352 (62/62) | 4 / 0 |
 | reward-22 | 200704 | 기준 평가 대기 | 100352 (62/62) | 3 / 0 |
-| reward-33 | 100352 | +1.61%p | 100352 (55/62) | 0 / 0 |
+| reward-33 | 200704 | 기준 평가 대기 | 200704 (62/62) | 0 / 7 |
 
 ### 최신 경로별 완주
 
@@ -155,7 +157,7 @@
 | reward-11 | route_02 | 3/3 |
 | reward-11 | route_03 | 4/4 |
 | reward-11 | route_04 | 4/4 |
-| reward-11 | route_05 | 4/4 |
+| reward-11 | route_05 | 0/4 |
 | reward-11 | route_06 | 4/4 |
 | reward-11 | route_07 | 4/4 |
 | reward-11 | route_08 | 4/4 |
@@ -185,17 +187,17 @@
 | reward-22 | route_16 | 1/4 |
 | reward-33 | route_01 | 3/3 |
 | reward-33 | route_02 | 3/3 |
-| reward-33 | route_03 | 3/4 |
-| reward-33 | route_04 | 3/4 |
-| reward-33 | route_05 | 3/4 |
+| reward-33 | route_03 | 4/4 |
+| reward-33 | route_04 | 4/4 |
+| reward-33 | route_05 | 4/4 |
 | reward-33 | route_06 | 4/4 |
-| reward-33 | route_07 | 3/4 |
+| reward-33 | route_07 | 4/4 |
 | reward-33 | route_08 | 4/4 |
 | reward-33 | route_09 | 4/4 |
 | reward-33 | route_10 | 4/4 |
 | reward-33 | route_11 | 4/4 |
 | reward-33 | route_12 | 4/4 |
-| reward-33 | route_13 | 3/4 |
-| reward-33 | route_14 | 3/4 |
-| reward-33 | route_15 | 3/4 |
+| reward-33 | route_13 | 4/4 |
+| reward-33 | route_14 | 4/4 |
+| reward-33 | route_15 | 4/4 |
 | reward-33 | route_16 | 4/4 |
