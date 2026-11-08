@@ -21,6 +21,7 @@
 
 실시간 상태는 `results/navigation_clarity_v1/parallel-status.json`과 `status-11.json`, `status-22.json`, `status-33.json`을 기준으로 본다. 기존 `status.json`에는 인계 시 기존 실행기의 변경 감지 메시지가 남을 수 있다. 각 반복 안의 세 조건은 순차 실행하고, 보고서 갱신과 GitHub 기록은 잠금으로 직렬 처리한다.
 
+
 ## 비교 실행 결과
 
 동일 seed의 세 조건은 같은 초기 가중치에서 시작한다. 삽입 불가는 별도 표기하며 성공으로 처리하지 않는다.
@@ -28,6 +29,7 @@
 | 조건 | 학습 seed | 완주/전체 | 충돌 | 시간초과 | 삽입 불가 | 실행 경로 |
 |---|---:|---:|---:|---:|---:|---|
 | baseline | 11 | 62/62 | 0 | 0 | 0 | `results\navigation_clarity_v1\runs\baseline-11` |
+| validity | 11 | 30/62 | 0 | 32 | 0 | `results\navigation_clarity_v1\runs\validity-11` |
 
 ### 경로별 결과
 
@@ -47,3 +49,19 @@
 - baseline-11 / route_14: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
 - baseline-11 / route_15: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
 - baseline-11 / route_16: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_01: 3/3 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_02: 3/3 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_03: 0/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_04: 0/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_05: 0/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_06: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_07: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_08: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_09: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_10: 0/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_11: 0/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_12: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_13: 0/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_14: 0/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_15: 0/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- validity-11 / route_16: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
