@@ -67,6 +67,7 @@
 | reward-11 | 401408 | 62/62 | 0 | 0 |
 | reward-11 | 501760 | 62/62 | 0 | 0 |
 | reward-11 | 600064 | 62/62 | 0 | 0 |
+| reward-11 | 700416 | 44/62 | 0 | 18 |
 | reward-22 | 100352 | 62/62 | 0 | 0 |
 | reward-22 | 200704 | 59/62 | 0 | 3 |
 | reward-22 | 301056 | 61/62 | 0 | 1 |
@@ -91,7 +92,7 @@
 | entropy-11 | 600064 | 기준 평가 대기 | 401408 (62/62) | 0 / 0 |
 | entropy-22 | 600064 | +0.00%p | 200704 (62/62) | 0 / 0 |
 | entropy-33 | 600064 | +0.00%p | 200704 (62/62) | 0 / 0 |
-| reward-11 | 600064 | 기준 평가 대기 | 100352 (62/62) | 0 / 0 |
+| reward-11 | 700416 | 기준 평가 대기 | 100352 (62/62) | 18 / 0 |
 | reward-22 | 700416 | 기준 평가 대기 | 100352 (62/62) | 0 / 0 |
 | reward-33 | 600064 | +0.00%p | 200704 (62/62) | 0 / 4 |
 
@@ -197,9 +198,9 @@
 | entropy-33 | route_16 | 4/4 |
 | reward-11 | route_01 | 3/3 |
 | reward-11 | route_02 | 3/3 |
-| reward-11 | route_03 | 4/4 |
-| reward-11 | route_04 | 4/4 |
-| reward-11 | route_05 | 4/4 |
+| reward-11 | route_03 | 0/4 |
+| reward-11 | route_04 | 0/4 |
+| reward-11 | route_05 | 0/4 |
 | reward-11 | route_06 | 4/4 |
 | reward-11 | route_07 | 4/4 |
 | reward-11 | route_08 | 4/4 |
@@ -207,9 +208,9 @@
 | reward-11 | route_10 | 4/4 |
 | reward-11 | route_11 | 4/4 |
 | reward-11 | route_12 | 4/4 |
-| reward-11 | route_13 | 4/4 |
-| reward-11 | route_14 | 4/4 |
-| reward-11 | route_15 | 4/4 |
+| reward-11 | route_13 | 2/4 |
+| reward-11 | route_14 | 2/4 |
+| reward-11 | route_15 | 2/4 |
 | reward-11 | route_16 | 4/4 |
 | reward-22 | route_01 | 3/3 |
 | reward-22 | route_02 | 3/3 |
