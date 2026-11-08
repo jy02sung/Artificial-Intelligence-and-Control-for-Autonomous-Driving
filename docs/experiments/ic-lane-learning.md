@@ -61,6 +61,9 @@
 | baseline-33 | 600064 | 62/62 | 0 | 0 |
 | baseline-33 | 700416 | 62/62 | 0 | 0 |
 | baseline-33 | 800000 | 52/62 | 0 | 10 |
+| combined-11 | 100352 | 62/62 | 0 | 0 |
+| combined-22 | 100352 | 62/62 | 0 | 0 |
+| combined-33 | 100352 | 55/62 | 0 | 7 |
 | entropy-11 | 100352 | 57/62 | 0 | 5 |
 | entropy-11 | 200704 | 42/62 | 0 | 20 |
 | entropy-11 | 301056 | 59/62 | 0 | 3 |
@@ -114,7 +117,7 @@
 
 | 단계 | 기존 | 탐험 감소 | 차로 보상 | 조합 |
 |---:|---:|---:|---:|---:|
-| 100352 | 87.63% | 87.63% | 96.24% | 평가 대기 |
+| 100352 | 87.63% | 87.63% | 96.24% | 96.24% |
 | 200704 | 89.25% | 89.25% | 96.24% | 평가 대기 |
 | 301056 | 98.39% | 98.39% | 99.46% | 평가 대기 |
 | 401408 | 90.32% | 88.71% | 90.32% | 평가 대기 |
@@ -130,6 +133,9 @@
 | baseline-11 | 800000 | +0.00%p | 401408 (62/62) | 0 / 0 |
 | baseline-22 | 800000 | +0.00%p | 200704 (62/62) | 0 / 0 |
 | baseline-33 | 800000 | +0.00%p | 200704 (62/62) | 10 / 0 |
+| combined-11 | 100352 | +8.06%p | 100352 (62/62) | 0 / 0 |
+| combined-22 | 100352 | +16.13%p | 100352 (62/62) | 0 / 0 |
+| combined-33 | 100352 | +1.61%p | 100352 (55/62) | 0 / 0 |
 | entropy-11 | 800000 | -9.68%p | 401408 (62/62) | 6 / 0 |
 | entropy-22 | 800000 | +4.84%p | 200704 (62/62) | 0 / 0 |
 | entropy-33 | 800000 | -14.52%p | 200704 (62/62) | 16 / 0 |
@@ -189,6 +195,54 @@
 | baseline-33 | route_14 | 4/4 |
 | baseline-33 | route_15 | 4/4 |
 | baseline-33 | route_16 | 1/4 |
+| combined-11 | route_01 | 3/3 |
+| combined-11 | route_02 | 3/3 |
+| combined-11 | route_03 | 4/4 |
+| combined-11 | route_04 | 4/4 |
+| combined-11 | route_05 | 4/4 |
+| combined-11 | route_06 | 4/4 |
+| combined-11 | route_07 | 4/4 |
+| combined-11 | route_08 | 4/4 |
+| combined-11 | route_09 | 4/4 |
+| combined-11 | route_10 | 4/4 |
+| combined-11 | route_11 | 4/4 |
+| combined-11 | route_12 | 4/4 |
+| combined-11 | route_13 | 4/4 |
+| combined-11 | route_14 | 4/4 |
+| combined-11 | route_15 | 4/4 |
+| combined-11 | route_16 | 4/4 |
+| combined-22 | route_01 | 3/3 |
+| combined-22 | route_02 | 3/3 |
+| combined-22 | route_03 | 4/4 |
+| combined-22 | route_04 | 4/4 |
+| combined-22 | route_05 | 4/4 |
+| combined-22 | route_06 | 4/4 |
+| combined-22 | route_07 | 4/4 |
+| combined-22 | route_08 | 4/4 |
+| combined-22 | route_09 | 4/4 |
+| combined-22 | route_10 | 4/4 |
+| combined-22 | route_11 | 4/4 |
+| combined-22 | route_12 | 4/4 |
+| combined-22 | route_13 | 4/4 |
+| combined-22 | route_14 | 4/4 |
+| combined-22 | route_15 | 4/4 |
+| combined-22 | route_16 | 4/4 |
+| combined-33 | route_01 | 3/3 |
+| combined-33 | route_02 | 3/3 |
+| combined-33 | route_03 | 3/4 |
+| combined-33 | route_04 | 3/4 |
+| combined-33 | route_05 | 3/4 |
+| combined-33 | route_06 | 4/4 |
+| combined-33 | route_07 | 3/4 |
+| combined-33 | route_08 | 4/4 |
+| combined-33 | route_09 | 4/4 |
+| combined-33 | route_10 | 4/4 |
+| combined-33 | route_11 | 4/4 |
+| combined-33 | route_12 | 4/4 |
+| combined-33 | route_13 | 3/4 |
+| combined-33 | route_14 | 3/4 |
+| combined-33 | route_15 | 3/4 |
+| combined-33 | route_16 | 4/4 |
 | entropy-11 | route_01 | 3/3 |
 | entropy-11 | route_02 | 3/3 |
 | entropy-11 | route_03 | 3/4 |
