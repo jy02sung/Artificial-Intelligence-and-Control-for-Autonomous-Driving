@@ -14,3 +14,30 @@
 평가: 경로마다 기존 best/max 출발과 차로0/속도5, 차로0/속도15, 가장 왼쪽 차로/속도15의 조건을 평가. 삽입 불가는 정책 시간초과와 별도 기록한다. 완주·충돌·시간초과·실패 위치 및 강제 행동 보정0회를 기록한다. 이 제한된 무교통 검증으로 최종 교통 성능이나 95% 신뢰도를 주장하지 않는다.
 
 원본 실험 보존. 새로운 구현은 env/navigation_clarity.py, 실행기는 utils/train_navigation_clarity.py, 원본 산출물은 로컬 results/navigation_clarity_v1/. 각 조건 종료 시 결과 표를 이 문서에 갱신하고 별도 커밋한다. 오류·소스 변경·부분 실행 발견 시 조용히 덮어쓰지 않고 중단한다.
+
+## 비교 실행 결과
+
+동일 seed의 세 조건은 같은 초기 가중치에서 시작한다. 삽입 불가는 별도 표기하며 성공으로 처리하지 않는다.
+
+| 조건 | 학습 seed | 완주/전체 | 충돌 | 시간초과 | 삽입 불가 | 실행 경로 |
+|---|---:|---:|---:|---:|---:|---|
+| baseline | 11 | 62/62 | 0 | 0 | 0 | `results\navigation_clarity_v1\runs\baseline-11` |
+
+### 경로별 결과
+
+- baseline-11 / route_01: 3/3 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_02: 3/3 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_03: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_04: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_05: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_06: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_07: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_08: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_09: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_10: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_11: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_12: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_13: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_14: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_15: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
+- baseline-11 / route_16: 4/4 완주. 실행 코드 `563cc041256ad05e1334ab232dd627ac016fec81`.
