@@ -19,3 +19,128 @@
 5. 기준도 같은 10만 단계 간격으로 평가한다. 경로별 완주·충돌·시간 초과, 최고/최종 모델, 성공 후 실패 전환을 기록한다. 동일 검증 집합에서 고른 최고 성능은 독립 시험 성능으로 주장하지 않는다.
 
 원본 기준 코드/맵 해시, 초기 가중치 해시, 현재 커밋, 실제 계수와 보상 누적량은 각 실행 manifest와 TensorBoard에 보존한다. 결과 원본은 `results/lane_learning_v1/`에 로컬 저장한다. Git에는 코드와 요약만 기록한다. 완주율 95%·충돌률 5% 목표 달성 여부는 이후 별도 미사용 출발 조건으로 확인한다.
+
+## 실행 결과
+
+각 셀은 동일한 62개 출발 조건의 완주 수다. 기준과 두 변경 조건 모두 같은 평가를 사용한다.
+
+| 조건 / seed | 단계 | 완주 | 충돌 | 시간 초과 |
+|---|---:|---:|---:|---:|
+| entropy-11 | 100352 | 57/62 | 0 | 5 |
+| entropy-22 | 100352 | 52/62 | 0 | 10 |
+| entropy-33 | 100352 | 54/62 | 0 | 8 |
+| reward-11 | 100352 | 62/62 | 0 | 0 |
+| reward-22 | 100352 | 62/62 | 0 | 0 |
+| reward-33 | 100352 | 55/62 | 0 | 7 |
+
+### 변화 추적
+
+| 조건 / seed | 현재 단계 | 기준 대비 완주율 차이 | 관측 최고 단계 | 직전 대비 성공→실패 / 실패→성공 |
+|---|---:|---:|---:|---:|
+| entropy-11 | 100352 | 기준 평가 대기 | 100352 (57/62) | 0 / 0 |
+| entropy-22 | 100352 | 기준 평가 대기 | 100352 (52/62) | 0 / 0 |
+| entropy-33 | 100352 | 기준 평가 대기 | 100352 (54/62) | 0 / 0 |
+| reward-11 | 100352 | 기준 평가 대기 | 100352 (62/62) | 0 / 0 |
+| reward-22 | 100352 | 기준 평가 대기 | 100352 (62/62) | 0 / 0 |
+| reward-33 | 100352 | 기준 평가 대기 | 100352 (55/62) | 0 / 0 |
+
+### 최신 경로별 완주
+
+| 조건 / seed | 경로 | 완주 / 사례 |
+|---|---|---:|
+| entropy-11 | route_01 | 3/3 |
+| entropy-11 | route_02 | 0/3 |
+| entropy-11 | route_03 | 4/4 |
+| entropy-11 | route_04 | 4/4 |
+| entropy-11 | route_05 | 4/4 |
+| entropy-11 | route_06 | 4/4 |
+| entropy-11 | route_07 | 4/4 |
+| entropy-11 | route_08 | 2/4 |
+| entropy-11 | route_09 | 4/4 |
+| entropy-11 | route_10 | 4/4 |
+| entropy-11 | route_11 | 4/4 |
+| entropy-11 | route_12 | 4/4 |
+| entropy-11 | route_13 | 4/4 |
+| entropy-11 | route_14 | 4/4 |
+| entropy-11 | route_15 | 4/4 |
+| entropy-11 | route_16 | 4/4 |
+| entropy-22 | route_01 | 3/3 |
+| entropy-22 | route_02 | 3/3 |
+| entropy-22 | route_03 | 4/4 |
+| entropy-22 | route_04 | 4/4 |
+| entropy-22 | route_05 | 4/4 |
+| entropy-22 | route_06 | 4/4 |
+| entropy-22 | route_07 | 4/4 |
+| entropy-22 | route_08 | 4/4 |
+| entropy-22 | route_09 | 4/4 |
+| entropy-22 | route_10 | 4/4 |
+| entropy-22 | route_11 | 4/4 |
+| entropy-22 | route_12 | 4/4 |
+| entropy-22 | route_13 | 0/4 |
+| entropy-22 | route_14 | 0/4 |
+| entropy-22 | route_15 | 4/4 |
+| entropy-22 | route_16 | 2/4 |
+| entropy-33 | route_01 | 3/3 |
+| entropy-33 | route_02 | 3/3 |
+| entropy-33 | route_03 | 4/4 |
+| entropy-33 | route_04 | 4/4 |
+| entropy-33 | route_05 | 4/4 |
+| entropy-33 | route_06 | 4/4 |
+| entropy-33 | route_07 | 4/4 |
+| entropy-33 | route_08 | 4/4 |
+| entropy-33 | route_09 | 4/4 |
+| entropy-33 | route_10 | 4/4 |
+| entropy-33 | route_11 | 4/4 |
+| entropy-33 | route_12 | 4/4 |
+| entropy-33 | route_13 | 0/4 |
+| entropy-33 | route_14 | 0/4 |
+| entropy-33 | route_15 | 4/4 |
+| entropy-33 | route_16 | 4/4 |
+| reward-11 | route_01 | 3/3 |
+| reward-11 | route_02 | 3/3 |
+| reward-11 | route_03 | 4/4 |
+| reward-11 | route_04 | 4/4 |
+| reward-11 | route_05 | 4/4 |
+| reward-11 | route_06 | 4/4 |
+| reward-11 | route_07 | 4/4 |
+| reward-11 | route_08 | 4/4 |
+| reward-11 | route_09 | 4/4 |
+| reward-11 | route_10 | 4/4 |
+| reward-11 | route_11 | 4/4 |
+| reward-11 | route_12 | 4/4 |
+| reward-11 | route_13 | 4/4 |
+| reward-11 | route_14 | 4/4 |
+| reward-11 | route_15 | 4/4 |
+| reward-11 | route_16 | 4/4 |
+| reward-22 | route_01 | 3/3 |
+| reward-22 | route_02 | 3/3 |
+| reward-22 | route_03 | 4/4 |
+| reward-22 | route_04 | 4/4 |
+| reward-22 | route_05 | 4/4 |
+| reward-22 | route_06 | 4/4 |
+| reward-22 | route_07 | 4/4 |
+| reward-22 | route_08 | 4/4 |
+| reward-22 | route_09 | 4/4 |
+| reward-22 | route_10 | 4/4 |
+| reward-22 | route_11 | 4/4 |
+| reward-22 | route_12 | 4/4 |
+| reward-22 | route_13 | 4/4 |
+| reward-22 | route_14 | 4/4 |
+| reward-22 | route_15 | 4/4 |
+| reward-22 | route_16 | 4/4 |
+| reward-33 | route_01 | 3/3 |
+| reward-33 | route_02 | 3/3 |
+| reward-33 | route_03 | 3/4 |
+| reward-33 | route_04 | 3/4 |
+| reward-33 | route_05 | 3/4 |
+| reward-33 | route_06 | 4/4 |
+| reward-33 | route_07 | 3/4 |
+| reward-33 | route_08 | 4/4 |
+| reward-33 | route_09 | 4/4 |
+| reward-33 | route_10 | 4/4 |
+| reward-33 | route_11 | 4/4 |
+| reward-33 | route_12 | 4/4 |
+| reward-33 | route_13 | 3/4 |
+| reward-33 | route_14 | 3/4 |
+| reward-33 | route_15 | 3/4 |
+| reward-33 | route_16 | 4/4 |
