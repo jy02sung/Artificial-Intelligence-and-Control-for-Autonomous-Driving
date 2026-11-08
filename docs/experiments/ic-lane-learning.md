@@ -55,6 +55,7 @@
 | reward-33 | 100352 | 55/62 | 0 | 7 |
 | reward-33 | 200704 | 62/62 | 0 | 0 |
 | reward-33 | 301056 | 62/62 | 0 | 0 |
+| reward-33 | 401408 | 44/62 | 0 | 18 |
 
 ### 변화 추적
 
@@ -68,7 +69,7 @@
 | entropy-33 | 301056 | +0.00%p | 200704 (62/62) | 0 / 0 |
 | reward-11 | 401408 | 기준 평가 대기 | 100352 (62/62) | 0 / 0 |
 | reward-22 | 401408 | 기준 평가 대기 | 100352 (62/62) | 0 / 1 |
-| reward-33 | 301056 | +0.00%p | 200704 (62/62) | 0 / 0 |
+| reward-33 | 401408 | 기준 평가 대기 | 200704 (62/62) | 18 / 0 |
 
 ### 최신 경로별 완주
 
@@ -204,9 +205,9 @@
 | reward-22 | route_16 | 4/4 |
 | reward-33 | route_01 | 3/3 |
 | reward-33 | route_02 | 3/3 |
-| reward-33 | route_03 | 4/4 |
-| reward-33 | route_04 | 4/4 |
-| reward-33 | route_05 | 4/4 |
+| reward-33 | route_03 | 0/4 |
+| reward-33 | route_04 | 0/4 |
+| reward-33 | route_05 | 0/4 |
 | reward-33 | route_06 | 4/4 |
 | reward-33 | route_07 | 4/4 |
 | reward-33 | route_08 | 4/4 |
@@ -214,7 +215,7 @@
 | reward-33 | route_10 | 4/4 |
 | reward-33 | route_11 | 4/4 |
 | reward-33 | route_12 | 4/4 |
-| reward-33 | route_13 | 4/4 |
-| reward-33 | route_14 | 4/4 |
-| reward-33 | route_15 | 4/4 |
+| reward-33 | route_13 | 2/4 |
+| reward-33 | route_14 | 2/4 |
+| reward-33 | route_15 | 2/4 |
 | reward-33 | route_16 | 4/4 |
