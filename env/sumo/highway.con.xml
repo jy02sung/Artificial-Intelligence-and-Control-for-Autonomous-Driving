@@ -6,12 +6,14 @@
   <connection from="sb_in" to="sb_bridge" fromLane="5" toLane="3" />
   <connection from="sb_in" to="south_exit" fromLane="1" toLane="0" />
   <connection from="sb_in" to="outer_entry" fromLane="0" toLane="0" />
-  <connection from="sb_bridge" to="sb_main" fromLane="1" toLane="0" />
-  <connection from="sb_bridge" to="sb_main" fromLane="2" toLane="1" />
-  <connection from="sb_bridge" to="sb_main" fromLane="3" toLane="2" />
-  <connection from="sb_main" to="sb_accel" fromLane="0" toLane="1" />
-  <connection from="sb_main" to="sb_accel" fromLane="1" toLane="2" />
-  <connection from="sb_main" to="sb_accel" fromLane="2" toLane="3" />
+  <connection from="sb_bridge" to="sb_main" fromLane="0" toLane="0" />
+  <connection from="sb_bridge" to="sb_main" fromLane="1" toLane="1" />
+  <connection from="sb_bridge" to="sb_main" fromLane="2" toLane="2" />
+  <connection from="sb_bridge" to="sb_main" fromLane="3" toLane="3" />
+  <connection from="sb_main" to="sb_accel" fromLane="0" toLane="0" />
+  <connection from="sb_main" to="sb_accel" fromLane="1" toLane="1" />
+  <connection from="sb_main" to="sb_accel" fromLane="2" toLane="2" />
+  <connection from="sb_main" to="sb_accel" fromLane="3" toLane="3" />
   <connection from="return_loop" to="sb_accel" fromLane="0" toLane="0" />
   <connection from="sb_accel" to="sb_out" fromLane="0" toLane="0" />
   <connection from="sb_accel" to="sb_out" fromLane="1" toLane="1" />
