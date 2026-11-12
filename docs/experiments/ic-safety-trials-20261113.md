@@ -25,6 +25,8 @@ GAP15: 기존 고정6m 근접 기준만 2.5+속도×1.5초로 변경. 기존0.1�
 |COLLISION20-22|eval-501760.summary|21/320|111|False|
 |COLLISION20-22|eval-600064.summary|13/320|108|False|
 |COLLISION20-22|eval-700416.summary|14/320|139|False|
+|COLLISION20-22|eval-800000.summary|0/320|78|False|
+|COLLISION20-22|evaluation.summary|0/320|78|False|
 |COLLISION20-22|initial-eval.summary|67/320|253|False|
 |COLLISION20-33|eval-100352.summary|79/320|94|False|
 |COLLISION20-33|eval-200704.summary|13/320|147|False|
