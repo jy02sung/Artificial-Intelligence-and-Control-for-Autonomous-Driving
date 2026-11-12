@@ -8,5 +8,7 @@ GAP15: 기존 고정6m 근접 기준만 2.5+속도×1.5초로 변경. 기존0.1�
 
 |실험|평가|완주|충돌|경로별통과|
 |---|---|---:|---:|---|
+|smoke-COLLISION20-11|eval-2048.summary|57/320|245|False|
+|smoke-COLLISION20-11|evaluation.summary|57/320|245|False|
 |smoke-GAP15-11|eval-2048.summary|72/320|248|False|
 |smoke-GAP15-11|evaluation.summary|72/320|248|False|
