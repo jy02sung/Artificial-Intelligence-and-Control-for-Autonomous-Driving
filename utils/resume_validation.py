@@ -1,12 +1,18 @@
 """Frozen-model current-map revalidation; bounded parallelism, no training or overrides."""
-import os,json,time,argparse,concurrent.futures,subprocess,hashlib
+import os,json,time,argparse,concurrent.futures,subprocess,hashlib,traceback
 from pathlib import Path
 from utils import train_navigation_clarity as c
 f=c.f;b=f.base
 OUT=f.ROOT/'results/resume_validation_20261112'
 f.OUT=OUT
 
-def save(path,data):f.save(path,data)
+def save(path,data):
+ for attempt in range(20):
+  try:return b.save(path,data)
+  except PermissionError:
+   if attempt==19:raise
+   time.sleep(.1)
+f.save=save
 def sources(mode,seed):
  return (c.OUT/'runs'/f'baseline-{seed}') if mode=='baseline' else f.ROOT/'results/lane_learning_v1/runs'/f'{mode}-{seed}'
 def environment(seed,lane,speed,meta):
@@ -15,6 +21,7 @@ def execute(job):
  b.torch.set_num_threads(1)
  key=job['key'];target=OUT/'jobs'/key;target.mkdir(parents=True,exist_ok=True)
  if (target/'complete.json').exists():return key
+ (target/'error.json').unlink(missing_ok=True)
  save(target/'progress.json',dict(stage='running',pid=os.getpid(),started=time.time(),job=job))
  try:
   if job['kind']=='hv':
@@ -52,7 +59,7 @@ def execute(job):
   save(target/'complete.json',dict(cases=len(rows),arrivals=sum(r['arrival'] for r in rows),collisions=sum(r['collision'] for r in rows),timeouts=sum(r['timeout'] for r in rows),insertion_failures=sum(r['insertion_failure'] for r in rows),per_route_gate=f.gate(rows,f.ROUTES) if job['kind']=='holdout' else None))
   return key
  except Exception as exc:
-  save(target/'error.json',dict(error=repr(exc)));raise
+  save(target/'error.json',dict(error=repr(exc),traceback=traceback.format_exc()));raise
 
 def main():
  parser=argparse.ArgumentParser();parser.add_argument('--smoke',action='store_true');args=parser.parse_args()
