@@ -1,4 +1,5 @@
 """HV-only matched demand audit; preserve original and isolate exit split."""
+import argparse
 import collections
 import concurrent.futures
 import hashlib
@@ -32,15 +33,24 @@ def prepare(mode):
     d=OUT/'inputs'/mode;d.mkdir(parents=True,exist_ok=True)
     for name in ['network.net.xml','highway.rou.xml','run.sumocfg']:shutil.copy2(SOURCE/name,d/name)
     tree=ET.parse(d/'highway.rou.xml')
-    if mode=='lane_split':
+    if mode in ('lane_split','combined'):
         rates={'route_13':200,'route_14':200,'route_15':200,'route_16':2400}
         for flow in tree.findall('flow'):
             if flow.get('route') in rates:flow.set('vehsPerHour',str(rates[flow.get('route')]))
         tree.write(d/'highway.rou.xml',encoding='utf8',xml_declaration=True)
+    if mode in ('recompiled','zipper','combined'):
+        command=[str(SUMO/'bin/netconvert.exe'),'--sumo-net-file',str(d/'network.net.xml'),'--output-file',str(d/'rebuilt.net.xml')]
+        if mode in ('zipper','combined'):
+            nodes=ET.Element('nodes')
+            for jid in ['1808903166','1000493465','1810880137']:ET.SubElement(nodes,'node',id=jid,type='zipper')
+            ET.ElementTree(nodes).write(d/'zipper.nod.xml',encoding='utf8',xml_declaration=True)
+            command+=['--node-files',str(d/'zipper.nod.xml')]
+        with (d/'netconvert.log').open('w',encoding='utf8') as log:subprocess.run(command,check=True,stdout=log,stderr=log)
+        (d/'rebuilt.net.xml').replace(d/'network.net.xml')
     assert not tree.findall('vehicle'), 'HV-only requires no explicit ego/demo vehicles'
     assert sum(float(x.get('vehsPerHour')) for x in tree.findall('flow'))==10200
     save(d/'manifest.json',dict(mode=mode,total_vph=10200,source=str(SOURCE),
-        changes='13/14/15:750->200 each;16:750->2400; total unchanged' if mode=='lane_split' else 'none',
+        changes={'lane_split':'13/14/15:750->200 each;16:750->2400; total unchanged','zipper':'netconvert + three merge junction types zipper','recompiled':'netconvert control only','original':'none','combined':'lane_split + three zipper junctions'}[mode],
         files={n:sha(d/n) for n in ['network.net.xml','highway.rou.xml','run.sumocfg']},
         commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()))
 
@@ -119,13 +129,14 @@ def run(spec):
 
 
 def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--modes',nargs='+',default=['original','lane_split'],choices=['original','lane_split','recompiled','zipper','combined']);parser.add_argument('--seeds',nargs='+',type=int,default=[1001,1002,1003]);args=parser.parse_args()
     OUT.mkdir(parents=True,exist_ok=True)
     lock=OUT/'active.lock';fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY);os.write(fd,str(os.getpid()).encode());os.close(fd)
     try:
-        for mode in ['original','lane_split']:prepare(mode)
+        for mode in args.modes:prepare(mode)
         save(OUT/'status.json',dict(stage='running',pid=os.getpid()))
         with concurrent.futures.ProcessPoolExecutor(max_workers=6) as pool:
-            for result in pool.map(run,[(m,s) for m in ['original','lane_split'] for s in [1001,1002,1003]]):print(result,flush=True)
+            for result in pool.map(run,[(m,s) for m in args.modes for s in args.seeds]):print(result,flush=True)
         save(OUT/'status.json',dict(stage='complete'))
     except Exception as exc:save(OUT/'status.json',dict(stage='error',error=repr(exc)));raise
     finally:lock.unlink(missing_ok=True)
