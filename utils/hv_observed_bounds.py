@@ -94,7 +94,9 @@ def summarize():
             collisions=r['collisions'],teleports=r['teleports'],pending=len(r['pending']),active=len(r['leftovers']),
             ended=r['ended'],mean_depart_delay=sum(x['mean_depart_delay']*x['arrived'] for x in rs)/max(1,n),
             mean_trip_duration=sum(x['mean_duration']*x['arrived'] for x in rs)/max(1,n),
-            peak_pending=max(x['pending'] for x in samples),passed=r['passed'],run=str(p.parent.relative_to(ROOT))))
+            peak_pending=max(x['pending'] for x in samples),
+            emergency_braking_warnings=(p.parent/'sumo.log').read_text(errors='replace').count('performs emergency braking'),
+            passed=r['passed'],run=str(p.parent.relative_to(ROOT))))
         detail.extend(dict(case=r['mode'],seed=r['seed'],route=k,**v) for k,v in r['routes'].items())
     for suffix,data in [('results',rows),('routes',detail)]:
         if data:
