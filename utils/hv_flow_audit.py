@@ -55,11 +55,12 @@ def prepare(mode):
         commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()))
 
 
-def run(spec):
+def run(spec, horizon=3600, junction_checks=False):
     mode,seed=spec;d=OUT/'runs'/f'{mode}-{seed}';d.mkdir(parents=True,exist_ok=True)
     if (d/'complete.json').exists():return str(d)
     inp=OUT/'inputs'/mode
     flows=ET.parse(inp/'highway.rou.xml').findall('flow')
+    demand_end=max(float(x.get('end')) for x in flows)
     planned={x.get('route'):math.ceil(float(x.get('vehsPerHour'))*float(x.get('end'))/3600-1e-9) for x in flows}
     net=ET.parse(inp/'network.net.xml')
     links=collections.defaultdict(set)
@@ -68,11 +69,12 @@ def run(spec):
     vehicle_route={};collisions=teleports=0;stops=collections.Counter();evidence={};snapshots=[];checkpoints={}
     traci.start([str(SUMO/'bin/sumo.exe'),'-c',str(inp/'run.sumocfg'),'--seed',str(seed),
         '--step-length','.2','--no-step-log','true','--collision.action','remove',
+        '--collision.check-junctions',str(junction_checks).lower(),
         '--tripinfo-output',str(d/'tripinfo.xml'),'--tripinfo-output.write-unfinished','true',
         '--error-log',str(d/'sumo.log')])
     started=time.time()
     try:
-        for i in range(18000):
+        for i in range(round(horizon/.2)):
             traci.simulationStep();t=round((i+1)*.2,1)
             for vid in traci.simulation.getDepartedIDList():
                 route=traci.vehicle.getRouteID(vid);vehicle_route[vid]=route;perroute[route]['inserted']+=1
@@ -106,7 +108,7 @@ def run(spec):
             if (i+1)%250==0:
                 save(d/'progress.json',dict(t=t,pid=os.getpid(),wall_seconds=time.time()-started,
                     inserted=sum(v['inserted'] for v in perroute.values()),arrived=sum(v['arrived'] for v in perroute.values())))
-            if t>=900 and traci.simulation.getMinExpectedNumber()==0:break
+            if t>=demand_end and traci.simulation.getMinExpectedNumber()==0:break
         leftovers=[dict(id=vid,route=vehicle_route[vid],lane=traci.vehicle.getLaneID(vid),
             speed=traci.vehicle.getSpeed(vid),waiting=traci.vehicle.getWaitingTime(vid)) for vid in traci.vehicle.getIDList()]
         pending=list(traci.simulation.getPendingVehicles())
