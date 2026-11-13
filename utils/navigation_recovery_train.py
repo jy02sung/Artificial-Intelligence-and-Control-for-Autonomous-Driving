@@ -111,6 +111,8 @@ def main():
     if args.evaluate:
         from pathlib import Path
         d,model,step=args.evaluate;evaluate(Path(d),Path(model),int(step),args.count);return
+    if (OUT/'PAUSED_BY_USER').exists():
+        raise RuntimeError('AV experiments paused by user: validate HV-only traffic first')
     lock=OUT/'training.lock';fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY)
     os.write(fd,str(os.getpid()).encode());os.close(fd)
     try:
