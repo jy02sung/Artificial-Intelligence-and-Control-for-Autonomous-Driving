@@ -7,9 +7,9 @@ ROOT=Path(__file__).resolve().parents[1]
 EDGE='86198728'
 def points(s):return [[float(v) for v in token.split(',')] for token in s.split()]
 def fmt(p):return ','.join(f'{v:.3f}' for v in p)
-def extend(source,target,distance=400):
+def extend(source,target,distance=400,edge_id=EDGE):
  tree=E.parse(source);root=tree.getroot();before=copy.deepcopy(root)
- edge=root.find(f"edge[@id='{EDGE}']");node_id=edge.get('from');node=root.find(f"junction[@id='{node_id}']")
+ edge=root.find(f"edge[@id='{edge_id}']");node_id=edge.get('from');node=root.find(f"junction[@id='{node_id}']")
  assert node.get('type')=='dead_end' and not node.get('incLanes')
  assert len([e for e in root.findall('edge') if e.get('from')==node_id or e.get('to')==node_id])==1
  ps=points(edge.get('shape'));dx,dy=ps[0][0]-ps[1][0],ps[0][1]-ps[1][1];norm=math.hypot(dx,dy);dx*=distance/norm;dy*=distance/norm
@@ -29,15 +29,15 @@ def extend(source,target,distance=400):
  loc.set('convBoundary',','.join(map(str,[min(bounds[0],min(p[0] for p in newpoints)-5),min(bounds[1],min(p[1] for p in newpoints)-5),max(bounds[2],max(p[0] for p in newpoints)+5),max(bounds[3],max(p[1] for p in newpoints)+5)])))
  # Every other edge (including internal lanes), junction and connection stays identical.
  for old,new in zip(before,root):
-  if old.tag=='location' or (old.tag=='edge' and old.get('id')==EDGE) or (old.tag=='junction' and old.get('id')==node_id):continue
+  if old.tag=='location' or (old.tag=='edge' and old.get('id')==edge_id) or (old.tag=='junction' and old.get('id')==node_id):continue
   assert E.tostring(old)==E.tostring(new),(old.tag,old.get('id'))
- old_edge=before.find(f"edge[@id='{EDGE}']")
+ old_edge=before.find(f"edge[@id='{edge_id}']")
  for old,new in zip(old_edge.findall('lane'),edge.findall('lane')):
   assert new.get('shape').split()[1:]==old.get('shape').split()
   assert {k:v for k,v in old.attrib.items() if k not in ('shape','length')}=={k:v for k,v in new.attrib.items() if k not in ('shape','length')}
   q=points(new.get('shape'));assert abs(math.dist(q[0][:2],q[1][:2])-distance)<.002
  target.parent.mkdir(parents=True,exist_ok=True);tree.write(target,encoding='utf8',xml_declaration=True)
- report=dict(edge=EDGE,entry_node=node_id,extension_m=distance,lanes=len(old_lengths),old_lengths=old_lengths,new_lengths={l.get('id'):float(l.get('length')) for l in edge.findall('lane')},source=str(source),source_sha256=sha(source),output_sha256=sha(target),other_geometry_connections_permissions_unchanged=True,height='New segment retains original entry z; experimental extension, not surveyed elevation.')
+ report=dict(edge=edge_id,entry_node=node_id,extension_m=distance,lanes=len(old_lengths),old_lengths=old_lengths,new_lengths={l.get('id'):float(l.get('length')) for l in edge.findall('lane')},source=str(source),source_sha256=sha(source),output_sha256=sha(target),other_geometry_connections_permissions_unchanged=True,height='New segment retains original entry z; experimental extension, not surveyed elevation.')
  return report
 
 def main():
