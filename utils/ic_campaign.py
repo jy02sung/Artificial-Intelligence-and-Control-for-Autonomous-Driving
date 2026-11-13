@@ -11,7 +11,7 @@ from itertools import product
 from statistics import mean
 
 # Opt in only for headless experiment jobs, leaving the GUI on TraCI.
-os.environ["IC_LIBSUMO"] = "1"
+os.environ.setdefault("IC_LIBSUMO", "1")
 import numpy as np
 import torch
 from env.ic_experiment import ICExperimentEnv
