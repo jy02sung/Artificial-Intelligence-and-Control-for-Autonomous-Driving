@@ -258,21 +258,21 @@ class SumoHighwayEnv(gym.Env):
                 pos += max(step, 10.0)
         return count
 
-    def reset(self, seed=None, options=None):
-        super().reset(seed=seed)
-
-        # SUMO 상태를 완전히 초기화하는 가장 확실한 방법은 껐다 켜는 것.
-        if self._started:
-            traci.close()
-            self._started = False
-        self._start_sumo()
-
+    def _warmup_traffic(self):
         # 도로 전 구간에 배경차를 미리 배치 (첫 스텝부터 실제 교통류 상태)
         if self.prefill_enabled:
             self._prefill_traffic()
         # 배치된 차들이 자리를 잡도록 몇 스텝만 정착시킨다.
         for _ in range(self.warmup_steps):
             traci.simulationStep()
+
+    def reset(self, seed=None, options=None):
+        super().reset(seed=seed)
+        if self._started:
+            traci.close()
+            self._started = False
+        self._start_sumo()
+        self._warmup_traffic()
 
         # ego 차량 투입 — 반드시 "도로 시작점(0m)"에서 출발
         traci.vehicle.add(self.ego_id, getattr(self, "episode_route", "r0"), typeID="ego_type",

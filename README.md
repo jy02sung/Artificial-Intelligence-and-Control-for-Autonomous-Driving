@@ -23,6 +23,7 @@ SUMO에서 `maps/toegyewon_only/review.sumocfg`를 열면 이 시험 맵을 확�
 
 ## 팀 문서
 
+- [진입부 연장 맵에서 새로 학습한 AV · 경로별 성적과 실행 방법](docs/experiments/ic-entryprep-av-personal.md)
 - [현재 문서 목록](docs/README.md)
 - [현재 실험 설계](docs/ic-navigation-learning-plan.md)
 - [최신 AV 실패 원인 분석](docs/ic-toegyewon-lane-cause-results.md)
