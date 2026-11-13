@@ -346,7 +346,9 @@ class SumoHighwayEnv(gym.Env):
     def _neighbor(self, offset: int, leader: bool):
         """오프셋 차선(-1=오른쪽, 0=현재, +1=왼쪽)의 가장 가까운
         선행(leader=True)/후행 차량을 (거리 m, 그 차량 속도)로 반환.
-        visibility 밖이거나 없으면 None."""
+        visibility 밖이거나 없으면 None. 실제 차량의 음수 gap은 매우 가까운
+        차량이므로 0으로 표현하고 속도를 유지한다. 빈 ID의 -1 sentinel과
+        실제 차량의 최소간격 침범/종방향 중첩을 혼동하지 않는다."""
         if offset == 0:
             if leader:
                 res = traci.vehicle.getLeader(self.ego_id, self.visibility)
@@ -363,9 +365,9 @@ class SumoHighwayEnv(gym.Env):
             # 훑어 가장 가까운 앞/뒤를 찾음)으로 감지한다.
             front, rear = self._scan_lane_neighbors(offset)
             res = front if leader else rear
-            if res is None or res[0] < 0 or res[0] > self.visibility:
+            if res is None or res[0] > self.visibility:
                 return None
-            return float(res[0]), float(res[1])
+            return max(0.0, float(res[0])), float(res[1])
         else:
             mode_leader, mode_follower = self._NEIGHBOR_MODES[offset]
             pairs = traci.vehicle.getNeighbors(
@@ -374,9 +376,9 @@ class SumoHighwayEnv(gym.Env):
                 return None
             vid, gap = min(pairs, key=lambda p: p[1])   # 가장 가까운 차량
 
-        if gap < 0 or gap > self.visibility:
+        if not vid or gap > self.visibility:
             return None
-        return float(gap), traci.vehicle.getSpeed(vid)
+        return max(0.0, float(gap)), traci.vehicle.getSpeed(vid)
 
     def _lane_connectivity(self, offset: int) -> float:
         """오프셋 차선의 '끊김 정도'를 반환.
