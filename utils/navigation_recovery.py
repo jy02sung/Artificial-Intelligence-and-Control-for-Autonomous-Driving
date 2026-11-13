@@ -42,19 +42,19 @@ class AuditEnv(r.c.ClarityEnv):
         return super().reset(*args, **kwargs)
 
 
-def environment(seed, load, cls=AuditEnv):
+def environment(seed, load, cls=AuditEnv, lane="best", speed="max"):
     m = f.read(r.sources('baseline', seed) / 'manifest.json')
     return cls(str(OUT / 'traffic_v2' / load / 'run.sumocfg'),
                dict(b.ROAD_NEW, routes=b.MAN['routes']),
-               dict(m['ego'], depart_lane='best', depart_speed='max'),
+               dict(m['ego'], depart_lane=str(lane), depart_speed=str(speed)),
                dict(m['simulation'], warmup_steps=300), b.OBSERVATION, m['action'], m['reward'],
                dict(b.TRAFFIC, prefill={'enabled': False}), (), seed, navigation=b.NAV, clarity='baseline')
 
 
 def job(spec):
-    seed, load, smoke = spec
+    seed, load, smoke, hard = spec
     b.torch.set_num_threads(1)
-    dest = OUT / ('smoke' if smoke else 'diagnostics') / f'{load}-{seed}'
+    dest = OUT / ('smoke' if smoke else 'hard-starts' if hard else 'diagnostics') / f'{load}-{seed}'
     if (dest / 'complete.json').exists(): return str(dest)
     dest.mkdir(parents=True, exist_ok=True)
     model = r.sources('baseline', seed) / 'policy-600064.pt'
@@ -63,10 +63,10 @@ def job(spec):
     agent.load(str(model))
     r.save(dest / 'manifest.json', dict(source=str(model), source_sha=b.digest(model),
            map_sha=b.digest(b.MAP / 'network.net.xml'), commit=b.COMMIT, load=load, seed=seed,
-           forced_correction=False, reward=meta['reward'], action=meta['action'], hp=meta['hp']))
+           start="last_lane_15mps" if hard else "best_max", forced_correction=False, reward=meta['reward'], action=meta['action'], hp=meta['hp']))
     rows = []
     for route in (['route_13'] if smoke else ROUTES):
-        e = environment(seed, load)
+        e = environment(seed, load, lane=str(f.COUNTS[b.MAN['routes'][route][0]]-1) if hard else "best", speed="15" if hard else "max")
         try:
             obs, _ = e.reset(seed=40001, options={'route': route})
             trace = b.TimeoutTrace()
@@ -102,14 +102,14 @@ def job(spec):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--smoke',action='store_true');args=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--smoke',action='store_true');p.add_argument('--hard-starts',action='store_true');args=p.parse_args()
     OUT.mkdir(parents=True,exist_ok=True)
     lock=OUT/'active.lock'
     fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY);os.write(fd,str(os.getpid()).encode());os.close(fd)
     try:
         f.OUT=OUT
         for load in ['none','low']: f.prepare(load)
-        specs=[(11,'none',True)] if args.smoke else [(s,l,False) for s in [11,22,33] for l in ['none','low']]
+        specs=[(11,'none',True,False)] if args.smoke else [(s,l,False,args.hard_starts) for s in [11,22,33] for l in (['none'] if args.hard_starts else ['none','low'])]
         r.save(OUT/'status.json',dict(stage='diagnosing',pid=os.getpid(),jobs=len(specs)))
         with concurrent.futures.ProcessPoolExecutor(max_workers=6) as pool:
             for result in pool.map(job,specs): print(result,flush=True)
