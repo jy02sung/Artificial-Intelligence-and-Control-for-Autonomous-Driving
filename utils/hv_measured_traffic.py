@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 from utils import hv_flow_audit as audit
 from utils.hv_flow_repair import init_worker
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT/'results/hv_measured_20261113'
+OUT = ROOT/'results/hv_measured_20261113_exact'
 DATA = ROOT/'docs/experiments/road-hourly-20251016.csv'
 
 def extract():
@@ -56,6 +56,7 @@ def prepare(rows):
             for flow in tree.findall('flow'):
                 flow.set('begin','0');flow.set('end','3600')
                 if flow.get('route') in rates:flow.set('vehsPerHour',str(rates[flow.get('route')]))
+                flow.set('number',str(int(float(flow.attrib.pop('vehsPerHour')))))
             tree.write(d/'highway.rou.xml',encoding='utf8',xml_declaration=True)
             audit.save(d/'manifest.json',dict(mode=mode,source_hour_labels=hours,bound=bound,station_directional_envelope=measured,
                 assumptions=['Direction codes unresolved: use envelope across both directions, not an actual simultaneous observation.',
@@ -63,7 +64,7 @@ def prepare(rows):
                 'South station proxies route03-06 input; north station proxies route13-16 input.',
                 'Existing turning shares, local-road inflow 4800/h and passenger/bus composition retained; trucks not reproduced.',
                 'Counts measure passed vehicles, not latent demand. No field congestion calibration.'],
-                total_vph=sum(float(f.get('vehsPerHour')) for f in tree.findall('flow')),
+                total_vph=sum(int(f.get('number')) for f in tree.findall('flow')),
                 commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
                 files={n:audit.sha(d/n) for n in ('network.net.xml','highway.rou.xml','run.sumocfg')},
                 source_csv_sha256=audit.sha(DATA),script_sha256=audit.sha(Path(__file__))))

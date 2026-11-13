@@ -61,7 +61,7 @@ def run(spec, horizon=3600, junction_checks=False):
     inp=OUT/'inputs'/mode
     flows=ET.parse(inp/'highway.rou.xml').findall('flow')
     demand_end=max(float(x.get('end')) for x in flows)
-    planned={x.get('route'):math.ceil(float(x.get('vehsPerHour'))*float(x.get('end'))/3600-1e-9) for x in flows}
+    planned={x.get('route'):(int(x.get('number')) if x.get('number') is not None else math.ceil(float(x.get('vehsPerHour'))*(float(x.get('end'))-float(x.get('begin','0')))/3600-1e-9)) for x in flows}
     net=ET.parse(inp/'network.net.xml')
     links=collections.defaultdict(set)
     for c in net.findall('connection'):links[c.get('from'),c.get('to')].add(int(c.get('fromLane')))
