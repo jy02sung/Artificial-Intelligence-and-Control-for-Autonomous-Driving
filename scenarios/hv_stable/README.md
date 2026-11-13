@@ -60,3 +60,7 @@ python -m utils.hv_flow_repair --modes drivers --duration 3600 --horizon 7200 --
 큰 로그와 차량별 결과는 results 아래 로컬에 저장하고 Git에는 실행 입력과 요약만 둔다.
 
 참고: [SUMO 차량/차로 변경 설정](https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html)
+
+## 높은 트래픽
+
+전체15,000대/h의 높은 트래픽은 별도 [hv_high15000](../hv_high15000/README.md) 프로필을 사용한다. 기본10,200대/h 파일은 변경하지 않는다.
