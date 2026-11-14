@@ -4,12 +4,36 @@
 
 | 조건 | 진행 | 마지막 학습 스텝 |
 |---|---|---:|
-|baseline|training|1272|
-|obs_presence|training|1285|
-|obs_risk|training|1272|
-|reward_gap|training|1272|
-|reward_block|training|1272|
-|reward_lane|training|1272|
+|baseline|complete|200000|
+|obs_presence|complete|200000|
+|obs_risk|complete|200000|
+|reward_gap|complete|200000|
+|reward_block|complete|200000|
+|reward_lane|complete|200000|
 
 | 조건 | 체크포인트 | 교통 | 완주/전체 | 충돌 | 기타 |
 |---|---|---|---:|---:|---:|
+|baseline|policy-100352.pt|none|13/16|0|3|
+|baseline|policy-100352.pt|reference|33/48|15|0|
+|baseline|policy-200000.pt|none|13/16|0|3|
+|baseline|policy-200000.pt|reference|38/48|1|9|
+|obs_presence|policy-100352.pt|none|6/16|0|10|
+|obs_presence|policy-100352.pt|reference|30/48|8|10|
+|obs_presence|policy-200000.pt|none|10/16|0|6|
+|obs_presence|policy-200000.pt|reference|30/48|6|12|
+|obs_risk|policy-100352.pt|none|8/16|0|8|
+|obs_risk|policy-100352.pt|reference|22/48|8|18|
+|obs_risk|policy-200000.pt|none|14/16|0|2|
+|obs_risk|policy-200000.pt|reference|32/48|1|15|
+|reward_block|policy-100352.pt|none|10/16|0|6|
+|reward_block|policy-100352.pt|reference|22/48|9|17|
+|reward_block|policy-200000.pt|none|8/16|0|8|
+|reward_block|policy-200000.pt|reference|25/48|5|18|
+|reward_gap|policy-100352.pt|none|13/16|0|3|
+|reward_gap|policy-100352.pt|reference|13/48|32|3|
+|reward_gap|policy-200000.pt|none|10/16|0|6|
+|reward_gap|policy-200000.pt|reference|22/48|5|21|
+|reward_lane|policy-100352.pt|none|7/16|0|9|
+|reward_lane|policy-100352.pt|reference|24/48|5|19|
+|reward_lane|policy-200000.pt|none|14/16|0|2|
+|reward_lane|policy-200000.pt|reference|39/48|6|3|
