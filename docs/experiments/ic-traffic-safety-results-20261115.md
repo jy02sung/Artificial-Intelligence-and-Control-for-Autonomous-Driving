@@ -7,7 +7,7 @@
 |baseline|complete|200000|
 |combo|complete|200000|
 |gap|complete|200000|
-|lane|evaluation||
+|lane|complete|200000|
 
 |조건|추가학습 모델|교통|완주|충돌|기타|위험시 감속요청/위험표본|실제감속|
 |---|---|---|---:|---:|---:|---:|---:|
@@ -47,5 +47,7 @@
 |lane|policy-100352-evaluation|reference|34/48|4|10|35/35|34|
 |lane|policy-151552-evaluation|none|16/16|0|0|0/0|0|
 |lane|policy-151552-evaluation|reference|42/48|1|5|17/17|17|
+|lane|policy-200000-evaluation|none|16/16|0|0|0/0|0|
+|lane|policy-200000-evaluation|reference|37/48|1|10|26/26|26|
 |lane|policy-51200-evaluation|none|13/16|0|3|0/0|0|
 |lane|policy-51200-evaluation|reference|38/48|0|10|41/41|41|
