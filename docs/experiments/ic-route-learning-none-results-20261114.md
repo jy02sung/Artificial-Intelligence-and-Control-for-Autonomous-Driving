@@ -7,9 +7,9 @@
 |baseline|complete|200000|
 |compact|complete|200000|
 |route_reward|complete|200000|
-|scale5|evaluation||
-|dwell|training|126178|
-|guidance|training|77185|
+|scale5|complete|200000|
+|dwell|complete|200000|
+|guidance|complete|200000|
 
 |조건|모델|완주/16|충돌|기타|
 |---|---|---:|---:|---:|
@@ -21,7 +21,19 @@
 |compact|policy-151552.pt|16/16|0|0|
 |compact|policy-200000.pt|14/16|0|2|
 |compact|policy-51200.pt|16/16|0|0|
+|dwell|policy-100352.pt|16/16|0|0|
+|dwell|policy-151552.pt|16/16|0|0|
+|dwell|policy-200000.pt|16/16|0|0|
+|dwell|policy-51200.pt|16/16|0|0|
+|guidance|policy-100352.pt|16/16|0|0|
+|guidance|policy-151552.pt|16/16|0|0|
+|guidance|policy-200000.pt|16/16|0|0|
+|guidance|policy-51200.pt|16/16|0|0|
 |route_reward|policy-100352.pt|11/16|0|5|
 |route_reward|policy-151552.pt|16/16|0|0|
 |route_reward|policy-200000.pt|16/16|0|0|
 |route_reward|policy-51200.pt|11/16|0|5|
+|scale5|policy-100352.pt|16/16|0|0|
+|scale5|policy-151552.pt|16/16|0|0|
+|scale5|policy-200000.pt|16/16|0|0|
+|scale5|policy-51200.pt|13/16|0|3|
