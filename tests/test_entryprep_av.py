@@ -2,7 +2,7 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from env.entryprep_av import EntryEnv, ROUTES, road_inputs
+from env.entryprep_av import EntryEnv, ROUTES, occupied_crossing, road_inputs
 from utils.entryprep_score import score
 
 
@@ -38,6 +38,12 @@ class EntryprepTests(unittest.TestCase):
         for route in road["routes"].values():
             for edge, following in zip(route, route[1:]):
                 self.assertTrue(navigation.links[edge, following])
+
+    def test_crossing_observation_uses_local_vehicle_occupancy(self):
+        self.assertTrue(occupied_crossing(20., 15., 9., 18., 12., 5.))
+        self.assertFalse(occupied_crossing(20., 15., 74., 89., 12., 5.))
+        self.assertFalse(occupied_crossing(20., 15., -18., -10., 12., 5.))
+        self.assertFalse(occupied_crossing(20., 15., 30., 40., 0., 5.))
 
     def test_five_collisions_in_a_hundred_fails_even_with_95_arrivals(self):
         rows = [dict(route=route, seed=i, outcome="arrival") for route in ROUTES for i in range(100)]

@@ -158,10 +158,10 @@ def pretrain(driver, seed, condition):
             needed = 2.5+.7*(speed if front else other)+closing
             risk[off,front] = np.where(visible,np.maximum(0.,1.-gap/needed),0.)
             if off==0 and front:
-                ahead = near if condition=="risk" else visible
+                ahead = near if condition != "baseline" else visible
                 effective_gap = np.where(ahead, gap, 10000.)
                 lead_speed = other
-                if condition=="risk":
+                if condition != "baseline":
                     obs[:,47] = near
                     obs[:,48] = np.where(near,gap/RANGE,0.)
                     obs[:,49] = np.where(near,(other-speed)/27.78,0.)
@@ -171,7 +171,7 @@ def pretrain(driver, seed, condition):
     obs[:,32] = rng.uniform(-.05,1.,n)
     obs[:,33] = desired/3.
     obs[:,35] = rng.integers(0,2,n)
-    if condition=="risk":
+    if condition != "baseline":
         obs[:,50] = desired/4.
         obs[:,51:53] = rng.uniform(0,1,(n,2))
         for i,key in enumerate(((1,True),(1,False),(-1,True),(-1,False))):
@@ -182,7 +182,7 @@ def pretrain(driver, seed, condition):
     for side in (-1,1):
         unsafe = (risk[side,True] > .02) | (risk[side,False] > .02)
         lane[(lane==side) & unsafe] = 0
-    if condition=="risk":
+    if condition != "baseline":
         lane[obs[:,51] < .20] = 0
     x = torch.from_numpy(obs).to(driver.device)
     y = torch.tensor(np.clip(accel/5.4,-1.,1.),dtype=torch.float32,device=driver.device)
@@ -316,7 +316,7 @@ def main():
     sub = parser.add_subparsers(dest="stage", required=True)
     train_parser = sub.add_parser("train")
     train_parser.add_argument("--run", type=Path, required=True)
-    train_parser.add_argument("--condition", choices=("baseline", "risk"), required=True)
+    train_parser.add_argument("--condition", choices=("baseline", "risk", "trip", "merge"), required=True)
     train_parser.add_argument("--steps", type=int, default=32768)
     train_parser.add_argument("--model-seed", type=int, default=22)
     train_parser.add_argument("--cache", type=Path, default=DEFAULT_OUT/"states")

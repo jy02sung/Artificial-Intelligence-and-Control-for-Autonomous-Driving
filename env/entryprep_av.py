@@ -60,9 +60,21 @@ def road_inputs():
     return road, nav, ramps
 
 
+def occupied_crossing(ego_distance, ego_speed, other_distance, other_exit, other_speed, length):
+    """Estimated overlap at a mapped conflict point from current positions and speeds."""
+    if not 0. < ego_distance <= 80. or abs(other_distance) > 80. or other_exit + length < 0.:
+        return False
+    if other_speed < 1. and other_distance > 6.:
+        return False
+    ego_eta = ego_distance / max(4., ego_speed)
+    other_entry = max(0., other_distance) / max(1., other_speed)
+    other_clear = max(0., other_exit + length) / max(1., other_speed)
+    return other_entry - 1.25 <= ego_eta <= other_clear + 1.25
+
+
 class EntryEnv(ClarityEnv):
     def __init__(self, *, condition, seed, training=False, gui=False):
-        if condition not in ("baseline", "risk"):
+        if condition not in ("baseline", "risk", "trip", "merge"):
             raise ValueError(condition)
         road, nav, ramps = road_inputs()
         # ICExperimentEnv uses these map-specific sets when it calculates IC features.
@@ -118,7 +130,7 @@ class EntryEnv(ClarityEnv):
     def _get_obs(self):
         base = super()._get_obs()
         extra = np.zeros(OBS_SIZE - len(base), dtype=np.float32)
-        if self.condition == "risk" and self.ego_id in traci.vehicle.getIDList():
+        if self.condition != "baseline" and self.ego_id in traci.vehicle.getIDList():
             v = traci.vehicle
             speed = v.getSpeed(self.ego_id)
             lead = v.getLeader(self.ego_id, RANGE)
@@ -133,6 +145,22 @@ class EntryEnv(ClarityEnv):
                 extra[3] = np.clip(best[3] / 4., -1., 1.)
                 extra[4] = min(1., v.getLanePosition(self.ego_id) / 100.)
                 extra[5] = min(1., (traci.lane.getLength(v.getLaneID(self.ego_id)) - v.getLanePosition(self.ego_id)) / 300.)
+            if self.condition in ("trip", "merge"):
+                # Only the first metres of the trip are an insertion. Entering an
+                # ordinary new edge must not look like spawning a second time.
+                extra[4] = np.clip(v.getDistance(self.ego_id) / 100., 0., 1.)
+            if self.condition == "merge":
+                # A current crossing vehicle can occupy the road before the physical
+                # leader does. Encode its conflict point as a stationary obstacle.
+                for foe in v.getJunctionFoes(self.ego_id, 80.):
+                    if hasattr(foe, "foeId"):
+                        ident, mine, theirs, leave = foe.foeId, foe.egoDist, foe.foeDist, foe.foeExitDist
+                    else:
+                        ident, mine, theirs, _, leave = foe[:5]
+                    if (not extra[0] or mine < extra[1] * RANGE) and occupied_crossing(
+                        mine, speed, theirs, leave, v.getSpeed(ident), v.getLength(ident)
+                    ):
+                        extra[:3] = (1., mine / RANGE, -speed / self.vmax)
             for i, (offset, front) in enumerate(((1, True), (1, False), (-1, True), (-1, False))):
                 car = self._neighbor(offset, front)
                 if car is not None:
@@ -144,7 +172,7 @@ class EntryEnv(ClarityEnv):
 
     def step(self, action):
         obs, reward, done, cut, info = super().step(action)
-        if self.condition == "risk" and not done:
+        if self.condition != "baseline" and not done:
             # Train the policy to brake early and to progress along the requested route.
             # These are learning signals only; they cannot replace either commanded action.
             speed = obs[0] * self.vmax
