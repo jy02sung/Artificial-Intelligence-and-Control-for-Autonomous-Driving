@@ -28,14 +28,15 @@ import numpy as np
 import torch
 
 from algorithms.ppo import PPO
-from env.entryprep_av import DRIVE_LIMIT, EntryEnv, OBS_SIZE, RANGE, ROUTES, SCENARIO, WARMUP, input_hashes
+from env.entryprep_av import DRIVE_LIMIT, GAP_CONDITIONS, EntryEnv, OBS_SIZE, RANGE, ROUTES, SCENARIO, WARMUP, input_hashes
+from env.gap_reward import opportunity
 from env.sumo_env import traci
 
 ROOT = SCENARIO.parents[1]
 DEFAULT_OUT = ROOT / "results/entryprep_av"
 TRAIN_SEEDS = tuple(range(12001, 12009))
 PARAMS = json.loads((ROOT / "docs/experiments/ic-navigation-plan-v1.json").read_text())["hparams"]
-CHECK_FILES = ("env/entryprep_av.py", "utils/entryprep_av.py", "env/sumo_env.py", "env/ic_experiment.py",
+CHECK_FILES = ("env/entryprep_av.py", "env/gap_reward.py", "utils/entryprep_av.py", "env/sumo_env.py", "env/ic_experiment.py",
                "env/navigation_observation.py", "env/navigation_clarity.py", "algorithms/ppo.py", "utils/networks.py",
                "utils/buffer.py", "env/mdp_config.py", "env/road_config.py")
 
@@ -92,20 +93,52 @@ class TrainingEpisodes:
 
 def train(args):
     out = args.run
+    initial_file = None
+    if args.condition in GAP_CONDITIONS:
+        if args.initial_run is None:
+            raise ValueError("Gap fine-tuning requires --initial-run.")
+        if args.pretrain:
+            raise ValueError("Use the merge checkpoint for the gap experiment")
+        initial_file = args.initial_run / "policy.pt"
+        initial = json.loads((args.initial_run / "manifest.json").read_text(encoding="utf8"))
+        finished = json.loads((args.initial_run / "complete.json").read_text(encoding="utf8"))
+        allowed_initial = ("merge", "gap_adapter") if args.condition == "gap_lane" else ("merge",)
+        if (initial["condition"] not in allowed_initial or initial["inputs"] != input_hashes()
+                or digest(initial_file) != finished["policy_sha256"] or list(initial["traffic_seeds"]) != list(TRAIN_SEEDS)):
+            raise ValueError("Expected a completed compatible policy trained on the reference inputs and training seeds")
+    elif args.initial_run or args.gap_demonstrations:
+        raise ValueError("Gap demonstration and warm-start options require --condition gap")
+    params = dict(PARAMS, seed=args.model_seed)
+    if initial_file:
+        params.update(lr=.00003, clip_eps=.10, lane_entropy_coef=.002)
     out.mkdir(parents=True, exist_ok=True)
     # Exclusive creation keeps partial and completed experiments from being overwritten.
     with (out / "manifest.json").open("x", encoding="utf8") as fp:
         meta = dict(condition=args.condition, model_seed=args.model_seed, steps=args.steps,
                     inputs=input_hashes(), source={k: digest(ROOT / k) for k in CHECK_FILES},
                     base_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-                    params=dict(PARAMS, seed=args.model_seed), traffic_seeds=TRAIN_SEEDS, routes=ROUTES,
+                    params=params, traffic_seeds=TRAIN_SEEDS, routes=ROUTES,
                     observations=OBS_SIZE, warmup_seconds=WARMUP, training_timeout_seconds=240,
                     evaluation_timeout_seconds=DRIVE_LIMIT, speedMode=0, laneChangeMode=0,
-                    lane_change_safety=False, assisted_initialization=args.pretrain,
+                    lane_change_safety=False, assisted_initialization=args.pretrain or args.gap_demonstrations,
                     sumo=subprocess.check_output(["sumo", "--version"], text=True).splitlines()[0])
+        if initial_file:
+            meta.update(initial_condition=initial["condition"], initial_policy_sha256=digest(initial_file),
+                        gap_demonstrations=args.gap_demonstrations,
+                        gap_input_adapter=args.condition in ("gap_adapter", "gap_lane"),
+                        train_lane_head=args.condition == "gap_lane")
         json.dump(meta, fp, indent=2)
     env = EntryEnv(condition=args.condition, seed=args.model_seed, training=True)
     driver = PPO(OBS_SIZE, 2, **meta["params"])
+    if initial_file:
+        driver.load(initial_file)
+        if args.condition in ("gap_context", "gap_adapter", "gap_lane") and initial["condition"] == "merge":
+            with torch.no_grad():
+                driver.policy.trunk[0].weight[:, 37:41].zero_()
+        if args.condition in ("gap_adapter", "gap_lane"):
+            train_gap_input_weights(driver.policy, train_lanes=args.condition == "gap_lane")
+        if args.gap_demonstrations:
+            fit_gap_examples(driver, env, args.cache, out, args.model_seed)
     if args.pretrain:
         pretrain(driver, args.model_seed, args.condition)
     episodes = TrainingEpisodes(env, args.cache, args.model_seed)
@@ -196,8 +229,100 @@ def pretrain(driver, seed, condition):
             driver.optimizer.step()
 
 
+def train_gap_input_weights(policy, *, train_lanes=False):
+    """Learn the four gap-input columns, optional lane head, and value head."""
+    for parameter in policy.parameters():
+        parameter.requires_grad_(False)
+    weight = policy.trunk[0].weight
+    weight.requires_grad_(True)
+    gradient_mask = torch.zeros_like(weight)
+    gradient_mask[:, 37:41] = 1.
+    weight.register_hook(lambda gradient: gradient * gradient_mask)
+    for parameter in policy.v_head.parameters():
+        parameter.requires_grad_(True)
+    if train_lanes:
+        for parameter in policy.lane_head.parameters():
+            parameter.requires_grad_(True)
+
+
+def fit_gap_examples(driver, env, cache, out, seed):
+    """Imitate safe gap choices on the frozen mentor's and trainee's training-state distributions."""
+    rng = np.random.default_rng(seed)
+    mentor = PPO(OBS_SIZE, 2, seed=seed, **PARAMS)
+    mentor.policy.load_state_dict(driver.policy.state_dict())
+    mentor.policy.eval()
+    learning_rate = .001 if env.condition in ("gap_adapter", "gap_lane") else .00012
+    optimizer = torch.optim.Adam(driver.policy.parameters(), lr=learning_rate)
+    observations, accelerations, lanes, relevant, after_change = [], [], [], [], []
+    episode_outcomes = collections.Counter()
+    for pass_index in range(2):
+        # Include every route and additional independent training starts at the short weave.
+        route_schedule = list(ROUTES) + ["route_05"] * 8 + ["route_13"] * 4 + ["route_14"] * 8 + ["route_04"] * 4
+        routes = list(rng.permutation(route_schedule))
+        for i, route in enumerate(routes):
+            traffic_seed = TRAIN_SEEDS[(i + 3 * pass_index) % len(TRAIN_SEEDS)]
+            env.snapshot = snapshot(cache, traffic_seed)
+            obs, _ = env.reset(seed=traffic_seed, options={"route": str(route)})
+            last_change = -100
+            for _ in range(env.max_steps):
+                base = mentor.predict(obs, deterministic=True)
+                accel = float(base[0])
+                lane = 0
+                gap = opportunity(obs, env.vmax, env.visibility)
+                if gap is not None:
+                    speed = float(obs[0]) * env.vmax
+                    if gap.available:
+                        lane = gap.direction
+                        if gap.front_gap < env.visibility - .01:
+                            desired = gap.front_speed - speed + (gap.front_gap - 3. - .75 * speed) / 1.8
+                            accel = min(accel, desired / env.max_decel)
+                    elif gap.immediate:
+                        accel = min(accel, (gap.approach_speed - speed) / (.9 * env.max_decel))
+                target = np.array([np.clip(accel, -1., 1.), lane], dtype=np.float32)
+                observations.append(obs)
+                accelerations.append(target[0])
+                lanes.append(1 - lane)
+                relevant.append(gap is not None)
+                after_change.append(gap is None and env.step_count - last_change <= round(3. / env.step_length))
+                # The second pass deliberately visits states produced by the trainee.
+                action = target if pass_index == 0 else driver.predict(obs, deterministic=True)
+                obs, _, done, cut, info = env.step(action)
+                if info["lane_change"] and info["lane_change_applied"]:
+                    last_change = env.step_count
+                if done or cut:
+                    result = "collision" if info["collided"] else "arrival" if info["arrived"] else "timeout"
+                    episode_outcomes[f"pass{pass_index + 1}_{result}"] += 1
+                    break
+        x = torch.tensor(np.asarray(observations), device=driver.device)
+        y = torch.tensor(accelerations, dtype=torch.float32, device=driver.device)
+        z = torch.tensor(lanes, dtype=torch.int64, device=driver.device)
+        typical = np.flatnonzero(~np.asarray(relevant))
+        needed = np.flatnonzero(relevant)
+        changes = np.flatnonzero(np.asarray(lanes) != 1)
+        holds = np.flatnonzero(after_change)
+        if not (len(typical) and len(needed) and len(changes) and len(holds)):
+            raise ValueError("Training trajectories did not contain required lane changes")
+        for _ in range(1800):
+            indices = np.concatenate([rng.choice(typical, 96), rng.choice(needed, 64),
+                                      rng.choice(changes, 32), rng.choice(holds, 64)])
+            mu, _, logits, _ = driver.policy(x[indices])
+            weights = torch.tensor(np.where(np.asarray(relevant)[indices], 4., 1.),
+                                   device=driver.device, dtype=torch.float32)
+            accel_loss = torch.nn.functional.smooth_l1_loss(mu[:, 0], y[indices], beta=.12, reduction="none")
+            loss = 2. * (weights * accel_loss).mean() + torch.nn.functional.cross_entropy(logits, z[indices])
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+        summary = dict(training_pass=pass_index + 1, examples=len(observations),
+                       gap_examples=len(needed), lane_changes=len(changes), post_change_holds=len(holds),
+                       episodes=episode_outcomes)
+        json_write(out / "gap_examples.json", summary)
+        print(summary, flush=True)
+
+
 EVAL_FIELDS = ("seed", "route", "outcome", "seconds", "edge", "insert_wait_seconds",
-               "route_overrides", "collision_partner", "last_speed_mps", "last_accel", "last_lane")
+               "route_overrides", "collision_partner", "last_speed_mps", "last_accel", "last_lane",
+               "lane_changes", "reversals_within_2s")
 
 
 def csv_write(path, rows, fields):
@@ -210,7 +335,7 @@ def csv_write(path, rows, fields):
 
 def evaluate_route(env, driver, seed, route):
     row = dict.fromkeys(EVAL_FIELDS, "")
-    row.update(seed=seed, route=route, seconds=0., route_overrides=0)
+    row.update(seed=seed, route=route, seconds=0., route_overrides=0, lane_changes=0, reversals_within_2s=0)
     try:
         obs, _ = env.reset(seed=seed, options={"route": route})
     except RuntimeError as exc:
@@ -219,12 +344,23 @@ def evaluate_route(env, driver, seed, route):
         row.update(outcome="insertion_failure", insert_wait_seconds=DRIVE_LIMIT)
         return row
     row["insert_wait_seconds"] = round(traci.simulation.getTime() - WARMUP - env.step_length, 1)
+    previous_change = None
     with torch.inference_mode():
         while True:
             edge = traci.vehicle.getRoadID(env.ego_id)
             speed = float(obs[0]) * env.vmax
             action = driver.predict(obs, deterministic=True)
             obs, _, done, cut, info = env.step(action)
+            if info["lane_after"] is not None and edge == traci.vehicle.getRoadID(env.ego_id):
+                direction = info["lane_after"] - info["lane_before"]
+                if direction:
+                    row["lane_changes"] += 1
+                    if previous_change is not None:
+                        last_edge, last_direction, change_step = previous_change
+                        if (last_edge == edge and direction == -last_direction
+                                and (env.step_count - change_step) * env.step_length <= 2.):
+                            row["reversals_within_2s"] += 1
+                    previous_change = edge, direction, env.step_count
             if info["collided"]:
                 row["outcome"] = "collision"
                 partners = set()
@@ -316,7 +452,10 @@ def main():
     sub = parser.add_subparsers(dest="stage", required=True)
     train_parser = sub.add_parser("train")
     train_parser.add_argument("--run", type=Path, required=True)
-    train_parser.add_argument("--condition", choices=("baseline", "risk", "trip", "merge"), required=True)
+    train_parser.add_argument("--condition", choices=("baseline", "risk", "trip", "merge", *GAP_CONDITIONS), required=True)
+    train_parser.add_argument("--initial-run", type=Path, help="Completed policy run for gap fine-tuning")
+    train_parser.add_argument("--gap-demonstrations", action="store_true",
+                              help="Initialize gap fine-tuning with driving examples from training traffic only")
     train_parser.add_argument("--steps", type=int, default=32768)
     train_parser.add_argument("--model-seed", type=int, default=22)
     train_parser.add_argument("--cache", type=Path, default=DEFAULT_OUT/"states")

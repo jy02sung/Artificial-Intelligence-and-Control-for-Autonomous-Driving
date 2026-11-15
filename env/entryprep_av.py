@@ -8,6 +8,7 @@ import numpy as np
 from gymnasium import spaces
 
 from env.mdp_config import ACTION, OBSERVATION, REWARD, SIMULATION
+from env.gap_reward import gap_reward, opportunity
 from env.navigation_clarity import ClarityEnv
 from env.navigation_observation import RouteNavigation
 from env.road_config import EGO, ROAD, TRAFFIC
@@ -23,6 +24,7 @@ DRIVE_LIMIT = 10800
 RANGE = 120.
 # Original 47 inputs followed by ten policy-visible, normalized quantities.
 OBS_SIZE = 57
+GAP_CONDITIONS = ("gap", "gap_context", "gap_adapter", "gap_lane")
 
 
 def input_hashes():
@@ -74,7 +76,7 @@ def occupied_crossing(ego_distance, ego_speed, other_distance, other_exit, other
 
 class EntryEnv(ClarityEnv):
     def __init__(self, *, condition, seed, training=False, gui=False):
-        if condition not in ("baseline", "risk", "trip", "merge"):
+        if condition not in ("baseline", "risk", "trip", "merge", *GAP_CONDITIONS):
             raise ValueError(condition)
         road, nav, ramps = road_inputs()
         # ICExperimentEnv uses these map-specific sets when it calculates IC features.
@@ -84,8 +86,9 @@ class EntryEnv(ClarityEnv):
         self.snapshot = None
         simulation = dict(SIMULATION, step_length=STEP, warmup_steps=int(WARMUP / STEP),
                           max_steps=int((240 if training else DRIVE_LIMIT) / STEP))
+        reward = dict(REWARD, collision_penalty=15., arrival_bonus=8.) if condition in GAP_CONDITIONS else REWARD
         super().__init__(str(SCENARIO / "run.sumocfg"), road, dict(EGO, depart_lane="best", depart_speed="max"),
-                         simulation, OBSERVATION, ACTION, REWARD, dict(TRAFFIC, prefill={"enabled": False}),
+                         simulation, OBSERVATION, ACTION, reward, dict(TRAFFIC, prefill={"enabled": False}),
                          (), seed, navigation=nav, clarity="baseline")
         self.gui = gui
         self.gui_delay = 0.
@@ -145,11 +148,11 @@ class EntryEnv(ClarityEnv):
                 extra[3] = np.clip(best[3] / 4., -1., 1.)
                 extra[4] = min(1., v.getLanePosition(self.ego_id) / 100.)
                 extra[5] = min(1., (traci.lane.getLength(v.getLaneID(self.ego_id)) - v.getLanePosition(self.ego_id)) / 300.)
-            if self.condition in ("trip", "merge"):
+            if self.condition in ("trip", "merge", *GAP_CONDITIONS):
                 # Only the first metres of the trip are an insertion. Entering an
                 # ordinary new edge must not look like spawning a second time.
                 extra[4] = np.clip(v.getDistance(self.ego_id) / 100., 0., 1.)
-            if self.condition == "merge":
+            if self.condition in ("merge", *GAP_CONDITIONS):
                 # A current crossing vehicle can occupy the road before the physical
                 # leader does. Encode its conflict point as a stationary obstacle.
                 for foe in v.getJunctionFoes(self.ego_id, 80.):
@@ -168,9 +171,26 @@ class EntryEnv(ClarityEnv):
                     closing = max(0., (speed-other) if front else (other-speed))
                     required = 2.5 + .7 * (speed if front else other) + closing
                     extra[6+i] = max(0., 1. - gap / required)
-        return np.concatenate((base, extra))
+        obs = np.concatenate((base, extra))
+        if self.condition in ("gap_context", "gap_adapter", "gap_lane"):
+            gap = opportunity(obs, self.vmax, self.visibility)
+            if gap is not None:
+                # Four formerly zero clarity inputs describe the currently observable gap.
+                # They are policy inputs, including the speed difference needed to align.
+                speed_difference = (gap.approach_speed - obs[0] * self.vmax) / self.max_decel
+                obs[37:41] = (gap.direction, 1. if gap.available else -1.,
+                              np.clip(speed_difference, -1., 1.), float(gap.immediate))
+        if self.condition in GAP_CONDITIONS:
+            self.last_observation = obs
+        return obs
 
     def step(self, action):
+        if self.condition in GAP_CONDITIONS:
+            before = self.last_observation
+            previous_edge = traci.vehicle.getRoadID(self.ego_id)
+            route_index = traci.vehicle.getRouteIndex(self.ego_id)
+            if self.step_count == 0:
+                self.rewarded_gap_moves = set()
         obs, reward, done, cut, info = super().step(action)
         if self.condition != "baseline" and not done:
             # Train the policy to brake early and to progress along the requested route.
@@ -181,8 +201,23 @@ class EntryEnv(ClarityEnv):
                 closing = max(0., -obs[49] * self.vmax)
                 desired_gap = 3. + speed + 1.5 * closing
                 reward -= .45 * max(0., 1. - gap / desired_gap) * STEP
-            if info["lane_change"]:
+            if self.condition not in GAP_CONDITIONS and info["lane_change"]:
                 side = 53 if info["lane_change"] > 0 else 55
                 reward -= .12 * max(obs[side:side+2]) * STEP
             reward -= .08 * min(1., abs(obs[50]) * 4.) * STEP
+        if self.condition in GAP_CONDITIONS and not done:
+            actual = 0
+            if previous_edge == traci.vehicle.getRoadID(self.ego_id):
+                actual = info["lane_after"] - info["lane_before"]
+            gap = opportunity(before, self.vmax, self.visibility)
+            shaping = gap_reward(gap, before[0] * self.vmax, info["lane_change"], actual, STEP)
+            if shaping > 0:
+                # A reverse move and a return to the same lane must not earn a second bonus.
+                move = (route_index, info["lane_after"])
+                if move in self.rewarded_gap_moves:
+                    shaping = 0.
+                self.rewarded_gap_moves.add(move)
+            reward += shaping
+            if cut:
+                reward -= 6.
         return obs, float(reward), done, cut, info
