@@ -12,6 +12,8 @@ Arms (fresh PPO, identical initial weights per seed)
                    the 8 merge slots of the observation stay zero.
   pressure_zobs    + merge observation in the 10 unused ClarityEnv slots.
   pressure_zipper  + merge observation + zipper reward.
+  zipper_safe      pressure_zipper + lane-change risk penalty (weight 0.1,
+                   down from the rejected 0.5) + rear-end TTC penalty 0.05.
 
 Merge observation (obs[37:45], all in [-1, 1])
   0 merge ahead on the route within 200 m (1 / -1)
@@ -34,6 +36,7 @@ import copy
 import csv
 import json
 import os
+import shutil
 import time
 from collections import Counter, defaultdict
 from concurrent.futures import ProcessPoolExecutor
@@ -53,7 +56,11 @@ traci = b.traci
 ROOT = f.ROOT
 NETWORK = ROOT / 'maps/toegyewon_zipper/network.net.xml'
 OUT = ROOT / 'results/pmh_zipper_trial'
-MODES = ('pressure', 'pressure_zobs', 'pressure_zipper')
+MODES = ('pressure', 'pressure_zobs', 'pressure_zipper', 'zipper_safe')
+ZIPPER_MODES = ('pressure_zipper', 'zipper_safe')
+SAFE_MODES = ('zipper_safe',)
+RISK_WEIGHT = 0.1
+TTC_WEIGHT = 0.05
 LOADS = ('none', 'measured')
 CASE = 'low_exit25'
 SLOT = slice(37, 45)
@@ -244,7 +251,8 @@ def environment(seed, load, mode, out, train=True, variants=()):
                      copy.deepcopy(b.ACTION), copy.deepcopy(b.REWARD),
                      dict(b.TRAFFIC, prefill={'enabled': False}), variants, seed,
                      navigation=NAV, clarity='baseline', prepare=train, pressure=train,
-                     zipper_obs=mode != 'pressure', zipper_reward=train and mode == 'pressure_zipper')
+                     zipper_obs=mode != 'pressure', zipper_reward=train and mode in ZIPPER_MODES,
+                     risk=train and mode in SAFE_MODES, ttc=train and mode in SAFE_MODES)
 
 
 def evaluate(directory, model, counts, out, mode, seed, hp):
@@ -313,7 +321,10 @@ def train(spec):
         zipper_obs=mode != 'pressure', zipper_reward=(dict(conflict_w=CONFLICT_W, conflict_t=CONFLICT_T,
                                                         near=NEAR, pass_bonus=PASS_BONUS,
                                                         simultaneous_penalty=SIMUL_PENALTY)
-                                                   if mode == 'pressure_zipper' else None),
+                                                   if mode in ZIPPER_MODES else None),
+        lane_change_risk=(dict(weight=t.RISK_WEIGHT, min_gap=t.RISK_MIN_GAP, horizon=t.RISK_HORIZON)
+                          if mode in SAFE_MODES else None),
+        approach_risk=(dict(weight=t.TTC_WEIGHT, horizon=t.TTC_HORIZON) if mode in SAFE_MODES else None),
         safety_gate=b.ACTION.get('lane_change_safety', {}).get('enabled'), eval_counts=counts))
     t.PRESSURE_WEIGHT = 0.01
     logger = Log(directory, agent, budget, env)
@@ -361,8 +372,8 @@ def write_report(out, results):
     (out / 'report.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
-def configure(out):
-    t.configure(out, 0.01, 0.5, 0.05)
+def configure(out, risk_weight=RISK_WEIGHT, ttc_weight=TTC_WEIGHT):
+    t.configure(out, 0.01, risk_weight, ttc_weight)
 
 
 def main():
@@ -376,6 +387,10 @@ def main():
     p.add_argument('--curve', action='store_true', help='also evaluate saved checkpoints')
     p.add_argument('--workers', type=int, default=9)
     p.add_argument('--output', type=Path, default=OUT)
+    p.add_argument('--risk-weight', type=float, default=RISK_WEIGHT)
+    p.add_argument('--ttc-weight', type=float, default=TTC_WEIGHT)
+    p.add_argument('--initial-from', type=Path,
+                   help='copy initial/{seed}.pt from an earlier run (pairs new arms with old ones)')
     a = p.parse_args()
     out = a.output.resolve()
     counts = dict(none=a.count_none, measured=a.count_measured)
@@ -383,15 +398,24 @@ def main():
     (out / 'initial').mkdir()
     for load in LOADS:
         scenario(load, out)
-    b.save(out / 'plan.json', dict(steps=a.steps, seeds=a.seeds, modes=a.modes, counts=counts,
+    b.save(out / 'plan.json', dict(risk_weight=a.risk_weight, ttc_weight=a.ttc_weight,
+                                    initial_from=str(a.initial_from) if a.initial_from else None,
+                                    steps=a.steps, seeds=a.seeds, modes=a.modes, counts=counts,
                                     case=CASE, network=str(NETWORK.relative_to(ROOT)), network_sha=sha(NETWORK)))
     for seed in a.seeds:
         hp = dict(b.PLAN['hparams'], seed=seed)
         first, second = b.PPO(obs_dim=47, act_dim=2, **hp), b.PPO(obs_dim=47, act_dim=2, **hp)
         assert all(b.torch.equal(v, second.policy.state_dict()[k]) for k, v in first.policy.state_dict().items())
         first.save(str(out / 'initial' / f'{seed}.pt'))
+        if a.initial_from:
+            old = a.initial_from / 'initial' / f'{seed}.pt'
+            ref = b.PPO(obs_dim=47, act_dim=2, **hp)
+            ref.load(str(old))
+            assert all(b.torch.equal(v, ref.policy.state_dict()[k])
+                       for k, v in first.policy.state_dict().items()), ('initial weights differ', old)
+            shutil.copy2(old, out / 'initial' / f'{seed}.pt')
     specs = [(m, s, a.steps, counts, str(out), a.every) for s in a.seeds for m in a.modes]
-    with ProcessPoolExecutor(max_workers=a.workers, initializer=configure, initargs=(str(out),)) as pool:
+    with ProcessPoolExecutor(max_workers=a.workers, initializer=configure, initargs=(str(out), a.risk_weight, a.ttc_weight)) as pool:
         results = list(pool.map(train, specs))
     b.save(out / 'comparison.json', results)
     write_report(out, results)
@@ -402,7 +426,7 @@ def main():
             for target in range(a.every, a.steps, a.every):
                 step = min(saved, key=lambda s: abs(s - target))
                 cps.append((str(run), str(saved[step]), counts, str(out)))
-        with ProcessPoolExecutor(max_workers=a.workers, initializer=configure, initargs=(str(out),)) as pool:
+        with ProcessPoolExecutor(max_workers=a.workers, initializer=configure, initargs=(str(out), a.risk_weight, a.ttc_weight)) as pool:
             list(pool.map(evaluate_checkpoint, cps))
     print(f'Completed {len(results)} runs. Report: {out / "report.md"}', flush=True)
 
