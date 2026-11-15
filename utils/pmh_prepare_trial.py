@@ -1,4 +1,11 @@
-"""Fresh paired PPO comparison: only 300m lane-progress reward differs.
+"""Fresh paired PPO comparison: only the 300m lane-preparation shaping differs.
+
+Arms: baseline, prepare300 (one-time progress credit),
+prepare300_pressure (credit + per-step penalty while changes are still owed),
+pressure_lcrisk (pressure arm + penalty for executed lane changes into a
+target lane whose leader/follower gap or TTC is short),
+pressure_ttc (pressure arm + per-step penalty while closing in on the visible
+same-lane leader with a short time to contact).
 
 Does not resume historical checkpoints or invoke legacy publication routines.
 """
@@ -15,28 +22,62 @@ import subprocess
 import time
 
 os.environ.setdefault('IC_LIBSUMO', '0')  # Installed SUMO binary, no libsumo required.
-from env.prepare_reward import PrepareCredit
+import numpy as np
+from env.prepare_reward import PrepareCredit, PreparePressure, lane_change_risk, approach_risk
 from utils import train_navigation_clarity as c
 
 f, b = c.f, c.f.base
 OUT = f.ROOT / 'results/pmh_prepare300_fresh'
+MODES = ('baseline', 'prepare300', 'prepare300_pressure', 'pressure_lcrisk', 'pressure_ttc')
+PRESSURE_WEIGHT = 0.01
+RISK_WEIGHT = 0.5
+RISK_MIN_GAP = 5.0
+RISK_HORIZON = 3.0
+TTC_WEIGHT = 0.05
+TTC_HORIZON = 3.0
 
 
 class TrialEnv(c.ClarityEnv):
-    def __init__(self, *args, prepare=False, **kwargs):
+    def __init__(self, *args, prepare=False, pressure=False, risk=False, ttc=False, **kwargs):
         self.prepare = prepare
+        self.ttc = ttc
+        self.ttc_total = 0.0
+        self.ttc_events = 0
+        self.risk = risk
+        self.risk_total = 0.0
+        self.risk_events = 0
+        self.pressure = PreparePressure(weight=PRESSURE_WEIGHT) if pressure else None
         self.extra_total = 0.0
         self.extra_events = 0
+        self.pressure_total = 0.0
         super().__init__(*args, **kwargs)
 
     def reset(self, *args, **kwargs):
         self.credit = PrepareCredit()
         return super().reset(*args, **kwargs)
 
+    def target_lane_risk(self, action):
+        """Risk of the lane change this action requests, measured before it runs."""
+        raw = float(np.clip(np.asarray(action)[self.lane_change_index], -1.0, 1.0))
+        direction = self._quantize_lane_change(raw)
+        v = b.traci.vehicle
+        if direction == 0 or v.getRoadID(self.ego_id).startswith(':'):
+            return 0.0
+        scan_front, scan_rear = self._scan_lane_neighbors(direction)
+
+        def closer(a, c):
+            return c if a is None else a if c is None or a[0] <= c[0] else c
+
+        front = closer(self._neighbor(direction, leader=True), scan_front)
+        rear = closer(self._neighbor(direction, leader=False), scan_rear)
+        return lane_change_risk(front, rear, v.getSpeed(self.ego_id),
+                                RISK_MIN_GAP, RISK_HORIZON)
+
     def step(self, action):
         v = b.traci.vehicle
         edge, lane = v.getRoadID(self.ego_id), v.getLaneIndex(self.ego_id)
         nav = self.navigation_context()
+        risk = self.target_lane_risk(action) if self.risk else 0.0
         obs, reward, done, cut, info = super().step(action)
         extra = 0.0
         if (self.prepare and not done and not cut and not edge.startswith(':')
@@ -46,16 +87,41 @@ class TrialEnv(c.ClarityEnv):
         self.extra_total += extra
         self.extra_events += int(extra > 0)
         info['prepare_reward'] = extra
-        return obs, reward + extra, done, cut, info
+        penalty = 0.0
+        if self.pressure and not done and not cut and self.ego_id in v.getIDList():
+            after = self.navigation_context()  # internal lanes return no targets
+            penalty = self.pressure.penalty(after['prepare_targets'],
+                                            v.getLaneIndex(self.ego_id), after['distance'])
+        self.pressure_total += penalty
+        info['prepare_pressure'] = -penalty
+        # Only executed changes pay; collisions from the change still pay it too.
+        risk_penalty = 0.0
+        if self.risk and info.get('lane_change', 0) != 0 and info.get('lane_change_applied'):
+            risk_penalty = RISK_WEIGHT * risk
+        self.risk_total += risk_penalty
+        self.risk_events += int(risk_penalty > 0)
+        info['lane_change_risk'] = -risk_penalty
+        # Rear-end risk of the state this action led to; the collision step
+        # already pays collision_penalty, so terminal steps are skipped.
+        ttc_penalty = 0.0
+        if self.ttc and not done and not cut and self.ego_id in v.getIDList():
+            ttc_penalty = TTC_WEIGHT * approach_risk(
+                self._neighbor(0, leader=True), v.getSpeed(self.ego_id), TTC_HORIZON)
+        self.ttc_total += ttc_penalty
+        self.ttc_events += int(ttc_penalty > 0)
+        info['approach_risk'] = -ttc_penalty
+        return obs, reward + extra - penalty - risk_penalty - ttc_penalty, done, cut, info
 
 
-def environment(seed, load='low', prepare=False, variants=()):
+def environment(seed, load='low', prepare=False, variants=(), pressure=False, risk=False,
+                ttc=False):
     return TrialEnv(str(f.prepare(load)), copy.deepcopy(b.ROAD_NEW),
                     dict(b.EGO, depart_lane='best', depart_speed='max'),
                     dict(b.SIMULATION, warmup_steps=300), b.OBSERVATION,
                     copy.deepcopy(b.ACTION), copy.deepcopy(b.REWARD),
                     dict(b.TRAFFIC, prefill={'enabled': False}), variants, seed,
-                    navigation=b.NAV, clarity='baseline', prepare=prepare)
+                    navigation=b.NAV, clarity='baseline', prepare=prepare,
+                    pressure=pressure, risk=risk, ttc=ttc)
 
 
 def summary(rows):
@@ -90,10 +156,18 @@ def evaluate(directory, model, count):
 class Log(b.Log):
     def log_train(self, step, metrics, verbose=False):
         super().log_train(step, dict(metrics, prepare_total=self.env.extra_total,
-                                    prepare_events=self.env.extra_events), False)
+                                    prepare_events=self.env.extra_events,
+                                    pressure_total=self.env.pressure_total,
+                                    risk_total=self.env.risk_total,
+                                    risk_events=self.env.risk_events,
+                                    ttc_total=self.env.ttc_total,
+                                    ttc_events=self.env.ttc_events), False)
         b.save(self.directory / 'status.json', dict(stage='training', step=step,
                budget=self.budget, prepare_total=self.env.extra_total,
-               prepare_events=self.env.extra_events, updated=time.time()))
+               prepare_events=self.env.extra_events, pressure_total=self.env.pressure_total,
+               risk_total=self.env.risk_total, risk_events=self.env.risk_events,
+               ttc_total=self.env.ttc_total, ttc_events=self.env.ttc_events,
+               updated=time.time()))
         if step >= getattr(self, 'next_save', 50000) or step == self.budget:
             self.agent.save(str(self.directory / f'policy-{step}.pt'))
             self.next_save = step + 50000
@@ -106,7 +180,9 @@ def train(spec):
     directory = OUT / 'runs' / f'{mode}-{seed}'
     directory.mkdir(parents=True, exist_ok=False)
     hp = dict(b.PLAN['hparams'], seed=seed)
-    env = environment(seed, prepare=mode == 'prepare300')
+    env = environment(seed, prepare=mode != 'baseline',
+                      pressure=mode in ('prepare300_pressure', 'pressure_lcrisk', 'pressure_ttc'),
+                      risk=mode == 'pressure_lcrisk', ttc=mode == 'pressure_ttc')
     agent = b.PPO(obs_dim=47, act_dim=2, buffer=b.RolloutBuffer(), **hp)
     # Identical per-seed state tensors are verified by the parent before training.
     initial = OUT / 'initial' / f'{seed}.pt'
@@ -118,8 +194,19 @@ def train(spec):
            simulation=dict(b.SIMULATION, warmup_steps=300), observation=b.OBSERVATION,
            navigation_horizon=b.NAV.horizon, variants=[], train_load='low',
            traffic=f.read(f.prepare('low').parent/'manifest.json'),
-           prepare_reward=dict(enabled=mode == 'prepare300', horizon=300, weight=.1,
-                               duplicate_credit=False), evaluation_count=count))
+           prepare_reward=dict(enabled=mode != 'baseline', horizon=300, weight=.1,
+                               duplicate_credit=False),
+           lane_change_risk=dict(enabled=mode == 'pressure_lcrisk', weight=RISK_WEIGHT,
+                                 min_gap=RISK_MIN_GAP, ttc_horizon=RISK_HORIZON,
+                                 applies='executed lane changes only; safety gate stays off'),
+           approach_risk=dict(enabled=mode == 'pressure_ttc', weight=TTC_WEIGHT,
+                              ttc_horizon=TTC_HORIZON,
+                              leader='same lane, within observation visibility'),
+           prepare_pressure=dict(enabled=mode in ('prepare300_pressure', 'pressure_lcrisk',
+                                                  'pressure_ttc'), horizon=300,
+                                 weight=PRESSURE_WEIGHT,
+                                 formula='weight*remaining_changes*(1-distance/horizon)'),
+           evaluation_count=count))
     logger = Log(directory, agent, budget, env)
     started = time.monotonic()
     try:
@@ -142,14 +229,21 @@ def train(spec):
 
 
 def main():
-    global OUT
+    global OUT, PRESSURE_WEIGHT, RISK_WEIGHT, TTC_WEIGHT
     p = argparse.ArgumentParser()
     p.add_argument('--steps', type=int, default=200000)
     p.add_argument('--seeds', type=int, nargs='+', default=[11,22,33])
     p.add_argument('--count', type=int, default=20)
     p.add_argument('--workers', type=int, default=3)
     p.add_argument('--output', type=Path, default=OUT)
+    p.add_argument('--modes', nargs='+', choices=MODES, default=list(MODES))
+    p.add_argument('--pressure-weight', type=float, default=PRESSURE_WEIGHT)
+    p.add_argument('--risk-weight', type=float, default=RISK_WEIGHT)
+    p.add_argument('--ttc-weight', type=float, default=TTC_WEIGHT)
     args = p.parse_args()
+    PRESSURE_WEIGHT = args.pressure_weight
+    RISK_WEIGHT = args.risk_weight
+    TTC_WEIGHT = args.ttc_weight
     OUT = args.output.resolve()
     f.OUT = OUT
     OUT.mkdir(parents=True, exist_ok=False)
@@ -158,6 +252,8 @@ def main():
     for load in ('none', 'low'):
         f.prepare(load)
     b.save(OUT/'plan.json', dict(steps=args.steps, seeds=args.seeds, count=args.count,
+           modes=args.modes, pressure_weight=PRESSURE_WEIGHT, risk_weight=RISK_WEIGHT,
+           ttc_weight=TTC_WEIGHT,
            baseline='fresh; NOT meeting checkpoint continuation',
            backend='libsumo' if os.environ.get('IC_LIBSUMO') == '1' else 'traci',
            sumo_version=subprocess.check_output(['sumo', '--version'], text=True),
@@ -181,23 +277,26 @@ def main():
                    for name, value in first.policy.state_dict().items())
         first.save(str(OUT/'initial'/f'{seed}.pt'))
     specs = [(mode, seed, args.steps, args.count) for seed in args.seeds
-             for mode in ('baseline','prepare300')]
+             for mode in args.modes]
     # macOS spawn workers need the selected output, not a module default.
     with ProcessPoolExecutor(max_workers=args.workers, initializer=configure,
-                             initargs=(str(OUT),)) as pool:
+                             initargs=(str(OUT), PRESSURE_WEIGHT, RISK_WEIGHT, TTC_WEIGHT)) as pool:
         results = list(pool.map(train, specs))
     b.save(OUT/'comparison.json', results)
-    write_report(OUT, results)
+    write_report(OUT, results, args.modes)
     print(f'Completed {len(results)} runs. Report: {OUT / "report.md"}', flush=True)
 
 
-def configure(output):
-    global OUT
+def configure(output, pressure_weight=0.01, risk_weight=0.5, ttc_weight=0.05):
+    global OUT, PRESSURE_WEIGHT, RISK_WEIGHT, TTC_WEIGHT
+    TTC_WEIGHT = ttc_weight
+    PRESSURE_WEIGHT = pressure_weight
+    RISK_WEIGHT = risk_weight
     OUT = Path(output)
     f.OUT = OUT
 
 
-def write_report(output, results):
+def write_report(output, results, modes=MODES[:2]):
     """Persist a readable report even if the chat disconnects after training."""
     records = []
     for run in results:
@@ -214,11 +313,22 @@ def write_report(output, results):
         '| 교통 | 조건 | 평가 횟수 | 완주 | 충돌 | 기타 실패 | 완주율 | 충돌률 |',
         '|---|---|---:|---:|---:|---:|---:|---:|']
     for load in ('none','low'):
-        for mode in ('baseline','prepare300'):
+        for mode in modes:
             rows = [r for r in records if r['mode']==mode and r['load']==load]
             n, a, c, o = [sum(r[k] for r in rows) for k in ('cases','arrivals','collisions','other')]
             assert n == a+c+o
             lines.append(f'| {load} | {mode} | {n} | {a} | {c} | {o} | {a/n:.2%} | {c/n:.2%} |')
+    lines += ['', '## 경로별 완주 / 충돌 / 차로 선택 실패 (전체 seed 합계)', '',
+        '| 교통 | 경로 | ' + ' | '.join(modes) + ' |', '|---|---|' + '---|'*len(modes)]
+    for load in ('none','low'):
+        for route in f.ROUTES:
+            cells = []
+            for mode in modes:
+                ms = [r['results'][load]['per_route'][route] for r in results if r['mode']==mode]
+                a, col = sum(m['arrivals'] for m in ms), sum(m['collisions'] for m in ms)
+                blk = sum(m['failures'].get('route_lane_blocked', 0) for m in ms)
+                cells.append(f'{a}/{col}/{blk}')
+            lines.append(f'| {load} | {route} | ' + ' | '.join(cells) + ' |')
     lines += ['', '## 저교통량 seed별 결과', '',
         '| seed | 조건 | 완주 | 충돌 | 기타 실패 |', '|---:|---|---:|---:|---:|']
     for r in records:
