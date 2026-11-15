@@ -14,6 +14,14 @@ Arms (fresh PPO, identical initial weights per seed)
   pressure_zipper  + merge observation + zipper reward.
   zipper_safe      pressure_zipper + lane-change risk penalty (weight 0.1,
                    down from the rejected 0.5) + rear-end TTC penalty 0.05.
+  zipper_stop      pressure_zipper + unjustified-stop penalty.
+  zipper_safe_stop zipper_safe + unjustified-stop penalty.
+
+Unjustified-stop penalty (training only): 0.005 per 0.2 s step while the ego
+is slower than 0.5 m/s with no leader within 30 m that is itself slower than
+2 m/s, unless it is within 30 m of its lane end (waiting for a merge or lane
+change gap). 100 s of such standing costs 2.5, half a collision; zipper_safe
+seed 22 learned to stand still with an empty road ahead for 900 s.
 
 Merge observation (obs[37:45], all in [-1, 1])
   0 merge ahead on the route within 200 m (1 / -1)
@@ -56,9 +64,11 @@ traci = b.traci
 ROOT = f.ROOT
 NETWORK = ROOT / 'maps/toegyewon_zipper/network.net.xml'
 OUT = ROOT / 'results/pmh_zipper_trial'
-MODES = ('pressure', 'pressure_zobs', 'pressure_zipper', 'zipper_safe')
-ZIPPER_MODES = ('pressure_zipper', 'zipper_safe')
-SAFE_MODES = ('zipper_safe',)
+MODES = ('pressure', 'pressure_zobs', 'pressure_zipper', 'zipper_safe', 'zipper_stop', 'zipper_safe_stop')
+ZIPPER_MODES = ('pressure_zipper', 'zipper_safe', 'zipper_stop', 'zipper_safe_stop')
+SAFE_MODES = ('zipper_safe', 'zipper_safe_stop')
+STOP_MODES = ('zipper_stop', 'zipper_safe_stop')
+STOP_W, STOP_V, STOP_LEADER_GAP, STOP_LEADER_V, STOP_LANE_END = 0.005, 0.5, 30.0, 2.0, 30.0
 RISK_WEIGHT = 0.1
 TTC_WEIGHT = 0.05
 LOADS = ('none', 'measured')
@@ -116,7 +126,10 @@ EPISODES = []               # per-episode zipper stats, read by evaluate()
 
 
 class ZipperEnv(t.TrialEnv):
-    def __init__(self, *args, zipper_obs=False, zipper_reward=False, **kwargs):
+    def __init__(self, *args, zipper_obs=False, zipper_reward=False, stop_penalty=False, **kwargs):
+        self.stop_penalty = stop_penalty
+        self.stop_total = 0.0
+        self.stop_events = 0
         self.zipper_obs = zipper_obs
         self.zipper_reward = zipper_reward
         self.zip_conflict_total = 0.0
@@ -233,8 +246,22 @@ class ZipperEnv(t.TrialEnv):
                     risk = float(np.clip((CONFLICT_T - abs(ctx['foe']['dt'])) / CONFLICT_T, 0, 1))
                     extra -= CONFLICT_W * risk
                     self.zip_conflict_total += CONFLICT_W * risk
+            if self.stop_penalty and self.unjustified_stop(lane):
+                extra -= STOP_W
+                self.stop_total += STOP_W
+                self.stop_events += 1
         info['zipper_reward'] = extra
         return obs, reward + extra, done, cut, info
+
+
+    def unjustified_stop(self, lane):
+        v = traci.vehicle
+        if v.getSpeed(self.ego_id) >= STOP_V:
+            return False
+        if traci.lane.getLength(lane) - v.getLanePosition(self.ego_id) < STOP_LANE_END:
+            return False
+        leader = v.getLeader(self.ego_id, STOP_LEADER_GAP)
+        return not (leader and leader[0] and v.getSpeed(leader[0]) < STOP_LEADER_V)
 
 
 def scenario(load, out):
@@ -252,7 +279,8 @@ def environment(seed, load, mode, out, train=True, variants=()):
                      dict(b.TRAFFIC, prefill={'enabled': False}), variants, seed,
                      navigation=NAV, clarity='baseline', prepare=train, pressure=train,
                      zipper_obs=mode != 'pressure', zipper_reward=train and mode in ZIPPER_MODES,
-                     risk=train and mode in SAFE_MODES, ttc=train and mode in SAFE_MODES)
+                     risk=train and mode in SAFE_MODES, ttc=train and mode in SAFE_MODES,
+                     stop_penalty=train and mode in STOP_MODES)
 
 
 def evaluate(directory, model, counts, out, mode, seed, hp):
@@ -298,7 +326,8 @@ class Log(t.Log):
         e = self.env
         super().log_train(step, dict(metrics, zip_passes=e.zip_passes, zip_simultaneous=e.zip_simultaneous,
                                      zip_conflict_total=e.zip_conflict_total,
-                                     zip_pass_total=e.zip_pass_total), False)
+                                     zip_pass_total=e.zip_pass_total,
+                                     stop_total=e.stop_total, stop_events=e.stop_events), False)
 
 
 def train(spec):
@@ -324,6 +353,9 @@ def train(spec):
                                                    if mode in ZIPPER_MODES else None),
         lane_change_risk=(dict(weight=t.RISK_WEIGHT, min_gap=t.RISK_MIN_GAP, horizon=t.RISK_HORIZON)
                           if mode in SAFE_MODES else None),
+        stop_penalty=(dict(weight=STOP_W, speed=STOP_V, leader_gap=STOP_LEADER_GAP,
+                           leader_speed=STOP_LEADER_V, lane_end=STOP_LANE_END)
+                      if mode in STOP_MODES else None),
         approach_risk=(dict(weight=t.TTC_WEIGHT, horizon=t.TTC_HORIZON) if mode in SAFE_MODES else None),
         safety_gate=b.ACTION.get('lane_change_safety', {}).get('enabled'), eval_counts=counts))
     t.PRESSURE_WEIGHT = 0.01
