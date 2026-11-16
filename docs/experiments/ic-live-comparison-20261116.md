@@ -51,6 +51,7 @@
 |안전한 경로 보상+옆 차로 위험|51,200|11/48|8|3|0|
 |안전한 경로 보상+옆 차로 위험|100,352|16/48|12|4|0|
 |안전한 경로 보상+옆 차로 위험|151,552|8/48|5|3|0|
+|안전한 경로 보상+옆 차로 위험|200,000|10/48|6|4|0|
 |옆 차로 위험·행동 보존 초기화|51,200|9/48|5|4|0|
 |옆 차로 위험·행동 보존 초기화|100,352|38/48|33|5|0|
 |옆 차로 위험·행동 보존 초기화|151,552|13/48|10|3|0|
@@ -111,6 +112,7 @@
 - `results/safe_route_reward_trials_20261116/early-evaluation/151552/combined/policy-151552-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/151552/lateral_zero/policy-151552-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/151552/safe_reward/policy-151552-screen-rejected.json` (부분 평가)
+- `results/safe_route_reward_trials_20261116/early-evaluation/200000/combined/policy-200000-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/200000/lateral_zero/policy-200000-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/200000/safe_reward/policy-200000-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/51200/combined/policy-51200-screen-rejected.json` (부분 평가)
