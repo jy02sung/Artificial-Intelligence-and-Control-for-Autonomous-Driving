@@ -5,10 +5,12 @@
 
 |조건|추가 스텝|무교통 완주|교통 완주|교통 충돌|교통 기타|완주+충돌|
 |---|---:|---:|---:|---:|---:|---:|
+|교차 관측+보상|51,200|13/16|42/48 (87.50%)|6/48 (12.50%)|0/48|100.00%|
 |기존 조건 추가학습|0|15/16|45/48 (93.75%)|3/48 (6.25%)|0/48|100.00%|
 |기존 조건 추가학습|51,200|14/16|37/48 (77.08%)|4/48 (8.33%)|7/48|85.42%|
 |기존 조건 추가학습|100,352|15/16|44/48 (91.67%)|4/48 (8.33%)|0/48|100.00%|
 |기존 조건 추가학습|151,552|12/16|39/48 (81.25%)|8/48 (16.67%)|1/48|97.92%|
+|기존 조건 추가학습|200,000|13/16|39/48 (81.25%)|3/48 (6.25%)|6/48|87.50%|
 |교차 차량 관측|51,200|15/16|41/48 (85.42%)|3/48 (6.25%)|4/48|91.67%|
 |교차 차량 관측|100,352|13/16|45/48 (93.75%)|3/48 (6.25%)|0/48|100.00%|
 |교차 차량 관측|151,552|13/16|35/48 (72.92%)|6/48 (12.50%)|7/48|85.42%|
@@ -16,6 +18,7 @@
 |교차 위험 보상|51,200|16/16|38/48 (79.17%)|10/48 (20.83%)|0/48|100.00%|
 |교차 위험 보상|100,352|14/16|36/48 (75.00%)|11/48 (22.92%)|1/48|97.92%|
 |교차 위험 보상|151,552|14/16|34/48 (70.83%)|13/48 (27.08%)|1/48|97.92%|
+|다음 분기 안내|51,200|16/16|41/48 (85.42%)|7/48 (14.58%)|0/48|100.00%|
 
 ## 판단 기준
 
@@ -25,14 +28,17 @@
 
 ## 평가 파일
 
-- `results/junction_conflict_trials_20261116/early-evaluation/0/control/policy-0-evaluation.json`
-- `results/junction_conflict_trials_20261116/early-evaluation/100352/control/policy-100352-evaluation.json`
-- `results/junction_conflict_trials_20261116/early-evaluation/100352/observation/policy-100352-evaluation.json`
+- `results/junction_conflict_trials_20261116/runs/control/policy-0-evaluation.json`
+- `results/junction_conflict_trials_20261116/runs/control/policy-100352-evaluation.json`
+- `results/junction_conflict_trials_20261116/runs/observation/policy-100352-evaluation.json`
 - `results/junction_conflict_trials_20261116/early-evaluation/100352/reward/policy-100352-evaluation.json`
-- `results/junction_conflict_trials_20261116/early-evaluation/151552/control/policy-151552-evaluation.json`
-- `results/junction_conflict_trials_20261116/early-evaluation/151552/observation/policy-151552-evaluation.json`
+- `results/junction_conflict_trials_20261116/runs/control/policy-151552-evaluation.json`
+- `results/junction_conflict_trials_20261116/runs/observation/policy-151552-evaluation.json`
 - `results/junction_conflict_trials_20261116/early-evaluation/151552/reward/policy-151552-evaluation.json`
-- `results/junction_conflict_trials_20261116/early-evaluation/control/policy-51200-evaluation.json`
-- `results/junction_conflict_trials_20261116/early-evaluation/observation/policy-51200-evaluation.json`
+- `results/junction_conflict_trials_20261116/early-evaluation/51200/combined/policy-51200-evaluation.json`
+- `results/junction_conflict_trials_20261116/runs/control/policy-51200-evaluation.json`
+- `results/junction_conflict_trials_20261116/runs/observation/policy-51200-evaluation.json`
 - `results/junction_conflict_trials_20261116/early-evaluation/reward/policy-51200-evaluation.json`
+- `results/junction_conflict_trials_20261116/runs/control/policy-200000-evaluation.json`
 - `results/junction_conflict_trials_20261116/runs/observation/policy-200000-evaluation.json`
+- `results/lane_followup_20261116/early-evaluation/51200/future/policy-51200-evaluation.json`
