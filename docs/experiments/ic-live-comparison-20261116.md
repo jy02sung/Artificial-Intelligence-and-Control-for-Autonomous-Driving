@@ -38,10 +38,12 @@
 |---|---:|---:|---:|---:|---:|
 |교차 관측+보상|200,000|41/48|29|7|5|
 |합류 검색150m·물리 감지50m|51,200|9/48|5|4|0|
+|합류 검색50m·행동 보존 초기화|51,200|10/48|7|3|0|
 |옆 차로 위험 관측|200,000|39/48|29|7|3|
 |다음 분기 안내·행동 보존 초기화|51,200|36/48|29|5|2|
 |다음 분기 안내·행동 보존 초기화|100,352|30/48|27|3|0|
 |다음 분기 안내·행동 보존 초기화|151,552|29/48|23|6|0|
+|다음 분기 안내·행동 보존 초기화|200,000|41/48|35|6|0|
 |안전한 경로 보상+옆 차로 위험|51,200|11/48|8|3|0|
 |안전한 경로 보상+옆 차로 위험|100,352|16/48|12|4|0|
 |옆 차로 위험·행동 보존 초기화|51,200|9/48|5|4|0|
@@ -85,6 +87,7 @@
 - `results/lane_followup_20261116/runs/lateral/policy-200000-screen-rejected.json` (부분 평가)
 - `results/preserved_input_trial_20261116/early-evaluation/100352/future/policy-100352-screen-rejected.json` (부분 평가)
 - `results/preserved_input_trial_20261116/early-evaluation/151552/future/policy-151552-screen-rejected.json` (부분 평가)
+- `results/preserved_input_trial_20261116/early-evaluation/200000/future/policy-200000-screen-rejected.json` (부분 평가)
 - `results/preserved_input_trial_20261116/early-evaluation/51200/future/policy-51200-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/100352/combined/policy-100352-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/100352/lateral_zero/policy-100352-screen-rejected.json` (부분 평가)
@@ -93,6 +96,7 @@
 - `results/safe_route_reward_trials_20261116/early-evaluation/51200/lateral_zero/policy-51200-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/51200/safe_reward/policy-51200-screen-rejected.json` (부분 평가)
 - `results/junction_lookahead_trials_20261116/early-evaluation/51200/ahead150/policy-51200-screen-rejected.json` (부분 평가)
+- `results/junction_lookahead_trials_20261116/early-evaluation/51200/near50/policy-51200-screen-rejected.json` (부분 평가)
 
 ## 검증된 소스 버전
 
