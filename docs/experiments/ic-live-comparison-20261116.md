@@ -6,6 +6,7 @@
 |조건|추가 스텝|무교통 완주|교통 완주|교통 충돌|교통 기타|완주+충돌|
 |---|---:|---:|---:|---:|---:|---:|
 |교차 관측+보상|51,200|13/16|42/48 (87.50%)|6/48 (12.50%)|0/48|100.00%|
+|교차 관측+보상|100,352|15/16|38/48 (79.17%)|6/48 (12.50%)|4/48|91.67%|
 |기존 조건 추가학습|0|15/16|45/48 (93.75%)|3/48 (6.25%)|0/48|100.00%|
 |기존 조건 추가학습|51,200|14/16|37/48 (77.08%)|4/48 (8.33%)|7/48|85.42%|
 |기존 조건 추가학습|100,352|15/16|44/48 (91.67%)|4/48 (8.33%)|0/48|100.00%|
@@ -24,6 +25,7 @@
 |다음 분기 안내|51,200|16/16|41/48 (85.42%)|7/48 (14.58%)|0/48|100.00%|
 |다음 분기 안내|100,352|16/16|37/48 (77.08%)|11/48 (22.92%)|0/48|100.00%|
 |옆 차로 위험 관측|51,200|16/16|38/48 (79.17%)|10/48 (20.83%)|0/48|100.00%|
+|옆 차로 위험 관측|100,352|16/16|40/48 (83.33%)|8/48 (16.67%)|0/48|100.00%|
 
 ## 판단 기준
 
@@ -34,6 +36,7 @@
 ## 평가 파일
 
 - `results/junction_conflict_trials_20261116/runs/control/policy-0-evaluation.json`
+- `results/junction_conflict_trials_20261116/early-evaluation/100352/combined/policy-100352-evaluation.json`
 - `results/junction_conflict_trials_20261116/runs/control/policy-100352-evaluation.json`
 - `results/junction_conflict_trials_20261116/runs/observation/policy-100352-evaluation.json`
 - `results/junction_conflict_trials_20261116/runs/reward/policy-100352-evaluation.json`
@@ -50,5 +53,6 @@
 - `results/junction_conflict_trials_20261116/runs/reward/policy-0-evaluation.json`
 - `results/junction_conflict_trials_20261116/runs/reward/policy-200000-evaluation.json`
 - `results/lane_followup_20261116/early-evaluation/100352/future/policy-100352-evaluation.json`
+- `results/lane_followup_20261116/early-evaluation/100352/lateral/policy-100352-evaluation.json`
 - `results/lane_followup_20261116/early-evaluation/51200/future/policy-51200-evaluation.json`
 - `results/lane_followup_20261116/early-evaluation/51200/lateral/policy-51200-evaluation.json`
