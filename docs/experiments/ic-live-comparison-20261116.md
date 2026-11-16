@@ -36,6 +36,7 @@
 
 |조건|추가 스텝|교통 관측 사례|완주 건수|충돌 건수|기타 건수|
 |---|---:|---:|---:|---:|---:|
+|교차 관측+보상|151,552|9/48|5|4|0|
 |교차 관측+보상|200,000|41/48|29|7|5|
 |합류 검색150m·물리 감지50m|51,200|9/48|5|4|0|
 |합류 검색150m·물리 감지50m|100,352|14/48|11|3|0|
@@ -93,6 +94,7 @@
 - `results/lane_followup_20261116/runs/future/policy-151552-evaluation.json`
 - `results/lane_followup_20261116/runs/future/policy-200000-evaluation.json`
 - `results/preserved_input_trial_20261116/early-evaluation/24576/future/policy-24576-evaluation.json`
+- `results/junction_conflict_trials_20261116/early-evaluation/151552/combined/policy-151552-screen-rejected.json` (부분 평가)
 - `results/junction_conflict_trials_20261116/runs/combined/policy-200000-screen-rejected.json` (부분 평가)
 - `results/lane_followup_20261116/runs/lateral/policy-200000-screen-rejected.json` (부분 평가)
 - `results/preserved_input_trial_20261116/early-evaluation/100352/future/policy-100352-screen-rejected.json` (부분 평가)
