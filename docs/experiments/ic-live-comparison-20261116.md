@@ -24,6 +24,7 @@
 |교차 위험 보상|200,000|12/16|36/48 (75.00%)|7/48 (14.58%)|5/48|89.58%|
 |다음 분기 안내|51,200|16/16|41/48 (85.42%)|7/48 (14.58%)|0/48|100.00%|
 |다음 분기 안내|100,352|16/16|37/48 (77.08%)|11/48 (22.92%)|0/48|100.00%|
+|다음 분기 안내|200,000|16/16|41/48 (85.42%)|5/48 (10.42%)|2/48|95.83%|
 |옆 차로 위험 관측|51,200|16/16|38/48 (79.17%)|10/48 (20.83%)|0/48|100.00%|
 |옆 차로 위험 관측|100,352|16/16|40/48 (83.33%)|8/48 (16.67%)|0/48|100.00%|
 |다음 분기 안내·행동 보존 초기화|24,576|14/16|37/48 (77.08%)|5/48 (10.42%)|6/48|87.50%|
@@ -57,4 +58,15 @@
 - `results/lane_followup_20261116/early-evaluation/100352/lateral/policy-100352-evaluation.json`
 - `results/lane_followup_20261116/early-evaluation/51200/future/policy-51200-evaluation.json`
 - `results/lane_followup_20261116/early-evaluation/51200/lateral/policy-51200-evaluation.json`
+- `results/lane_followup_20261116/runs/future/policy-200000-evaluation.json`
 - `results/preserved_input_trial_20261116/early-evaluation/24576/future/policy-24576-evaluation.json`
+
+## 검증된 소스 버전
+
+실험 파일의 원본 해시는 manifest와 대조하고, 줄바꿈을 정규화한 소스 내용은 아래 커밋과 일치함을 확인했다. 상세 증거는 각 결과 폴더의 verified-source-revision.json에 보관한다.
+
+- `junction_conflict_trials_20261116`: `63b59bf8d11545d9822cf3eda615c0bf0d03a30a`
+- `lane_followup_20261116`: `63b59bf8d11545d9822cf3eda615c0bf0d03a30a`
+- `preserved_input_trial_20261116`: `63b59bf8d11545d9822cf3eda615c0bf0d03a30a`
+- `safe_route_reward_trials_20261116`: `63b59bf8d11545d9822cf3eda615c0bf0d03a30a`
+- `junction_lookahead_trials_20261116`: `63b59bf8d11545d9822cf3eda615c0bf0d03a30a`

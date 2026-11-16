@@ -11,8 +11,12 @@ LABELS = {'control': '기존 조건 추가학습', 'observation': '교차 차량
 
 def main():
     suites = {}
+    revisions = {}
     for family in ('junction_conflict_trials_20261116', 'lane_followup_20261116', 'preserved_input_trial_20261116', 'safe_route_reward_trials_20261116', 'junction_lookahead_trials_20261116'):
         root = ROOT / 'results' / family
+        proof = root / 'verified-source-revision.json'
+        if proof.exists():
+            revisions[family] = json.loads(proof.read_text(encoding='utf8'))['verified_commit']
         for folder in ('early-evaluation', 'runs'):
             for path in sorted((root / folder).rglob('policy-*-evaluation.json')):
                 rows = json.loads(path.read_text(encoding='utf8'))
@@ -48,6 +52,9 @@ def main():
               '- 개발 평가에서 개선된 후보만 새로운 seed로 검증하고, 충돌률5% 미만 및 기타 실패0 여부를 별도로 확인한다.', '',
               '## 평가 파일', '']
     lines += [f'- `{path.relative_to(ROOT).as_posix()}`' for path, _, _ in suites.values()]
+    lines += ['', '## 검증된 소스 버전', '',
+              '실험 파일의 원본 해시는 manifest와 대조하고, 줄바꿈을 정규화한 소스 내용은 아래 커밋과 일치함을 확인했다. 상세 증거는 각 결과 폴더의 verified-source-revision.json에 보관한다.', '']
+    lines += [f'- `{family}`: `{commit}`' for family, commit in revisions.items()]
     output = ROOT / 'docs/experiments/ic-live-comparison-20261116.md'
     output.write_text('\n'.join(lines) + '\n', encoding='utf8')
     print(f'{len(suites)} completed suites -> {output}')
