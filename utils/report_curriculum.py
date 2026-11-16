@@ -16,7 +16,7 @@ def report():
             label='기준 모델' if folder.name=='A-seed11-0' else folder.name
             lines.append('| '+' | '.join([label,mode,f'{n}/{total}',*values,ratio])+' |')
     lines+=['', '## 학습', '', '| 조건 | 추가 환경스텝 | 전체/위험 학습스텝 | 위험 관측 표본 | 감속 명령/실제 감속 표본 | 최종 rollout KL |', '|---|---:|---|---:|---|---:|']
-    for name in ['A-seed11','B-seed11']:
+    for name in ['A-seed11','B-seed11','C-seed11']:
         path=OUT/'runs'/name/'training.jsonl'
         if not path.exists():continue
         row=json.loads(path.read_text(encoding='utf8').splitlines()[-1]);m=row['mixture'];e=row['exposure']
