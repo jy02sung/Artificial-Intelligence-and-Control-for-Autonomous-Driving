@@ -6,11 +6,13 @@ import os
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('family', choices=('junction', 'lane'))
+    parser.add_argument('family', choices=('junction', 'lane', 'preserved'))
     parser.add_argument('condition')
     parser.add_argument('step', type=int)
     args = parser.parse_args()
-    module = importlib.import_module('utils.run_junction_conflict_trials' if args.family == 'junction' else 'utils.run_lane_followup')
+    modules = {'junction': 'utils.run_junction_conflict_trials', 'lane': 'utils.run_lane_followup',
+               'preserved': 'utils.run_preserved_input_trial'}
+    module = importlib.import_module(modules[args.family])
     s = module.s
     t = s.t
     assert args.condition in s.CONDITIONS

@@ -11,7 +11,7 @@ LABELS = {'control': '기존 조건 추가학습', 'observation': '교차 차량
 
 def main():
     suites = {}
-    for family in ('junction_conflict_trials_20261116', 'lane_followup_20261116'):
+    for family in ('junction_conflict_trials_20261116', 'lane_followup_20261116', 'preserved_input_trial_20261116'):
         root = ROOT / 'results' / family
         for folder in ('early-evaluation', 'runs'):
             for path in sorted((root / folder).rglob('policy-*-evaluation.json')):
@@ -35,7 +35,8 @@ def main():
         none = [r for r in rows if r['traffic'] == 'none']
         assert len(none) == 16 and sum(traffic.values()) == 48
         a, c = traffic['arrival'], traffic['collision']
-        lines.append(f'|{LABELS[condition]}|{step:,}|{sum(r["outcome"] == "arrival" for r in none)}/16|{a}/48 ({a/48:.2%})|{c}/48 ({c/48:.2%})|{48-a-c}/48|{(a+c)/48:.2%}|')
+        label = '다음 분기 안내·행동 보존 초기화' if family.startswith('preserved_input') else LABELS[condition]
+        lines.append(f'|{label}|{step:,}|{sum(r["outcome"] == "arrival" for r in none)}/16|{a}/48 ({a/48:.2%})|{c}/48 ({c/48:.2%})|{48-a-c}/48|{(a+c)/48:.2%}|')
     lines += ['', '## 판단 기준', '',
               '- 기준 모델의 별도320회 검증은 완주287·충돌29·시간초과4였다. 이 표의48회와 표본을 섞지 않는다.',
               '- 기존 모델을 보존한다. 더 오래 학습한 모델이나 새 기능을 넣은 모델을 자동으로 우수하다고 취급하지 않는다.',

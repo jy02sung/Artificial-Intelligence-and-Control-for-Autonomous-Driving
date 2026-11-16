@@ -5,9 +5,9 @@
 |조건|상태|추가 스텝|
 |---|---|---:|
 |control|complete|200000|
-|observation|evaluation||
+|observation|complete|200000|
 |reward|evaluation||
-|combined|training|71092|
+|combined|training|101877|
 
 |조건|추가학습 모델|교통|완주|충돌|기타|위험시 감속요청/위험표본|실제감속|
 |---|---|---|---:|---:|---:|---:|---:|
@@ -21,5 +21,13 @@
 |control|policy-200000-evaluation|reference|39/48|3|6|48/48|45|
 |control|policy-51200-evaluation|none|14/16|0|2|0/0|0|
 |control|policy-51200-evaluation|reference|37/48|4|7|36/36|33|
+|observation|policy-0-evaluation|none|15/16|0|1|0/0|0|
+|observation|policy-0-evaluation|reference|45/48|3|0|39/39|36|
+|observation|policy-100352-evaluation|none|13/16|0|3|0/0|0|
+|observation|policy-100352-evaluation|reference|45/48|3|0|61/61|58|
+|observation|policy-151552-evaluation|none|13/16|0|3|0/0|0|
+|observation|policy-151552-evaluation|reference|35/48|6|7|70/70|67|
 |observation|policy-200000-evaluation|none|16/16|0|0|0/0|0|
 |observation|policy-200000-evaluation|reference|42/48|6|0|83/83|81|
+|observation|policy-51200-evaluation|none|15/16|0|1|0/0|0|
+|observation|policy-51200-evaluation|reference|41/48|3|4|59/63|57|
