@@ -9,7 +9,8 @@ FAMILIES = {'junction': 'utils.run_junction_conflict_trials', 'lane': 'utils.run
             'strength': 'utils.run_safety_strength_trials',
             'conservative': 'utils.run_conservative_update_trial',
             'exploration': 'utils.run_braking_exploration_trial',
-            'timeout': 'utils.run_timeout_boundary_trial'}
+            'timeout': 'utils.run_timeout_boundary_trial',
+            'risk_action': 'utils.run_risk_action_trial'}
 
 def main():
     parser = argparse.ArgumentParser()
