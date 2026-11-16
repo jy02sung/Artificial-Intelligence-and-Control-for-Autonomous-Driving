@@ -19,6 +19,10 @@ Arms (fresh PPO, identical initial weights per seed)
 
   pressure_filter  pressure + action safety filter (training and evaluation).
   zipper_filter    pressure_zipper + action safety filter.
+  zipper_filter_edge zipper_filter + no lane change within 15 m of the start
+                   or 10 m of the end of a road edge (the gate only sees the
+                   current edge; 78/79 zipper_filter collisions were lane
+                   changes at an edge boundary, see utils/pmh_collision_replay.py).
 
 Action safety filter: the policy's speed command is capped by SUMO's own
 collision-free safe speed and junction right-of-way (ego speedMode 9 =
@@ -76,9 +80,12 @@ ROOT = f.ROOT
 NETWORK = ROOT / 'maps/toegyewon_zipper/network.net.xml'
 OUT = ROOT / 'results/pmh_zipper_trial'
 MODES = ('pressure', 'pressure_zobs', 'pressure_zipper', 'zipper_safe', 'zipper_stop', 'zipper_safe_stop',
-         'pressure_filter', 'zipper_filter')
-ZIPPER_MODES = ('pressure_zipper', 'zipper_safe', 'zipper_stop', 'zipper_safe_stop', 'zipper_filter')
-FILTER_MODES = ('pressure_filter', 'zipper_filter')
+         'pressure_filter', 'zipper_filter', 'zipper_filter_edge')
+ZIPPER_MODES = ('pressure_zipper', 'zipper_safe', 'zipper_stop', 'zipper_safe_stop', 'zipper_filter',
+                'zipper_filter_edge')
+FILTER_MODES = ('pressure_filter', 'zipper_filter', 'zipper_filter_edge')
+EDGE_MODES = ('zipper_filter_edge',)
+EDGE_START_BAN, EDGE_END_BAN = 15.0, 10.0
 FILTER_SPEED_MODE = 9   # bit0 safe speed + bit3 right of way at intersections
 SAFE_MODES = ('zipper_safe', 'zipper_safe_stop')
 STOP_MODES = ('zipper_stop', 'zipper_safe_stop')
@@ -141,8 +148,10 @@ EPISODES = []               # per-episode zipper stats, read by evaluate()
 
 class ZipperEnv(t.TrialEnv):
     def __init__(self, *args, zipper_obs=False, zipper_reward=False, stop_penalty=False,
-                 safety_filter=False, **kwargs):
+                 safety_filter=False, edge_ban=False, **kwargs):
         self.safety_filter = safety_filter
+        self.edge_ban = edge_ban
+        self.filter_edge_banned = 0
         self.filter_blocked_lc = 0
         self.filter_speed_capped = 0
         self.stop_penalty = stop_penalty
@@ -160,6 +169,13 @@ class ZipperEnv(t.TrialEnv):
         # The gate's 60 m spawn protection is meant for the ego's entry edge
         # (unseen vehicles about to be inserted); on later edges it would ban
         # lane changes on every short link, so it applies to route index 0 only.
+        if self.edge_ban:
+            v = traci.vehicle
+            pos = v.getLanePosition(self.ego_id)
+            if pos < EDGE_START_BAN or traci.lane.getLength(v.getLaneID(self.ego_id)) - pos < EDGE_END_BAN:
+                self.filter_blocked_lc += 1
+                self.filter_edge_banned += 1
+                return False
         protect = self.lc_spawn_protect
         if traci.vehicle.getRouteIndex(self.ego_id) > 0:
             self.lc_spawn_protect = 0.0
@@ -322,7 +338,8 @@ def environment(seed, load, mode, out, train=True, variants=()):
                      navigation=NAV, clarity='baseline', prepare=train, pressure=train,
                      zipper_obs=mode != 'pressure', zipper_reward=train and mode in ZIPPER_MODES,
                      risk=train and mode in SAFE_MODES, ttc=train and mode in SAFE_MODES,
-                     stop_penalty=train and mode in STOP_MODES, safety_filter=mode in FILTER_MODES)
+                     stop_penalty=train and mode in STOP_MODES, safety_filter=mode in FILTER_MODES,
+                     edge_ban=mode in EDGE_MODES)
 
 
 def evaluate(directory, model, counts, out, mode, seed, hp):
@@ -371,7 +388,8 @@ class Log(t.Log):
                                      zip_pass_total=e.zip_pass_total,
                                      stop_total=e.stop_total, stop_events=e.stop_events,
                                      filter_blocked_lc=e.filter_blocked_lc,
-                                     filter_speed_capped=e.filter_speed_capped), False)
+                                     filter_speed_capped=e.filter_speed_capped,
+                                     filter_edge_banned=e.filter_edge_banned), False)
 
 
 def train(spec):
@@ -397,7 +415,8 @@ def train(spec):
                                                    if mode in ZIPPER_MODES else None),
         lane_change_risk=(dict(weight=t.RISK_WEIGHT, min_gap=t.RISK_MIN_GAP, horizon=t.RISK_HORIZON)
                           if mode in SAFE_MODES else None),
-        safety_filter=(dict(speed_mode=FILTER_SPEED_MODE, lane_change_gate=b.ACTION['lane_change_safety'])
+        safety_filter=(dict(speed_mode=FILTER_SPEED_MODE, lane_change_gate=b.ACTION['lane_change_safety'],
+                            edge_ban=dict(start=EDGE_START_BAN, end=EDGE_END_BAN) if mode in EDGE_MODES else None)
                        if mode in FILTER_MODES else None),
         stop_penalty=(dict(weight=STOP_W, speed=STOP_V, leader_gap=STOP_LEADER_GAP,
                            leader_speed=STOP_LEADER_V, lane_end=STOP_LANE_END)
