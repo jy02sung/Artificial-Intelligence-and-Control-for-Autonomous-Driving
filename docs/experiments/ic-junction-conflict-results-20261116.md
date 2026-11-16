@@ -6,8 +6,8 @@
 |---|---|---:|
 |control|complete|200000|
 |observation|complete|200000|
-|reward|evaluation||
-|combined|training|101877|
+|reward|complete|200000|
+|combined|training|122039|
 
 |조건|추가학습 모델|교통|완주|충돌|기타|위험시 감속요청/위험표본|실제감속|
 |---|---|---|---:|---:|---:|---:|---:|
@@ -31,3 +31,13 @@
 |observation|policy-200000-evaluation|reference|42/48|6|0|83/83|81|
 |observation|policy-51200-evaluation|none|15/16|0|1|0/0|0|
 |observation|policy-51200-evaluation|reference|41/48|3|4|59/63|57|
+|reward|policy-0-evaluation|none|15/16|0|1|0/0|0|
+|reward|policy-0-evaluation|reference|45/48|3|0|39/39|36|
+|reward|policy-100352-evaluation|none|14/16|0|2|0/0|0|
+|reward|policy-100352-evaluation|reference|36/48|11|1|22/22|20|
+|reward|policy-151552-evaluation|none|14/16|0|2|0/0|0|
+|reward|policy-151552-evaluation|reference|34/48|13|1|25/25|22|
+|reward|policy-200000-evaluation|none|12/16|0|4|0/0|0|
+|reward|policy-200000-evaluation|reference|36/48|7|5|26/26|24|
+|reward|policy-51200-evaluation|none|16/16|0|0|0/0|0|
+|reward|policy-51200-evaluation|reference|38/48|10|0|36/36|34|
