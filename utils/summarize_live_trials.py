@@ -15,6 +15,8 @@ def condition_label(family, condition):
         label = {'near50': '합류 검색50m·행동 보존 초기화', 'ahead150': '합류 검색150m·물리 감지50m'}[condition]
     elif family.startswith('safe_route'):
         label = {'safe_reward': '안전한 변경에 경로 보상', 'lateral_zero': '옆 차로 위험·행동 보존 초기화', 'combined': '안전한 경로 보상+옆 차로 위험'}[condition]
+    elif family.startswith('braking_exploration'):
+        label = '감속 탐험 폭 복원·사전 위험 조합'
     elif family.startswith('conservative_update'):
         label = '사전 위험·안전 보상 조합·학습률1/10'
     elif family.startswith('safety_strength'):
@@ -47,7 +49,7 @@ def main():
     suites = {}
     revisions = {}
     screened = {}
-    for family in ('junction_conflict_trials_20261116', 'lane_followup_20261116', 'preserved_input_trial_20261116', 'safe_route_reward_trials_20261116', 'junction_lookahead_trials_20261116', 'safety_strength_trials_20261116', 'conservative_update_trial_20261116'):
+    for family in ('junction_conflict_trials_20261116', 'lane_followup_20261116', 'preserved_input_trial_20261116', 'safe_route_reward_trials_20261116', 'junction_lookahead_trials_20261116', 'safety_strength_trials_20261116', 'conservative_update_trial_20261116', 'braking_exploration_trial_20261116'):
         root = ROOT / 'results' / family
         for note in root.rglob('policy-*-screen-rejected.json'):
             item = read_screened(root, note)

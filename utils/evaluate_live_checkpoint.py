@@ -7,7 +7,8 @@ FAMILIES = {'junction': 'utils.run_junction_conflict_trials', 'lane': 'utils.run
             'preserved': 'utils.run_preserved_input_trial', 'safe_route': 'utils.run_safe_route_reward_trials',
             'lookahead': 'utils.run_junction_lookahead_trials',
             'strength': 'utils.run_safety_strength_trials',
-            'conservative': 'utils.run_conservative_update_trial'}
+            'conservative': 'utils.run_conservative_update_trial',
+            'exploration': 'utils.run_braking_exploration_trial'}
 
 def main():
     parser = argparse.ArgumentParser()

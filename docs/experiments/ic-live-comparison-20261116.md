@@ -40,6 +40,7 @@
 |합류 검색150m·물리 감지50m|51,200|9/48|5|4|0|
 |합류 검색150m·물리 감지50m|100,352|14/48|11|3|0|
 |합류 검색50m·행동 보존 초기화|51,200|10/48|7|3|0|
+|합류 검색50m·행동 보존 초기화|100,352|18/48|15|3|0|
 |옆 차로 위험 관측|200,000|39/48|29|7|3|
 |다음 분기 안내·행동 보존 초기화|51,200|36/48|29|5|2|
 |다음 분기 안내·행동 보존 초기화|100,352|30/48|27|3|0|
@@ -57,6 +58,7 @@
 |안전한 변경에 경로 보상|200,000|12/48|8|4|0|
 |사전 위험 관측+안전 벌점 강화|51,200|12/48|9|3|0|
 |충돌 벌점 강화|51,200|11/48|8|3|0|
+|위험 차선변경 벌점 강화|51,200|18/48|13|5|0|
 
 ## 판단 기준
 
@@ -107,10 +109,12 @@
 - `results/safe_route_reward_trials_20261116/early-evaluation/51200/lateral_zero/policy-51200-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/51200/safe_reward/policy-51200-screen-rejected.json` (부분 평가)
 - `results/junction_lookahead_trials_20261116/early-evaluation/100352/ahead150/policy-100352-screen-rejected.json` (부분 평가)
+- `results/junction_lookahead_trials_20261116/early-evaluation/100352/near50/policy-100352-screen-rejected.json` (부분 평가)
 - `results/junction_lookahead_trials_20261116/early-evaluation/51200/ahead150/policy-51200-screen-rejected.json` (부분 평가)
 - `results/junction_lookahead_trials_20261116/early-evaluation/51200/near50/policy-51200-screen-rejected.json` (부분 평가)
 - `results/safety_strength_trials_20261116/early-evaluation/51200/anticipatory/policy-51200-screen-rejected.json` (부분 평가)
 - `results/safety_strength_trials_20261116/early-evaluation/51200/collision20/policy-51200-screen-rejected.json` (부분 평가)
+- `results/safety_strength_trials_20261116/early-evaluation/51200/lane4/policy-51200-screen-rejected.json` (부분 평가)
 
 ## 검증된 소스 버전
 
