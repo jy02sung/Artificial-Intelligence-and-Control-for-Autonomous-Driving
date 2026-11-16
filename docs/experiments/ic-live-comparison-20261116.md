@@ -54,6 +54,7 @@
 |안전한 변경에 경로 보상|51,200|30/48|27|3|0|
 |안전한 변경에 경로 보상|100,352|22/48|18|4|0|
 |안전한 변경에 경로 보상|151,552|10/48|7|3|0|
+|안전한 변경에 경로 보상|200,000|12/48|8|4|0|
 |사전 위험 관측+안전 벌점 강화|51,200|12/48|9|3|0|
 |충돌 벌점 강화|51,200|11/48|8|3|0|
 
@@ -101,6 +102,7 @@
 - `results/safe_route_reward_trials_20261116/early-evaluation/151552/combined/policy-151552-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/151552/lateral_zero/policy-151552-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/151552/safe_reward/policy-151552-screen-rejected.json` (부분 평가)
+- `results/safe_route_reward_trials_20261116/early-evaluation/200000/safe_reward/policy-200000-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/51200/combined/policy-51200-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/51200/lateral_zero/policy-51200-screen-rejected.json` (부분 평가)
 - `results/safe_route_reward_trials_20261116/early-evaluation/51200/safe_reward/policy-51200-screen-rejected.json` (부분 평가)
