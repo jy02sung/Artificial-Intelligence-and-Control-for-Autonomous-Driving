@@ -3,16 +3,16 @@ import argparse
 import importlib
 import os
 
+FAMILIES = {'junction': 'utils.run_junction_conflict_trials', 'lane': 'utils.run_lane_followup',
+            'preserved': 'utils.run_preserved_input_trial', 'safe_route': 'utils.run_safe_route_reward_trials'}
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('family', choices=('junction', 'lane', 'preserved', 'safe_route'))
+    parser.add_argument('family', choices=FAMILIES)
     parser.add_argument('condition')
     parser.add_argument('step', type=int)
     args = parser.parse_args()
-    modules = {'junction': 'utils.run_junction_conflict_trials', 'lane': 'utils.run_lane_followup',
-               'preserved': 'utils.run_preserved_input_trial', 'safe_route': 'utils.run_safe_route_reward_trials'}
-    module = importlib.import_module(modules[args.family])
+    module = importlib.import_module(FAMILIES[args.family])
     s = module.s
     t = s.t
     assert args.condition in s.CONDITIONS

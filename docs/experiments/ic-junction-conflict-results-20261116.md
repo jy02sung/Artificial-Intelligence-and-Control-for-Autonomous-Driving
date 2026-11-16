@@ -7,7 +7,7 @@
 |control|complete|200000|
 |observation|complete|200000|
 |reward|complete|200000|
-|combined|training|122039|
+|combined|training|161706|
 
 |조건|추가학습 모델|교통|완주|충돌|기타|위험시 감속요청/위험표본|실제감속|
 |---|---|---|---:|---:|---:|---:|---:|
