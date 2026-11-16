@@ -12,7 +12,7 @@ Tech stack: Python/PyTorch/libSUMO/NumPy. Spec: 로컬 results/curriculum_keep_2
 - [x] 환경스텝예산으로전체/위험약50:50. 실제위험노출·유형·route별카운트저장. 어려운상황만반복하지않음.
 - [x] A: 기준관측/보상 + curriculum + keep KL + actor LR3e-5. shared trunk는actor영향이있어3e-5,critic head는3e-4. 보조손실별gradient크기계측. KL조기종료threshold0.015,clip0.2,다른hp기준유지. Critic예열은근거없어초기에는안함.
 - [x] B: A와같은부모에서safe BC만추가. 교사행동을on-policy PPO버퍼로혼합하지않음. 데이터부족이면A먼저실행.
-- [ ] smoke,초기행동일치,중간저장재개동일성검증후A 50k pilot실제실행. B별도50k. 최대A/B/C3구성,유망할때만200k확장.
+- [x] smoke,초기행동일치,중간저장재개동일성검증후A 50k pilot실제실행. B별도50k. 최대A/B/C3구성,유망할때만200k확장.
 - [ ] 대표개발48회완료+무교통16,후보3학습seed,확정후새320seed와기준동일조건비교. 최종seed991001~991020예약(이전학습/평가중복검사). 표본CI·한계기록.
 
 기존goal의채팅점검10~20분요청유지. 별도앱예약자동화는생성하지않음. 실행내용은이문서와재개명령기록으로전환한다. 목표를확인하기전완료처리안함. 보고항목은변경/완료/비교/한계/다음작업.
@@ -41,3 +41,12 @@ python -X utf8 -u -m utils.evaluate_curriculum --name B-seed11 --step 10240
 ```
 
 각 학습은 Torch 1스레드, 두 프로세스 병렬. 매 rollout 체크포인트·optimizer·RNG·교통 재현 정보를 로컬 results/curriculum_keep_20261116에 보존한다. 같은 실행 명령으로 재개하며 살아 있는 PID가 있으면 중복 실행을 거부한다. 10,240/20,480/50,000스텝 모델을 무교통16+교통48 평가하고 기준과 비교한다. pilot 실행 여부는 progress.json과 살아 있는 프로세스로 확인한다. 아직 개선을 확인한 결과는 없다.
+
+
+## Pilot 학습 완료, 최종 평가 진행
+
+A/B seed11은 각50,000 추가 환경스텝을 완료했고 resume.pt/최종policy/episodes를저장했다. 실제전체/위험스텝은A25,022/24,978, B24,901/25,099로계획한50:50을충족했다. 강제경로보정0회.
+
+학습sampling episode집계는A122완주·33충돌, B123완주·22충돌이다. 정책에따라방문상황·episode수가달라공식성능비교로쓰지않는다. 공식비교는같은seed의mean/argmax64회평가로하며A/B50k는현재진행중이다.
+
+별도로utils.augment_curriculum_observations를2개shard로실행해기존안전완주시연을재생하고150m도로검색/50m차량감지의합류관측만새파일에추가했다. 첫172스텝smoke에서기존관측정확일치및동일완주를확인한뒤전체로확장했다. 기존keep.npz/safe.npz와A/B설정은변경하지않는다. 아직이증강자료로새학습을시작하지않았다.
