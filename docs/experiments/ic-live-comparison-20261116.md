@@ -36,6 +36,7 @@
 
 |조건|추가 스텝|교통 관측 사례|완주 건수|충돌 건수|기타 건수|
 |---|---:|---:|---:|---:|---:|
+|사전 위험·안전 보상 조합·학습률1/10|51,200|8/48|5|3|0|
 |교차 관측+보상|151,552|9/48|5|4|0|
 |교차 관측+보상|200,000|41/48|29|7|5|
 |합류 검색150m·물리 감지50m|51,200|9/48|5|4|0|
@@ -129,6 +130,7 @@
 - `results/safety_strength_trials_20261116/early-evaluation/51200/anticipatory/policy-51200-screen-rejected.json` (부분 평가)
 - `results/safety_strength_trials_20261116/early-evaluation/51200/collision20/policy-51200-screen-rejected.json` (부분 평가)
 - `results/safety_strength_trials_20261116/early-evaluation/51200/lane4/policy-51200-screen-rejected.json` (부분 평가)
+- `results/conservative_update_trial_20261116/early-evaluation/51200/anticipatory/policy-51200-screen-rejected.json` (부분 평가)
 
 ## 검증된 소스 버전
 
