@@ -11,7 +11,7 @@ LABELS = {'control': '기존 조건 추가학습', 'observation': '교차 차량
 
 def main():
     suites = {}
-    for family in ('junction_conflict_trials_20261116', 'lane_followup_20261116', 'preserved_input_trial_20261116', 'safe_route_reward_trials_20261116'):
+    for family in ('junction_conflict_trials_20261116', 'lane_followup_20261116', 'preserved_input_trial_20261116', 'safe_route_reward_trials_20261116', 'junction_lookahead_trials_20261116'):
         root = ROOT / 'results' / family
         for folder in ('early-evaluation', 'runs'):
             for path in sorted((root / folder).rglob('policy-*-evaluation.json')):
@@ -35,7 +35,9 @@ def main():
         none = [r for r in rows if r['traffic'] == 'none']
         assert len(none) == 16 and sum(traffic.values()) == 48
         a, c = traffic['arrival'], traffic['collision']
-        if family.startswith('safe_route'):
+        if family.startswith('junction_lookahead'):
+            label = {'near50': '합류 검색50m·행동 보존 초기화', 'ahead150': '합류 검색150m·물리 감지50m'}[condition]
+        elif family.startswith('safe_route'):
             label = {'safe_reward': '안전한 변경에 경로 보상', 'lateral_zero': '옆 차로 위험·행동 보존 초기화', 'combined': '안전한 경로 보상+옆 차로 위험'}[condition]
         else:
             label = '다음 분기 안내·행동 보존 초기화' if family.startswith('preserved_input') else LABELS[condition]

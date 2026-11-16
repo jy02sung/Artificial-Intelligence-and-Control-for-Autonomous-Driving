@@ -4,7 +4,8 @@ import importlib
 import os
 
 FAMILIES = {'junction': 'utils.run_junction_conflict_trials', 'lane': 'utils.run_lane_followup',
-            'preserved': 'utils.run_preserved_input_trial', 'safe_route': 'utils.run_safe_route_reward_trials'}
+            'preserved': 'utils.run_preserved_input_trial', 'safe_route': 'utils.run_safe_route_reward_trials',
+            'lookahead': 'utils.run_junction_lookahead_trials'}
 
 def main():
     parser = argparse.ArgumentParser()
