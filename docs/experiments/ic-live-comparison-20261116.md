@@ -42,6 +42,7 @@
 |합류 검색150m·물리 감지50m|100,352|14/48|11|3|0|
 |합류 검색50m·행동 보존 초기화|51,200|10/48|7|3|0|
 |합류 검색50m·행동 보존 초기화|100,352|18/48|15|3|0|
+|옆 차로 위험 관측|151,552|7/48|4|3|0|
 |옆 차로 위험 관측|200,000|39/48|29|7|3|
 |다음 분기 안내·행동 보존 초기화|51,200|36/48|29|5|2|
 |다음 분기 안내·행동 보존 초기화|100,352|30/48|27|3|0|
@@ -96,6 +97,7 @@
 - `results/preserved_input_trial_20261116/early-evaluation/24576/future/policy-24576-evaluation.json`
 - `results/junction_conflict_trials_20261116/early-evaluation/151552/combined/policy-151552-screen-rejected.json` (부분 평가)
 - `results/junction_conflict_trials_20261116/runs/combined/policy-200000-screen-rejected.json` (부분 평가)
+- `results/lane_followup_20261116/early-evaluation/151552/lateral/policy-151552-screen-rejected.json` (부분 평가)
 - `results/lane_followup_20261116/runs/lateral/policy-200000-screen-rejected.json` (부분 평가)
 - `results/preserved_input_trial_20261116/early-evaluation/100352/future/policy-100352-screen-rejected.json` (부분 평가)
 - `results/preserved_input_trial_20261116/early-evaluation/151552/future/policy-151552-screen-rejected.json` (부분 평가)
