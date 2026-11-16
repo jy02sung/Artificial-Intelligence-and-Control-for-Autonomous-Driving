@@ -344,3 +344,29 @@ seed별 최종 완주 / 충돌: 11은 72.5% / 0.0%, 22는 69.4% / 0.0%, 33은 58
 - 10장에서 예상한 균형 문제가 그대로 나타났다. 경계 금지는 충돌을 없애지만, 필요한 차로 변경까지 막아 완주율을 크게 낮춘다.
 
 결론: 경계 차로 변경 금지는 채택하지 않는다. 현재 최선은 계속 zipper_filter다. 경계 충돌을 없애면서 완주를 유지하려면, 금지 대신 게이트가 경계 너머(다음 도로·교차로 내부 차로, 상류 교차로 내부의 뒤차)를 확인하도록 고쳐야 한다. 그러면 위험한 경우만 막고 안전한 경계 변경은 허용할 수 있다.
+
+## 부록: 결과 데이터 (`pmh-zipper-results-20261116.csv`)
+
+2~11장의 모든 실행(조건 9개, seed 3~5개)을 한 표로 모았다. 한 행은 (실행, 체크포인트, 교통)의 평가 하나다. 총 468행이다. `results/*/runs/*/model.summary.json`과 `curve/*.summary.json`에서 생성했다.
+
+| 칼럼 | 내용 |
+|---|---|
+| experiment_dir | 원본 결과 폴더 (`results/`는 커밋되지 않음) |
+| arm | 조건 이름 (pressure, pressure_zobs, pressure_zipper, zipper_safe, zipper_stop, zipper_safe_stop, pressure_filter, zipper_filter, zipper_filter_edge) |
+| arm_description | 조건 설명 |
+| training_seed | 학습 seed (11/22/33/44/55) |
+| checkpoint_step | 평가한 체크포인트 스텝. 최종 모델은 300000 |
+| is_final | 1 = 30만 스텝 최종 모델, 0 = 학습 곡선 체크포인트 |
+| load | none = 무교통(경로당 1회), measured = 실측 교통 low_exit25(경로당 10회) |
+| cases | 평가 에피소드 수 (none 16, measured 160) |
+| arrivals | 완주 수 |
+| collisions | 충돌 수 |
+| other_failures | 완주도 충돌도 아닌 실패 수 |
+| completion_rate | arrivals / cases |
+| collision_rate | collisions / cases |
+| merge_collisions | 합류 지점(합류 차로·교차로 내부·공유 차로)에서의 충돌 수 |
+| merge_passes | 합류 링크 통과 수 |
+| simultaneous_entries | 경쟁 차량과 같은 합류 링크에 동시 진입한 수 |
+| route_lane_blocked | 실패 분류: 목표 차로를 확보하지 못함 |
+| mixed_or_unexplained | 실패 분류: 정지 등 기타 |
+| failure_collision | 실패 분류: 충돌 (collisions와 같음) |
