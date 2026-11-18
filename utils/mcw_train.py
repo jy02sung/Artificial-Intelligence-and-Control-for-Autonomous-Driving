@@ -156,28 +156,42 @@ class McwEnv(ClarityEnv):
         "544292616_1": [("206426298#1_0", ":1000493465_2_0")],
     }
     INTERNAL_MERGE_FOES = {
-        ":1808903166_0_0": [":1808903166_1_0"],
-        ":1808903166_1_0": [":1808903166_0_0"],
-        ":1810880137_0_0": [":1810880137_1_0"],
-        ":1810880137_1_0": [":1810880137_0_0"],
-        ":1000493465_0_1": [":1000493465_2_0"],
-        ":1000493465_2_0": [":1000493465_0_1"],
+        ":1808903166_0_0": (":1808903166_1_0", "169929488#0_0"),
+        ":1808903166_1_0": (":1808903166_0_0", "169929488#0_0"),
+        ":1810880137_0_0": (":1810880137_1_0", "169929503#1_0"),
+        ":1810880137_1_0": (":1810880137_0_0", "169929503#1_0"),
+        ":1000493465_0_1": (":1000493465_2_0", "844484877_1"),
+        ":1000493465_2_0": (":1000493465_0_1", "844484877_1"),
     }
+
+    HARD_ROUTES = ("route_01", "route_02", "route_05", "route_07", "route_13", "route_14", "route_15")
 
     def __init__(self, *args, route_conn: bool = True, ttc_reward: bool = True,
                  prep_reward: bool = True, prep_horizon: float = 400.0,
-                 timeout_penalty: float = 15.0, stall_penalty: float = 0.08, **kwargs):
+                 timeout_penalty: float = 15.0, stall_penalty: float = 0.08,
+                 close_brake_coef: float = 0.0, deadend_pace_coef: float = 0.0,
+                 hard_route_prob: float = 0.0, **kwargs):
         self.use_route_conn = route_conn
         self.use_ttc_reward = ttc_reward
         self.use_prep_reward = prep_reward
         self.prep_horizon = float(prep_horizon)
         self.timeout_penalty = float(timeout_penalty)
         self.stall_penalty = float(stall_penalty)
+        self.close_brake_coef = float(close_brake_coef)
+        self.deadend_pace_coef = float(deadend_pace_coef)
+        self.hard_route_prob = float(hard_route_prob)
+        self._route_rng = np.random.default_rng(1234)
         self.credits = ProgressReward()
         super().__init__(*args, **kwargs)
 
     def reset(self, *args, **kwargs):
         self.credits = ProgressReward()
+        options = kwargs.get("options") if kwargs else None
+        if options is None and len(args) >= 2:
+            options = args[1]
+        if options is None and self.hard_route_prob > 0.0 and self._route_rng.random() < self.hard_route_prob:
+            kwargs = dict(kwargs)
+            kwargs["options"] = {"route": str(self._route_rng.choice(self.HARD_ROUTES))}
         return super().reset(*args, **kwargs)
 
     def _scan_lane_neighbors(self, direction: int):
@@ -224,40 +238,48 @@ class McwEnv(ClarityEnv):
                 li = traci.vehicle.getLaneIndex(self.ego_id)
                 lane_id = f"{edge}_{li}"
                 if edge.startswith(":"):
-                    ifoes = self.INTERNAL_MERGE_FOES.get(lane_id)
-                    if ifoes:
+                    pair = self.INTERNAL_MERGE_FOES.get(lane_id)
+                    if pair:
+                        foe_via, out_lane = pair
                         rem_ego = traci.lane.getLength(lane_id) - traci.vehicle.getLanePosition(self.ego_id)
-                        for foe_via in ifoes:
-                            foe_vlen = traci.lane.getLength(foe_via)
-                            for vid in traci.lane.getLastStepVehicleIDs(foe_via):
-                                rem_foe = foe_vlen - traci.vehicle.getLanePosition(vid)
-                                if rem_foe <= rem_ego + 8.0:
-                                    g = max(0.0, (rem_ego - rem_foe) - traci.vehicle.getLength(vid))
-                                    v = float(traci.vehicle.getSpeed(vid))
-                                    if res is None or g < res[0]:
-                                        res = (g, v)
+                        foe_vlen = traci.lane.getLength(foe_via)
+                        for vid in traci.lane.getLastStepVehicleIDs(foe_via):
+                            rem_foe = foe_vlen - traci.vehicle.getLanePosition(vid)
+                            if rem_foe <= rem_ego + 8.0:
+                                g = max(0.0, (rem_ego - rem_foe) - traci.vehicle.getLength(vid))
+                                v = float(traci.vehicle.getSpeed(vid))
+                                if res is None or g < res[0]:
+                                    res = (g, v)
+                        for vid in traci.lane.getLastStepVehicleIDs(out_lane):
+                            g = max(0.0, rem_ego + traci.vehicle.getLanePosition(vid) - traci.vehicle.getLength(vid))
+                            if g <= self.visibility:
+                                v = float(traci.vehicle.getSpeed(vid))
+                                if res is None or g < res[0]:
+                                    res = (g, v)
                 else:
                     foes = self.MERGE_FOES.get(lane_id)
                     if foes:
                         rem_ego = traci.lane.getLength(lane_id) - traci.vehicle.getLanePosition(self.ego_id)
-                        if rem_ego < self.visibility:
+                        if rem_ego < 95.0:
+                            ego_v = traci.vehicle.getSpeed(self.ego_id)
+                            ego_eta = rem_ego / max(1.0, ego_v)
                             for foe_lane, foe_via in foes:
                                 if foe_via:
                                     for vid in traci.lane.getLastStepVehicleIDs(foe_via):
                                         g = max(0.0, rem_ego + traci.vehicle.getLanePosition(vid) - traci.vehicle.getLength(vid))
-                                        v = float(traci.vehicle.getSpeed(vid))
-                                        if res is None or g < res[0]:
-                                            res = (g, v)
-                                foe_len = traci.lane.getLength(foe_lane)
-                                for vid in traci.lane.getLastStepVehicleIDs(foe_lane):
-                                    rem_foe = foe_len - traci.vehicle.getLanePosition(vid)
-                                    # Foe vehicle arriving ahead of or right alongside ego at merge
-                                    if rem_foe <= rem_ego + 8.0:
-                                        g = max(0.0, rem_ego - max(0.0, rem_foe - 5.0))
                                         if g <= self.visibility:
                                             v = float(traci.vehicle.getSpeed(vid))
                                             if res is None or g < res[0]:
                                                 res = (g, v)
+                                foe_len = traci.lane.getLength(foe_lane)
+                                for vid in traci.lane.getLastStepVehicleIDs(foe_lane):
+                                    rem_foe = foe_len - traci.vehicle.getLanePosition(vid)
+                                    fv = float(traci.vehicle.getSpeed(vid))
+                                    foe_eta = rem_foe / max(1.0, fv)
+                                    if rem_foe <= rem_ego + 5.0 or (foe_eta <= ego_eta + 0.6 and rem_foe <= rem_ego + 15.0):
+                                        g = max(0.0, (rem_ego - rem_foe) - traci.vehicle.getLength(vid))
+                                        if g <= self.visibility and (res is None or g < res[0]):
+                                            res = (g, fv)
         except traci.TraCIException:
             pass
         return res
@@ -323,10 +345,24 @@ class McwEnv(ClarityEnv):
                         accel_raw = float(info.get("accel_raw", 0.0))
                         if accel_raw > 0.0:
                             extra -= 0.10 * accel_raw
+                if self.close_brake_coef > 0.0 and rel_closing > 0.3:
+                    crit_gap = max(5.0, ego_v * 0.40)
+                    if gap < crit_gap:
+                        accel_raw = float(info.get("accel_raw", 0.0))
+                        if accel_raw > -0.5:
+                            extra -= self.close_brake_coef * (1.0 - gap / crit_gap) * (accel_raw + 0.5)
             # 1b) Unobstructed low-speed / standstill penalty
             if self.stall_penalty > 0.0 and ego_v < 3.0:
                 if lead is None or lead[0] > 25.0:
                     extra -= self.stall_penalty * (1.0 - ego_v / 3.0)
+            # 1c) Pacing penalty when rushing toward dead-end lane before merging
+            if self.deadend_pace_coef > 0.0 and nav is not None and nav.get("prepare_targets"):
+                cur_lane = v_api.getLaneIndex(self.ego_id)
+                dist = nav.get("distance")
+                if cur_lane not in nav["prepare_targets"] and dist is not None and 0.0 < dist < 45.0:
+                    safe_v = max(5.0, dist * 0.45)
+                    if ego_v > safe_v:
+                        extra -= self.deadend_pace_coef * min(1.0, (ego_v - safe_v) / 10.0)
 
             # 2) Advance lane preparation reward (300-400m)
             if self.use_prep_reward and nav is not None:
@@ -389,6 +425,9 @@ def make_env(cfg_path, road, nav, args, action_cfg, reward_cfg, sim_cfg, ego_cfg
         route_conn=args.route_conn, ttc_reward=args.ttc_reward,
         prep_reward=args.prep_reward, prep_horizon=args.nav_horizon,
         timeout_penalty=args.timeout_penalty, stall_penalty=args.stall_penalty,
+        close_brake_coef=getattr(args, "close_brake_coef", 0.0),
+        deadend_pace_coef=getattr(args, "deadend_pace_coef", 0.0),
+        hard_route_prob=getattr(args, "hard_route_prob", 0.0),
     )
 
 
@@ -451,6 +490,9 @@ def main():
     p.add_argument("--collision-penalty", type=float, default=15.0)
     p.add_argument("--timeout-penalty", type=float, default=15.0)
     p.add_argument("--stall-penalty", type=float, default=0.08)
+    p.add_argument("--close-brake-coef", type=float, default=0.0)
+    p.add_argument("--deadend-pace-coef", type=float, default=0.0)
+    p.add_argument("--hard-route-prob", type=float, default=0.0)
     p.add_argument("--arrival-bonus", type=float, default=5.0)
     p.add_argument("--lc-penalty", type=float, default=0.02)
     p.add_argument("--nav-horizon", type=float, default=400.0)
@@ -469,6 +511,7 @@ def main():
     p.add_argument("--resume", type=str, default=None, help="Path to checkpoint .pt to resume from")
     p.add_argument("--eval-only", action="store_true")
     p.add_argument("--eval-episodes", type=int, default=1, help="Episodes per route (16 routes total)")
+    p.add_argument("--eval-seed", type=int, default=40001, help="Base seed for 16-route evaluation")
     p.add_argument("--eval-interval", type=int, default=25, help="Updates between 16-route evaluations (0=off)")
     p.add_argument("--name", type=str, default=None)
     p.add_argument("--smoke", action="store_true")
@@ -522,7 +565,7 @@ def main():
 
     try:
         if args.eval_only:
-            summary = evaluate_16_routes(agent, env, episodes_per_route=args.eval_episodes)
+            summary = evaluate_16_routes(agent, env, episodes_per_route=args.eval_episodes, base_seed=args.eval_seed)
             (run_dir / "eval_16routes.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
             print(
                 f"[EVAL {args.stage}] arrival={summary['arrivals']}/{summary['total']} "
