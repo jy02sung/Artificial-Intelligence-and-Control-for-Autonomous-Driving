@@ -197,7 +197,7 @@ class PPO:
     # ==================================================================
     # 1단계) rollout 수집
     # ==================================================================
-    def collect_rollout(self, env, state, logger=None, ep_stats=None, steps=None):
+    def collect_rollout(self, env, state, logger=None, ep_stats=None, steps=None, *, timeout_is_failure=False):
         """현재 정책으로 n_steps만큼 경험을 모은다.
 
         Args:
@@ -223,11 +223,11 @@ class PPO:
             #   이어졌다면 받았을 미래 가치를 V(s')로 근사해 보상에 더한다.
             #   생략하면 "시간초과 = 이후 가치 0"으로 잘못 학습된다.
             stored_reward = reward
-            if truncated and not terminated:
+            if truncated and not terminated and not timeout_is_failure:
                 stored_reward += self.gamma * self.get_value(next_obs)
 
             self.buffer.add(obs, action, log_prob, stored_reward, value,
-                            terminated)
+                            terminated or (truncated and timeout_is_failure))
 
             if terminated or truncated:
                 finished_returns.append(ep_stats[0])

@@ -400,11 +400,12 @@ class SumoHighwayEnv(gym.Env):
             lane_id = f"{edge}_{lane_index}"
             remaining = (traci.lane.getLength(lane_id)
                          - traci.vehicle.getLanePosition(self.ego_id))
-            if remaining > self.visibility:
+            horizon = getattr(self, "physical_link_horizon", self.visibility)
+            if remaining > horizon:
                 return 1.0                    # 시야 내에선 계속 이어짐
             if traci.lane.getLinks(lane_id):
                 return 1.0                    # edge가 끝나도 다음으로 연결됨
-            return float(np.clip(remaining / self.visibility, 0.0, 1.0))
+            return float(np.clip(remaining / horizon, 0.0, 1.0))
         except traci.TraCIException:
             return 1.0                        # 조회 실패 시 중립값
 

@@ -1,0 +1,37 @@
+{
+  "counts": {
+    "original": {
+      "n": 18,
+      "passed": 0,
+      "moved": 0,
+      "outcomes": {
+        "timeout": 18
+      }
+    },
+    "single": {
+      "n": 18,
+      "passed": 9,
+      "moved": 16,
+      "outcomes": {
+        "timeout": 7,
+        "arrival": 9,
+        "collision": 2
+      }
+    },
+    "sustained": {
+      "n": 18,
+      "passed": 9,
+      "moved": 16,
+      "outcomes": {
+        "timeout": 7,
+        "arrival": 9,
+        "collision": 2
+      }
+    }
+  },
+  "arms": [
+    "D0",
+    "D1"
+  ],
+  "rule": "Include D2/D3 if sustained produces more correct first-fork passages than single without more episode collisions over matched reachable interventions."
+}
