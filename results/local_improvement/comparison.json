@@ -1,0 +1,972 @@
+{
+  "mcw2_dev": {
+    "n": 400,
+    "counts": {
+      "arrival": 371,
+      "collision": 29
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 25
+      },
+      "route_02": {
+        "arrival": 17,
+        "collision": 8
+      },
+      "route_03": {
+        "arrival": 25
+      },
+      "route_04": {
+        "arrival": 25
+      },
+      "route_05": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_06": {
+        "arrival": 25
+      },
+      "route_07": {
+        "arrival": 22,
+        "collision": 3
+      },
+      "route_08": {
+        "arrival": 25
+      },
+      "route_09": {
+        "arrival": 25
+      },
+      "route_10": {
+        "arrival": 25
+      },
+      "route_11": {
+        "arrival": 23,
+        "collision": 2
+      },
+      "route_12": {
+        "arrival": 25
+      },
+      "route_13": {
+        "arrival": 18,
+        "collision": 7
+      },
+      "route_14": {
+        "arrival": 17,
+        "collision": 8
+      },
+      "route_15": {
+        "arrival": 25
+      },
+      "route_16": {
+        "arrival": 25
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        5.0,
+        9.5
+      ],
+      "arrival": [
+        90.5,
+        95.0
+      ]
+    }
+  },
+  "X_dev": {
+    "n": 400,
+    "counts": {
+      "arrival": 350,
+      "collision": 50
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 25
+      },
+      "route_02": {
+        "arrival": 20,
+        "collision": 5
+      },
+      "route_03": {
+        "arrival": 25
+      },
+      "route_04": {
+        "arrival": 20,
+        "collision": 5
+      },
+      "route_05": {
+        "collision": 11,
+        "arrival": 14
+      },
+      "route_06": {
+        "arrival": 23,
+        "collision": 2
+      },
+      "route_07": {
+        "arrival": 22,
+        "collision": 3
+      },
+      "route_08": {
+        "arrival": 25
+      },
+      "route_09": {
+        "arrival": 25
+      },
+      "route_10": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_11": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_12": {
+        "arrival": 25
+      },
+      "route_13": {
+        "arrival": 12,
+        "collision": 13
+      },
+      "route_14": {
+        "arrival": 17,
+        "collision": 8
+      },
+      "route_15": {
+        "arrival": 25
+      },
+      "route_16": {
+        "arrival": 24,
+        "collision": 1
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        9.75,
+        15.25
+      ],
+      "arrival": [
+        84.75,
+        90.25
+      ]
+    },
+    "paired": {
+      "arrival_to_arrival": 336,
+      "arrival_to_collision": 35,
+      "collision_to_arrival": 14,
+      "collision_to_collision": 15
+    }
+  },
+  "R240_dev": {
+    "n": 400,
+    "counts": {
+      "arrival": 373,
+      "collision": 21,
+      "timeout": 6
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 25
+      },
+      "route_02": {
+        "arrival": 22,
+        "collision": 3
+      },
+      "route_03": {
+        "arrival": 25
+      },
+      "route_04": {
+        "arrival": 25
+      },
+      "route_05": {
+        "arrival": 25
+      },
+      "route_06": {
+        "arrival": 25
+      },
+      "route_07": {
+        "arrival": 18,
+        "collision": 7
+      },
+      "route_08": {
+        "arrival": 25
+      },
+      "route_09": {
+        "arrival": 25
+      },
+      "route_10": {
+        "arrival": 25
+      },
+      "route_11": {
+        "arrival": 22,
+        "collision": 3
+      },
+      "route_12": {
+        "arrival": 25
+      },
+      "route_13": {
+        "arrival": 20,
+        "timeout": 2,
+        "collision": 3
+      },
+      "route_14": {
+        "arrival": 18,
+        "collision": 3,
+        "timeout": 4
+      },
+      "route_15": {
+        "arrival": 25
+      },
+      "route_16": {
+        "arrival": 23,
+        "collision": 2
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        3.25,
+        7.25
+      ],
+      "arrival": [
+        91.0,
+        95.5
+      ]
+    },
+    "paired": {
+      "arrival_to_arrival": 355,
+      "collision_to_collision": 8,
+      "collision_to_arrival": 18,
+      "arrival_to_timeout": 3,
+      "arrival_to_collision": 13,
+      "collision_to_timeout": 3
+    },
+    "sha256": "aff29d12d55d03752c7e756f510556dd39c5c2ab620844490834c6de7f830cd5"
+  },
+  "T_dev": {
+    "n": 400,
+    "counts": {
+      "arrival": 386,
+      "timeout": 6,
+      "collision": 8
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 25
+      },
+      "route_02": {
+        "arrival": 23,
+        "collision": 2
+      },
+      "route_03": {
+        "arrival": 25
+      },
+      "route_04": {
+        "arrival": 25
+      },
+      "route_05": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_06": {
+        "arrival": 25
+      },
+      "route_07": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_08": {
+        "arrival": 25
+      },
+      "route_09": {
+        "arrival": 25
+      },
+      "route_10": {
+        "arrival": 25
+      },
+      "route_11": {
+        "arrival": 25
+      },
+      "route_12": {
+        "arrival": 25
+      },
+      "route_13": {
+        "arrival": 21,
+        "timeout": 2,
+        "collision": 2
+      },
+      "route_14": {
+        "arrival": 20,
+        "collision": 1,
+        "timeout": 4
+      },
+      "route_15": {
+        "arrival": 25
+      },
+      "route_16": {
+        "arrival": 24,
+        "collision": 1
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        0.75,
+        3.5
+      ],
+      "arrival": [
+        94.75,
+        98.0
+      ]
+    },
+    "paired": {
+      "arrival_to_arrival": 362,
+      "collision_to_arrival": 24,
+      "arrival_to_timeout": 3,
+      "arrival_to_collision": 6,
+      "collision_to_collision": 2,
+      "collision_to_timeout": 3
+    },
+    "sha256": "0c216ed85a581b50e799f4e63ac78886f4050303ad68c30f58004adfe7fa540d"
+  },
+  "T_final": {
+    "n": 1600,
+    "counts": {
+      "arrival": 1558,
+      "collision": 29,
+      "timeout": 13
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 99,
+        "collision": 1
+      },
+      "route_02": {
+        "arrival": 98,
+        "collision": 2
+      },
+      "route_03": {
+        "arrival": 100
+      },
+      "route_04": {
+        "arrival": 100
+      },
+      "route_05": {
+        "arrival": 98,
+        "collision": 2
+      },
+      "route_06": {
+        "arrival": 100
+      },
+      "route_07": {
+        "arrival": 97,
+        "collision": 3
+      },
+      "route_08": {
+        "arrival": 100
+      },
+      "route_09": {
+        "arrival": 100
+      },
+      "route_10": {
+        "arrival": 95,
+        "collision": 5
+      },
+      "route_11": {
+        "arrival": 93,
+        "collision": 7
+      },
+      "route_12": {
+        "arrival": 100
+      },
+      "route_13": {
+        "arrival": 88,
+        "collision": 7,
+        "timeout": 5
+      },
+      "route_14": {
+        "arrival": 90,
+        "collision": 2,
+        "timeout": 8
+      },
+      "route_15": {
+        "arrival": 100
+      },
+      "route_16": {
+        "arrival": 100
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        1.188,
+        2.5
+      ],
+      "arrival": [
+        96.562,
+        98.125
+      ]
+    },
+    "sha256": "0c216ed85a581b50e799f4e63ac78886f4050303ad68c30f58004adfe7fa540d"
+  },
+  "V_dev": {
+    "n": 400,
+    "counts": {
+      "arrival": 391,
+      "collision": 4,
+      "timeout": 5
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 25
+      },
+      "route_02": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_03": {
+        "arrival": 25
+      },
+      "route_04": {
+        "arrival": 25
+      },
+      "route_05": {
+        "arrival": 23,
+        "collision": 2
+      },
+      "route_06": {
+        "arrival": 25
+      },
+      "route_07": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_08": {
+        "arrival": 25
+      },
+      "route_09": {
+        "arrival": 25
+      },
+      "route_10": {
+        "arrival": 25
+      },
+      "route_11": {
+        "arrival": 25
+      },
+      "route_12": {
+        "arrival": 25
+      },
+      "route_13": {
+        "arrival": 24,
+        "timeout": 1
+      },
+      "route_14": {
+        "arrival": 21,
+        "timeout": 4
+      },
+      "route_15": {
+        "arrival": 25
+      },
+      "route_16": {
+        "arrival": 25
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        0.25,
+        2.0
+      ],
+      "arrival": [
+        96.25,
+        99.0
+      ]
+    },
+    "paired": {
+      "arrival_to_arrival": 368,
+      "collision_to_arrival": 23,
+      "arrival_to_collision": 1,
+      "collision_to_collision": 3,
+      "collision_to_timeout": 3,
+      "arrival_to_timeout": 2
+    },
+    "sha256": "b8ecc9823a2ccbfe491f592dd95634871ddb6a10f281f5445a6f6af374b80314"
+  },
+  "V_final": {
+    "n": 1600,
+    "counts": {
+      "arrival": 1575,
+      "timeout": 15,
+      "collision": 10
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 100
+      },
+      "route_02": {
+        "arrival": 99,
+        "collision": 1
+      },
+      "route_03": {
+        "arrival": 100
+      },
+      "route_04": {
+        "arrival": 99,
+        "collision": 1
+      },
+      "route_05": {
+        "arrival": 99,
+        "collision": 1
+      },
+      "route_06": {
+        "arrival": 100
+      },
+      "route_07": {
+        "arrival": 96,
+        "collision": 4
+      },
+      "route_08": {
+        "arrival": 100
+      },
+      "route_09": {
+        "arrival": 100
+      },
+      "route_10": {
+        "arrival": 100
+      },
+      "route_11": {
+        "arrival": 97,
+        "collision": 3
+      },
+      "route_12": {
+        "arrival": 100
+      },
+      "route_13": {
+        "timeout": 7,
+        "arrival": 93
+      },
+      "route_14": {
+        "arrival": 92,
+        "timeout": 8
+      },
+      "route_15": {
+        "arrival": 100
+      },
+      "route_16": {
+        "arrival": 100
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        0.25,
+        1.0
+      ],
+      "arrival": [
+        97.812,
+        99.0
+      ]
+    },
+    "sha256": "b8ecc9823a2ccbfe491f592dd95634871ddb6a10f281f5445a6f6af374b80314"
+  },
+  "W_dev": {
+    "n": 400,
+    "counts": {
+      "arrival": 381,
+      "collision": 19
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 25
+      },
+      "route_02": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_03": {
+        "arrival": 25
+      },
+      "route_04": {
+        "arrival": 25
+      },
+      "route_05": {
+        "arrival": 23,
+        "collision": 2
+      },
+      "route_06": {
+        "arrival": 25
+      },
+      "route_07": {
+        "arrival": 23,
+        "collision": 2
+      },
+      "route_08": {
+        "arrival": 25
+      },
+      "route_09": {
+        "arrival": 25
+      },
+      "route_10": {
+        "arrival": 25
+      },
+      "route_11": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_12": {
+        "arrival": 25
+      },
+      "route_13": {
+        "arrival": 17,
+        "collision": 8
+      },
+      "route_14": {
+        "arrival": 20,
+        "collision": 5
+      },
+      "route_15": {
+        "arrival": 25
+      },
+      "route_16": {
+        "arrival": 25
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        3.0,
+        6.75
+      ],
+      "arrival": [
+        93.25,
+        97.0
+      ]
+    },
+    "paired": {
+      "arrival_to_arrival": 363,
+      "collision_to_arrival": 18,
+      "collision_to_collision": 11,
+      "arrival_to_collision": 8
+    },
+    "sha256": "b1d326dddd0f0c1a086546421b537877e1f6ef63f4524580361c0556b7f97f7f"
+  },
+  "W_final": {
+    "n": 1600,
+    "counts": {
+      "arrival": 1479,
+      "collision": 121
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 99,
+        "collision": 1
+      },
+      "route_02": {
+        "arrival": 70,
+        "collision": 30
+      },
+      "route_03": {
+        "arrival": 100
+      },
+      "route_04": {
+        "arrival": 100
+      },
+      "route_05": {
+        "arrival": 93,
+        "collision": 7
+      },
+      "route_06": {
+        "arrival": 100
+      },
+      "route_07": {
+        "arrival": 88,
+        "collision": 12
+      },
+      "route_08": {
+        "arrival": 100
+      },
+      "route_09": {
+        "arrival": 100
+      },
+      "route_10": {
+        "arrival": 95,
+        "collision": 5
+      },
+      "route_11": {
+        "arrival": 94,
+        "collision": 6
+      },
+      "route_12": {
+        "arrival": 100
+      },
+      "route_13": {
+        "arrival": 70,
+        "collision": 30
+      },
+      "route_14": {
+        "arrival": 71,
+        "collision": 29
+      },
+      "route_15": {
+        "arrival": 100
+      },
+      "route_16": {
+        "arrival": 99,
+        "collision": 1
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        6.375,
+        8.75
+      ],
+      "arrival": [
+        91.25,
+        93.625
+      ]
+    },
+    "sha256": "b1d326dddd0f0c1a086546421b537877e1f6ef63f4524580361c0556b7f97f7f"
+  },
+  "Y12_dev": {
+    "n": 400,
+    "counts": {
+      "arrival": 354,
+      "collision": 46
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 25
+      },
+      "route_02": {
+        "arrival": 21,
+        "collision": 4
+      },
+      "route_03": {
+        "arrival": 25
+      },
+      "route_04": {
+        "arrival": 25
+      },
+      "route_05": {
+        "arrival": 21,
+        "collision": 4
+      },
+      "route_06": {
+        "arrival": 23,
+        "collision": 2
+      },
+      "route_07": {
+        "arrival": 16,
+        "collision": 9
+      },
+      "route_08": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_09": {
+        "arrival": 25
+      },
+      "route_10": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_11": {
+        "arrival": 23,
+        "collision": 2
+      },
+      "route_12": {
+        "arrival": 25
+      },
+      "route_13": {
+        "arrival": 13,
+        "collision": 12
+      },
+      "route_14": {
+        "collision": 9,
+        "arrival": 16
+      },
+      "route_15": {
+        "arrival": 25
+      },
+      "route_16": {
+        "arrival": 23,
+        "collision": 2
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        8.75,
+        14.25
+      ],
+      "arrival": [
+        85.75,
+        91.25
+      ]
+    },
+    "paired": {
+      "arrival_to_arrival": 336,
+      "arrival_to_collision": 35,
+      "collision_to_arrival": 18,
+      "collision_to_collision": 11
+    },
+    "sha256": "54003ee30b9ae5fb8e38c530025e5fbc68d5b916aae980d7201e6347276f10d8"
+  },
+  "Z240_dev": {
+    "n": 400,
+    "counts": {
+      "arrival": 374,
+      "timeout": 21,
+      "collision": 5
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 25
+      },
+      "route_02": {
+        "arrival": 23,
+        "collision": 2
+      },
+      "route_03": {
+        "arrival": 25
+      },
+      "route_04": {
+        "arrival": 25
+      },
+      "route_05": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_06": {
+        "arrival": 25
+      },
+      "route_07": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_08": {
+        "arrival": 25
+      },
+      "route_09": {
+        "arrival": 25
+      },
+      "route_10": {
+        "arrival": 25
+      },
+      "route_11": {
+        "arrival": 25
+      },
+      "route_12": {
+        "arrival": 25
+      },
+      "route_13": {
+        "arrival": 14,
+        "timeout": 11
+      },
+      "route_14": {
+        "arrival": 14,
+        "timeout": 10,
+        "collision": 1
+      },
+      "route_15": {
+        "arrival": 25
+      },
+      "route_16": {
+        "arrival": 25
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        0.25,
+        2.5
+      ],
+      "arrival": [
+        91.5,
+        95.5
+      ]
+    },
+    "paired": {
+      "arrival_to_arrival": 354,
+      "collision_to_arrival": 20,
+      "collision_to_timeout": 8,
+      "arrival_to_timeout": 13,
+      "arrival_to_collision": 4,
+      "collision_to_collision": 1
+    },
+    "sha256": "cc278d43d09266bcad23febb0a136d244ef97c5c8f23ec1c20a75bddf528d046"
+  },
+  "Z60_dev": {
+    "n": 400,
+    "counts": {
+      "arrival": 366,
+      "timeout": 25,
+      "collision": 9
+    },
+    "routes": {
+      "route_01": {
+        "arrival": 25
+      },
+      "route_02": {
+        "arrival": 23,
+        "collision": 2
+      },
+      "route_03": {
+        "arrival": 25
+      },
+      "route_04": {
+        "arrival": 25
+      },
+      "route_05": {
+        "arrival": 25
+      },
+      "route_06": {
+        "arrival": 25
+      },
+      "route_07": {
+        "arrival": 24,
+        "collision": 1
+      },
+      "route_08": {
+        "arrival": 25
+      },
+      "route_09": {
+        "arrival": 25
+      },
+      "route_10": {
+        "arrival": 25
+      },
+      "route_11": {
+        "arrival": 25
+      },
+      "route_12": {
+        "arrival": 25
+      },
+      "route_13": {
+        "timeout": 14,
+        "collision": 3,
+        "arrival": 8
+      },
+      "route_14": {
+        "arrival": 11,
+        "timeout": 11,
+        "collision": 3
+      },
+      "route_15": {
+        "arrival": 25
+      },
+      "route_16": {
+        "arrival": 25
+      }
+    },
+    "stratified_95pct": {
+      "collision": [
+        1.0,
+        3.75
+      ],
+      "arrival": [
+        89.75,
+        93.25
+      ]
+    },
+    "paired": {
+      "arrival_to_arrival": 350,
+      "arrival_to_timeout": 13,
+      "collision_to_arrival": 16,
+      "collision_to_timeout": 12,
+      "arrival_to_collision": 8,
+      "collision_to_collision": 1
+    },
+    "sha256": "87b5ef99a7262591e1bdc3dc65486701f9bf54107c670eb0de5528d2b63e666d"
+  }
+}
