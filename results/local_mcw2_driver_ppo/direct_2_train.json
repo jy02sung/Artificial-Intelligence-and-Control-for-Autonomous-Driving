@@ -1,0 +1,59 @@
+{
+  "parent_sha256": "f2126af64a9052b03493b7fb1f889669bc053ee41f0f9ff0598047fc69408186",
+  "parent": "results/mcw_runs/mcw2_agenda2_dagger_v2/best_model.pt",
+  "sha256": "295728063a06b47207f3b13d4ed0801dec19653cf9aaf0f24718d61c81326305",
+  "seed": 43587,
+  "steps": 4096,
+  "episodes": [
+    [
+      "route_09",
+      1380892896
+    ],
+    [
+      "route_04",
+      1380861288
+    ],
+    [
+      "route_13",
+      1380168754
+    ],
+    [
+      "route_14",
+      1380806326
+    ],
+    [
+      "route_01",
+      1380892401
+    ],
+    [
+      "route_07",
+      1380410953
+    ],
+    [
+      "route_15",
+      1380939435
+    ],
+    [
+      "route_02",
+      1380025086
+    ],
+    [
+      "route_06",
+      1380189949
+    ],
+    [
+      "route_05",
+      1380640320
+    ],
+    [
+      "route_14",
+      1380409566
+    ]
+  ],
+  "max_lane_weight_change": 0.031983986496925354,
+  "actor_lr": 0.0004,
+  "critic_lr": 0.0002,
+  "clip": 0.12,
+  "epochs": 5,
+  "reward": "0.3 x branch reward, safe progress into a better-connected lane, short-gap and collision costs, arrival bonus"
+}

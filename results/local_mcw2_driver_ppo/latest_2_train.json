@@ -1,0 +1,59 @@
+{
+  "parent_sha256": "4dab15658aa3f85880df9165d655f932be3e092c4997758e515b9cb6092e4f7e",
+  "parent": "results/mcw_runs/mcw2_occlusion_ppo/best_model.pt",
+  "sha256": "96cc47b8271de44dbeed19024b5a73793ba1ebc927e4515b77b5855c7a950879",
+  "seed": 43589,
+  "steps": 4096,
+  "episodes": [
+    [
+      "route_05",
+      1390773013
+    ],
+    [
+      "route_02",
+      1390224824
+    ],
+    [
+      "route_10",
+      1390671573
+    ],
+    [
+      "route_15",
+      1390393931
+    ],
+    [
+      "route_02",
+      1390233371
+    ],
+    [
+      "route_16",
+      1390868773
+    ],
+    [
+      "route_13",
+      1390780641
+    ],
+    [
+      "route_07",
+      1390264280
+    ],
+    [
+      "route_04",
+      1390721466
+    ],
+    [
+      "route_12",
+      1390618644
+    ],
+    [
+      "route_03",
+      1390006720
+    ]
+  ],
+  "max_lane_weight_change": 0.037432730197906494,
+  "actor_lr": 0.0004,
+  "critic_lr": 0.0002,
+  "clip": 0.12,
+  "epochs": 5,
+  "reward": "0.3 x branch reward, safe progress into a better-connected lane, short-gap and collision costs, arrival bonus"
+}

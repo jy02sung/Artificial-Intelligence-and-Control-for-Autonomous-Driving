@@ -1,0 +1,58 @@
+{
+  "parent_sha256": "1b94daab0a1682315584a04777802643c6002682f4d0cf904ab5403e829c03b1",
+  "sha256": "5587b3080b7e990247f4c93061be720c691d60e58e138c650c17512fb3f56059",
+  "seed": 43583,
+  "steps": 4096,
+  "episodes": [
+    [
+      "route_15",
+      1370916481
+    ],
+    [
+      "route_02",
+      1370411261
+    ],
+    [
+      "route_07",
+      1370360677
+    ],
+    [
+      "route_05",
+      1370705446
+    ],
+    [
+      "route_14",
+      1370356155
+    ],
+    [
+      "route_02",
+      1370157372
+    ],
+    [
+      "route_01",
+      1370981398
+    ],
+    [
+      "route_04",
+      1370705908
+    ],
+    [
+      "route_06",
+      1370740098
+    ],
+    [
+      "route_11",
+      1370387079
+    ],
+    [
+      "route_12",
+      1370400600
+    ]
+  ],
+  "max_lane_weight_change": 0.01057205069810152,
+  "actor_lr": 8e-05,
+  "critic_lr": 0.0002,
+  "clip": 0.12,
+  "epochs": 5,
+  "reward": "branch reward minus 1.7 * short gap risk at a requested lane change and 12 for ego collision"
+}

@@ -1,0 +1,77 @@
+{
+  "parent": "results/local_mcw2_driver_ppo/gap_4.pt",
+  "parent_sha256": "ba4abf87c0e2106990b2a50962d02eff1e40c7dc8c1748102837265855ec765a",
+  "sha256": "4c9e08047cff368fe19f73788ecbe3a48cf1c30f2b5605cbefb39fb5a243a3a8",
+  "seed": 53219,
+  "steps": 4096,
+  "episodes": [
+    [
+      "route_02",
+      1470957660
+    ],
+    [
+      "route_05",
+      1470055697
+    ],
+    [
+      "route_11",
+      1470612258
+    ],
+    [
+      "route_06",
+      1470643221
+    ],
+    [
+      "route_09",
+      1470603428
+    ],
+    [
+      "route_14",
+      1470753280
+    ],
+    [
+      "route_14",
+      1470434128
+    ],
+    [
+      "route_08",
+      1470888335
+    ],
+    [
+      "route_10",
+      1470316229
+    ],
+    [
+      "route_13",
+      1470716478
+    ],
+    [
+      "route_14",
+      1470144979
+    ],
+    [
+      "route_16",
+      1470197049
+    ],
+    [
+      "route_07",
+      1470427296
+    ],
+    [
+      "route_02",
+      1470298907
+    ],
+    [
+      "route_13",
+      1470568776
+    ]
+  ],
+  "clip": 0.16,
+  "rollouts": 2,
+  "epochs": 8,
+  "local_reward": "short gap / closing speed risk plus road connectivity difference",
+  "temperature": 1.5,
+  "fixed_accel_std": 0.18,
+  "anchor_kl": 0.035,
+  "loss": -0.087852343916893
+}
