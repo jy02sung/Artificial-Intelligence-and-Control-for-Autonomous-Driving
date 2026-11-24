@@ -1,0 +1,604 @@
+[
+  {
+    "route": 1,
+    "rep": 0,
+    "outcome": "arrival",
+    "steps": 208,
+    "moves": 0,
+    "commands": {
+      "1": 175,
+      "0": 33
+    },
+    "invalid": 175,
+    "reasons": {
+      "lane_absent|169728849|0|1": 71,
+      "lane_absent|169728799|0|1": 42,
+      "lane_absent|280963368|0|1": 62
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 2,
+    "rep": 0,
+    "outcome": "stall",
+    "steps": 480,
+    "moves": 0,
+    "commands": {
+      "1": 233,
+      "0": 247
+    },
+    "invalid": 233,
+    "reasons": {
+      "lane_absent|169728849|0|1": 233
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 3,
+    "rep": 0,
+    "outcome": "arrival",
+    "steps": 433,
+    "moves": 0,
+    "commands": {
+      "0": 433
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 4,
+    "rep": 0,
+    "outcome": "collision",
+    "steps": 282,
+    "moves": 0,
+    "commands": {
+      "0": 282
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 5,
+    "rep": 0,
+    "outcome": "stall",
+    "steps": 467,
+    "moves": 0,
+    "commands": {
+      "0": 467
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 6,
+    "rep": 0,
+    "outcome": "timeout",
+    "steps": 1000,
+    "moves": 0,
+    "commands": {
+      "0": 1000
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 7,
+    "rep": 0,
+    "outcome": "arrival",
+    "steps": 233,
+    "moves": 0,
+    "commands": {
+      "0": 123,
+      "1": 110
+    },
+    "invalid": 110,
+    "reasons": {
+      "lane_absent|169728799|0|1": 48,
+      "lane_absent|280963368|0|1": 62
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 8,
+    "rep": 0,
+    "outcome": "stall",
+    "steps": 310,
+    "moves": 0,
+    "commands": {
+      "0": 310
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 9,
+    "rep": 0,
+    "outcome": "arrival",
+    "steps": 199,
+    "moves": 0,
+    "commands": {
+      "0": 199
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 10,
+    "rep": 0,
+    "outcome": "stall",
+    "steps": 230,
+    "moves": 1,
+    "commands": {
+      "0": 9,
+      "1": 221
+    },
+    "invalid": 220,
+    "reasons": {
+      "lane_absent|781184662#1|1|1": 220
+    },
+    "motion": [
+      {
+        "t": 9,
+        "edge": "781184662#1",
+        "a": 0,
+        "b": 1,
+        "m": 399.78946448383977,
+        "v": 27.78,
+        "ready_before": true,
+        "ready_after": false,
+        "lead_gap_obs": 120.0,
+        "lead_closing_obs": -27.78,
+        "reward": 0.0
+      }
+    ],
+    "positive_move_rewards": 0,
+    "cycles": [],
+    "keep_lane": [
+      "timeout",
+      1000
+    ]
+  },
+  {
+    "route": 11,
+    "rep": 0,
+    "outcome": "collision",
+    "steps": 90,
+    "moves": 1,
+    "commands": {
+      "0": 9,
+      "1": 81
+    },
+    "invalid": 80,
+    "reasons": {
+      "lane_absent|781184662#1|1|1": 80
+    },
+    "motion": [
+      {
+        "t": 9,
+        "edge": "781184662#1",
+        "a": 0,
+        "b": 1,
+        "m": 399.01599999999996,
+        "v": 27.78,
+        "ready_before": true,
+        "ready_after": false,
+        "lead_gap_obs": 120.0,
+        "lead_closing_obs": -27.78,
+        "reward": 0.0
+      }
+    ],
+    "positive_move_rewards": 0,
+    "cycles": [],
+    "keep_lane": [
+      "timeout",
+      1000
+    ]
+  },
+  {
+    "route": 12,
+    "rep": 0,
+    "outcome": "arrival",
+    "steps": 179,
+    "moves": 1,
+    "commands": {
+      "0": 87,
+      "1": 92
+    },
+    "invalid": 91,
+    "reasons": {
+      "lane_absent|781184662#1|1|1": 71,
+      "lane_absent|781184662#3|2|1": 20
+    },
+    "motion": [
+      {
+        "t": 10,
+        "edge": "781184662#1",
+        "a": 0,
+        "b": 1,
+        "m": 395.89343476465507,
+        "v": 27.11828691206789,
+        "ready_before": true,
+        "ready_after": true,
+        "lead_gap_obs": 120.0,
+        "lead_closing_obs": -27.78,
+        "reward": 0.0
+      }
+    ],
+    "positive_move_rewards": 0,
+    "cycles": [],
+    "keep_lane": [
+      "arrival",
+      178
+    ]
+  },
+  {
+    "route": 13,
+    "rep": 0,
+    "outcome": "stall",
+    "steps": 534,
+    "moves": 0,
+    "commands": {
+      "0": 225,
+      "1": 309
+    },
+    "invalid": 309,
+    "reasons": {
+      "lane_absent|37927508|0|1": 29,
+      "lane_absent|86198720|0|1": 25,
+      "lane_absent|170059988|0|1": 69,
+      "lane_absent|170059996|0|1": 9,
+      "lane_absent|170059995|0|1": 23,
+      "lane_absent|170059994|3|1": 154
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 14,
+    "rep": 0,
+    "outcome": "stall",
+    "steps": 839,
+    "moves": 0,
+    "commands": {
+      "0": 514,
+      "1": 325
+    },
+    "invalid": 325,
+    "reasons": {
+      "lane_absent|37927508|0|1": 37,
+      "lane_absent|86198720|0|1": 27,
+      "lane_absent|170059988|0|1": 71,
+      "lane_absent|170059996|0|1": 9,
+      "lane_absent|170059995|0|1": 25,
+      "lane_absent|170059994|3|1": 156
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 15,
+    "rep": 0,
+    "outcome": "timeout",
+    "steps": 1000,
+    "moves": 0,
+    "commands": {
+      "0": 740,
+      "1": 260
+    },
+    "invalid": 260,
+    "reasons": {
+      "lane_absent|37927508|0|1": 24,
+      "lane_absent|86198720|0|1": 23,
+      "lane_absent|170059988|0|1": 69,
+      "lane_absent|170059996|0|1": 9,
+      "lane_absent|170059995|0|1": 34,
+      "lane_absent|170059994|3|1": 24,
+      "lane_absent|844484876|0|1": 29,
+      "lane_absent|86198717|0|1": 11,
+      "lane_absent|170059992|0|1": 37
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 16,
+    "rep": 0,
+    "outcome": "stall",
+    "steps": 275,
+    "moves": 0,
+    "commands": {
+      "0": 275
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 1,
+    "rep": 1,
+    "outcome": "arrival",
+    "steps": 208,
+    "moves": 0,
+    "commands": {
+      "1": 175,
+      "0": 33
+    },
+    "invalid": 175,
+    "reasons": {
+      "lane_absent|169728849|0|1": 71,
+      "lane_absent|169728799|0|1": 42,
+      "lane_absent|280963368|0|1": 62
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 2,
+    "rep": 1,
+    "outcome": "stall",
+    "steps": 480,
+    "moves": 0,
+    "commands": {
+      "1": 233,
+      "0": 247
+    },
+    "invalid": 233,
+    "reasons": {
+      "lane_absent|169728849|0|1": 233
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 3,
+    "rep": 1,
+    "outcome": "collision",
+    "steps": 156,
+    "moves": 0,
+    "commands": {
+      "0": 156
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 4,
+    "rep": 1,
+    "outcome": "stall",
+    "steps": 256,
+    "moves": 0,
+    "commands": {
+      "0": 256
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 5,
+    "rep": 1,
+    "outcome": "stall",
+    "steps": 252,
+    "moves": 0,
+    "commands": {
+      "0": 252
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 6,
+    "rep": 1,
+    "outcome": "timeout",
+    "steps": 1000,
+    "moves": 0,
+    "commands": {
+      "0": 1000
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 7,
+    "rep": 1,
+    "outcome": "stall",
+    "steps": 229,
+    "moves": 0,
+    "commands": {
+      "0": 229
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 8,
+    "rep": 1,
+    "outcome": "timeout",
+    "steps": 1000,
+    "moves": 0,
+    "commands": {
+      "0": 1000
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 9,
+    "rep": 1,
+    "outcome": "arrival",
+    "steps": 139,
+    "moves": 0,
+    "commands": {
+      "0": 95,
+      "1": 44
+    },
+    "invalid": 44,
+    "reasons": {
+      "lane_absent|169929503#2|1|1": 44
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 10,
+    "rep": 1,
+    "outcome": "stall",
+    "steps": 230,
+    "moves": 0,
+    "commands": {
+      "1": 230
+    },
+    "invalid": 230,
+    "reasons": {
+      "lane_absent|781184662#1|1|1": 230
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 11,
+    "rep": 1,
+    "outcome": "collision",
+    "steps": 92,
+    "moves": 0,
+    "commands": {
+      "1": 92
+    },
+    "invalid": 92,
+    "reasons": {
+      "lane_absent|781184662#1|1|1": 92
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 12,
+    "rep": 1,
+    "outcome": "arrival",
+    "steps": 178,
+    "moves": 0,
+    "commands": {
+      "1": 100,
+      "0": 78
+    },
+    "invalid": 100,
+    "reasons": {
+      "lane_absent|781184662#1|1|1": 81,
+      "lane_absent|781184662#3|2|1": 19
+    },
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 13,
+    "rep": 1,
+    "outcome": "stall",
+    "steps": 389,
+    "moves": 0,
+    "commands": {
+      "0": 389
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 14,
+    "rep": 1,
+    "outcome": "stall",
+    "steps": 285,
+    "moves": 0,
+    "commands": {
+      "0": 285
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 15,
+    "rep": 1,
+    "outcome": "stall",
+    "steps": 284,
+    "moves": 0,
+    "commands": {
+      "0": 284
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  },
+  {
+    "route": 16,
+    "rep": 1,
+    "outcome": "timeout",
+    "steps": 1000,
+    "moves": 0,
+    "commands": {
+      "0": 1000
+    },
+    "invalid": 0,
+    "reasons": {},
+    "motion": [],
+    "positive_move_rewards": 0,
+    "cycles": []
+  }
+]

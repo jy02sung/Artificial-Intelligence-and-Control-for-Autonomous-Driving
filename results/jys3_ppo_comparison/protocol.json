@@ -1,0 +1,39 @@
+{
+  "seed": 11,
+  "HP": {
+    "hidden_sizes": [
+      256,
+      256
+    ],
+    "n_steps": 2048,
+    "n_epochs": 10,
+    "minibatch_size": 64,
+    "lr": 0.0001,
+    "lane_entropy_coef": 0.002,
+    "lane_keep_bias": 1.0,
+    "device": "cpu"
+  },
+  "inputs": {
+    "bc": "627d82af933ae8e94ab18322ef66f310deb3fabfa40afd12c43b943869cc7e03",
+    "bc_dagger": "ef75561d485d3012fc7ceed9534c8f870d834f7505f2af9ea3f0ea0d878403b5",
+    "dagger": "c0dfdbc9093410265cb585e0bddd231bf6d9294a4de0dea346c7ee7ef064c8e1"
+  },
+  "steps": [
+    0,
+    8192,
+    16384,
+    32768
+  ],
+  "hard": [
+    5,
+    13,
+    14,
+    16
+  ],
+  "bases": {
+    "screen": 29110000,
+    "hold": 30110000
+  },
+  "extension": "arrivals AND hard-route arrivals increase from 16384 to 32768",
+  "selection": "arrivals, fewer collisions, hard-route arrivals, earliest checkpoint"
+}

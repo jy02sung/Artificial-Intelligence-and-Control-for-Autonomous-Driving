@@ -1,0 +1,76 @@
+{
+  "initial": "random",
+  "seed": 11,
+  "initial_sha256": "6e24005ea48c7dcb8e82832734be5ec051f7aee529db29c5a5c20b326b68dc96",
+  "selected": 8192,
+  "screen": {
+    "0": {
+      "collision": 9,
+      "stall": 13,
+      "timeout": 5,
+      "arrival": 5
+    },
+    "8192": {
+      "arrival": 7,
+      "stall": 13,
+      "collision": 12
+    },
+    "16384": {
+      "timeout": 11,
+      "stall": 13,
+      "arrival": 4,
+      "collision": 4
+    },
+    "32768": {
+      "collision": 9,
+      "stall": 8,
+      "timeout": 13,
+      "arrival": 2
+    }
+  },
+  "hold": {
+    "0": {
+      "collision": 20,
+      "timeout": 6,
+      "arrival": 13,
+      "stall": 25
+    },
+    "8192": {
+      "collision": 34,
+      "stall": 20,
+      "arrival": 10
+    },
+    "32768": {
+      "collision": 13,
+      "stall": 21,
+      "timeout": 23,
+      "arrival": 7
+    }
+  },
+  "equal_budget_hold": {
+    "bc": {
+      "arrival": 17,
+      "collision": 9,
+      "timeout": 18,
+      "stall": 20
+    },
+    "bc_dagger": {
+      "arrival": 31,
+      "stall": 26,
+      "timeout": 3,
+      "collision": 4
+    },
+    "dagger": {
+      "stall": 27,
+      "timeout": 10,
+      "arrival": 19,
+      "collision": 8
+    },
+    "ppo_only": {
+      "collision": 13,
+      "stall": 21,
+      "timeout": 23,
+      "arrival": 7
+    }
+  }
+}

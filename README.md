@@ -1,5 +1,7 @@
 ## jys3 실행 설정
 
+[실험 결과 비교표 · 원본 데이터 · 평가 로그 · 체크포인트](results/jys3_ppo_comparison/README.md)
+
 개선한 전문가 데이터는 `python -m utils.jys3_bc_v2 collect`로 고교통 16경로에서 경로당 12회 수집한다. 인접 차로가 막혔을 때 도로 끝 14m 전에 정지할 여유를 확보한다. `python -m utils.jys3_fit_bc`는 완주한 에피소드 단위로 학습·검증을 분리하여 BC 모델을 저장한다. 체크포인트는 `models/jys3/onehop_bc_v2.pt`, 원본 시범과 실험 결과는 `results/jys3_bc_v2/`에 있다. 기존 전문가는 `utils/jys3_collect_bc.py`에 보존한다.
 
 정책 관측은 50칸이다. 다음은 0부터 시작하는 인덱스다.
