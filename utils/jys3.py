@@ -1,9 +1,8 @@
-"""jys3: jys2 driving controls, route-aware lane reach, sparse event rewards.
+"""jys3: jys2 driving controls, one-hop physical road map, sparse event rewards.
 
 Training is opt-in: python -m utils.jys3 --train --steps N --seed S
 """
 import argparse
-import hashlib
 import numpy as np
 from gymnasium import spaces
 from pathlib import Path
@@ -21,20 +20,10 @@ TIMEOUT_REWARD = -5.0
 STALL_SECONDS = 30.0
 
 
-CHECKPOINT = m.ROOT / "models" / "jys3" / "dagger2.pt"
-CHECKSUM = "fa5d26c9d42fad47217b9e10f560771fc01697435c4546c22a53e1e277f33514"
-OBS_DIM = 52
-
-
-def warm_start(seed):
-    if hashlib.sha256(CHECKPOINT.read_bytes()).hexdigest() != CHECKSUM:
-        raise ValueError("Unexpected DAgger checkpoint")
-    state = torch.load(CHECKPOINT, map_location="cpu", weights_only=True)
-    # Retain the original 47 inputs and make the five new jys2 cues neutral at step zero.
-    state["trunk.0.weight"] = torch.nn.functional.pad(state["trunk.0.weight"], (0, 5))
-    agent = m.PPO(obs_dim=OBS_DIM, act_dim=2, buffer=m.RolloutBuffer(), seed=seed, **HP)
-    agent.policy.load_state_dict(state, strict=True)
-    return agent
+# 31 local sensor features, 9 road/ego features, then two static branch flags per lane.
+MAX_LANES = 5
+OBS_DIM = 40 + 2 * MAX_LANES
+SCHEMA = "jys3_onehop_bc_v1"
 
 
 class SparseRouteEnv(DaggerSensors):
@@ -60,10 +49,14 @@ class SparseRouteEnv(DaggerSensors):
         finally:
             self._occ_sensor_mask = False
         self.snapshot = (edge, lane, path, index, fork, distance, None, vehicle.getSpeed(self.ego_id), remaining)
-        extra = [lane / max(1, self.counts.get(edge, 1)-1),
+        lane_count = traci.edge.getLaneNumber(edge)
+        limit = traci.lane.getMaxSpeed(vehicle.getLaneID(self.ego_id))
+        extra = [min(1., limit / self.vmax), lane / MAX_LANES, lane_count / MAX_LANES,
                  self.signs[path[fork], path[fork+1]] if fork is not None else 0.,
-                 distance / 400. if distance is not None else -1., *overlap]
-        return np.concatenate((base, np.asarray(extra, dtype=np.float32))).clip(-1, 1)
+                 distance / 400. if distance is not None else -1., *overlap,
+                 float(edge in self.solid or edge.startswith(":")), min(1.,remaining / 400.)]
+        flags = self.road_flags.get(edge, self.no_links)
+        return np.concatenate((base, np.asarray(extra, dtype=np.float32), flags)).clip(-1, 1)
 
     def reset(self, *args, **kwargs):
         obs, info = super().reset(*args, **kwargs)
@@ -126,9 +119,25 @@ def environment(stage, seed, folder):
     reward.update(speed_weight=0., close_gap_penalty=0., blocked_penalty=0.)
     ego["depart_lane"] = "0"
     env = SparseRouteEnv(str(cfg), road, ego, sim, dict(m.OBSERVATION, visibility=120.),
-                         action, reward, traffic, (), seed, navigation=nav, clarity="lookahead",
-                         route_conn=True, agenda2=True, obs_noise=True, occlusion=True)
+                         action, reward, traffic, (), seed, navigation=nav, clarity="baseline",
+                         obs_noise=True, occlusion=True)
     env.signs = directions(net, road["connections"])
+    env.no_links = np.zeros(2 * MAX_LANES, dtype=np.float32)
+    env.road_flags = {}
+    if max(env.counts.values()) > MAX_LANES:
+        raise ValueError("Road exceeds the lane schema")
+    for edge, exits in env.links.items():
+        if len(exits) > 2:
+            raise ValueError("Road exceeds the two-branch schema")
+        flags = env.no_links.copy().reshape(MAX_LANES, 2)
+        for dest, lanes in exits.items():
+            sign = env.signs.get((edge, dest))
+            for lane_id in lanes:
+                if sign is None:
+                    flags[lane_id, :] = 1.
+                else:
+                    flags[lane_id, int(sign > 0)] = 1.
+        env.road_flags[edge] = flags.ravel()
     env.observation_space = spaces.Box(-1, 1, (OBS_DIM,), np.float32)
     assert not env.lc_safety_enabled
     return env
@@ -138,6 +147,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--train", action="store_true")
     parser.add_argument("--steps", type=int)
+    parser.add_argument("--checkpoint", type=Path, help="BC checkpoint with matching schema")
     parser.add_argument("--seed", type=int, default=11)
     args = parser.parse_args()
     if not args.train:
@@ -145,10 +155,16 @@ def main():
         return
     if not args.steps or args.steps < 2:
         parser.error("--train requires --steps >= 2")
+    if args.checkpoint is None:
+        parser.error("--train requires a new one-hop BC checkpoint")
+    payload = torch.load(args.checkpoint, map_location="cpu", weights_only=True)
+    if payload.get("schema") != SCHEMA:
+        parser.error("BC observation schema mismatch")
     torch.set_num_threads(1)
     folder = Path(m.ROOT) / "results" / "jys3" / f"seed_{args.seed}_{args.steps}"
     folder.mkdir(parents=True, exist_ok=False)
-    agent = warm_start(args.seed)
+    agent = m.PPO(obs_dim=OBS_DIM, act_dim=2, buffer=m.RolloutBuffer(), seed=args.seed, **HP)
+    agent.policy.load_state_dict(payload["policy"], strict=True)
     env = environment("high_real_ratio", args.seed, folder / "map")
     try:
         episodes = ScheduledEpisodes(env, args.seed, folder / "episodes.jsonl")

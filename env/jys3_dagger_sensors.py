@@ -3,7 +3,7 @@ import math
 import zlib
 import numpy as np
 from env.navigation_clarity import ClarityEnv
-from env.sumo_env import traci
+from env.sumo_env import SumoHighwayEnv, traci
 
 def _segment_intersects_obb(
     sx: float, sy: float, tx: float, ty: float,
@@ -34,7 +34,7 @@ def _segment_intersects_obb(
     return tmin <= tmax
 
 class DaggerSensors(ClarityEnv):
-    """Route-aware 120 m observation encoder for the DAgger initialization."""
+    """Local traffic sensor with occlusion and distance-dependent noise."""
 
     # Zipper merge foe lanes: ego_lane -> list of (foe_incoming_lane, foe_via_lane)
     MERGE_FOES = {
@@ -54,15 +54,13 @@ class DaggerSensors(ClarityEnv):
         ":1000493465_2_0": (":1000493465_0_1", "844484877_1"),
     }
 
-    def __init__(self, *args, route_conn: bool = True, agenda2: bool = False,
+    def __init__(self, *args,
                  obs_noise: bool = False, noise_gap_base: float = 0.2,
                  noise_gap_slope: float = 3.6, noise_vel_base: float = 0.15,
                  noise_vel_slope: float = 1.35,
                  occlusion: bool = False, occ_truck_rate: float = 1.0,
                  occ_bus_rate: float = 1.0, occ_delivery_rate: float = 0.5,
                  gui: bool = False, **kwargs):
-        self.use_route_conn = route_conn
-        self.agenda2 = bool(agenda2)
         self.obs_noise = bool(obs_noise)
         self.noise_gap_base = float(noise_gap_base)
         self.noise_gap_slope = float(noise_gap_slope)
@@ -200,7 +198,7 @@ class DaggerSensors(ClarityEnv):
             self._update_occlusion_state()
             self._occ_sensor_mask = True
         try:
-            obs = super()._get_obs()
+            obs = SumoHighwayEnv._get_obs(self)
         finally:
             self._occ_sensor_mask = False
         out = obs.copy()
@@ -221,10 +219,6 @@ class DaggerSensors(ClarityEnv):
                     sv = self.noise_vel_base + self.noise_vel_slope * frac
                     out[fg_idx] = float(np.clip(out[fg_idx] + self._noise_rng.normal(0.0, sg) / self.visibility, -1.0, 0.0))
                     out[fv_idx] = float(np.clip(out[fv_idx] + self._noise_rng.normal(0.0, sv) / self.vmax, -1.0, 1.0))
-        if self.agenda2:
-            # Agenda 2: remove target-lane offset hints, 400m prepare guidance, validity flags, and 2nd constraint mask
-            out[31:34] = 0.0
-            out[37:47] = 0.0
         return out
 
     def _scan_lane_neighbors(self, direction: int):
@@ -412,55 +406,3 @@ class DaggerSensors(ClarityEnv):
             return float(np.clip(count / max_count, 0.0, 1.0))
         except traci.TraCIException:
             return 0.0
-
-    def _lane_connectivity(self, offset: int) -> float:
-        if not self.use_route_conn:
-            return super()._lane_connectivity(offset)
-        try:
-            edge = traci.vehicle.getRoadID(self.ego_id)
-            if edge.startswith(":"):
-                return 1.0
-            lane_index = traci.vehicle.getLaneIndex(self.ego_id) + offset
-            if lane_index < 0 or lane_index >= traci.edge.getLaneNumber(edge):
-                return -1.0
-            lane_id = f"{edge}_{lane_index}"
-            remaining = traci.lane.getLength(lane_id) - traci.vehicle.getLanePosition(self.ego_id)
-            if remaining > self.visibility:
-                return 1.0
-
-            # Check whether this lane connects along ego's route (multi-hop within visibility for agenda2)
-            path = self.routes.get(getattr(self, "episode_route", ""), [])
-            idx = traci.vehicle.getRouteIndex(self.ego_id)
-            if self.agenda2 and 0 <= idx < len(path):
-                queue = [(idx, lane_id, float(remaining))]
-                seen = set()
-                max_reach = float(remaining)
-                while queue:
-                    r_i, cur_lane, acc_dist = queue.pop(0)
-                    if (r_i, cur_lane) in seen:
-                        continue
-                    seen.add((r_i, cur_lane))
-                    if acc_dist >= self.visibility or r_i + 1 >= len(path):
-                        return 1.0
-                    max_reach = max(max_reach, acc_dist)
-                    nxt_edge = path[r_i + 1]
-                    for lk in traci.lane.getLinks(cur_lane):
-                        nxt_lane = lk[0] if len(lk) > 0 else ""
-                        if nxt_lane.startswith(nxt_edge + "_"):
-                            via_len = float(lk[7]) if len(lk) > 7 else 0.0
-                            nxt_len = float(traci.lane.getLength(nxt_lane))
-                            queue.append((r_i + 1, nxt_lane, acc_dist + via_len + nxt_len))
-                return float(np.clip(max_reach / self.visibility, 0.0, 1.0))
-            if 0 <= idx and idx + 1 < len(path):
-                next_edge = path[idx + 1]
-                links = traci.lane.getLinks(lane_id)
-                for lk in links:
-                    if lk[0].startswith(next_edge + "_"):
-                        return 1.0
-                return float(np.clip(remaining / self.visibility, 0.0, 1.0))
-
-            if traci.lane.getLinks(lane_id):
-                return 1.0
-            return float(np.clip(remaining / self.visibility, 0.0, 1.0))
-        except traci.TraCIException:
-            return 1.0
