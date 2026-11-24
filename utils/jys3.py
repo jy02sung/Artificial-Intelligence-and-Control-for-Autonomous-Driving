@@ -122,6 +122,7 @@ def environment(stage, seed, folder):
                               min_rear_gap=3.5, rear_tau=.35, approach_horizon=1.2,
                               collision_penalty=15., arrival_bonus=5., lc_penalty=0.)
     action, reward, sim, ego, traffic = m.build_configs(args)
+    sim["max_steps"] = 1000
     reward.update(speed_weight=0., close_gap_penalty=0., blocked_penalty=0.)
     ego["depart_lane"] = "0"
     env = SparseRouteEnv(str(cfg), road, ego, sim, dict(m.OBSERVATION, visibility=120.),
