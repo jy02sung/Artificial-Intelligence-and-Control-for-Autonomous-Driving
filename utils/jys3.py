@@ -17,6 +17,7 @@ from utils.experiment_c_train import ScheduledEpisodes, atomic_torch
 PASS_REWARD = 0.25
 ARRIVAL_REWARD = 5.0
 COLLISION_REWARD = -15.0
+TIMEOUT_REWARD = -5.0
 STALL_SECONDS = 30.0
 
 
@@ -105,7 +106,11 @@ class SparseRouteEnv(DaggerSensors):
         self.stopped_steps = self.stopped_steps + 1 if stranded else 0
         stalled = self.stopped_steps * self.step_length >= STALL_SECONDS
         reward = COLLISION_REWARD if info["collided"] else ARRIVAL_REWARD if arrived else PASS_REWARD if passed else 0.0
-        info.update(fork_passed=passed, stalled=stalled, route_intact=self.route_intact)
+        timed_out = (cut or stalled) and not done
+        if timed_out:
+            reward += TIMEOUT_REWARD
+        info.update(fork_passed=passed, stalled=stalled, route_intact=self.route_intact,
+                    timeout_reward=TIMEOUT_REWARD if timed_out else 0.)
         return obs, reward, done, cut or stalled, info
 
 
