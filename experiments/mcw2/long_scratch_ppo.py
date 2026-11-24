@@ -133,6 +133,19 @@ def init_eval(name):
     d.OUT=OUT
     d.init(name,False)
 
+def evaluate_checkpoint(target,cases,progress_file,dest):
+    name=str(target)
+    with ProcessPoolExecutor(6,initializer=init_eval,initargs=(name,)) as pool:
+        rows=[]
+        for row in pool.map(d.episode,[(r,s,-1,None) for r,s in cases],chunksize=2):
+            rows.append(row)
+            if len(rows)%80==0:
+                d.base.x.write_json(OUT/progress_file,dict(steps=target,finished=len(rows),total=len(cases)))
+    assert [(r["route"],r["seed"]) for r in rows]==cases
+    data=dict(rows=rows,counts=dict(Counter(r["outcome"] for r in rows)),sha256=d.digest(OUT/(name+".pt")))
+    d.base.x.write_json(dest,data)
+    return data
+
 def evaluate():
     cases=d.cases(200000000,100)
     rows_summary=[]
@@ -144,19 +157,26 @@ def evaluate():
         if dest.exists():
             data=json.loads(dest.read_bytes())
         else:
-            with ProcessPoolExecutor(6,initializer=init_eval,initargs=(name,)) as pool:
-                rows=[]
-                for row in pool.map(d.episode,[(r,s,-1,None) for r,s in cases],chunksize=2):
-                    rows.append(row)
-                    if len(rows)%80==0:
-                        d.base.x.write_json(OUT/"eval_progress.json",dict(steps=target,finished=len(rows),total=len(cases)))
-            assert [(r["route"],r["seed"]) for r in rows]==cases
-            data=dict(rows=rows,counts=dict(Counter(r["outcome"] for r in rows)),sha256=d.digest(OUT/(name+".pt")))
-            d.base.x.write_json(dest,data)
+            data=evaluate_checkpoint(target,cases,"eval_progress.json",dest)
         rows_summary.append(dict(steps=target,**{k:data["counts"].get(k,0) for k in ("arrival","collision","timeout")}))
         with (OUT/"rates.csv").open("w",newline="") as f:
             writer=csv.DictWriter(f,fieldnames=rows_summary[0].keys())
             writer.writeheader();writer.writerows(rows_summary)
         print(rows_summary[-1],flush=True)
+def assist():
+    cases=d.cases(200000000,100)
+    for target in (550000,500000,600000):
+        dest=OUT/f"{target}_eval.json"
+        if dest.exists():
+            continue
+        staged=OUT/f"{target}_assist_ready.json"
+        evaluate_checkpoint(target,cases,"assist_progress.json",staged)
+        if target==600000:
+            # The endpoint also triggers failure replay. Wait until the primary
+            # evaluator has finished 450k to avoid competing for the same CPU.
+            while not (OUT/"450000_eval.json").exists():
+                time.sleep(3)
+        staged.replace(dest)
+
 if __name__=="__main__":
-    train() if sys.argv[1]=="train" else evaluate()
+    {"train":train,"eval":evaluate,"assist":assist}[sys.argv[1]]()
