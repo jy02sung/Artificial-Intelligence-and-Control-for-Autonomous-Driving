@@ -1,0 +1,27 @@
+{
+  "workers": 4,
+  "device": "cpu",
+  "seed": 241124,
+  "lr": 2.5e-05,
+  "parent": "fa5d26c9d42fad47217b9e10f560771fc01697435c4546c22a53e1e277f33514",
+  "collision": 15.0,
+  "eval_episodes": 1600,
+  "total_steps": 600000,
+  "milestones": [
+    50000,
+    100000,
+    150000,
+    200000,
+    250000,
+    300000,
+    350000,
+    400000,
+    450000,
+    500000,
+    550000,
+    600000
+  ],
+  "rollout": 2048,
+  "last_rollout_per_milestone": 848,
+  "timeout_terminal": true
+}
