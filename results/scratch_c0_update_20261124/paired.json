@@ -1,0 +1,40 @@
+{
+  "before": {
+    "arrival": 1363,
+    "collision": 237
+  },
+  "after": {
+    "arrival": 1113,
+    "timeout": 297,
+    "collision": 190
+  },
+  "diff": {
+    "arrival": {
+      "gain": 128,
+      "loss": 378,
+      "delta_pp": -15.625,
+      "ci95_pp": [
+        -17.875,
+        -13.4375
+      ]
+    },
+    "collision": {
+      "gain": 132,
+      "loss": 179,
+      "delta_pp": -2.9375,
+      "ci95_pp": [
+        -4.9375,
+        -0.9375
+      ]
+    },
+    "timeout": {
+      "gain": 297,
+      "loss": 0,
+      "delta_pp": 18.5625,
+      "ci95_pp": [
+        17.5,
+        19.562500000000004
+      ]
+    }
+  }
+}

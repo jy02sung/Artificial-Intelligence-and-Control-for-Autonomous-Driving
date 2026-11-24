@@ -1,0 +1,95 @@
+{
+  "dagger2": {
+    "before": {
+      "arrival": 1443,
+      "collision": 131,
+      "timeout": 26
+    },
+    "after": {
+      "arrival": 1334,
+      "collision": 266
+    },
+    "diff": {
+      "arrival": {
+        "gain": 98,
+        "loss": 207,
+        "delta_pp": -6.812500000000001,
+        "ci95_pp": [
+          -8.812500000000002,
+          -4.75
+        ]
+      },
+      "collision": {
+        "gain": 221,
+        "loss": 86,
+        "delta_pp": 8.4375,
+        "ci95_pp": [
+          6.4375,
+          10.500000000000002
+        ]
+      },
+      "timeout": {
+        "gain": 0,
+        "loss": 26,
+        "delta_pp": -1.625,
+        "ci95_pp": [
+          -2.1875,
+          -1.0625
+        ]
+      }
+    },
+    "transitions": {
+      "arrival->arrival": 1236,
+      "arrival->collision": 207,
+      "collision->arrival": 86,
+      "collision->collision": 45,
+      "timeout->arrival": 12,
+      "timeout->collision": 14
+    }
+  },
+  "ppo_16": {
+    "before": {
+      "arrival": 1363,
+      "collision": 237
+    },
+    "after": {
+      "arrival": 1334,
+      "collision": 266
+    },
+    "diff": {
+      "arrival": {
+        "gain": 125,
+        "loss": 154,
+        "delta_pp": -1.8124999999999998,
+        "ci95_pp": [
+          -3.8125,
+          0.2499999999999999
+        ]
+      },
+      "collision": {
+        "gain": 154,
+        "loss": 125,
+        "delta_pp": 1.8124999999999998,
+        "ci95_pp": [
+          -0.18750000000000017,
+          3.8125
+        ]
+      },
+      "timeout": {
+        "gain": 0,
+        "loss": 0,
+        "delta_pp": 0.0,
+        "ci95_pp": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "transitions": {
+      "arrival->arrival": 1209,
+      "arrival->collision": 154,
+      "collision->arrival": 125,
+      "collision->collision": 112
+    }
+  }
+}

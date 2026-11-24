@@ -1,0 +1,41 @@
+{
+  "before": {
+    "arrival": 1443,
+    "collision": 131,
+    "timeout": 26
+  },
+  "after": {
+    "arrival": 1363,
+    "collision": 237
+  },
+  "ppo": "ppo_16",
+  "differences": {
+    "arrival": {
+      "gain": 87,
+      "loss": 167,
+      "delta_pp": -5.0,
+      "ci95_pp": [
+        -6.875000000000001,
+        -3.0625000000000004
+      ]
+    },
+    "collision": {
+      "gain": 184,
+      "loss": 78,
+      "delta_pp": 6.625,
+      "ci95_pp": [
+        4.6875,
+        8.562500000000002
+      ]
+    },
+    "timeout": {
+      "gain": 0,
+      "loss": 26,
+      "delta_pp": -1.625,
+      "ci95_pp": [
+        -2.1875,
+        -1.0625
+      ]
+    }
+  }
+}
