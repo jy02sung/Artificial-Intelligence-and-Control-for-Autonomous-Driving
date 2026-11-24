@@ -1,6 +1,6 @@
 # jys3 DAgger 7~10라운드: 실패 원인 수정 (pmh, 2026-11-24)
 
-상태: **완료**. 안전 게이트·행동 필터 없음(정책 단독 주행). 실행 코드 `utils/pmh_jys3_expert_v3.py`, `utils/pmh_jys3_dagger_fix.py`. 실행 커밋 `3224b9e`(pmh). 이전 단계는 [6라운드까지](../pmh-jys3-dagger-multi/README.md)에 있다.
+상태: **완료** (학습 seed 5개 확인 포함). 안전 게이트·행동 필터 없음(정책 단독 주행). 실행 코드 `utils/pmh_jys3_expert_v3.py`, `utils/pmh_jys3_dagger_fix.py`. 실행 커밋 `3224b9e`(pmh). 이전 단계는 [6라운드까지](../pmh-jys3-dagger-multi/README.md)에 있다.
 
 ## 조건
 
@@ -71,3 +71,62 @@
 - 라운드 요약 `*_summary.json`, 최종 256회 사례 `final256_*10.json`, 실패 재생 `failures_*10.json`, 전문가 v3 검증 `expert_v3_checks.json`
 - 로컬 보관(커밋 안 함): `results/pmh_jys3_dagger_fix/`(라운드별 수집 npz, 모델), `results/pmh_jys3_failures/`, `results/pmh_jys3_expert_v3/`
 - 재현: `python -m utils.pmh_jys3_dagger_fix --rounds 4 --chains control fixed`
+
+## 학습 seed 5개 확인 (2026-11-24, 실행 커밋 `6e748dc`)
+
+상태: **완료**.
+
+### 조건
+
+- 학습 seed 11(위의 첫 실행)에 seed 12·13·14·15를 더했다. 조건마다 seed 5개다.
+- seed S가 바꾸는 것은 두 가지다.
+  - 지도학습 배치 추출 생성기: S+1.
+  - 7라운드 이후 수집 seed: 100000×(S−11)만큼 이동.
+- 시작 가중치(`jys3_dagger6_crash.pt`)와 2~6라운드 데이터는 모든 seed가 같다. 따라서 이 확인은 7~10라운드 학습의 변동만 본다.
+- 나머지 설정은 첫 실행과 같다.
+  - 4라운드, 고교통량 `high_real_ratio`.
+  - 각 seed의 10라운드 모델을 미리 정해 두고, 같은 최종 256회(30010000대)로 평가했다.
+
+### 결과 (최종 256회, 완주 / 충돌 / 정지)
+
+| seed | control | fixed | 완주 차이 (fixed − control) |
+|---|---|---|---:|
+| 11 | 242 / 3 / 11 | 245 / 2 / 9 | +3 |
+| 12 | 246 / 4 / 6 | 248 / 0 / 8 | +2 |
+| 13 | 245 / 3 / 8 | 245 / 4 / 7 | 0 |
+| 14 | 243 / 1 / 12 | 244 / 1 / 11 | +1 |
+| 15 | 245 / 1 / 10 | 247 / 4 / 5 | +2 |
+| **합계 1280회** | **1221 (95.4%) / 12 (0.94%) / 47 (3.7%)** | **1229 (96.0%) / 11 (0.86%) / 40 (3.1%)** | 평균 +1.6 |
+
+- **목표 달성 (완주 ≥ 95%, 충돌 < 5%)**
+  - fixed: seed 5개 모두 달성. 최저는 seed 14의 244/256 = 95.3%다.
+  - control: seed 3개만 달성. seed 11은 94.5%, seed 14는 94.9%였다.
+  - 충돌률은 두 조건 모두 모든 seed에서 1.6% 이하다.
+- **fixed와 control의 차이**
+  - 완주: fixed가 5개 seed 모두에서 control보다 같거나 높다. 차이는 0~+3건으로 작다.
+  - 충돌: 두 조건이 사실상 같다. seed별 충돌 수는 0~4건이다.
+  - 정지: fixed가 7건 적다(47 → 40).
+- **경로별 실패 합계 (seed 5개)**
+
+| 경로 | control 정지 | fixed 정지 | control 충돌 | fixed 충돌 |
+|---|---:|---:|---:|---:|
+| 14 | 15 | 18 | 2 | 2 |
+| 13 | 12 | 8 | 5 | 2 |
+| 5 | 7 | 11 | 1 | 0 |
+| 8 | 8 | 0 | 0 | 2 |
+| 7 | 5 | 3 | 0 | 0 |
+| 6 | 0 | 0 | 2 | 4 |
+| 4 | 0 | 0 | 2 | 0 |
+| 2 | 0 | 0 | 0 | 1 |
+
+- **해석**
+  - 첫 실행에서 본 개선 방향은 seed를 늘려도 유지된다. 다만 크기는 256회당 완주 약 +1.6건으로 작다.
+  - 충돌이 줄어든 것은 7~10라운드를 더 진행한 효과다. 수정의 효과로 보기 어렵다.
+  - fixed의 수정은 8번 경로 정지를 없앴다(8 → 0). 남은 실패의 대부분은 엇갈림 구간 경로(14·13번)와 5번 경로의 차로 끝 정지다(40건 중 37건).
+
+### 파일
+
+- 정리본: `seeds/final256_{control,fixed}10_seed{12..15}.json`, `seeds/{control,fixed}_summary_seed{12..15}.json`
+- 모델·원시 수집 데이터는 로컬에만 있다: `results/pmh_jys3_dagger_fix/seed{12..15}/{control,fixed}/round10/dagger10.pt`
+- 로그: `results/pmh-jys3-fix-seed{S}-{chain}.log`
+- 재현: `python -m utils.pmh_jys3_dagger_fix --rounds 4 --chains control fixed --seed 12`
