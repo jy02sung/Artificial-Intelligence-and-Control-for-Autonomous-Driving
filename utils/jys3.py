@@ -67,6 +67,7 @@ class SparseRouteEnv(DaggerSensors):
     def reset(self, *args, **kwargs):
         obs, info = super().reset(*args, **kwargs)
         self.last_external = self.snapshot[3], self.snapshot[0]
+        self.route_intact = self.last_external == (0, self.routes[self.episode_route][0])
         self.paid_forks = set()
         self.stopped_steps = 0
         return obs, info
@@ -76,7 +77,9 @@ class SparseRouteEnv(DaggerSensors):
         obs, _, done, cut, info = SumoHighwayEnv.step(self, action)
         previous_index, previous_edge = self.last_external
         path = self.routes[self.episode_route]
-        arrived = bool(info["arrived"] and not info["collided"]
+        if self.ego_id in traci.simulation.getStartingTeleportIDList():
+            self.route_intact = False
+        arrived = bool(self.route_intact and info["arrived"] and not info["collided"]
                        and previous_index == len(path) - 1 and previous_edge == path[-1])
         info["arrived"] = arrived
         passed = False
@@ -84,14 +87,17 @@ class SparseRouteEnv(DaggerSensors):
         if self.snapshot and not done:
             edge, lane, _, index, _, _, _, speed, remaining = self.snapshot
             if not edge.startswith(":"):
-                passed = (index == previous_index + 1 and edge == path[index]
+                follows_route = (0 <= index < len(path) and edge == path[index]
+                                 and index in (previous_index, previous_index + 1))
+                self.route_intact = self.route_intact and follows_route
+                passed = (self.route_intact and index == previous_index + 1 and edge == path[index]
                           and previous_edge == path[previous_index]
                           and (previous_edge, edge) in self.signs
                           and previous_index not in self.paid_forks)
                 if passed:
                     self.paid_forks.add(previous_index)
                 self.last_external = index, edge
-                if index + 1 < len(path) and remaining <= 5.0:
+                if follows_route and index + 1 < len(path) and remaining <= 5.0:
                     limit = traci.lane.getMaxSpeed(traci.vehicle.getLaneID(self.ego_id))
                     stranded = (speed <= min(0.5, 0.05 * limit)
                                 and lane not in self.links[edge][path[index + 1]]
@@ -99,7 +105,7 @@ class SparseRouteEnv(DaggerSensors):
         self.stopped_steps = self.stopped_steps + 1 if stranded else 0
         stalled = self.stopped_steps * self.step_length >= STALL_SECONDS
         reward = COLLISION_REWARD if info["collided"] else ARRIVAL_REWARD if arrived else PASS_REWARD if passed else 0.0
-        info.update(fork_passed=passed, stalled=stalled)
+        info.update(fork_passed=passed, stalled=stalled, route_intact=self.route_intact)
         return obs, reward, done, cut or stalled, info
 
 
