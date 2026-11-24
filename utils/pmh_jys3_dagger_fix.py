@@ -23,7 +23,12 @@ Everything else (loss, 12 epochs, Adam 2e-4 supervised fit, epoch selection on
 the BC v2 validation demonstrations, evaluation sets) is as in
 pmh_jys3_dagger_multi. The policy drives alone in every episode.
 
-Usage: python -m utils.pmh_jys3_dagger_fix --rounds 4 --chains control fixed
+Training seed (--seed, default 11 = the first run): sets the fit's sampling
+generator (seed + 1) and shifts the collection seeds of rounds 7+ by
+100000 * (seed - 11). Start weights and prior data (rounds 2-6) are shared by
+all seeds. Other seeds write to results/pmh_jys3_dagger_fix/seed<S>/<chain>.
+
+Usage: python -m utils.pmh_jys3_dagger_fix --rounds 4 --chains control fixed [--seed 12]
 """
 import argparse
 import json
@@ -87,8 +92,8 @@ def drive(job):
     return rows
 
 
-def collect(model, k, folder, which, weave, workers):
-    base = dm.COLLECT_BASE + 10000 * k
+def collect(model, k, folder, which, weave, workers, seed=11):
+    base = dm.COLLECT_BASE + 10000 * k + 100000 * (seed - 11)
     jobs = [(str(model), True, rep, base, str(folder), which, range(1, 17)) for rep in range(8)]
     if weave:
         jobs += [(str(model), True, rep, base + 5000, str(folder), which, WEAVE) for rep in range(WEAVE_REPS)]
@@ -96,14 +101,14 @@ def collect(model, k, folder, which, weave, workers):
         return [r for block in pool.map(drive, jobs) for r in block]
 
 
-def fit(initial, out_path, x, y, crash_ids, vx, vy, mine):
+def fit(initial, out_path, x, y, crash_ids, vx, vy, mine, seed=11):
     torch.set_num_threads(2)
     model = dm.policy(initial).policy
     opt = torch.optim.Adam(model.parameters(), lr=.0002)
     cls = (1 - y[:, 1]).long()
     changed = torch.where(cls != 1)[0]
     crash_ids = torch.tensor(crash_ids, dtype=torch.long)
-    gen = torch.Generator().manual_seed(12)
+    gen = torch.Generator().manual_seed(seed + 1)
     best, selected, history = -float('inf'), None, []
     for epoch in range(1, 13):
         hard = torch.empty(0, dtype=torch.long)
@@ -149,8 +154,10 @@ def main():
     p.add_argument('--rounds', type=int, default=4)
     p.add_argument('--chains', nargs='+', default=['control', 'fixed'])
     p.add_argument('--workers', type=int, default=5)
+    p.add_argument('--seed', type=int, default=11)
     a = p.parse_args()
-    OUT.mkdir(parents=True, exist_ok=True)
+    out = OUT if a.seed == 11 else OUT / f'seed{a.seed}'
+    out.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as d:
         env = environment('high_real_ratio', 11, Path(d))
         consts = constants(env)
@@ -168,7 +175,7 @@ def main():
     for chain in a.chains:
         fixed = chain == 'fixed'
         which = 'v3' if fixed else 'v2'
-        folder = OUT / chain
+        folder = out / chain
         folder.mkdir(exist_ok=True)
         xs, ys, crash, offset = [], [], [], 0
         for x, y, rows in parts:
@@ -186,7 +193,7 @@ def main():
         for k in range(7, 7 + a.rounds):
             rdir = folder / f'round{k}'
             rdir.mkdir(exist_ok=True)
-            coll = collect(student, k, rdir, which, fixed, a.workers)
+            coll = collect(student, k, rdir, which, fixed, a.workers, a.seed)
             (rdir / 'collection.json').write_text(json.dumps(coll, indent=1))
             dx, dy = load_rollouts(coll, rdir)
             crash += dm.crash_indices(coll, offset)
@@ -194,7 +201,7 @@ def main():
             xs.append(dx)
             ys.append(dy)
             model = rdir / f'dagger{k}.pt'
-            info = fit(student, model, torch.cat(xs), torch.cat(ys), crash, vx, vy_use, mine=fixed)
+            info = fit(student, model, torch.cat(xs), torch.cat(ys), crash, vx, vy_use, mine=fixed, seed=a.seed)
             (rdir / 'fit.json').write_text(json.dumps(info, indent=1))
             ev = dm.run_batch(model, False, 4, dm.EVAL_BASE, rdir, a.workers)
             ho = dm.run_batch(model, False, 4, dm.HOLDOUT_BASE, rdir, a.workers)
