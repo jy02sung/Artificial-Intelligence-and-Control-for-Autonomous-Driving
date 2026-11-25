@@ -638,15 +638,22 @@ def report():
             late = [screen[a,n,"합산"]["outcomes"]["arrival"] for n in (500000,550000,600000)]
             lines += ["","### 60만 이후 판단", "",
                       "50만·55만·60만의 192회 중간 평가 완주는 각각 "+"·".join(map(str,late))+"건이었다."]
-            for p, rr in holds.items():
-                c = rr[a,600000,"합산"]["outcomes"]
-                cb = rr[a,best,"합산"]["outcomes"]
-                lines.append(f"시드군 {p}에서 대표→60만의 완주는 {cb['arrival']}→{c['arrival']}, 충돌은 {cb['collision']}→{c['collision']}, 끝 정지는 {cb['stall']}→{c['stall']}건이었다.")
+            if best == 600000:
+                lines.append("대표와 최종이 같은 60만 스텝이므로 세 교통 시드군에서 각각 한 번씩 검증했다.")
+            else:
+                for p, rr in holds.items():
+                    c = rr[a,600000,"합산"]["outcomes"]
+                    cb = rr[a,best,"합산"]["outcomes"]
+                    lines.append(f"시드군 {p}에서 대표→60만의 완주는 {cb['arrival']}→{c['arrival']}, 충돌은 {cb['collision']}→{c['collision']}, 끝 정지는 {cb['stall']}→{c['stall']}건이었다.")
             goal = all(h[a,600000,"합산"]["outcomes"]["arrival"]/192>=.95 and
                        h[a,600000,"합산"]["outcomes"]["collision"]/192<.05 for h in holds.values())
             improved = late[0]<late[1]<late[2] and all(h[a,600000,"합산"]["outcomes"]["arrival"]>=h[a,best,"합산"]["outcomes"]["arrival"] for h in holds.values())
             if goal:
                 reason = "세 시드군에서 60만 모델이 완주율과 충돌률 기준을 모두 충족해 여기서 동결한다."
+            elif best == 600000:
+                crashes = [screen[a,n,"합산"]["outcomes"]["collision"] for n in (550000,600000)]
+                reason = (f"55만에서 60만으로 갈 때 완주는 {late[1]}→{late[2]}건, 충돌은 {crashes[0]}→{crashes[1]}건이었다. "
+                          "세 교통 시드군을 대상으로 한 최종 검증에서 목표를 충족하지 못해 이번 실험은 60만에서 마쳤다.")
             elif improved:
                 reason = "후반 세 시점에서 완주가 연속 증가했고 독립 평가에서도 60만 완주가 대표 수준을 유지했다. 연장 학습 후보로 유지한다."
             else:
