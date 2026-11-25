@@ -1,6 +1,7 @@
 """Paired pure PPO: redistribute arrival reward into new route progress."""
 from collections import Counter
 from concurrent.futures import ProcessPoolExecutor
+import argparse
 import json
 
 from utils import jys3_terminal_ratio as ratio
@@ -17,9 +18,20 @@ class ProgressEnv(ratio.Env):
         self.progress_cap = CAPS[arm]
 
 
+ARRIVAL = 0
+
+
+def configure(split):
+    global ARRIVAL, ROOT, CAPS
+    if split:
+        ARRIVAL = 5
+        ROOT = ratio.ROOT / "arrival5_progress5"
+        CAPS = {"progress5": 5}
+
+
 def setup():
     ratio.setup("collision5")
-    exp.j.ARRIVAL_REWARD = 0
+    exp.j.ARRIVAL_REWARD = ARRIVAL
     exp.FactorEnv = ProgressEnv
     exp.ROOT = ROOT
     assert (exp.j.COLLISION_REWARD, exp.j.TIMEOUT_REWARD, exp.j.PASS_REWARD) == (-5, -5, .25)
@@ -48,6 +60,9 @@ def report():
              "완주 보너스를 경로 전진으로 나누어 지급하면 시간초과가 줄고 완주가 늘어나는지 확인했다. F1은 전진 +2와 도착 +5, 두 실험 조건은 도착 0과 전진 +7 또는 +10이다. 분기 +0.25, 충돌·시간초과·정지 −5는 공통이며 속도 보상은 0이다.",
              "", "각 시드는 동일 출발 64회, 합산은 192회다. 시간초과율은 일반 시간초과와 정지 종료의 합이다.",
              "", "|스텝·평가|조건|시드|완주율|충돌률|시간초과율|일반 / 정지 건수|", "|---|---|---|---:|---:|---:|---:|"]
+    if ARRIVAL == 5:
+        lines[0] = "# 도착 +5 고정 · 전진 +2와 +5 비교"
+        lines[2] = "완주 보너스를 유지한 상태에서 전진 보상을 키우면 완주율이 오르는지 검증했다. F1은 전진 +2, progress5는 전진 +5다. 두 조건 모두 도착 +5, 충돌·시간초과·정지 −5, 분기 +0.25이며 속도 보상은 0이다."
     for step, base in PANELS:
         for arm in ["F1", *CAPS]:
             counts = []
@@ -65,17 +80,20 @@ def report():
     (ROOT / "README.md").write_text("\n".join(lines)+"\n",encoding="utf8")
 
 
-def main():
+def main(split=False):
+    configure(split)
     ROOT.mkdir(exist_ok=False)
-    exp.save(ROOT/"protocol.json",dict(caps=CAPS,arrival=0,collision=-5,timeout=-5,fork=.25,speed=0,seeds=ratio.SEEDS,panels=PANELS,marks=ratio.MARKS,baseline="terminal_ratio/collision5"))
+    exp.save(ROOT/"protocol.json",dict(caps=CAPS,arrival=ARRIVAL,collision=-5,timeout=-5,fork=.25,speed=0,seeds=ratio.SEEDS,panels=PANELS,marks=ratio.MARKS,baseline="terminal_ratio/collision5"))
     jobs = [(arm,s) for s in ratio.SEEDS for arm in CAPS]
-    with ProcessPoolExecutor(6) as pool:
+    with ProcessPoolExecutor(min(6,len(jobs)), initializer=configure, initargs=(split,)) as pool:
         list(pool.map(train,jobs))
-    with ProcessPoolExecutor(10) as pool:
+    with ProcessPoolExecutor(4 if split else 10, initializer=configure, initargs=(split,)) as pool:
         for step,base in PANELS:
             list(pool.map(evaluate,[(arm,s,step,r,base) for arm,s in jobs for r in range(4)]))
     report()
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--arrival5-progress5', action='store_true')
+    main(parser.parse_args().arrival5_progress5)
