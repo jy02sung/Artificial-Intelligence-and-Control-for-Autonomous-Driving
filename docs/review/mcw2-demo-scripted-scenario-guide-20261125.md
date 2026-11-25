@@ -30,12 +30,10 @@
    - `route_05`: `"2"` (4차로 중좌측)
    - `route_13`: `"4"` (5차로 최좌측, 한국 기준 1차로)
    - `route_08`: `"2"` (3차로 최좌측, 한국 기준 1차로)
-4. **실시간 HUD & 사각지대 시각화 (`DemoOcclusionOverlay.render`)**
-   - 녹색 `120m` 인지 범위 원 (`mcw_fov_ring`)
-   - 트럭·버스·불투명 박스밴 뒤 빨간 반투명 그림자 원뿔 (`mcw_occ_cone_*`)
-   - 가려진(미감지) 주변 차량 위치의 마젠타 원 마커 (`mcw_occ_tgt_*`)
-   - Ego 상태 컬러 링(`mcw_ego_halo`) + 조향/차선변경 의도 화살표(`mcw_ego_intent`) + 속도 게이지 바(`mcw_hud_bg`, `mcw_hud_fill`):
-     - 청록 `CRUISE` / 에메랄드 `LC_OVERTAKE` / 노랑 `GAP_WAIT` / 주황 `OCC_CHECK`
+4. **깔끔한 GUI 오버레이 & 상황 설명 캡션 (`DemoOcclusionOverlay.render`, `ScriptedDemoDirector.get_status_caption`)**
+   - 시야 원(`mcw_fov_ring`), 차량 주위 링·화살표, 속도 게이지 바 등 번잡한 도형은 제거해 화면을 깔끔하게 유지합니다.
+   - 트럭·버스·불투명 박스밴 뒤 반투명 그림자 원뿔(`mcw_occ_cone_*`)과 가려진 차량의 얇은 마젠타 마커(`mcw_occ_tgt_*`)만 유지해 사각지대 원인을 보여줍니다.
+   - 현재 시나리오 의도(예: `"추월 · 전방 저속 트럭 추월 시도"`, `"눈치싸움 · 버스 뒤 사각지대 경계 후 추월"`, `"X자 교차로 · 좌측 합류 차량과 엇갈리며 통과"`)를 ego 우측 여백에 작은 배지(`mcw_caption_poi`)와 콘솔 로그로 띄워줍니다.
 5. **차선 변경 진동 억제 가드 (`lc_reverse_cooldown=12`, [utils/mcw_train.py](../../utils/mcw_train.py))**
    - 영상에서 `L0 ↔ L1` 와리가리(ping-pong) 현상을 막기 위해, 차선 변경 후 `12스텝(2.4초)` 내 역방향 복귀 및 `4스텝(0.8초)` 내 연속 변경을 억제합니다.
    - 단, 분기 막다른 차로(`dist < 90m`) 또는 전방 위험(`lead < 6.5m` 혹은 `TTC < 0.8s`) 시에는 즉시 해제되어 회피 기동을 허용합니다.
@@ -135,5 +133,5 @@ cd /d C:\Users\문시원\Artificial-Intelligence-and-Control-for-Autonomous-Driv
 3. **`step()` 훅 연결**
    - `obs, reward, done, cut, info = super().step(action)` 직후 `if not done: self._director.step(traci, self.step_count, self.ego_id)` 호출
    - *(권장)* 영상에서 차선 와리가리가 보이면 `utils/mcw_train.py` 728~756행의 `lc_reverse_cooldown` 로직(10~15줄)을 함께 복사
-4. **GUI HUD 오버레이 연결 (선택)**
-   - `gui=True`일 때 스텝마다 `self._overlay.render(traci, sx, sy, visibility, occ_boxes, occ_targets, ex=ex, ey=ey, eang=eang, ego_v=ego_v, lc_dir=lc_dir, phase=phase)` 호출 (`ex..phase` 인자는 생략 가능)
+4. **GUI 사각지대·상황 캡션 오버레이 연결 (선택)**
+   - `gui=True`일 때 스텝마다 `caption = self._director.get_status_caption(traci, self.step_count, self.ego_id, occ_count=len(occ_targets), lc_cmd=lc_cmd, lead_gap=lead_gap)` 호출 후 `self._overlay.render(traci, sx, sy, visibility, occ_boxes, occ_targets, ex=ex, ey=ey, caption=caption)` 연결 (`ex`, `ey`, `caption` 생략 가능)

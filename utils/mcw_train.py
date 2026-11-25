@@ -421,36 +421,36 @@ class McwEnv(ClarityEnv):
             self._occ_sensor_mask = True
         try:
             obs = super()._get_obs()
-            if getattr(self, "gui", False) and getattr(self, "occlusion", False) and self.ego_id in traci.vehicle.getIDList():
+            if getattr(self, "gui", False) and (getattr(self, "occlusion", False) or getattr(self, "scripted", False)) and self.ego_id in traci.vehicle.getIDList():
                 tc = traci.constants
                 occ_targets = []
-                for vid, vals in self._ctx_vehicles.items():
-                    if vid != self.ego_id and self._is_occluded(vid):
-                        fx, fy = vals[tc.VAR_POSITION]
-                        ang = math.radians(float(vals[tc.VAR_ANGLE]))
-                        vlen = float(vals[tc.VAR_LENGTH])
-                        occ_targets.append((float(fx) - 0.5 * vlen * math.sin(ang), float(fy) - 0.5 * vlen * math.cos(ang)))
+                if getattr(self, "occlusion", False):
+                    for vid, vals in self._ctx_vehicles.items():
+                        if vid != self.ego_id and self._is_occluded(vid):
+                            fx, fy = vals[tc.VAR_POSITION]
+                            ang = math.radians(float(vals[tc.VAR_ANGLE]))
+                            vlen = float(vals[tc.VAR_LENGTH])
+                            occ_targets.append((float(fx) - 0.5 * vlen * math.sin(ang), float(fy) - 0.5 * vlen * math.cos(ang)))
                 ex_g, ey_g = traci.vehicle.getPosition(self.ego_id)
-                eang_g = float(traci.vehicle.getAngle(self.ego_id))
                 ev_g = float(traci.vehicle.getSpeed(self.ego_id))
                 lead_g = self._neighbor(0, leader=True)
-                if self._last_lc_cmd != 0:
-                    phase_g = "LC_OVERTAKE"
-                elif occ_targets and (lead_g is not None and lead_g[0] < 45.0):
-                    phase_g = "OCC_CHECK"
-                elif lead_g is not None and lead_g[0] < 38.0 and lead_g[1] < 16.0:
-                    phase_g = "GAP_WAIT"
-                else:
-                    phase_g = "CRUISE"
+                lead_gap_g = float(lead_g[0]) if lead_g is not None else None
+                caption_g = ""
+                if getattr(self, "scripted", False):
+                    caption_g = self._scripted_director.get_status_caption(
+                        traci, self.step_count, self.ego_id,
+                        occ_count=len(occ_targets), lc_cmd=int(self._last_lc_cmd), lead_gap=lead_gap_g,
+                    )
+                sx_g, sy_g = self._occ_sensor if getattr(self, "occlusion", False) else (float(ex_g), float(ey_g))
+                boxes_g = self._occ_boxes if getattr(self, "occlusion", False) else []
                 self._demo_overlay.render(
-                    traci, self._occ_sensor[0], self._occ_sensor[1], self.visibility, self._occ_boxes, occ_targets,
-                    ex=float(ex_g), ey=float(ey_g), eang=eang_g, ego_v=ev_g,
-                    lc_dir=int(self._last_lc_cmd), phase=phase_g,
+                    traci, sx_g, sy_g, self.visibility, boxes_g, occ_targets,
+                    ex=float(ex_g), ey=float(ey_g), caption=caption_g or None,
                 )
-                if getattr(self, "scripted", False) and phase_g != self._last_hud_phase and (self.step_count - self._last_hud_log_step) >= 8:
-                    self._last_hud_phase = phase_g
+                if getattr(self, "scripted", False) and caption_g and caption_g != self._last_hud_phase:
+                    self._last_hud_phase = caption_g
                     self._last_hud_log_step = int(self.step_count)
-                    print(f"[DEMO {self._scripted_director.route} step={self.step_count}] phase={phase_g} v={ev_g*3.6:.0f}km/h occ={len(occ_targets)}", flush=True)
+                    print(f"[DEMO {self._scripted_director.route} step={self.step_count}] {caption_g} (v={ev_g*3.6:.0f}km/h, occ={len(occ_targets)})", flush=True)
         finally:
             self._occ_sensor_mask = False
         out = obs.copy()
