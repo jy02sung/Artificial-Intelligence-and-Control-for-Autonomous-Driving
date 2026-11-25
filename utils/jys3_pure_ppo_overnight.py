@@ -592,12 +592,26 @@ def report():
                 achieved=d["arrival"]>0 and d["off_route"]<0 and d["collision"]<=0
                 doc.append(f"- {key}의 자가 경험 보상이 완주 증가·이탈 감소·충돌 유지 또는 감소를 동시에 "
                            f"달성했는지에 대한 판정은 **{'충족' if achieved else '미달'}**이다.")
-    if win:doc+=["",f"자동 연장 조건은 **{win}**이다."]
+    extra=None
+    if win:
+        doc+=["",f"자동 연장 조건은 **{win}**이다."]
+        extension=list(range(350000,600001,MARK))
+        if all(panel_path(win,n,"screen").exists() for n in extension):
+            n=max(extension,key=lambda v:ranking(win,v))
+            if all(panel_path(win,n,p).exists() for p in old.PANELS):
+                held=[r for p in old.PANELS if p!="screen" for r in read(panel_path(win,n,p))["rows"]]
+                screened=read(panel_path(win,n,"screen"))["metrics"]
+                extra=dict(arm=win,selected=n,screen=screened,hold=measure(held))
+                doc+=["","## 연장 구간에서 새로 학습한 모델",
+                      "35만~60만의 여섯 체크포인트에 같은 선정 순위를 적용했다. 연장 전 체크포인트가 전체 60만 구간 1위를 유지한 경우에도 새로 학습한 정책을 같은 576회에서 비교한다."]
+                doc+=table(["조건","선정 스텝","패널","완주","충돌","이탈","끝 정지","일반 시간초과"],
+                           [[win,n,label,*scores(extra[k])] for label,k in [("128회","screen"),("576회","hold")]])
+
     doc+=["","[실행 코드](../../utils/jys3_pure_ppo_overnight.py) · [전체 집계](../../results/jys3_pure_ppo_overnight/summary.json)"]
     tmp=REPORT.with_suffix(".md.tmp")
     tmp.write_text("\n".join(doc)+"\n",encoding="utf8")
     tmp.replace(REPORT)
-    save(ROOT/"summary.json",dict(winner=win,models=records,comparisons=comparisons,paired_transitions=transitions,screens=len(timeline)))
+    save(ROOT/"summary.json",dict(winner=win,models=records,comparisons=comparisons,paired_transitions=transitions,extension_only=extra,screens=len(timeline)))
 
 
 def main():
@@ -634,15 +648,29 @@ def main():
         selections[("extension",winner)]=best(winner,600000)
         candidates=list(dict.fromkeys((a if isinstance(a,str) else a[1],n) for a,n in selections.items()))
         block(pool,[],[(a,n,p) for a,n in candidates for p in old.PANELS if p!="screen"])
-    report()
+    extension_check()
     assert len(read(ROOT/"summary.json")["models"])==7 and all("hold" in r for r in read(ROOT/"summary.json")["models"])
     save(ROOT/"finished.json",dict(winner=winner,protected_sha256=old.check_sources(),workers=4))
+
+
+def extension_check():
+    win=read(ROOT/"winner.json")["arm"]
+    n=max(range(350000,600001,MARK),key=lambda v:ranking(win,v))
+    missing=[(win,n,p) for p in old.PANELS if not panel_path(win,n,p).exists()]
+    if missing:
+        with ProcessPoolExecutor(4) as pool:
+            block(pool,[],missing)
+    report()
 
 
 if __name__=="__main__":
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--report",action="store_true",help="Rebuild the tables from saved evaluations.")
-    if parser.parse_args().report:
+    parser.add_argument("--extension-check",action="store_true",help="Verify the best post-300k policy on matched holdouts.")
+    args=parser.parse_args()
+    if args.extension_check:
+        extension_check()
+    elif args.report:
         report()
     else:
         main()
