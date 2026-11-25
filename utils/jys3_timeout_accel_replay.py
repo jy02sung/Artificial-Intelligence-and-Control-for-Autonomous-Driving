@@ -1,7 +1,7 @@
 """Paired acceleration-only replay of 300k screen timeouts, with original lateral commands."""
 import gzip
 import json
-from collections import Counter
+import argparse
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -31,7 +31,7 @@ def lane_state(env):
     return "lane_drops", expected
 
 
-def replay(env, model, row, original=None):
+def replay(env, model, row, original=None, earliest=1):
     name = f"route_{row['route']:02d}"
     env.ego_depart_lane = str(min(row["case"] % 2, env.counts[env.routes[name][0]]-1))
     obs, _ = env.reset(seed=row["traffic_seed"], options={"route":name})
@@ -55,7 +55,7 @@ def replay(env, model, row, original=None):
         enabled |= slow >= 25
         if original is not None:
             act[1] = original[t-1][8]
-            if enabled and speed < 5 and (gap is None or gap > 25):
+            if t >= earliest and enabled and speed < 5 and (gap is None or gap > 25):
                 target = min(1.5, (5-speed)/env.step_length) / env.max_accel
                 act[0] = max(lon, min(1., target))
                 changes += abs(float(act[0])-lon) > 1e-6
@@ -70,7 +70,7 @@ def replay(env, model, row, original=None):
 
 
 def run_batch(args):
-    folder, rep = args
+    folder, rep, at_stop = args
     arm, seed_str = folder.name.rsplit('_',1)
     seed = int(seed_str)
     rows = v3.read(folder/f"eval_{v3.SCREEN}_{STEP}_{rep}.json")
@@ -85,6 +85,27 @@ def run_batch(args):
                     continue
                 label=f"{folder.name}_{rep}_{row['route']:02d}"
                 target=ROOT/(label+'.json')
+                if at_stop:
+                    result_path=ROOT/'final_stop'/target.name
+                    if result_path.exists():
+                        continue
+                    paired=v3.read(target)
+                    with gzip.open(str(target)+'.gz','rt') as fp:
+                        logs=json.load(fp)
+                    baseline=logs['baseline']
+                    last_moving=max((x[0] for x in baseline if x[3] > .5), default=0)
+                    earliest=last_moving+25
+                    if earliest>1000 or paired['baseline']['distances']['end_speed_mps']>.5:
+                        v3.save(result_path,dict(eligible=False))
+                        continue
+                    first_change=next((x[0] for x in logs['accelerated'] if abs(x[6]-x[7])>1e-6),1001)
+                    if first_change>=earliest:
+                        changed=paired['accelerated']
+                    else:
+                        trace,changed=replay(env,model,row,baseline,earliest)
+                        assert trace[:earliest-1]==baseline[:earliest-1], label
+                    v3.save(result_path,dict(eligible=True,earliest=earliest,changed=changed))
+                    continue
                 if target.exists():
                     continue
                 baseline, result = replay(env,model,row)
@@ -101,7 +122,12 @@ def run_batch(args):
 
 if __name__=='__main__':
     ROOT.mkdir(parents=True,exist_ok=True)
-    jobs=[(d,rep) for rep in range(4) for d in sorted(scratch.ROOT.iterdir()) if d.is_dir() and d.name.startswith(('S1_','S2_'))]
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--at-final-stop',action='store_true')
+    args=parser.parse_args()
+    if args.at_final_stop:
+        (ROOT/'final_stop').mkdir(exist_ok=True)
+    jobs=[(d,rep,args.at_final_stop) for rep in range(4) for d in sorted(scratch.ROOT.iterdir()) if d.is_dir() and d.name.startswith(('S1_','S2_'))]
     with ProcessPoolExecutor(max_workers=6) as pool:
         for _ in pool.map(run_batch,jobs):
             pass
