@@ -191,11 +191,11 @@ def train(job, initial_weights=None):
             save(folder/f"training16_{n}.json",env.training_16)
     finally:env.close()
 
-def evaluate(job):
+def evaluate(job, *, checkpoint=None):
     arm,seed,n,rep,base=job
     folder=ROOT/f"{arm}_{seed}"
     model=agent(seed)
-    model.policy.load_state_dict(j.torch.load(folder/f"policy_{n}.pt",weights_only=True)["policy"])
+    model.policy.load_state_dict(j.torch.load(checkpoint or folder/f"policy_{n}.pt",weights_only=True)["policy"])
     model.policy.eval()
     rows=[]
     with TemporaryDirectory() as tmp:
@@ -233,7 +233,8 @@ def evaluate(job):
                     if post and not(done or edge.startswith(":")) and edge==post[0] and lane!=post[1]:moves+=1
                     if route==16 and idx==0 and edge=="86198728" and lane==0 and post and post[0]==edge and post[1]>lane and actual_left is None:
                         actual_left=round(remaining,1)
-                    if info["fork_passed"]:forks.append(env.last_external[1])
+                    if info["fork_passed"]:
+                        forks.extend(info.get("passed_edges", [env.last_external[1]]))
                     if post and not done and info["speed"] is not None and info["speed"]<=.5 and (info["gap"] is None or info["gap"]>25):
                         slow+=1
                         if not post[0].startswith(":") and post[3]+1<len(post[2]):

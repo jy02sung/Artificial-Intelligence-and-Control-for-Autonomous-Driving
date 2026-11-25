@@ -219,7 +219,7 @@ import random
 import numpy as np
 
 
-def train_job(arm, seed, end, stage, *, checkpoint_steps=None):
+def train_job(arm, seed, end, stage, *, checkpoint_steps=None, env_type=Env):
     setup(arm)
     folder = stage / f"{arm}_{seed}"
     folder.mkdir(parents=True, exist_ok=True)
@@ -250,7 +250,7 @@ def train_job(arm, seed, end, stage, *, checkpoint_steps=None):
         save(folder/"initial.json", dict(sha256=initial))
         for name in logs:
             (folder/name).touch()
-    env = Env(arm, folder/"map", seed)
+    env = env_type(arm, folder/"map", seed)
     try:
         episodes = j.ScheduledEpisodes(env, seed, Path(os.devnull) if state else folder/"episodes.jsonl",
                                     state["next_episode"]-1 if state else 0)
@@ -330,12 +330,12 @@ def check_resume_equivalence(root):
                 equal_observations=True, equal_logs=True)
 
 
-def eval_job(stage, arm, seed, step, rep, panel):
+def eval_job(stage, arm, seed, step, rep, panel, *, env_type=Env, checkpoint=None):
     """Run the existing deterministic 16-route driver; publish enriched rows atomically."""
     setup(arm)
     terminal = {}
     departures = {}
-    class EvalEnv(Env):
+    class EvalEnv(env_type):
         def reset(self, **kwargs):
             result = super().reset(**kwargs)
             self.route_key = self.episode_route
@@ -368,7 +368,7 @@ def eval_job(stage, arm, seed, step, rep, panel):
     old_env, old_root, old_save = core.FactorEnv, core.ROOT, core.save
     try:
         core.FactorEnv, core.ROOT, core.save = EvalEnv, stage, save_episodes
-        core.evaluate((arm,seed,step,rep,panel))
+        core.evaluate((arm,seed,step,rep,panel), checkpoint=checkpoint)
     finally:
         core.FactorEnv, core.ROOT, core.save = old_env, old_root, old_save
 
