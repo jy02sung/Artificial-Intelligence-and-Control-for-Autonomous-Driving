@@ -1,0 +1,205 @@
+{
+  "forks": [
+    {
+      "src": "1063527748",
+      "right": "169728835",
+      "left": "797789364",
+      "right_m": -1.6153975479851739,
+      "left_m": 3.1719812315635707,
+      "right_lanes": [
+        0,
+        1
+      ],
+      "left_lanes": [
+        2
+      ],
+      "flipped": true,
+      "slots_ok": true
+    },
+    {
+      "src": "169929488#0",
+      "right": "169728799",
+      "left": "169929488#1",
+      "right_m": -3.1496560972817083,
+      "left_m": 1.6308812503751884,
+      "right_lanes": [
+        0
+      ],
+      "left_lanes": [
+        1,
+        2
+      ],
+      "flipped": true,
+      "slots_ok": true
+    },
+    {
+      "src": "170059994",
+      "right": "1063527748",
+      "left": "844484876",
+      "right_m": -1.60068975669503,
+      "left_m": 4.796266423108833,
+      "right_lanes": [
+        0,
+        1,
+        2
+      ],
+      "left_lanes": [
+        3
+      ],
+      "flipped": true,
+      "slots_ok": true
+    },
+    {
+      "src": "52873356",
+      "right": "37927512",
+      "left": "844484878#0",
+      "right_m": -9.370165288784776,
+      "left_m": 2.2669412578407253,
+      "right_lanes": [
+        0
+      ],
+      "left_lanes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "flipped": false,
+      "slots_ok": true
+    },
+    {
+      "src": "544293888#0",
+      "right": "37375274",
+      "left": "544293888#1",
+      "right_m": -1.5939085188883102,
+      "left_m": 1.6131120007343807,
+      "right_lanes": [
+        0
+      ],
+      "left_lanes": [
+        1
+      ],
+      "flipped": false,
+      "slots_ok": true
+    },
+    {
+      "src": "781184662#1",
+      "right": "170059993",
+      "left": "781184662#2",
+      "right_m": -2.5898852774514536,
+      "left_m": 2.6018712931596797,
+      "right_lanes": [
+        0
+      ],
+      "left_lanes": [
+        0,
+        1
+      ],
+      "flipped": false,
+      "slots_ok": true
+    },
+    {
+      "src": "86198728",
+      "right": "37927508",
+      "left": "86198725",
+      "right_m": -6.364180279344678,
+      "left_m": 1.5947511414914992,
+      "right_lanes": [
+        0
+      ],
+      "left_lanes": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "flipped": false,
+      "slots_ok": true
+    }
+  ],
+  "route_sign_counts": {
+    "wrong": 0,
+    "RIGHT": 17,
+    "LEFT": 10
+  },
+  "ego_cases": [
+    {
+      "route": 13,
+      "edge": "86198728",
+      "lane": 0,
+      "traffic_seed": 111003,
+      "remaining_m": 398.35164109293623,
+      "sign": -1.0
+    },
+    {
+      "route": 13,
+      "edge": "86198728",
+      "lane": 1,
+      "traffic_seed": 111003,
+      "remaining_m": 394.544,
+      "sign": -1.0
+    },
+    {
+      "route": 16,
+      "edge": "86198728",
+      "lane": 0,
+      "traffic_seed": 111003,
+      "remaining_m": 398.35164109293623,
+      "sign": 1.0
+    },
+    {
+      "route": 16,
+      "edge": "86198728",
+      "lane": 1,
+      "traffic_seed": 111003,
+      "remaining_m": 394.544,
+      "sign": 1.0
+    }
+  ],
+  "smoke": {
+    "P1_dir_clean": {
+      "initial_sha256": "b64044aede93134c764e068419166b8585d400f217f167210f2a082ac8e90bbf",
+      "step": 2048,
+      "batch": 2048,
+      "lr": 0.0001,
+      "rewards": {
+        "progress": 11.446471987161091,
+        "arrival": 0.0,
+        "fork": 4.0,
+        "collision": -90.0,
+        "timeout": 0.0,
+        "idle_clear": -4.529999999999993,
+        "pot": 0.0
+      },
+      "policy_loss": -0.006452993005223106,
+      "value_loss": 1.7497469826601446,
+      "entropy": 1.8993443939834833,
+      "approx_kl": 0.005726494116242975,
+      "clip_frac": 0.031787109375,
+      "p_lane_change": 0.4260850250720978
+    },
+    "P2_dir_ttc": {
+      "initial_sha256": "b64044aede93134c764e068419166b8585d400f217f167210f2a082ac8e90bbf",
+      "step": 2048,
+      "batch": 2048,
+      "lr": 0.0001,
+      "rewards": {
+        "progress": 11.446471987161091,
+        "arrival": 0.0,
+        "fork": 4.0,
+        "collision": -90.0,
+        "timeout": 0.0,
+        "idle_clear": -4.529999999999993,
+        "pot": 0.0
+      },
+      "policy_loss": -0.006452993005223106,
+      "value_loss": 1.7497469826601446,
+      "entropy": 1.8993443939834833,
+      "approx_kl": 0.005726494116242975,
+      "clip_frac": 0.031787109375,
+      "p_lane_change": 0.4260850250720978
+    }
+  },
+  "reward_tests": true,
+  "side_action_used_in_potential": false
+}

@@ -1,0 +1,80 @@
+{
+  "base_commit": "8343fb712578eca5193c75e93052a419d9f9cd20",
+  "arms": [
+    "P1_dir_clean",
+    "P2_dir_ttc"
+  ],
+  "environment": {
+    "traffic": "high_real_ratio",
+    "demand_vph": 15000,
+    "observation": 52,
+    "nav2": false,
+    "occlusion": true,
+    "obs_noise": true,
+    "visibility_m": 120,
+    "safety_gate": false,
+    "max_steps": 1000,
+    "stall_seconds": 30,
+    "timeout_is_failure": true
+  },
+  "ppo": {
+    "hidden_sizes": [
+      256,
+      256
+    ],
+    "n_steps": 2048,
+    "n_epochs": 10,
+    "minibatch_size": 64,
+    "lr": 0.0001,
+    "lane_entropy_coef": 0.002,
+    "lane_keep_bias": 1.0,
+    "device": "cpu",
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "initialization": "random"
+  },
+  "panels": {
+    "screen": 41110000,
+    "hold_paired": 43110000,
+    "hold_fresh": 45110000,
+    "cases_per_seed": 64
+  },
+  "fresh_note": "held out from v2 training and selection; also used for v1 final testing",
+  "rewards": {
+    "progress_cap": 3,
+    "arrival": 5,
+    "fork": 1,
+    "collision": -9,
+    "timeout": -8,
+    "stall": -8,
+    "idle_clear": -0.03
+  },
+  "P2": {
+    "front_ttc_s": 2.5,
+    "minimum_closing_mps": 0.5,
+    "gamma": 0.99,
+    "scale": 1,
+    "collision_pot": 0
+  },
+  "stage1": {
+    "seeds": [
+      11,
+      22
+    ],
+    "steps": 300000,
+    "interval": 50000,
+    "rank": "lexicographic: total arrivals, min per-seed arrivals, fewest collisions, fewest ordinary timeouts, most route 13 exit and 16 main passes across both starts; 200/250/300k pooled",
+    "promote": 1
+  },
+  "stage2": {
+    "seeds": [
+      11,
+      22,
+      33
+    ],
+    "steps": 600000,
+    "interval": 50000,
+    "replay": "11 and 22 rerun from zero; verify six checkpoint tensors, then reuse identical stage1 screening drives",
+    "rank": "most arrivals, fewest collisions, earliest step"
+  }
+}
