@@ -1,0 +1,1122 @@
+{
+  "collision5_48110000_11_0": {
+    "counts": [
+      {
+        "arrival": 42,
+        "collision": 9,
+        "stall": 13
+      },
+      {
+        "arrival": 42,
+        "collision": 9,
+        "stall": 13
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 42,
+      "collision->collision": 9,
+      "stall->stall": 13
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      2,
+      2
+    ]
+  },
+  "collision5_48110000_11_8192": {
+    "counts": [
+      {
+        "arrival": 43,
+        "collision": 9,
+        "stall": 12
+      },
+      {
+        "arrival": 42,
+        "collision": 10,
+        "stall": 12
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 36,
+      "collision->arrival": 6,
+      "arrival->collision": 7,
+      "collision->collision": 3,
+      "stall->stall": 12
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      2,
+      2
+    ]
+  },
+  "collision5_48110000_11_16384": {
+    "counts": [
+      {
+        "arrival": 47,
+        "collision": 7,
+        "stall": 10
+      },
+      {
+        "arrival": 48,
+        "collision": 8,
+        "stall": 8
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 43,
+      "collision->collision": 3,
+      "arrival->collision": 4,
+      "stall->collision": 1,
+      "stall->arrival": 3,
+      "collision->arrival": 2,
+      "stall->stall": 6,
+      "collision->stall": 2
+    },
+    "exit13": [
+      0,
+      2
+    ],
+    "main16": [
+      2,
+      2
+    ]
+  },
+  "collision5_48110000_11_32768": {
+    "counts": [
+      {
+        "arrival": 42,
+        "collision": 7,
+        "stall": 15
+      },
+      {
+        "arrival": 44,
+        "collision": 9,
+        "stall": 11
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 37,
+      "collision->arrival": 4,
+      "collision->collision": 3,
+      "arrival->collision": 3,
+      "stall->collision": 3,
+      "stall->stall": 9,
+      "stall->arrival": 3,
+      "arrival->stall": 2
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      2
+    ]
+  },
+  "collision5_48110000_22_0": {
+    "counts": [
+      {
+        "arrival": 35,
+        "collision": 22,
+        "stall": 7
+      },
+      {
+        "arrival": 35,
+        "collision": 22,
+        "stall": 7
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 35,
+      "collision->collision": 22,
+      "stall->stall": 7
+    },
+    "exit13": [
+      3,
+      3
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "collision5_48110000_22_8192": {
+    "counts": [
+      {
+        "arrival": 37,
+        "stall": 10,
+        "collision": 17
+      },
+      {
+        "arrival": 36,
+        "collision": 18,
+        "stall": 10
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 24,
+      "arrival->collision": 10,
+      "stall->collision": 2,
+      "collision->collision": 6,
+      "stall->stall": 7,
+      "collision->arrival": 11,
+      "arrival->stall": 3,
+      "stall->arrival": 1
+    },
+    "exit13": [
+      2,
+      3
+    ],
+    "main16": [
+      2,
+      0
+    ]
+  },
+  "collision5_48110000_22_16384": {
+    "counts": [
+      {
+        "arrival": 39,
+        "collision": 14,
+        "stall": 11
+      },
+      {
+        "arrival": 41,
+        "collision": 16,
+        "stall": 7
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 29,
+      "collision->arrival": 9,
+      "arrival->collision": 10,
+      "stall->arrival": 3,
+      "stall->stall": 7,
+      "collision->collision": 5,
+      "stall->collision": 1
+    },
+    "exit13": [
+      3,
+      3
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "collision5_48110000_22_32768": {
+    "counts": [
+      {
+        "arrival": 41,
+        "collision": 12,
+        "stall": 11
+      },
+      {
+        "arrival": 41,
+        "collision": 14,
+        "stall": 9
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 30,
+      "collision->arrival": 8,
+      "collision->collision": 4,
+      "stall->collision": 1,
+      "stall->stall": 7,
+      "arrival->stall": 2,
+      "arrival->collision": 9,
+      "stall->arrival": 3
+    },
+    "exit13": [
+      4,
+      3
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "collision5_48110000_33_0": {
+    "counts": [
+      {
+        "arrival": 38,
+        "timeout": 2,
+        "collision": 14,
+        "stall": 10
+      },
+      {
+        "arrival": 38,
+        "timeout": 2,
+        "collision": 14,
+        "stall": 10
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 38,
+      "timeout->timeout": 2,
+      "collision->collision": 14,
+      "stall->stall": 10
+    },
+    "exit13": [
+      2,
+      2
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "collision5_48110000_33_8192": {
+    "counts": [
+      {
+        "arrival": 41,
+        "timeout": 2,
+        "stall": 9,
+        "collision": 12
+      },
+      {
+        "arrival": 36,
+        "collision": 19,
+        "stall": 9
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 34,
+      "timeout->arrival": 2,
+      "arrival->collision": 7,
+      "stall->stall": 9,
+      "collision->collision": 12
+    },
+    "exit13": [
+      3,
+      3
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "collision5_48110000_33_16384": {
+    "counts": [
+      {
+        "arrival": 37,
+        "stall": 11,
+        "collision": 16
+      },
+      {
+        "arrival": 35,
+        "timeout": 3,
+        "collision": 17,
+        "stall": 9
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 32,
+      "arrival->timeout": 3,
+      "arrival->collision": 2,
+      "stall->stall": 9,
+      "collision->collision": 15,
+      "stall->arrival": 2,
+      "collision->arrival": 1
+    },
+    "exit13": [
+      1,
+      3
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "collision5_48110000_33_32768": {
+    "counts": [
+      {
+        "arrival": 30,
+        "timeout": 4,
+        "collision": 17,
+        "stall": 13
+      },
+      {
+        "arrival": 35,
+        "collision": 21,
+        "stall": 8
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 23,
+      "timeout->arrival": 4,
+      "arrival->collision": 7,
+      "collision->collision": 13,
+      "stall->arrival": 4,
+      "stall->stall": 8,
+      "collision->arrival": 4,
+      "stall->collision": 1
+    },
+    "exit13": [
+      1,
+      2
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "collision5_49110000_11_0": {
+    "counts": [
+      {
+        "arrival": 43,
+        "collision": 9,
+        "stall": 12
+      },
+      {
+        "arrival": 43,
+        "collision": 9,
+        "stall": 12
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 43,
+      "collision->collision": 9,
+      "stall->stall": 12
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      2,
+      2
+    ]
+  },
+  "collision5_49110000_11_32768": {
+    "counts": [
+      {
+        "arrival": 43,
+        "collision": 7,
+        "stall": 14
+      },
+      {
+        "arrival": 43,
+        "collision": 10,
+        "stall": 11
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 39,
+      "collision->collision": 4,
+      "arrival->collision": 3,
+      "stall->stall": 10,
+      "stall->collision": 3,
+      "arrival->stall": 1,
+      "collision->arrival": 3,
+      "stall->arrival": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      2,
+      2
+    ]
+  },
+  "collision5_49110000_22_0": {
+    "counts": [
+      {
+        "arrival": 39,
+        "collision": 16,
+        "stall": 9
+      },
+      {
+        "arrival": 39,
+        "collision": 16,
+        "stall": 9
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 39,
+      "collision->collision": 16,
+      "stall->stall": 9
+    },
+    "exit13": [
+      4,
+      4
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "collision5_49110000_22_32768": {
+    "counts": [
+      {
+        "arrival": 40,
+        "collision": 13,
+        "stall": 11
+      },
+      {
+        "arrival": 39,
+        "collision": 16,
+        "stall": 9
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 29,
+      "collision->arrival": 8,
+      "arrival->collision": 9,
+      "collision->collision": 4,
+      "stall->arrival": 2,
+      "stall->collision": 3,
+      "arrival->stall": 2,
+      "stall->stall": 6,
+      "collision->stall": 1
+    },
+    "exit13": [
+      3,
+      2
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "collision5_49110000_33_0": {
+    "counts": [
+      {
+        "arrival": 32,
+        "stall": 13,
+        "collision": 19
+      },
+      {
+        "arrival": 32,
+        "stall": 13,
+        "collision": 19
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 32,
+      "stall->stall": 13,
+      "collision->collision": 19
+    },
+    "exit13": [
+      1,
+      1
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "collision5_49110000_33_32768": {
+    "counts": [
+      {
+        "arrival": 29,
+        "stall": 15,
+        "collision": 20
+      },
+      {
+        "arrival": 23,
+        "collision": 29,
+        "stall": 12
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 19,
+      "stall->arrival": 2,
+      "arrival->collision": 9,
+      "stall->collision": 2,
+      "collision->collision": 18,
+      "arrival->stall": 1,
+      "stall->stall": 11,
+      "collision->arrival": 2
+    },
+    "exit13": [
+      1,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_11_0": {
+    "counts": [
+      {
+        "arrival": 28,
+        "stall": 16,
+        "collision": 20
+      },
+      {
+        "arrival": 28,
+        "stall": 16,
+        "collision": 20
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 28,
+      "stall->stall": 16,
+      "collision->collision": 20
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_11_8192": {
+    "counts": [
+      {
+        "arrival": 26,
+        "stall": 21,
+        "collision": 16,
+        "timeout": 1
+      },
+      {
+        "arrival": 22,
+        "collision": 17,
+        "stall": 25
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 20,
+      "arrival->collision": 2,
+      "arrival->stall": 4,
+      "stall->arrival": 1,
+      "collision->stall": 2,
+      "collision->collision": 14,
+      "stall->stall": 19,
+      "stall->collision": 1,
+      "timeout->arrival": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_11_16384": {
+    "counts": [
+      {
+        "arrival": 24,
+        "collision": 19,
+        "stall": 21
+      },
+      {
+        "arrival": 23,
+        "collision": 17,
+        "stall": 24
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 21,
+      "collision->collision": 16,
+      "arrival->stall": 2,
+      "stall->arrival": 2,
+      "stall->stall": 19,
+      "collision->stall": 3,
+      "arrival->collision": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_11_32768": {
+    "counts": [
+      {
+        "collision": 23,
+        "arrival": 30,
+        "stall": 11
+      },
+      {
+        "arrival": 27,
+        "collision": 16,
+        "stall": 20,
+        "timeout": 1
+      }
+    ],
+    "transitions": {
+      "collision->arrival": 5,
+      "arrival->collision": 2,
+      "arrival->arrival": 20,
+      "arrival->stall": 7,
+      "collision->stall": 5,
+      "collision->collision": 13,
+      "stall->stall": 8,
+      "stall->collision": 1,
+      "stall->arrival": 2,
+      "arrival->timeout": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      1,
+      0
+    ]
+  },
+  "both_48110000_22_0": {
+    "counts": [
+      {
+        "arrival": 28,
+        "stall": 32,
+        "collision": 3,
+        "timeout": 1
+      },
+      {
+        "arrival": 28,
+        "stall": 32,
+        "collision": 3,
+        "timeout": 1
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 28,
+      "stall->stall": 32,
+      "collision->collision": 3,
+      "timeout->timeout": 1
+    },
+    "exit13": [
+      2,
+      2
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_22_8192": {
+    "counts": [
+      {
+        "arrival": 26,
+        "stall": 32,
+        "timeout": 1,
+        "collision": 5
+      },
+      {
+        "arrival": 28,
+        "stall": 33,
+        "collision": 3
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 24,
+      "stall->stall": 28,
+      "timeout->stall": 1,
+      "collision->stall": 2,
+      "arrival->stall": 2,
+      "stall->collision": 3,
+      "stall->arrival": 1,
+      "collision->arrival": 3
+    },
+    "exit13": [
+      2,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_22_16384": {
+    "counts": [
+      {
+        "arrival": 28,
+        "stall": 33,
+        "collision": 3
+      },
+      {
+        "arrival": 32,
+        "stall": 24,
+        "timeout": 2,
+        "collision": 6
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 24,
+      "stall->stall": 22,
+      "stall->timeout": 1,
+      "collision->arrival": 3,
+      "arrival->stall": 2,
+      "stall->collision": 5,
+      "arrival->collision": 1,
+      "arrival->timeout": 1,
+      "stall->arrival": 5
+    },
+    "exit13": [
+      2,
+      3
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_22_32768": {
+    "counts": [
+      {
+        "arrival": 25,
+        "stall": 36,
+        "collision": 3
+      },
+      {
+        "arrival": 32,
+        "stall": 27,
+        "collision": 3,
+        "timeout": 2
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 23,
+      "stall->stall": 25,
+      "stall->collision": 2,
+      "collision->stall": 2,
+      "stall->arrival": 8,
+      "stall->timeout": 1,
+      "collision->arrival": 1,
+      "arrival->timeout": 1,
+      "arrival->collision": 1
+    },
+    "exit13": [
+      1,
+      3
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_33_0": {
+    "counts": [
+      {
+        "timeout": 6,
+        "stall": 37,
+        "arrival": 20,
+        "collision": 1
+      },
+      {
+        "timeout": 6,
+        "stall": 37,
+        "arrival": 20,
+        "collision": 1
+      }
+    ],
+    "transitions": {
+      "timeout->timeout": 6,
+      "stall->stall": 37,
+      "arrival->arrival": 20,
+      "collision->collision": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_33_8192": {
+    "counts": [
+      {
+        "timeout": 8,
+        "stall": 36,
+        "arrival": 20
+      },
+      {
+        "arrival": 27,
+        "stall": 37
+      }
+    ],
+    "transitions": {
+      "timeout->arrival": 6,
+      "timeout->stall": 2,
+      "stall->stall": 35,
+      "arrival->arrival": 20,
+      "stall->arrival": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_33_16384": {
+    "counts": [
+      {
+        "timeout": 9,
+        "stall": 33,
+        "arrival": 21,
+        "collision": 1
+      },
+      {
+        "arrival": 25,
+        "stall": 36,
+        "timeout": 2,
+        "collision": 1
+      }
+    ],
+    "transitions": {
+      "timeout->arrival": 4,
+      "timeout->stall": 4,
+      "stall->stall": 32,
+      "arrival->arrival": 20,
+      "stall->arrival": 1,
+      "timeout->timeout": 1,
+      "arrival->timeout": 1,
+      "collision->collision": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_48110000_33_32768": {
+    "counts": [
+      {
+        "arrival": 26,
+        "stall": 38
+      },
+      {
+        "arrival": 23,
+        "stall": 37,
+        "timeout": 2,
+        "collision": 2
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 22,
+      "stall->stall": 36,
+      "arrival->timeout": 2,
+      "stall->arrival": 1,
+      "arrival->stall": 1,
+      "arrival->collision": 1,
+      "stall->collision": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_49110000_11_0": {
+    "counts": [
+      {
+        "collision": 18,
+        "arrival": 23,
+        "stall": 22,
+        "timeout": 1
+      },
+      {
+        "collision": 18,
+        "arrival": 23,
+        "stall": 22,
+        "timeout": 1
+      }
+    ],
+    "transitions": {
+      "collision->collision": 18,
+      "arrival->arrival": 23,
+      "stall->stall": 22,
+      "timeout->timeout": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_49110000_11_32768": {
+    "counts": [
+      {
+        "collision": 18,
+        "arrival": 27,
+        "stall": 19
+      },
+      {
+        "collision": 8,
+        "arrival": 26,
+        "stall": 29,
+        "timeout": 1
+      }
+    ],
+    "transitions": {
+      "collision->collision": 6,
+      "arrival->arrival": 21,
+      "collision->stall": 10,
+      "arrival->stall": 5,
+      "stall->arrival": 4,
+      "stall->collision": 1,
+      "stall->stall": 14,
+      "collision->arrival": 1,
+      "arrival->collision": 1,
+      "collision->timeout": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      1,
+      0
+    ]
+  },
+  "both_49110000_22_0": {
+    "counts": [
+      {
+        "arrival": 26,
+        "stall": 29,
+        "timeout": 4,
+        "collision": 5
+      },
+      {
+        "arrival": 26,
+        "stall": 29,
+        "timeout": 4,
+        "collision": 5
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 26,
+      "stall->stall": 29,
+      "timeout->timeout": 4,
+      "collision->collision": 5
+    },
+    "exit13": [
+      2,
+      2
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_49110000_22_32768": {
+    "counts": [
+      {
+        "arrival": 26,
+        "stall": 35,
+        "collision": 3
+      },
+      {
+        "arrival": 29,
+        "stall": 25,
+        "timeout": 3,
+        "collision": 7
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 22,
+      "stall->stall": 23,
+      "stall->timeout": 1,
+      "stall->arrival": 7,
+      "stall->collision": 4,
+      "arrival->collision": 2,
+      "arrival->timeout": 1,
+      "collision->collision": 1,
+      "collision->stall": 1,
+      "arrival->stall": 1,
+      "collision->timeout": 1
+    },
+    "exit13": [
+      2,
+      1
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_49110000_33_0": {
+    "counts": [
+      {
+        "arrival": 24,
+        "stall": 37,
+        "timeout": 2,
+        "collision": 1
+      },
+      {
+        "arrival": 24,
+        "stall": 37,
+        "timeout": 2,
+        "collision": 1
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 24,
+      "stall->stall": 37,
+      "timeout->timeout": 2,
+      "collision->collision": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  },
+  "both_49110000_33_32768": {
+    "counts": [
+      {
+        "arrival": 26,
+        "stall": 35,
+        "timeout": 2,
+        "collision": 1
+      },
+      {
+        "arrival": 26,
+        "stall": 36,
+        "timeout": 2
+      }
+    ],
+    "transitions": {
+      "arrival->arrival": 24,
+      "stall->stall": 34,
+      "arrival->timeout": 1,
+      "stall->arrival": 1,
+      "arrival->stall": 1,
+      "timeout->timeout": 1,
+      "collision->stall": 1,
+      "timeout->arrival": 1
+    },
+    "exit13": [
+      0,
+      0
+    ],
+    "main16": [
+      0,
+      0
+    ]
+  }
+}
