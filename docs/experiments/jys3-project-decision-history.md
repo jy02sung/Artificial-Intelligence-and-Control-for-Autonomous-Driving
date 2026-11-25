@@ -14,6 +14,8 @@
 
 **다음 도로를 안다는 것과 다음 차로를 안다는 것은 다른가?** 목적 경로를 따라 120m 앞까지 차로별로 연결을 추적하면 같은 위치·차로에서도 목적지에 따라 값이 달라진다. 관측만 교체한 단기 시험의 2만 스텝에서 기존 방식과 120m 방식 모두 짝 성공은 0이었다. 특히 13·14번은 채점할 분기에 도달하지 못해 두 방식의 장거리 효과를 판정하기 어려웠다. jys3는 도로 단위 경로 안내, 목적지와 무관한 차로 연결, 현재 차로 번호와 총 차로 수를 채택했다. 수업에서 멀티홉을 금지했다는 근거로 사용하지 않는다. 이 관측으로 전문가의 차로·속도 계산부터 다시 맞췄다. [120m 대조](https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys2/results/route120_short/summary.json) · [jys3 설계 변경 기록](jys3-local-experiments.md)
 
+**경로 안내를 실제로 사용할 수는 있었을까?** 별도 13·14번 마지막 분기 시험에서는 같은 1차로에 놓고 다음 분기 방향 하나만 다른 출발 관측을 비교했다. 5만 스텝에서 왼쪽 명령 확률은 시드 11 기준 13번 4.7%, 왼쪽으로 옮겨야 하는 14번 70.1%였다. 시드 22·33도 같은 방향으로 갈렸다. 긴 경로에서는 분기까지 도달하는 문제와 분기에 도달한 뒤 행동을 고르는 문제를 나눠 볼 근거가 됐다. [국소 분기 시험과 재생 자료](https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/experiment/jys3-fork1314-pilot/docs/experiments/jys3-fork1314-pilot.md)
+
 ## 2. PPO — 더 학습할지, 보상을 바꿀지, 환경부터 점검할지
 
 | 팀에서 제기한 질문 | 결정을 바꾼 비교 |
