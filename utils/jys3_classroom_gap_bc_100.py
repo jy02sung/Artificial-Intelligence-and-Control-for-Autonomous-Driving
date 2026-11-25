@@ -36,6 +36,10 @@ def audit():
     rows=read(course.DENSE/'valid.json')
     x,y=course.prior.dagger.load_rollouts(rows,course.DENSE/'valid_samples')
     changed=y[:,1]!=0
+    expert=read(ROOT/'eval_expert.json')
+    gaps=[e for r in expert for e in r['events'] if e['after_wait']]
+    gap_x=torch.tensor([e['gap_observation'] for e in gaps],dtype=torch.float32)
+    desired=torch.tensor([e['direction'] for e in gaps])
     summary={}
     for name in course.SETS:
         summary[name]={}
@@ -52,6 +56,11 @@ def audit():
                 mse=float((pred-target).square().mean())
                 assert abs(mse-float(best['val_loss']))<1e-6
                 raw=model(x)[:,1]
+                signed_gap=model(gap_x)[:,1]*desired
+            gap_signal=dict(total=len(gaps), opposite_or_zero=int((signed_gap<=0).sum()),
+                weak_correct=int(((signed_gap>0)&(signed_gap<.5)).sum()),
+                correct_command=int((signed_gap>=.5).sum()), correct_at_03=int((signed_gap>=.3).sum()),
+                median_signed=float(signed_gap.median()))
             thresholds={}
             for threshold in (.5,.3):
                 cmd=(raw>=threshold).int()-(raw<=-threshold).int()
@@ -63,7 +72,8 @@ def audit():
             summary[name][budget]=dict(epoch=int(best['epoch']),mse=mse,common_changed=int(changed.sum()),
                 common_keep=int((~changed).sum()),thresholds=thresholds, correct_sign=int((raw[changed]*y[changed,1]>0).sum()),
                 outcomes=scores['outcomes'],first_gap=scores['common_first_gap']['after_wait'],
-                delay=scores['after_wait'],missed=scores['all']['missed_to_end'])
+                gap_signal=gap_signal, delay=scores['after_wait'],missed=scores['all']['missed_to_end'])
+            assert gap_signal['correct_command']==scores['common_first_gap']['after_wait']['immediate']
         assert len(starts[0])==128 and starts[0]==starts[1]
     save(ROOT/'comparison.json',summary)
     print(summary,flush=True)

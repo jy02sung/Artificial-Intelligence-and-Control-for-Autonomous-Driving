@@ -1,0 +1,192 @@
+{
+  "old": {
+    "50": {
+      "epoch": 49,
+      "mse": 0.0032206501346081495,
+      "common_changed": 29,
+      "common_keep": 11526,
+      "thresholds": {
+        "0.5": {
+          "correct": 10,
+          "spurious": 8
+        },
+        "0.3": {
+          "correct": 15,
+          "spurious": 42
+        }
+      },
+      "correct_sign": 29,
+      "outcomes": {
+        "arrival": 75,
+        "off_route": 33,
+        "stall": 12,
+        "collision": 4,
+        "timeout": 4
+      },
+      "first_gap": {
+        "opportunities": 49,
+        "immediate": 3
+      },
+      "gap_signal": {
+        "total": 49,
+        "opposite_or_zero": 1,
+        "weak_correct": 45,
+        "correct_command": 3,
+        "correct_at_03": 8,
+        "median_signed": 0.11509597301483154
+      },
+      "delay": {
+        "opportunities": 34,
+        "responses": 6,
+        "immediate": 1,
+        "delay_mean_s": 25.933333333333334,
+        "delay_median_s": 12.3,
+        "missed_to_end": 26,
+        "windows": 145,
+        "windows_without_response": 139
+      },
+      "missed": 42
+    },
+    "100": {
+      "epoch": 96,
+      "mse": 0.0031158735509961843,
+      "common_changed": 29,
+      "common_keep": 11526,
+      "thresholds": {
+        "0.5": {
+          "correct": 11,
+          "spurious": 11
+        },
+        "0.3": {
+          "correct": 16,
+          "spurious": 44
+        }
+      },
+      "correct_sign": 29,
+      "outcomes": {
+        "arrival": 81,
+        "off_route": 35,
+        "stall": 9,
+        "collision": 3
+      },
+      "first_gap": {
+        "opportunities": 49,
+        "immediate": 4
+      },
+      "gap_signal": {
+        "total": 49,
+        "opposite_or_zero": 1,
+        "weak_correct": 44,
+        "correct_command": 4,
+        "correct_at_03": 12,
+        "median_signed": 0.12095479667186737
+      },
+      "delay": {
+        "opportunities": 36,
+        "responses": 9,
+        "immediate": 1,
+        "delay_mean_s": 20.84444444444445,
+        "delay_median_s": 11.4,
+        "missed_to_end": 23,
+        "windows": 114,
+        "windows_without_response": 105
+      },
+      "missed": 38
+    }
+  },
+  "dense": {
+    "50": {
+      "epoch": 50,
+      "mse": 0.00515039311721921,
+      "common_changed": 29,
+      "common_keep": 11526,
+      "thresholds": {
+        "0.5": {
+          "correct": 11,
+          "spurious": 8
+        },
+        "0.3": {
+          "correct": 14,
+          "spurious": 9
+        }
+      },
+      "correct_sign": 29,
+      "outcomes": {
+        "arrival": 78,
+        "off_route": 34,
+        "stall": 10,
+        "collision": 5,
+        "timeout": 1
+      },
+      "first_gap": {
+        "opportunities": 49,
+        "immediate": 3
+      },
+      "gap_signal": {
+        "total": 49,
+        "opposite_or_zero": 0,
+        "weak_correct": 46,
+        "correct_command": 3,
+        "correct_at_03": 10,
+        "median_signed": 0.1739811897277832
+      },
+      "delay": {
+        "opportunities": 36,
+        "responses": 6,
+        "immediate": 1,
+        "delay_mean_s": 6.233333333333333,
+        "delay_median_s": 3.1,
+        "missed_to_end": 24,
+        "windows": 111,
+        "windows_without_response": 105
+      },
+      "missed": 37
+    },
+    "100": {
+      "epoch": 93,
+      "mse": 0.0049355523660779,
+      "common_changed": 29,
+      "common_keep": 11526,
+      "thresholds": {
+        "0.5": {
+          "correct": 12,
+          "spurious": 8
+        },
+        "0.3": {
+          "correct": 14,
+          "spurious": 15
+        }
+      },
+      "correct_sign": 29,
+      "outcomes": {
+        "arrival": 86,
+        "stall": 14,
+        "off_route": 24,
+        "collision": 4
+      },
+      "first_gap": {
+        "opportunities": 49,
+        "immediate": 4
+      },
+      "gap_signal": {
+        "total": 49,
+        "opposite_or_zero": 0,
+        "weak_correct": 45,
+        "correct_command": 4,
+        "correct_at_03": 9,
+        "median_signed": 0.10908403992652893
+      },
+      "delay": {
+        "opportunities": 37,
+        "responses": 9,
+        "immediate": 2,
+        "delay_mean_s": 7.133333333333334,
+        "delay_median_s": 1.8,
+        "missed_to_end": 24,
+        "windows": 95,
+        "windows_without_response": 86
+      },
+      "missed": 31
+    }
+  }
+}

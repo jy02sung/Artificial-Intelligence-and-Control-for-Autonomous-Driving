@@ -64,6 +64,8 @@ def drive(env, models, name, route, rep):
                     active['opened'] = step
                     active['after_wait'] = active['blocked']
                     if name == 'expert':
+                        if active['after_wait']:
+                            active['gap_observation'] = x.tolist()
                         active['shadow'] = {n:env.sim._quantize_lane_change(m.predict(x,deterministic=True)[1]) for n,m in models.items()}
                 if open_window is None:
                     open_window = dict(start=step, end=step, response=None)
