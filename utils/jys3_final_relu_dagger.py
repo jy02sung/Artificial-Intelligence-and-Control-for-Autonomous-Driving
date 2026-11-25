@@ -74,7 +74,7 @@ def checkpoint(k):
     return ROOT / ("bc.pt" if k==0 else f"dagger{k}.pt")
 
 
-def run_episodes(task, *, record_terminal=False, record_commands=False):
+def run_episodes(task, *, record_terminal=False, record_commands=False, policy_input_factory=None):
     name, cases, selected, model_path, collect, demo = task
     torch.set_num_threads(1)
     model = network(model_path) if model_path else None
@@ -84,6 +84,7 @@ def run_episodes(task, *, record_terminal=False, record_commands=False):
     with p.roll.baseline.simulator() as env, torch.inference_mode():
         assert env.sim.physical_forks and not env.sim.lc_safety_enabled and env.sim.occlusion
         assert np.isclose(env.sim.step_length,.2)
+        transform = policy_input_factory(env) if policy_input_factory else None
         for route,rep,base in cases:
             path=f"route_{route:02d}"
             lane=min(rep%2,env.counts[env.routes[path][0]]-1)
@@ -107,7 +108,8 @@ def run_episodes(task, *, record_terminal=False, record_commands=False):
                     if collect:
                         xs.append(state.copy())
                         ys.append(label)
-                    action=label if model is None else model.det_action(torch.from_numpy(state).unsqueeze(0))[0].numpy()
+                    policy_state = transform(state) if transform else state
+                    action=label if model is None else model.det_action(torch.from_numpy(policy_state).unsqueeze(0))[0].numpy()
                     if record_commands:
                         left += int(action[1] > .5)
                         right += int(action[1] < -.5)
