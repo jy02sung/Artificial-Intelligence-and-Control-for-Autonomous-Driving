@@ -1,0 +1,150 @@
+{
+  "metrics": {
+    "old": {
+      "outcomes": {
+        "arrival": 121,
+        "timeout": 6,
+        "collision": 1
+      },
+      "slow5": 12,
+      "slow10": 8,
+      "wait": {
+        "median": 0.0,
+        "p90": 21.44,
+        "maximum": 183.8
+      },
+      "slow": {
+        "median": 0.0,
+        "p90": 2.059999999999994,
+        "maximum": 177.60000000000002
+      },
+      "moves": 108,
+      "move_speed": 14.91624843527549,
+      "rolling10_18": 30,
+      "arrival_median": 74.60000000000001,
+      "zero_timeouts": 6
+    },
+    "strict": {
+      "outcomes": {
+        "arrival": 125,
+        "collision": 1,
+        "timeout": 2
+      },
+      "slow5": 5,
+      "slow10": 2,
+      "wait": {
+        "median": 0.0,
+        "p90": 12.04,
+        "maximum": 142.6
+      },
+      "slow": {
+        "median": 0.0,
+        "p90": 0.0,
+        "maximum": 135.20000000000002
+      },
+      "moves": 113,
+      "move_speed": 14.965800359847854,
+      "rolling10_18": 37,
+      "arrival_median": 75.4,
+      "zero_timeouts": 2
+    },
+    "relaxed": {
+      "outcomes": {
+        "arrival": 125,
+        "collision": 1,
+        "timeout": 2
+      },
+      "slow5": 5,
+      "slow10": 2,
+      "wait": {
+        "median": 0.0,
+        "p90": 12.04,
+        "maximum": 142.6
+      },
+      "slow": {
+        "median": 0.0,
+        "p90": 0.0,
+        "maximum": 135.20000000000002
+      },
+      "moves": 113,
+      "move_speed": 14.965800359847854,
+      "rolling10_18": 37,
+      "arrival_median": 75.4,
+      "zero_timeouts": 2
+    }
+  },
+  "comparison_candidate": "strict",
+  "numeric_targets_met": true,
+  "slow10_delta": -6,
+  "gui_cases": [
+    {
+      "route": 7,
+      "seed": 95380107,
+      "outcome": "timeout",
+      "longest_slow": 888
+    },
+    {
+      "route": 5,
+      "seed": 95380105,
+      "outcome": "timeout",
+      "longest_slow": 741
+    },
+    {
+      "route": 5,
+      "seed": 95380405,
+      "outcome": "timeout",
+      "longest_slow": 683
+    }
+  ],
+  "historical_failures": [
+    {
+      "route": 5,
+      "seed": 95380105,
+      "old": "timeout",
+      "strict": "arrival",
+      "relaxed": "arrival"
+    },
+    {
+      "route": 7,
+      "seed": 95380107,
+      "old": "timeout",
+      "strict": "arrival",
+      "relaxed": "arrival"
+    },
+    {
+      "route": 11,
+      "seed": 95380211,
+      "old": "collision",
+      "strict": "collision",
+      "relaxed": "collision"
+    },
+    {
+      "route": 5,
+      "seed": 95380405,
+      "old": "timeout",
+      "strict": "timeout",
+      "relaxed": "timeout"
+    },
+    {
+      "route": 13,
+      "seed": 95380413,
+      "old": "timeout",
+      "strict": "arrival",
+      "relaxed": "arrival"
+    },
+    {
+      "route": 14,
+      "seed": 95380614,
+      "old": "timeout",
+      "strict": "timeout",
+      "relaxed": "timeout"
+    },
+    {
+      "route": 5,
+      "seed": 95380705,
+      "old": "timeout",
+      "strict": "arrival",
+      "relaxed": "arrival"
+    }
+  ]
+}
