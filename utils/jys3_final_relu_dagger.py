@@ -1,8 +1,6 @@
 """Select the final expert, then train and validate its ReLU hybrid imitation policy."""
-import argparse
 from collections import Counter
 from concurrent.futures import ProcessPoolExecutor
-from pathlib import Path
 import hashlib
 
 from utils import jys3_rolling_margin_eval as margin
@@ -160,9 +158,13 @@ def dataset(rows,name):
     return p.roll.baseline.dagger.load_rollouts(accepted,ROOT/name)
 
 
-def fit(k,x,y,vx,vy,critical):
-    folder=ROOT/f"fit{k}.json"
-    if folder.is_file() and checkpoint(k).is_file():
+def fit(k,x,y,vx,vy,critical,*,extended_bc=False):
+    assert not extended_bc or k==0
+    destination = ROOT/"bc100" if extended_bc else ROOT
+    destination.mkdir(exist_ok=True)
+    folder=destination/f"fit{k}.json"
+    best_path=destination/checkpoint(k).name
+    if folder.is_file() and best_path.is_file():
         return
     torch.manual_seed(11)
     model=network(checkpoint(k-1) if k else None)
@@ -178,7 +180,8 @@ def fit(k,x,y,vx,vy,critical):
         return indices[torch.randint(len(indices),(32,),generator=generator)] if len(indices) else empty
     ledger=[]
     best=-float("inf")
-    for epoch in range(1,(12 if k else 50)+1):
+    epochs=12 if k else (100 if extended_bc else 50)
+    for epoch in range(1,epochs+1):
         disagree=empty
         if k:
             model.eval()
@@ -213,11 +216,20 @@ def fit(k,x,y,vx,vy,critical):
         if score>best:
             best,chosen=score,epoch
             atomic_torch(dict(policy=model.state_dict(),activation="relu",hidden_sizes=[256,256],
-                              obs_dim=50,seed=11,round=k,epoch=epoch),checkpoint(k))
+                              obs_dim=50,seed=11,round=k,epoch=epoch),best_path)
+        if extended_bc and epoch==50:
+            reference=p.read(ROOT/"fit0.json")
+            assert ledger==reference["epochs"] and chosen==reference["selected_epoch"]
+            a=torch.load(best_path,weights_only=True)["policy"]
+            b=torch.load(checkpoint(0),weights_only=True)["policy"]
+            assert all(torch.equal(a[key],b[key]) for key in a)
+        if extended_bc and epoch==epochs:
+            atomic_torch(dict(policy=model.state_dict(),activation="relu",hidden_sizes=[256,256],
+                              obs_dim=50,seed=11,round=0,epoch=epoch),destination/"last.pt")
         if epoch%5==0:
             print("fit",k,epoch,round(score,4),flush=True)
     p.save(folder,dict(epochs=ledger,selected_epoch=chosen,lr=lr,states=len(x),critical=len(critical),
-                       changed=len(changed),sha256=hashlib.sha256(checkpoint(k).read_bytes()).hexdigest()))
+                       changed=len(changed),sha256=hashlib.sha256(best_path.read_bytes()).hexdigest()))
 
 
 def planned(base,reps,routes=ROUTES):
@@ -299,7 +311,62 @@ def pipeline(pool):
     return result
 
 
+def final_report(result):
+    def name(i):
+        return "BC" if int(i)==0 else f"DAgger R{i}"
+    def line(label,c):
+        return "| "+label+" | "+" | ".join(str(c[key]) for key in (*OUTCOMES,"slow10"))+" |"
+    def outcomes(c):
+        return " / ".join(str(c[key]) for key in OUTCOMES)
+    def verdict(c):
+        return "충족" if c["arrival"]>=244 and c["collision"]<=12 and c["stall"]+c["timeout"]==0 else "미달"
+    decision=p.read(ROOT/"expert.json")
+    selected="저속 도로 12m" if decision["short_reserve"] else "기존 24m"
+    text=["# 최종 전문가의 ReLU Hybrid BC와 DAgger",
+          "", "| 항목 | 수업 기본 BC | 이번 실험과 이유 |", "|---|---|---|",
+          "| 유지 | 256×256, ReLU, Adam 0.0003, 기본 배치 256, 50에포크 | BC에서 동일하게 적용했다. 가감속 지도 손실도 MSE다. |",
+          "| 관측 | 학습 데이터 평균·표준편차로 표준화 | 환경에서 척도화한 50개 관측을 HybridActorCritic에 직접 전달했다. |",
+          "| 출력 및 손실 | 연속 행동 두 개를 MSE로 회귀 | 가감속은 tanh 평균, 차로는 좌·유지·우 3클래스 교차엔트로피다. 연속값 양자화가 차로변경 명령을 유지로 바꾸는 문제를 피한다. |",
+          "| 학습 배치 | 균일 배치 | BC는 차로변경 정답 32개를 추가했다. DAgger는 현재 오답 32개와 학생 실패 직전 15스텝에서 32개도 보강했다. 후자에는 가감속 손실도 적용했다. |",
+          "| 검증·시드 | 에피소드 20% 검증, 검증 MSE 최소, 시드 0 | 별도 전문가 32회로 좌·우 평균 F1 − 0.1 × 가감속 MAE가 최대인 에포크를 선택했다. 초기화 시드 11, 그래디언트 노름 상한 1.0을 사용했다. |",
+          "| 후속 학습 | 단일 BC | 학생이 방문한 상태에 전문가 정답을 붙였다. 각 라운드 144회씩 누적해 12에포크씩 업데이트했다. 값 함수·보상·PPO 업데이트는 사용하지 않았다. |",
+          "", "## 최종 전문가와 시범", "",
+          f"{selected} 전문가를 확정했다. 기존과 후보의 512회 결과와 문제 시드별 대기는 [전문가 보고서](jys3-expert-final.md)에 기록했다.",
+          "모든 주행은 고교통 15,000대/시, 물리적 분기, 고가 교차 20쌍 보정, 안전게이트 OFF에서 실행했다.",
+          "", "| 용도 | 주행 시도 | 채택 | 제외 및 시드 보충 | 채택 스텝 |", "|---|---:|---:|---:|---:|"]
+    for folder,label in (("train","학습 시범"),("valid","오프라인 검증")):
+        rows=p.read(ROOT/folder/"episodes.json")
+        accepted=[r for r in rows if r["accepted"]]
+        text.append(f"| {label} | {len(rows)} | {len(accepted)} | {len(rows)-len(accepted)} | {sum(r['steps'] for r in accepted):,} |")
+    text+=["","학습 시범은 지정 경로 완주와 10초 미만 저속 대기를 모두 요구했다. 검증 시범은 완주를 요구했다. 제외한 주행까지 시드 검증에 포함했다. 저속 대기는 같은 도로·차로·합류 방향에서 전문가가 간격 부족으로 기다리며 실제 속도가 1m/s 미만인 상태가 50스텝 이상 연속된 주행 수다. 학생 평가의 속도와 주행은 학생 정책의 출력으로 결정했다.",
+           "", "## 라운드별 고교통 128회", "",
+           "| 모델 | 완주 | 충돌 | 끝 정지 | 시간초과 | 실제 이탈 | 10초 이상 대기 |",
+           "|---|---:|---:|---:|---:|---:|---:|"]
+    for k,c in result["rounds"].items():
+        text.append(line(name(k),c))
+    best=result["best"]
+    text+=["",f"선정 모델은 **{name(best)}**이다. 128회에서 완주 수 최대, 충돌 수 최소, 실제 이탈 최소, 이른 라운드 순으로 선정했다. 취약 경로 실패 수가 같은 경우 경로 번호가 작은 순서로 보강했다.",
+           "", "## 선정 후 검증", "", "| 평가 · 모델 | 완주 | 충돌 | 끝 정지 | 시간초과 | 실제 이탈 | 10초 이상 대기 |",
+           "|---|---:|---:|---:|---:|---:|---:|"]
+    for m,c in result["hold"].items():
+        text.append(line("64회 · "+name(m),c))
+    text+=[line("지정 256회 · "+name(best),result["final"]),
+           line("추가 신규 256회 · "+name(best),result["novel"]),""]
+    for key,label in (("final","지정 91M 패널"),("novel","추가 신규 패널")):
+        c=result[key]
+        text.append(f"- {label}은 완주 {c['arrival']/256:.2%}, 충돌 {c['collision']/256:.2%}, 끝 정지·시간초과 {c['stall']+c['timeout']}건으로 목표 **{verdict(c)}**이다.")
+    text+=["",f"서로 다른 실제 사용 시드는 {result['distinct_seeds']:,}개다. 같은 평가 패널은 모델 간 비교에 재사용했다. 지정 91M 대역은 이전 프로젝트 실험에서 평가한 기록이 있어 104320000 대역 256회를 추가했다. 두 패널 모두 이번 모델의 학습과 선정에서 분리했다.",
+           "", "## 선정 모델 경로별 결과","", "셀 안의 건수 순서는 완주 / 충돌 / 끝 정지 / 시간초과 / 실제 이탈이다.","",
+           "| 경로 | 선정 패널(각 8회) | 지정 홀드아웃(각 16회) | 추가 신규 홀드아웃(각 16회) |","|---:|---|---|---|"]
+    for route in result["screen_routes"]:
+        text.append(f"| {route} | "+" | ".join(outcomes(result[k][route]) for k in ("screen_routes","final_routes","novel_routes"))+" |")
+    filename="bc.pt" if best==0 else f"dagger{best}.pt"
+    text+=["",f"[선정 가중치](../../results/jys3_final_relu_dagger/{filename}) · [BC 가중치](../../results/jys3_final_relu_dagger/bc.pt) · [실행 코드](../../utils/jys3_final_relu_dagger.py) · [집계 원자료](../../results/jys3_final_relu_dagger/summary.json)",
+           "", "라운드별 선택 에포크·검증 점수·손실은 결과 폴더의 fit 파일에 기록했다. 에피소드별 시드와 종료 사유는 각 하위 폴더의 episodes.json에, 스텝별 시범과 전문가 라벨은 로컬의 같은 하위 폴더에 압축 파일로 보관했다."]
+    (DOCS/"jys3-final-relu-dagger.md").write_text("\n".join(text)+"\n",encoding="utf-8")
+
+
 if __name__ == "__main__":
     ROOT.mkdir(exist_ok=True)
     with ProcessPoolExecutor(10) as pool:
-        pipeline(pool)
+        final_report(pipeline(pool))
