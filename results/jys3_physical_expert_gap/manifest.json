@@ -1,0 +1,76 @@
+{
+  "expert": "yield_early",
+  "traffic": "high_real_ratio",
+  "demand_vph": 15000,
+  "physical_forks": true,
+  "safety_gate": false,
+  "observations": 50,
+  "statistics": {
+    "original_train": {
+      "episodes": 160,
+      "steps": 57458,
+      "lane_commands": {
+        "0": 57313,
+        "1": 70,
+        "-1": 75
+      },
+      "traffic_blocked_episodes": 63,
+      "traffic_blocked_steps": 2250,
+      "close_following_episodes": 108,
+      "close_following_steps": 2788
+    },
+    "train": {
+      "episodes": 160,
+      "steps": 58626,
+      "lane_commands": {
+        "0": 58481,
+        "1": 70,
+        "-1": 75
+      },
+      "traffic_blocked_episodes": 74,
+      "traffic_blocked_steps": 2770,
+      "close_following_episodes": 111,
+      "close_following_steps": 2973
+    },
+    "valid": {
+      "episodes": 32,
+      "steps": 11504,
+      "lane_commands": {
+        "0": 11475,
+        "1": 14,
+        "-1": 15
+      },
+      "traffic_blocked_episodes": 14,
+      "traffic_blocked_steps": 361,
+      "close_following_episodes": 25,
+      "close_following_steps": 548
+    },
+    "same_cohort_first_successes": {
+      "episodes": 160,
+      "steps": 57474,
+      "lane_commands": {
+        "0": 57329,
+        "1": 70,
+        "-1": 75
+      },
+      "traffic_blocked_episodes": 62,
+      "traffic_blocked_steps": 1955,
+      "close_following_episodes": 99,
+      "close_following_steps": 2940
+    }
+  },
+  "train_merge_after_wait": 74,
+  "train_merge_after_wait_events": 83,
+  "strata": {
+    "ordered": 96,
+    "traffic_enriched": 64
+  },
+  "candidates": {
+    "arrival": 315,
+    "stall": 5
+  },
+  "validation_candidates": {
+    "arrival": 63,
+    "collision": 1
+  }
+}

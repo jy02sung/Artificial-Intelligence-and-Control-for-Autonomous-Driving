@@ -1,0 +1,758 @@
+[
+  {
+    "route": 1,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700001,
+    "start": [
+      "169728849",
+      0,
+      24.246463999999996,
+      350.79
+    ],
+    "steps": 183,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 0,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 183
+    },
+    "file": "route_01_94700001.npz",
+    "sha256": "2248cb0a0ce2cf9a44eb1401f73045cf3988adfcc61b691adffcd6b287601ef6"
+  },
+  {
+    "route": 1,
+    "rep": 1,
+    "lane": 0,
+    "seed": 94700101,
+    "start": [
+      "169728849",
+      0,
+      22.028907999999998,
+      350.79
+    ],
+    "steps": 226,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 21,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 226
+    },
+    "file": "route_01_94700101.npz",
+    "sha256": "21158dc791984f2347c1a813631cc18c989884baf39b69efa824728eb1f9e741"
+  },
+  {
+    "route": 2,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700002,
+    "start": [
+      "169728849",
+      0,
+      26.497349999999997,
+      350.79
+    ],
+    "steps": 423,
+    "outcome": "arrival",
+    "blocked": 62,
+    "following": 8,
+    "moves": 2,
+    "merge_after_wait": 2,
+    "modes": {
+      "drive": 361,
+      "approach": 27,
+      "yield": 35
+    },
+    "file": "route_02_94700002.npz",
+    "sha256": "220c6b3c4e8e0a2c35bf9c87f17ac2f688bc99fb8d553a23b7ed3e1453e39ea1"
+  },
+  {
+    "route": 2,
+    "rep": 1,
+    "lane": 0,
+    "seed": 94700102,
+    "start": [
+      "169728849",
+      0,
+      21.415636,
+      350.79
+    ],
+    "steps": 506,
+    "outcome": "arrival",
+    "blocked": 145,
+    "following": 21,
+    "moves": 2,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 361,
+      "yield": 38,
+      "approach": 107
+    },
+    "file": "route_02_94700102.npz",
+    "sha256": "df100ea59f68da61ef2cb0e006d3a081ee101671ccd5fcebe8527b3f58a209ea"
+  },
+  {
+    "route": 3,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700003,
+    "start": [
+      "52873356",
+      0,
+      0.6647268696759271,
+      446.69
+    ],
+    "steps": 377,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 30,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 377
+    },
+    "file": "route_03_94700003.npz",
+    "sha256": "1db2018b025bb3fffdd34387c4e9d96d79a666fe02289684641d412ff8d7baa8"
+  },
+  {
+    "route": 3,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700103,
+    "start": [
+      "52873356",
+      1,
+      21.99550096217374,
+      446.32
+    ],
+    "steps": 342,
+    "outcome": "arrival",
+    "blocked": 10,
+    "following": 10,
+    "moves": 1,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 332,
+      "yield": 10
+    },
+    "file": "route_03_94700103.npz",
+    "sha256": "5ef18ecda182855a66ebeb7eeb585d66ee130c2eb2ae0d50779e6c4548e4f875"
+  },
+  {
+    "route": 4,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700004,
+    "start": [
+      "52873356",
+      0,
+      4.592214535408676,
+      446.69
+    ],
+    "steps": 406,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 75,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 406
+    },
+    "file": "route_04_94700004.npz",
+    "sha256": "a80265758013bd32b1484634ad8fb5dec84aecbf4aef2d352947a0a9fdaaa8ce"
+  },
+  {
+    "route": 4,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700104,
+    "start": [
+      "52873356",
+      1,
+      27.78,
+      446.32
+    ],
+    "steps": 361,
+    "outcome": "arrival",
+    "blocked": 12,
+    "following": 5,
+    "moves": 1,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 349,
+      "yield": 3,
+      "pull_ahead": 9
+    },
+    "file": "route_04_94700104.npz",
+    "sha256": "ca3ca6334d3b6180b178d40eaaf56bb43099ba323774b4c007041110a928b9f9"
+  },
+  {
+    "route": 5,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700005,
+    "start": [
+      "52873356",
+      0,
+      1.354720992001735,
+      446.69
+    ],
+    "steps": 533,
+    "outcome": "arrival",
+    "blocked": 8,
+    "following": 16,
+    "moves": 1,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 525,
+      "pull_ahead": 8
+    },
+    "file": "route_05_94700005.npz",
+    "sha256": "9e82fb8c75970b32312318c83fde63177af68f1fa1fd9fa8f39030e3a43acb84"
+  },
+  {
+    "route": 5,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700105,
+    "start": [
+      "52873356",
+      1,
+      10.912060815868706,
+      446.32
+    ],
+    "steps": 474,
+    "outcome": "arrival",
+    "blocked": 3,
+    "following": 11,
+    "moves": 2,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 471,
+      "pull_ahead": 3
+    },
+    "file": "route_05_94700105.npz",
+    "sha256": "21e949f9a554b985140aaa440a1ff4585639bd4bd909d83e268d42a7517ac259"
+  },
+  {
+    "route": 6,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700006,
+    "start": [
+      "52873356",
+      0,
+      0.9236676331876171,
+      446.69
+    ],
+    "steps": 326,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 21,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 326
+    },
+    "file": "route_06_94700006.npz",
+    "sha256": "fdb977177cf16d47c076e8249f7cedcfd4e437ab626157858b2f2b79e5612f6d"
+  },
+  {
+    "route": 6,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700106,
+    "start": [
+      "52873356",
+      1,
+      26.217914737688307,
+      446.32
+    ],
+    "steps": 257,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 0,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 257
+    },
+    "file": "route_06_94700106.npz",
+    "sha256": "b4c6cea9ab581b223e2b916bc84306c1eafdc94cc7abde08a26bd154189daf76"
+  },
+  {
+    "route": 7,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700007,
+    "start": [
+      "544295537",
+      0,
+      21.082335999999998,
+      353.43
+    ],
+    "steps": 205,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 28,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 205
+    },
+    "file": "route_07_94700007.npz",
+    "sha256": "f0a95df649e04f9ff941e2b6d07dd7c732b9b4d36b1b66e474feb3800baf5dfa"
+  },
+  {
+    "route": 7,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700107,
+    "start": [
+      "544295537",
+      1,
+      23.348775999999997,
+      352.85
+    ],
+    "steps": 207,
+    "outcome": "arrival",
+    "blocked": 29,
+    "following": 3,
+    "moves": 1,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 178,
+      "approach": 29
+    },
+    "file": "route_07_94700107.npz",
+    "sha256": "25a24c03486c85e674926696b7c3efb353ed35e09b40e01b428f17e8ac993e94"
+  },
+  {
+    "route": 8,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700008,
+    "start": [
+      "544295537",
+      0,
+      24.286459999999998,
+      353.43
+    ],
+    "steps": 395,
+    "outcome": "arrival",
+    "blocked": 1,
+    "following": 1,
+    "moves": 2,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 394,
+      "yield": 1
+    },
+    "file": "route_08_94700008.npz",
+    "sha256": "6d76404dcafa15c558d339c6be122685855d02e6750aef15adb8e6b31bc8ed82"
+  },
+  {
+    "route": 8,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700108,
+    "start": [
+      "544295537",
+      1,
+      21.473408,
+      352.85
+    ],
+    "steps": 425,
+    "outcome": "arrival",
+    "blocked": 88,
+    "following": 2,
+    "moves": 1,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 337,
+      "yield": 44,
+      "approach": 44
+    },
+    "file": "route_08_94700108.npz",
+    "sha256": "e33487fb176ea5ec3bae77fc83347786de3b7aa7affce7129cf3741c5e9086b6"
+  },
+  {
+    "route": 9,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700009,
+    "start": [
+      "556956812#1",
+      0,
+      20.600568000000003,
+      84.53
+    ],
+    "steps": 167,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 0,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 167
+    },
+    "file": "route_09_94700009.npz",
+    "sha256": "73ebea6c9f7c151a637c05890f9676d8a8eb7b93d5ef856d505f4b772f803685"
+  },
+  {
+    "route": 9,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700109,
+    "start": [
+      "556956812#1",
+      1,
+      21.450096,
+      84.84
+    ],
+    "steps": 147,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 0,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 147
+    },
+    "file": "route_09_94700109.npz",
+    "sha256": "ea7c478ca4f4384759c1f4541e8e558fee0c5856f2636b077274c9ab6dd64bcc"
+  },
+  {
+    "route": 10,
+    "rep": 2,
+    "lane": 0,
+    "seed": 94700210,
+    "start": [
+      "781184662#1",
+      0,
+      27.78,
+      449.02
+    ],
+    "steps": 297,
+    "outcome": "arrival",
+    "blocked": 22,
+    "following": 5,
+    "moves": 1,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 275,
+      "yield": 15,
+      "approach": 7
+    },
+    "file": "route_10_94700210.npz",
+    "sha256": "01440e48887c9433696b8981cb5e1c867c15548965cbc7068bc378d53eb18514"
+  },
+  {
+    "route": 10,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700110,
+    "start": [
+      "781184662#1",
+      1,
+      27.78,
+      449.02
+    ],
+    "steps": 303,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 0,
+    "moves": 2,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 303
+    },
+    "file": "route_10_94700110.npz",
+    "sha256": "39166b0baf52d7fd8a9fe1c5998a899313472d6b253ac4f5bd42d776a1d3caec"
+  },
+  {
+    "route": 11,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700011,
+    "start": [
+      "781184662#1",
+      0,
+      27.78,
+      449.02
+    ],
+    "steps": 503,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 25,
+    "moves": 1,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 503
+    },
+    "file": "route_11_94700011.npz",
+    "sha256": "83cad559dab3c4bbfb0ea7db7c20dee4bf4a5bdbbcc2219f8984cb1dd10309d1"
+  },
+  {
+    "route": 11,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700111,
+    "start": [
+      "781184662#1",
+      1,
+      25.990968000000002,
+      449.02
+    ],
+    "steps": 554,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 92,
+    "moves": 2,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 554
+    },
+    "file": "route_11_94700111.npz",
+    "sha256": "62c1af4b959d2a4c626f52e2676c02a5f894863268123c3ad9423ac47b9cac1b"
+  },
+  {
+    "route": 12,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700012,
+    "start": [
+      "781184662#1",
+      0,
+      27.78,
+      449.02
+    ],
+    "steps": 194,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 0,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 194
+    },
+    "file": "route_12_94700012.npz",
+    "sha256": "062de7de4f81955216191c72c1ecbcf1a74e63c9b416146ba368ad44344ad977"
+  },
+  {
+    "route": 12,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700112,
+    "start": [
+      "781184662#1",
+      1,
+      25.652052,
+      449.02
+    ],
+    "steps": 184,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 0,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 184
+    },
+    "file": "route_12_94700112.npz",
+    "sha256": "cb6ff41380dcc6e3a1e907b9845824f361593d5226c25cddefde063d749ea0a5"
+  },
+  {
+    "route": 13,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700013,
+    "start": [
+      "86198728",
+      0,
+      13.58589083242316,
+      483.44
+    ],
+    "steps": 430,
+    "outcome": "arrival",
+    "blocked": 5,
+    "following": 19,
+    "moves": 2,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 425,
+      "yield": 5
+    },
+    "file": "route_13_94700013.npz",
+    "sha256": "5af8de66cd5edcf2e8cc65274b39a64d32aed305932e648233e777cbabf5d0fd"
+  },
+  {
+    "route": 13,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700113,
+    "start": [
+      "86198728",
+      1,
+      13.593145893685024,
+      483.44
+    ],
+    "steps": 429,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 12,
+    "moves": 3,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 429
+    },
+    "file": "route_13_94700113.npz",
+    "sha256": "7a9bf7b46fa0c338e0e9603660512eb0f38f93a235c1caa4f43cf1c4f3dfcbab"
+  },
+  {
+    "route": 14,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700014,
+    "start": [
+      "86198728",
+      0,
+      17.576191724031283,
+      483.44
+    ],
+    "steps": 474,
+    "outcome": "arrival",
+    "blocked": 42,
+    "following": 42,
+    "moves": 1,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 432,
+      "yield": 26,
+      "approach": 16
+    },
+    "file": "route_14_94700014.npz",
+    "sha256": "5794f62f70d7f9caa6412f3b775a7bd2d67ee5dfd786811eb85667f2f1df4075"
+  },
+  {
+    "route": 14,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700114,
+    "start": [
+      "86198728",
+      1,
+      4.6236455420483695,
+      483.44
+    ],
+    "steps": 471,
+    "outcome": "arrival",
+    "blocked": 26,
+    "following": 47,
+    "moves": 2,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 445,
+      "yield": 26
+    },
+    "file": "route_14_94700114.npz",
+    "sha256": "c9cce7214dfe4a300ae81daf583ba657029b646881bce3aa442d2c6d91d36568"
+  },
+  {
+    "route": 15,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700015,
+    "start": [
+      "86198728",
+      0,
+      27.78,
+      483.44
+    ],
+    "steps": 522,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 30,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 522
+    },
+    "file": "route_15_94700015.npz",
+    "sha256": "570623c10d5c3a3cd13e1ddb86904befb73f61131e00e79d82855b504cd97fd8"
+  },
+  {
+    "route": 15,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700115,
+    "start": [
+      "86198728",
+      1,
+      25.729836000000002,
+      483.44
+    ],
+    "steps": 530,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 2,
+    "moves": 1,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 530
+    },
+    "file": "route_15_94700115.npz",
+    "sha256": "1b1402a846841cfa5cf90370d46bc8d4bb39213cbae61d140cf1272f617af4cf"
+  },
+  {
+    "route": 16,
+    "rep": 0,
+    "lane": 0,
+    "seed": 94700016,
+    "start": [
+      "86198728",
+      0,
+      26.493786,
+      483.44
+    ],
+    "steps": 288,
+    "outcome": "arrival",
+    "blocked": 36,
+    "following": 1,
+    "moves": 1,
+    "merge_after_wait": 1,
+    "modes": {
+      "drive": 252,
+      "yield": 36
+    },
+    "file": "route_16_94700016.npz",
+    "sha256": "4dee67ad38af4b84deb94f2ee301a634aeb01d1a8a043a7bc7b469aeab7ceeab"
+  },
+  {
+    "route": 16,
+    "rep": 1,
+    "lane": 1,
+    "seed": 94700116,
+    "start": [
+      "86198728",
+      1,
+      12.17046427211001,
+      483.44
+    ],
+    "steps": 365,
+    "outcome": "arrival",
+    "blocked": 0,
+    "following": 21,
+    "moves": 0,
+    "merge_after_wait": 0,
+    "modes": {
+      "drive": 365
+    },
+    "file": "route_16_94700116.npz",
+    "sha256": "4b0d004ef60174ed51bed7e5f2589e9497aea21005a10cf535dbcf7bef1ed4e6"
+  }
+]
