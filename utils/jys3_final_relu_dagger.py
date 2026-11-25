@@ -158,16 +158,16 @@ def dataset(rows,name):
     return p.roll.baseline.dagger.load_rollouts(accepted,ROOT/name)
 
 
-def fit(k,x,y,vx,vy,critical,*,extended_bc=False):
+def fit(k,x,y,vx,vy,critical,*,extended_bc=False,uniform_dir=None,initial=None):
     assert not extended_bc or k==0
-    destination = ROOT/"bc100" if extended_bc else ROOT
+    destination = uniform_dir if uniform_dir is not None else (ROOT/"bc100" if extended_bc else ROOT)
     destination.mkdir(exist_ok=True)
     folder=destination/f"fit{k}.json"
     best_path=destination/checkpoint(k).name
     if folder.is_file() and best_path.is_file():
         return
     torch.manual_seed(11)
-    model=network(checkpoint(k-1) if k else None)
+    model=network(initial if initial is not None else (checkpoint(k-1) if k else None))
     lr=.0003 if k==0 else .0002 if k<=2 else .0001 if k<=5 else .00005
     optimizer=torch.optim.Adam(model.parameters(),lr=lr)
     generator=torch.Generator().manual_seed(11+k)
@@ -183,7 +183,7 @@ def fit(k,x,y,vx,vy,critical,*,extended_bc=False):
     epochs=12 if k else (100 if extended_bc else 50)
     for epoch in range(1,epochs+1):
         disagree=empty
-        if k:
+        if k and uniform_dir is None:
             model.eval()
             with torch.no_grad():
                 predicted=torch.cat([model(part)[2].argmax(1) for part in x.split(4096)])
@@ -192,8 +192,11 @@ def fit(k,x,y,vx,vy,critical,*,extended_bc=False):
         total_acc=total_lane=0.
         batches=0
         for base in torch.randperm(len(x),generator=generator).split(256):
-            acc_ids=torch.cat((base,sample(critical)))
-            ids=torch.cat((acc_ids,sample(changed),sample(disagree)))
+            if uniform_dir is None:
+                acc_ids=torch.cat((base,sample(critical)))
+                ids=torch.cat((acc_ids,sample(changed),sample(disagree)))
+            else:
+                acc_ids=ids=base
             mu,_,logits,_=model(x[ids])
             loss_acc=F.mse_loss(mu[:len(acc_ids),0],y[acc_ids,0])
             loss_lane=F.cross_entropy(logits,cls[ids])
