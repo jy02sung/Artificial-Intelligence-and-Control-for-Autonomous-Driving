@@ -46,7 +46,7 @@ def drive(env, models, name, route, rep):
         direction = required_direction(x)
         expert = prior.data.bc.expert(x,env)
         action = expert if name == 'expert' else models[name].predict(x,deterministic=True)
-        cmd = int(action[1])
+        cmd = env.sim._quantize_lane_change(action[1])
         if active and ((edge,lane) != (active['edge'],active['lane']) or
                        (direction and active['direction'] != direction)):
             active = None
@@ -64,7 +64,7 @@ def drive(env, models, name, route, rep):
                     active['opened'] = step
                     active['after_wait'] = active['blocked']
                     if name == 'expert':
-                        active['shadow'] = {n:int(m.predict(x,deterministic=True)[1]) for n,m in models.items()}
+                        active['shadow'] = {n:env.sim._quantize_lane_change(m.predict(x,deterministic=True)[1]) for n,m in models.items()}
                 if open_window is None:
                     open_window = dict(start=step, end=step, response=None)
                     active['windows'].append(open_window)
@@ -100,11 +100,15 @@ def drive(env, models, name, route, rep):
                 steps=step,outcome=reason,events=events)
 
 
+def load_project_model(folder,name):
+    return prior.dagger.policy(folder/name/'bc.pt')
+
+
 def shard(job):
-    name,rep = job
+    name,rep,folder,loader = job
     torch.set_num_threads(1)
     names = SETS if name=='expert' else [name]
-    models = {n:prior.dagger.policy(ROOT/n/'bc.pt') for n in names}
+    models = {n:loader(folder,n) for n in names}
     with prior.simulator() as env:
         assert env.sim.physical_forks and not env.sim.lc_safety_enabled
         return [drive(env,models,name,route,rep) for route in range(1,17)]
@@ -125,14 +129,14 @@ def summarize(rows):
                 missed_routes=[r['route'] for r in rows if any(e.get('missed_to_end') for e in r['events'])])
 
 
-def main():
+def main(folder=ROOT,loader=load_project_model):
     names = [*SETS,'expert']
     results = {name:[] for name in names}
-    jobs = [(name,rep) for rep in range(8) for name in names]
+    jobs = [(name,rep,folder,loader) for rep in range(8) for name in names]
     with ProcessPoolExecutor(8) as pool:
-        for (name,_), rows in zip(jobs,pool.map(shard,jobs)):
+        for (name,_,_,_), rows in zip(jobs,pool.map(shard,jobs)):
             results[name].extend(rows)
-            prior.v3.save(ROOT/f'eval_{name}.json',results[name])
+            prior.v3.save(folder/f'eval_{name}.json',results[name])
     starts = [[(r['seed'],r['start'],r['obs_sha256']) for r in results[n]] for n in names]
     assert starts[0] == starts[1] == starts[2] and len(set(r[0] for r in starts[0]))==128
     summary = {n:summarize(results[n]) for n in names}
@@ -142,7 +146,7 @@ def main():
         for key,group in [('all',events),('after_wait',[e for e in events if e['after_wait']])]:
             summary[name]['common_first_gap'][key]=dict(opportunities=len(group),
                 immediate=sum(e['shadow'][name]==e['direction'] for e in group))
-    prior.v3.save(ROOT/'evaluation.json',summary)
+    prior.v3.save(folder/'evaluation.json',summary)
     print(summary,flush=True)
 
 
