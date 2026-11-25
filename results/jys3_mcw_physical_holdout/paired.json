@@ -1,0 +1,4156 @@
+{
+  "commit": "3dee85f1e3f8e857158d0b8edd69e0e8d0000c39",
+  "weights_sha256": "4dab15658aa3f85880df9165d655f932be3e092c4997758e515b9cb6092e4f7e",
+  "sumo": [
+    22,
+    "SUMO 1.27.1"
+  ],
+  "torch": "2.14.0+cpu",
+  "map_sha256": "e90f631b91cc3d2490676ed6031c34afff6411719d19b1a3108ae3a0e8e566f5",
+  "traffic_sha256": "6a9323eaf322929b664d06c6b4ca55716bf745250030024b31850ec236b84fe3",
+  "workers": 4,
+  "exact": 80,
+  "matched_starts": 80,
+  "counts": {
+    "old": {
+      "arrival": 77,
+      "collision": 3
+    },
+    "new": {
+      "arrival": 72,
+      "off_route": 7,
+      "collision": 1
+    }
+  },
+  "rows": [
+    {
+      "route": "route_01",
+      "seed": 40001,
+      "published": {
+        "route": "route_01",
+        "seed": 40001,
+        "outcome": "arrival",
+        "steps": 182,
+        "mean_speed": 20.2950899325785
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "e7428bf12d6064609e94bdad4760d107ef55c5ab495a2e7b3c0f2af259715d73",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 23.648746,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5150256156921387,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 182,
+        "mean_speed": 20.295089978991093,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "e7428bf12d6064609e94bdad4760d107ef55c5ab495a2e7b3c0f2af259715d73",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 23.648746,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5150256156921387,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 182,
+        "mean_speed": 20.295089978991093,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_01",
+      "seed": 40101,
+      "published": {
+        "route": "route_01",
+        "seed": 40101,
+        "outcome": "arrival",
+        "steps": 227,
+        "mean_speed": 16.216801810020105
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "a7201ee4f332f88d5aece57caa0097d59c21e952feb5100929fa88bf47fb4772",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 23.224343999999995,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6595494747161865,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 227,
+        "mean_speed": 16.21680176218987,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "a7201ee4f332f88d5aece57caa0097d59c21e952feb5100929fa88bf47fb4772",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 23.224343999999995,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6595494747161865,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 227,
+        "mean_speed": 16.21680176218987,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_01",
+      "seed": 40201,
+      "published": {
+        "route": "route_01",
+        "seed": 40201,
+        "outcome": "arrival",
+        "steps": 203,
+        "mean_speed": 18.15759805722062
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "f4ba7b7213d80354fd845202203e7b9d03ff7b586f52946f66591b401d16adea",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 25.770756,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6863946914672852,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 203,
+        "mean_speed": 18.15759803585922,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "f4ba7b7213d80354fd845202203e7b9d03ff7b586f52946f66591b401d16adea",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 25.770756,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6863946914672852,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 203,
+        "mean_speed": 18.15759803585922,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_01",
+      "seed": 40301,
+      "published": {
+        "route": "route_01",
+        "seed": 40301,
+        "outcome": "arrival",
+        "steps": 175,
+        "mean_speed": 21.033991897018584
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "a7015a98dddd3437ea3210832e8b21eb709e102e518950c6b87ec99e14825024",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 23.435433999999997,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5201281905174255,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 175,
+        "mean_speed": 21.033991957969473,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "a7015a98dddd3437ea3210832e8b21eb709e102e518950c6b87ec99e14825024",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 23.435433999999997,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5201281905174255,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 175,
+        "mean_speed": 21.033991957969473,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_01",
+      "seed": 40401,
+      "published": {
+        "route": "route_01",
+        "seed": 40401,
+        "outcome": "arrival",
+        "steps": 220,
+        "mean_speed": 16.73677254457535
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "6289c7ac0b3920155f472f0e94a74d841edefc4fb64f7d82c67ae25e9588c3ec",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 23.906498,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5665890574455261,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 220,
+        "mean_speed": 16.7367725515932,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "6289c7ac0b3920155f472f0e94a74d841edefc4fb64f7d82c67ae25e9588c3ec",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 23.906498,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5665890574455261,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 220,
+        "mean_speed": 16.7367725515932,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_02",
+      "seed": 40002,
+      "published": {
+        "route": "route_02",
+        "seed": 40002,
+        "outcome": "arrival",
+        "steps": 446,
+        "mean_speed": 18.162813816826556
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "fdb29980b4fa94b14671cca3358a7ccd903c2d1b3add4bf33e6589ddf73b40b0",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 24.293125999999997,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.642196774482727,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 446,
+        "mean_speed": 18.16281388897045,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "fdb29980b4fa94b14671cca3358a7ccd903c2d1b3add4bf33e6589ddf73b40b0",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 24.293125999999997,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.642196774482727,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 414,
+        "mean_speed": 19.567287577526162,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_02",
+      "seed": 40102,
+      "published": {
+        "route": "route_02",
+        "seed": 40102,
+        "outcome": "arrival",
+        "steps": 428,
+        "mean_speed": 18.95480285630858
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "059825ddcbf9c9ca9b948980f28be9e20437d293efaa7334e435b6535a0d62f4",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 23.111022,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5278195142745972,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 428,
+        "mean_speed": 18.95480293572897,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "059825ddcbf9c9ca9b948980f28be9e20437d293efaa7334e435b6535a0d62f4",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 23.111022,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5278195142745972,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 428,
+        "mean_speed": 18.927257714870027,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_02",
+      "seed": 40202,
+      "published": {
+        "route": "route_02",
+        "seed": 40202,
+        "outcome": "arrival",
+        "steps": 410,
+        "mean_speed": 19.768903554312697
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "d92f10e129126313df8f1d6c48c2d5f3a1c6462737f00621b13da428fdeff055",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 21.83115,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5573404431343079,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 410,
+        "mean_speed": 19.768903574311214,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "d92f10e129126313df8f1d6c48c2d5f3a1c6462737f00621b13da428fdeff055",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 21.83115,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5573404431343079,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 410,
+        "mean_speed": 19.768903574311214,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_02",
+      "seed": 40302,
+      "published": {
+        "route": "route_02",
+        "seed": 40302,
+        "outcome": "arrival",
+        "steps": 416,
+        "mean_speed": 19.51062483032275
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "f2047f4efe6cf89831183e8b3a38fc62b33d2c82325e5349157b0cbadd062b1d",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 20.73126,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5816354751586914,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 416,
+        "mean_speed": 19.510624879523508,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "f2047f4efe6cf89831183e8b3a38fc62b33d2c82325e5349157b0cbadd062b1d",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 20.73126,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5816354751586914,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 416,
+        "mean_speed": 19.510624879523508,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_02",
+      "seed": 40402,
+      "published": {
+        "route": "route_02",
+        "seed": 40402,
+        "outcome": "arrival",
+        "steps": 338,
+        "mean_speed": 23.973184898976054
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "5c8b253b7b66d34342eded217d7bb5ca04312f3d380ed5628c5f8f75d9e8ecc0",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 24.206467999999997,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.501517653465271,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 338,
+        "mean_speed": 23.97318486979808,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "5c8b253b7b66d34342eded217d7bb5ca04312f3d380ed5628c5f8f75d9e8ecc0",
+          "edge": "169728849",
+          "lane": 0,
+          "speed": 24.206467999999997,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.501517653465271,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 338,
+        "mean_speed": 23.97318486979808,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_03",
+      "seed": 40003,
+      "published": {
+        "route": "route_03",
+        "seed": 40003,
+        "outcome": "arrival",
+        "steps": 343,
+        "mean_speed": 18.147891287768633
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "fcec17ecfeec679d73b2853e57acfa71d52c82ba35b9d32f0c4158e387ab1947",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.5909985249527087,
+          "position": 0.0,
+          "time": 64.2,
+          "action": [
+            -0.2684847116470337,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 343,
+        "mean_speed": 18.147891432431457,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "fcec17ecfeec679d73b2853e57acfa71d52c82ba35b9d32f0c4158e387ab1947",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.5909985249527087,
+          "position": 0.0,
+          "time": 64.2,
+          "action": [
+            -0.2684847116470337,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 343,
+        "mean_speed": 18.147891432431457,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_03",
+      "seed": 40103,
+      "published": {
+        "route": "route_03",
+        "seed": 40103,
+        "outcome": "arrival",
+        "steps": 368,
+        "mean_speed": 16.925467483068118
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "b9ad4e6604dce6d8827b039b5c38c5f816c939cce29e25520a9c543c464e8fb4",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 15.453821322023273,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5672283172607422,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 368,
+        "mean_speed": 16.925467482207548,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "b9ad4e6604dce6d8827b039b5c38c5f816c939cce29e25520a9c543c464e8fb4",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 15.453821322023273,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5672283172607422,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 368,
+        "mean_speed": 16.925467482207548,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_03",
+      "seed": 40203,
+      "published": {
+        "route": "route_03",
+        "seed": 40203,
+        "outcome": "arrival",
+        "steps": 319,
+        "mean_speed": 19.4962695534815
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "fbb9f8940e7cb0f478681bd43beef8b475e5fb8449e58215178fe1d3faf8c399",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 1.0491331527471375,
+          "position": 0.0,
+          "time": 61.6,
+          "action": [
+            -0.2718135714530945,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 319,
+        "mean_speed": 19.49626951369119,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "fbb9f8940e7cb0f478681bd43beef8b475e5fb8449e58215178fe1d3faf8c399",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 1.0491331527471375,
+          "position": 0.0,
+          "time": 61.6,
+          "action": [
+            -0.2718135714530945,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 319,
+        "mean_speed": 19.49626951369119,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_03",
+      "seed": 40303,
+      "published": {
+        "route": "route_03",
+        "seed": 40303,
+        "outcome": "arrival",
+        "steps": 326,
+        "mean_speed": 19.09409482669346
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "259269685826812cc5934a1a9598b73b2d4e3f073489b918fed922976084c89d",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 12.211733998858824,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5212494134902954,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 326,
+        "mean_speed": 19.0940948469493,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "259269685826812cc5934a1a9598b73b2d4e3f073489b918fed922976084c89d",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 12.211733998858824,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5212494134902954,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 326,
+        "mean_speed": 19.0940948469493,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_03",
+      "seed": 40403,
+      "published": {
+        "route": "route_03",
+        "seed": 40403,
+        "outcome": "arrival",
+        "steps": 354,
+        "mean_speed": 17.55219728988316
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "5faeec9b6a1a9fa2e9310cced1fdea4f9c38ad382f59fd09b73f269ded0f0d8f",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 21.27548399062185,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6351582407951355,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 354,
+        "mean_speed": 17.552197305001926,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "5faeec9b6a1a9fa2e9310cced1fdea4f9c38ad382f59fd09b73f269ded0f0d8f",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 21.27548399062185,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6351582407951355,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 354,
+        "mean_speed": 17.552197305001926,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_04",
+      "seed": 40004,
+      "published": {
+        "route": "route_04",
+        "seed": 40004,
+        "outcome": "arrival",
+        "steps": 498,
+        "mean_speed": 12.476696373805416
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "a5c4a8028765d26bed30ba31158ba4a1904e3c353117cf739d802ce8d2746c0f",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.35327035539634755,
+          "position": 0.0,
+          "time": 64.0,
+          "action": [
+            -0.16929101943969727,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 498,
+        "mean_speed": 12.476696322983761,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "a5c4a8028765d26bed30ba31158ba4a1904e3c353117cf739d802ce8d2746c0f",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.35327035539634755,
+          "position": 0.0,
+          "time": 64.0,
+          "action": [
+            -0.16929101943969727,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 498,
+        "mean_speed": 12.476696322983761,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_04",
+      "seed": 40104,
+      "published": {
+        "route": "route_04",
+        "seed": 40104,
+        "outcome": "arrival",
+        "steps": 417,
+        "mean_speed": 14.896515595161873
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "ac9553ec31c958fb0e4263e5e65e1087d8373f5a5e42479bb6dee742e0675bdd",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.8210419452199967,
+          "position": 0.0,
+          "time": 65.2,
+          "action": [
+            -0.23565204441547394,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 417,
+        "mean_speed": 14.896515608276333,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "ac9553ec31c958fb0e4263e5e65e1087d8373f5a5e42479bb6dee742e0675bdd",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.8210419452199967,
+          "position": 0.0,
+          "time": 65.2,
+          "action": [
+            -0.23565204441547394,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 417,
+        "mean_speed": 14.896515608276333,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_04",
+      "seed": 40204,
+      "published": {
+        "route": "route_04",
+        "seed": 40204,
+        "outcome": "arrival",
+        "steps": 437,
+        "mean_speed": 14.203826015590806
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "95b7e1e8ea45bb53025017feb51c4fe8c55a6c8ad33fed55b73d59e56e99975f",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.7299841201725572,
+          "position": 0.0,
+          "time": 61.8,
+          "action": [
+            -0.21996571123600006,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 437,
+        "mean_speed": 14.203826066798072,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "95b7e1e8ea45bb53025017feb51c4fe8c55a6c8ad33fed55b73d59e56e99975f",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.7299841201725572,
+          "position": 0.0,
+          "time": 61.8,
+          "action": [
+            -0.21996571123600006,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 437,
+        "mean_speed": 14.203826066798072,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_04",
+      "seed": 40304,
+      "published": {
+        "route": "route_04",
+        "seed": 40304,
+        "outcome": "arrival",
+        "steps": 388,
+        "mean_speed": 16.01071424869582
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "4ac923b74e4434746875197b664462b3ba59ed39dd42aca12fb811bf42609439",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.8361372165729231,
+          "position": 0.0,
+          "time": 65.0,
+          "action": [
+            -0.26033511757850647,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 388,
+        "mean_speed": 16.010714302074906,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "4ac923b74e4434746875197b664462b3ba59ed39dd42aca12fb811bf42609439",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.8361372165729231,
+          "position": 0.0,
+          "time": 65.0,
+          "action": [
+            -0.26033511757850647,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 388,
+        "mean_speed": 16.010714302074906,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_04",
+      "seed": 40404,
+      "published": {
+        "route": "route_04",
+        "seed": 40404,
+        "outcome": "arrival",
+        "steps": 439,
+        "mean_speed": 14.156607367635706
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "3c65baf9a398dc64e93a885efb345b01ddb31a4024c6d3d2d370fa83ccb5155c",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.6976851552920049,
+          "position": 0.0,
+          "time": 60.8,
+          "action": [
+            -0.25721475481987,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 439,
+        "mean_speed": 14.156607411846213,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "3c65baf9a398dc64e93a885efb345b01ddb31a4024c6d3d2d370fa83ccb5155c",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.6976851552920049,
+          "position": 0.0,
+          "time": 60.8,
+          "action": [
+            -0.25721475481987,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 439,
+        "mean_speed": 14.156607411846213,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_05",
+      "seed": 40005,
+      "published": {
+        "route": "route_05",
+        "seed": 40005,
+        "outcome": "arrival",
+        "steps": 571,
+        "mean_speed": 15.558782308636045
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "1eafdc10cbb555f1ff8a76d24d12f278c49b7a67b501cc63794fd4de7c01ef19",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.5817857130293512,
+          "position": 0.0,
+          "time": 65.4,
+          "action": [
+            -0.2159585803747177,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 571,
+        "mean_speed": 15.558782317134401,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "1eafdc10cbb555f1ff8a76d24d12f278c49b7a67b501cc63794fd4de7c01ef19",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 0.5817857130293512,
+          "position": 0.0,
+          "time": 65.4,
+          "action": [
+            -0.2159585803747177,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 571,
+        "mean_speed": 15.558782317134401,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_05",
+      "seed": 40105,
+      "published": {
+        "route": "route_05",
+        "seed": 40105,
+        "outcome": "arrival",
+        "steps": 513,
+        "mean_speed": 17.325107988487456
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "49b1daf950239f55bca3ee428c0b3c2c220e1da1f852320400cd6c3b7041d131",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 20.84917556938767,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6539962291717529,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 513,
+        "mean_speed": 17.325107937154865,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "49b1daf950239f55bca3ee428c0b3c2c220e1da1f852320400cd6c3b7041d131",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 20.84917556938767,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6539962291717529,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 513,
+        "mean_speed": 17.318987442017782,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_05",
+      "seed": 40205,
+      "published": {
+        "route": "route_05",
+        "seed": 40205,
+        "outcome": "arrival",
+        "steps": 508,
+        "mean_speed": 17.481377687835643
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "b7e5792c03d32f5e354e7a3c776c196ef4848d8dd5924f2a19284dc46f3723ef",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 1.076663004228569,
+          "position": 0.0,
+          "time": 64.0,
+          "action": [
+            -0.23709191381931305,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 508,
+        "mean_speed": 17.481377243350746,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "b7e5792c03d32f5e354e7a3c776c196ef4848d8dd5924f2a19284dc46f3723ef",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 1.076663004228569,
+          "position": 0.0,
+          "time": 64.0,
+          "action": [
+            -0.23709191381931305,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 508,
+        "mean_speed": 17.474924054759995,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_05",
+      "seed": 40305,
+      "published": {
+        "route": "route_05",
+        "seed": 40305,
+        "outcome": "collision",
+        "steps": 427,
+        "mean_speed": 10.449290465224033
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "79b6ffb1fe5bf2524a4672dcb146516018a982b861ad0aadf2ee93403a23f77d",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 1.6406659431883783,
+          "position": 0.0,
+          "time": 64.6,
+          "action": [
+            -0.21924743056297302,
+            0.0
+          ]
+        },
+        "outcome": "collision",
+        "steps": 427,
+        "mean_speed": 10.44929044972107,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "79b6ffb1fe5bf2524a4672dcb146516018a982b861ad0aadf2ee93403a23f77d",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 1.6406659431883783,
+          "position": 0.0,
+          "time": 64.6,
+          "action": [
+            -0.21924743056297302,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 703,
+        "mean_speed": 12.626738829477329,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_05",
+      "seed": 40405,
+      "published": {
+        "route": "route_05",
+        "seed": 40405,
+        "outcome": "arrival",
+        "steps": 605,
+        "mean_speed": 14.689027451400065
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "ab5c64d9ab73827657763b16f77238eca9f1d7fd9931a373b32974f9671af1ea",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 1.556494848869003,
+          "position": 0.0,
+          "time": 61.4,
+          "action": [
+            -0.2542610764503479,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 605,
+        "mean_speed": 14.68902744940174,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "ab5c64d9ab73827657763b16f77238eca9f1d7fd9931a373b32974f9671af1ea",
+          "edge": "52873356",
+          "lane": 0,
+          "speed": 1.556494848869003,
+          "position": 0.0,
+          "time": 61.4,
+          "action": [
+            -0.2542610764503479,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 605,
+        "mean_speed": 14.68902744940174,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_06",
+      "seed": 40006,
+      "published": {
+        "route": "route_06",
+        "seed": 40006,
+        "outcome": "arrival",
+        "steps": 324,
+        "mean_speed": 19.319688435185356
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "dc133f426d05abc0f859373a0ce644124e88d74793e8e0ab399e63c64e863358",
+          "edge": "52873356",
+          "lane": 2,
+          "speed": 18.83439374663215,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6821523308753967,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 324,
+        "mean_speed": 19.31968838644472,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "dc133f426d05abc0f859373a0ce644124e88d74793e8e0ab399e63c64e863358",
+          "edge": "52873356",
+          "lane": 2,
+          "speed": 18.83439374663215,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6821523308753967,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 324,
+        "mean_speed": 19.31968838644472,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_06",
+      "seed": 40106,
+      "published": {
+        "route": "route_06",
+        "seed": 40106,
+        "outcome": "arrival",
+        "steps": 367,
+        "mean_speed": 17.02346747887615
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "369a708fff701ee05eb262b63127dc182ccf2124bf16024b0ce193e76c8fc0e4",
+          "edge": "52873356",
+          "lane": 1,
+          "speed": 25.563903140084044,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.857454240322113,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 367,
+        "mean_speed": 17.023467507748382,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "369a708fff701ee05eb262b63127dc182ccf2124bf16024b0ce193e76c8fc0e4",
+          "edge": "52873356",
+          "lane": 1,
+          "speed": 25.563903140084044,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.857454240322113,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 367,
+        "mean_speed": 17.023467507748382,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_06",
+      "seed": 40206,
+      "published": {
+        "route": "route_06",
+        "seed": 40206,
+        "outcome": "arrival",
+        "steps": 328,
+        "mean_speed": 19.086506909559336
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "dded9c08345baf10b184530195c2e2c19489141fa4da019e277ed8ed9631e39a",
+          "edge": "52873356",
+          "lane": 2,
+          "speed": 26.716026,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7013523578643799,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 328,
+        "mean_speed": 19.08650688716657,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "dded9c08345baf10b184530195c2e2c19489141fa4da019e277ed8ed9631e39a",
+          "edge": "52873356",
+          "lane": 2,
+          "speed": 26.716026,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7013523578643799,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 328,
+        "mean_speed": 19.08650688716657,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_06",
+      "seed": 40306,
+      "published": {
+        "route": "route_06",
+        "seed": 40306,
+        "outcome": "arrival",
+        "steps": 297,
+        "mean_speed": 21.026592476601106
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "54f411680c988da3086d2b1fa78335a99005faa8aea5124bbcb7ddb58b6a237b",
+          "edge": "52873356",
+          "lane": 1,
+          "speed": 26.16876,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.863154411315918,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 297,
+        "mean_speed": 21.026592431739797,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "54f411680c988da3086d2b1fa78335a99005faa8aea5124bbcb7ddb58b6a237b",
+          "edge": "52873356",
+          "lane": 1,
+          "speed": 26.16876,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.863154411315918,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 297,
+        "mean_speed": 21.026592431739797,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_06",
+      "seed": 40406,
+      "published": {
+        "route": "route_06",
+        "seed": 40406,
+        "outcome": "arrival",
+        "steps": 289,
+        "mean_speed": 21.65851830367406
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "3f2b337263cd5fb836fa4971fff8308513b9b7d04feae70a7684974beb8a306c",
+          "edge": "52873356",
+          "lane": 3,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.8050292134284973,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 289,
+        "mean_speed": 21.658518386571068,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "3f2b337263cd5fb836fa4971fff8308513b9b7d04feae70a7684974beb8a306c",
+          "edge": "52873356",
+          "lane": 3,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.8050292134284973,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 289,
+        "mean_speed": 21.658518386571068,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_07",
+      "seed": 40007,
+      "published": {
+        "route": "route_07",
+        "seed": 40007,
+        "outcome": "arrival",
+        "steps": 186,
+        "mean_speed": 19.830123624883715
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "ed135512a9c7782103c74d3fd5561b1fb76232b8691e31335727aa60dafcc966",
+          "edge": "544295537",
+          "lane": 0,
+          "speed": 24.81974,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6503973007202148,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 186,
+        "mean_speed": 19.830123595350415,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "ed135512a9c7782103c74d3fd5561b1fb76232b8691e31335727aa60dafcc966",
+          "edge": "544295537",
+          "lane": 0,
+          "speed": 24.81974,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6503973007202148,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 186,
+        "mean_speed": 19.84154398203471,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_07",
+      "seed": 40107,
+      "published": {
+        "route": "route_07",
+        "seed": 40107,
+        "outcome": "arrival",
+        "steps": 183,
+        "mean_speed": 20.22745827308599
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "cef54bd54a8131fc1dfc1739968a9ae50cc49847de51e29e9c661a59c7107e82",
+          "edge": "544295537",
+          "lane": 0,
+          "speed": 23.09769,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5720191597938538,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 183,
+        "mean_speed": 20.22745826159081,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "cef54bd54a8131fc1dfc1739968a9ae50cc49847de51e29e9c661a59c7107e82",
+          "edge": "544295537",
+          "lane": 0,
+          "speed": 23.09769,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5720191597938538,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 183,
+        "mean_speed": 20.22745826159081,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_07",
+      "seed": 40207,
+      "published": {
+        "route": "route_07",
+        "seed": 40207,
+        "outcome": "arrival",
+        "steps": 214,
+        "mean_speed": 17.263039392314425
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "2cecb769fdb5b6b3ba55f2f007d680cc991e702ee7482319038abc4f8759c935",
+          "edge": "544295537",
+          "lane": 0,
+          "speed": 22.515526,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6385074853897095,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 214,
+        "mean_speed": 17.26303940383658,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "2cecb769fdb5b6b3ba55f2f007d680cc991e702ee7482319038abc4f8759c935",
+          "edge": "544295537",
+          "lane": 0,
+          "speed": 22.515526,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6385074853897095,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 214,
+        "mean_speed": 17.26303940383658,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_07",
+      "seed": 40307,
+      "published": {
+        "route": "route_07",
+        "seed": 40307,
+        "outcome": "arrival",
+        "steps": 225,
+        "mean_speed": 16.44967683505313
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "b1d9259add0f2734a3dce440f3a479f6edf9bb484b04d9731b0401323c65f2a4",
+          "edge": "544295537",
+          "lane": 0,
+          "speed": 14.749635999999999,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.3036150336265564,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 225,
+        "mean_speed": 16.449676840450472,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "b1d9259add0f2734a3dce440f3a479f6edf9bb484b04d9731b0401323c65f2a4",
+          "edge": "544295537",
+          "lane": 0,
+          "speed": 14.749635999999999,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.3036150336265564,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 225,
+        "mean_speed": 16.449676840450472,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_07",
+      "seed": 40407,
+      "published": {
+        "route": "route_07",
+        "seed": 40407,
+        "outcome": "arrival",
+        "steps": 191,
+        "mean_speed": 19.394232375766713
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "2cb3705e44a03afb6493a764a4156e67a72f3292ea73971f3896d658b579f607",
+          "edge": "544295537",
+          "lane": 0,
+          "speed": 24.2198,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7660347819328308,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 191,
+        "mean_speed": 19.394232362828582,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "2cb3705e44a03afb6493a764a4156e67a72f3292ea73971f3896d658b579f607",
+          "edge": "544295537",
+          "lane": 0,
+          "speed": 24.2198,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7660347819328308,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 191,
+        "mean_speed": 19.29314768483927,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_08",
+      "seed": 40008,
+      "published": {
+        "route": "route_08",
+        "seed": 40008,
+        "outcome": "arrival",
+        "steps": 395,
+        "mean_speed": 20.55939733779238
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "9338809cccd82ff32666190d1798e6d649299e2ef2ab4a830da9265b9e1955db",
+          "edge": "544295537",
+          "lane": 2,
+          "speed": 26.077392,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7956118583679199,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 395,
+        "mean_speed": 20.559397348386767,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "9338809cccd82ff32666190d1798e6d649299e2ef2ab4a830da9265b9e1955db",
+          "edge": "544295537",
+          "lane": 2,
+          "speed": 26.077392,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7956118583679199,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 395,
+        "mean_speed": 20.559397348386767,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_08",
+      "seed": 40108,
+      "published": {
+        "route": "route_08",
+        "seed": 40108,
+        "outcome": "arrival",
+        "steps": 415,
+        "mean_speed": 19.537714940543864
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "411d16f6ccbbc65e291b050fa6dd971088d5daeebf3219ddf009506fe617c0aa",
+          "edge": "544295537",
+          "lane": 2,
+          "speed": 19.546934,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5884567499160767,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 415,
+        "mean_speed": 19.537714960108932,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "411d16f6ccbbc65e291b050fa6dd971088d5daeebf3219ddf009506fe617c0aa",
+          "edge": "544295537",
+          "lane": 2,
+          "speed": 19.546934,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5884567499160767,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 415,
+        "mean_speed": 19.537714960108932,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_08",
+      "seed": 40208,
+      "published": {
+        "route": "route_08",
+        "seed": 40208,
+        "outcome": "arrival",
+        "steps": 467,
+        "mean_speed": 17.384349004580233
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "b78715df711df9a20cecd07c33271b5a546a4cdb27e0012b845a762c6c9725b6",
+          "edge": "544295537",
+          "lane": 2,
+          "speed": 25.468564,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7603022456169128,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 467,
+        "mean_speed": 17.384348996835783,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "b78715df711df9a20cecd07c33271b5a546a4cdb27e0012b845a762c6c9725b6",
+          "edge": "544295537",
+          "lane": 2,
+          "speed": 25.468564,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7603022456169128,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 467,
+        "mean_speed": 17.384348996835783,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_08",
+      "seed": 40308,
+      "published": {
+        "route": "route_08",
+        "seed": 40308,
+        "outcome": "arrival",
+        "steps": 470,
+        "mean_speed": 17.269983377730174
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "dad2fe35bebb19741b3c91e094fad3b962e3a1e94711fafbb559c99fef3b8b5e",
+          "edge": "544295537",
+          "lane": 2,
+          "speed": 21.175659999999997,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7346352338790894,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 470,
+        "mean_speed": 17.26998340238477,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "dad2fe35bebb19741b3c91e094fad3b962e3a1e94711fafbb559c99fef3b8b5e",
+          "edge": "544295537",
+          "lane": 2,
+          "speed": 21.175659999999997,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7346352338790894,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 470,
+        "mean_speed": 17.26998340238477,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_08",
+      "seed": 40408,
+      "published": {
+        "route": "route_08",
+        "seed": 40408,
+        "outcome": "arrival",
+        "steps": 442,
+        "mean_speed": 18.377646069910405
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "7823b79e43885a9cdbe0760c95eb4d0ab10aec5afe793566786871d3211b47b9",
+          "edge": "544295537",
+          "lane": 2,
+          "speed": 22.313323999999998,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7415534853935242,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 442,
+        "mean_speed": 18.377646105946894,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "7823b79e43885a9cdbe0760c95eb4d0ab10aec5afe793566786871d3211b47b9",
+          "edge": "544295537",
+          "lane": 2,
+          "speed": 22.313323999999998,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7415534853935242,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 442,
+        "mean_speed": 18.377646105946894,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_09",
+      "seed": 40009,
+      "published": {
+        "route": "route_09",
+        "seed": 40009,
+        "outcome": "arrival",
+        "steps": 137,
+        "mean_speed": 27.613817880360152
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "61dc269bcd04dfd2640f54454bb539f6c2b6cc2936e2c97b507e9c7b0e38368b",
+          "edge": "556956812#1",
+          "lane": 1,
+          "speed": 23.829552000000003,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7731443047523499,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 137,
+        "mean_speed": 27.613817888465945,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "61dc269bcd04dfd2640f54454bb539f6c2b6cc2936e2c97b507e9c7b0e38368b",
+          "edge": "556956812#1",
+          "lane": 1,
+          "speed": 23.829552000000003,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7731443047523499,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 137,
+        "mean_speed": 27.613817888465945,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_09",
+      "seed": 40109,
+      "published": {
+        "route": "route_09",
+        "seed": 40109,
+        "outcome": "arrival",
+        "steps": 138,
+        "mean_speed": 27.380294671239593
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "9c949254cadd49961cc3c7864a9d9f284b8910ae9dab5a7c46e427bb9b6796de",
+          "edge": "556956812#1",
+          "lane": 0,
+          "speed": 20.551968,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5395721793174744,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 138,
+        "mean_speed": 27.380294675116073,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "9c949254cadd49961cc3c7864a9d9f284b8910ae9dab5a7c46e427bb9b6796de",
+          "edge": "556956812#1",
+          "lane": 0,
+          "speed": 20.551968,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5395721793174744,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 138,
+        "mean_speed": 27.380294675116073,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_09",
+      "seed": 40209,
+      "published": {
+        "route": "route_09",
+        "seed": 40209,
+        "outcome": "arrival",
+        "steps": 140,
+        "mean_speed": 26.937093062718112
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "723ed35f3c8c5e5698b67a3f99a9d96afa0c3a8d91472c661403f42d83239f3a",
+          "edge": "556956812#1",
+          "lane": 0,
+          "speed": 22.041072,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.38614654541015625,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 140,
+        "mean_speed": 26.9370931529098,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "723ed35f3c8c5e5698b67a3f99a9d96afa0c3a8d91472c661403f42d83239f3a",
+          "edge": "556956812#1",
+          "lane": 0,
+          "speed": 22.041072,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.38614654541015625,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 140,
+        "mean_speed": 26.9370931529098,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_09",
+      "seed": 40309,
+      "published": {
+        "route": "route_09",
+        "seed": 40309,
+        "outcome": "arrival",
+        "steps": 144,
+        "mean_speed": 26.220683889899423
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "9b1ff9f964e948ac1cf6543dc2a4c52e1417abc7416ab4fe5e277eb312b9df98",
+          "edge": "556956812#1",
+          "lane": 1,
+          "speed": 16.391808,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.35839247703552246,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 144,
+        "mean_speed": 26.22068407334001,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "9b1ff9f964e948ac1cf6543dc2a4c52e1417abc7416ab4fe5e277eb312b9df98",
+          "edge": "556956812#1",
+          "lane": 1,
+          "speed": 16.391808,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.35839247703552246,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 144,
+        "mean_speed": 26.22068407334001,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_09",
+      "seed": 40409,
+      "published": {
+        "route": "route_09",
+        "seed": 40409,
+        "outcome": "arrival",
+        "steps": 136,
+        "mean_speed": 27.713213599955324
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "1325f23eb24991aedf90034451f2ec5246b6dbee29840fbf502f74b3841b2897",
+          "edge": "556956812#1",
+          "lane": 0,
+          "speed": 23.108328000000004,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.8939656615257263,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 136,
+        "mean_speed": 27.713213598524813,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "1325f23eb24991aedf90034451f2ec5246b6dbee29840fbf502f74b3841b2897",
+          "edge": "556956812#1",
+          "lane": 0,
+          "speed": 23.108328000000004,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.8939656615257263,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 136,
+        "mean_speed": 27.713213598524813,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_10",
+      "seed": 40010,
+      "published": {
+        "route": "route_10",
+        "seed": 40010,
+        "outcome": "arrival",
+        "steps": 274,
+        "mean_speed": 24.97542461434523
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "a038221e406e22de9f755b8588154f001421eb99a75311fd0b551000ff480d59",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 23.510214,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.8720430731773376,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 274,
+        "mean_speed": 24.975424641270486,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "a038221e406e22de9f755b8588154f001421eb99a75311fd0b551000ff480d59",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 23.510214,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.8720430731773376,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 274,
+        "mean_speed": 24.975424641270486,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_10",
+      "seed": 40110,
+      "published": {
+        "route": "route_10",
+        "seed": 40110,
+        "outcome": "arrival",
+        "steps": 299,
+        "mean_speed": 22.89744602591109
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "30d274ce1c220ba6f267d34c033993e2fac9a0f91d178bb1b57015ab1dd84f17",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.8444384932518005,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 299,
+        "mean_speed": 22.897446029367355,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "30d274ce1c220ba6f267d34c033993e2fac9a0f91d178bb1b57015ab1dd84f17",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.8444384932518005,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 299,
+        "mean_speed": 22.897446029367355,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_10",
+      "seed": 40210,
+      "published": {
+        "route": "route_10",
+        "seed": 40210,
+        "outcome": "arrival",
+        "steps": 306,
+        "mean_speed": 22.360250289481627
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "8140c5d6342782336c4f7c64e509c82c925254ba000f520be87f7e07da6ce491",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 15.049724976199036,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.25321391224861145,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 306,
+        "mean_speed": 22.360250315257215,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "8140c5d6342782336c4f7c64e509c82c925254ba000f520be87f7e07da6ce491",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 15.049724976199036,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.25321391224861145,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 306,
+        "mean_speed": 22.360250315257215,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_10",
+      "seed": 40310,
+      "published": {
+        "route": "route_10",
+        "seed": 40310,
+        "outcome": "arrival",
+        "steps": 272,
+        "mean_speed": 25.181852374323945
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "d3fbc315bcf2c7a9456611d25f8358a48e9ea02ba543ccc1d9464f20683079a8",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 25.943742,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.2573195993900299,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 272,
+        "mean_speed": 25.181852373615037,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "d3fbc315bcf2c7a9456611d25f8358a48e9ea02ba543ccc1d9464f20683079a8",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 25.943742,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.2573195993900299,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 272,
+        "mean_speed": 25.181852373615037,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_10",
+      "seed": 40410,
+      "published": {
+        "route": "route_10",
+        "seed": 40410,
+        "outcome": "arrival",
+        "steps": 309,
+        "mean_speed": 22.127423895678803
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "3bf7e9c989ce1584f75e7242597d96caa45c72fabdad7f93123b23bc424c85bd",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.04646136611700058,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 309,
+        "mean_speed": 22.12742390373849,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "3bf7e9c989ce1584f75e7242597d96caa45c72fabdad7f93123b23bc424c85bd",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.04646136611700058,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 309,
+        "mean_speed": 22.12742390373849,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_11",
+      "seed": 40011,
+      "published": {
+        "route": "route_11",
+        "seed": 40011,
+        "outcome": "arrival",
+        "steps": 471,
+        "mean_speed": 20.757716549860923
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "648c6e42a4d7e44af721135b4dae78434f9738f7488a3ca29576ad64a24f28f6",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 27.18094060761769,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.4515978991985321,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 471,
+        "mean_speed": 20.757716517511774,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "648c6e42a4d7e44af721135b4dae78434f9738f7488a3ca29576ad64a24f28f6",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 27.18094060761769,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.4515978991985321,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 471,
+        "mean_speed": 20.757716517511774,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_11",
+      "seed": 40111,
+      "published": {
+        "route": "route_11",
+        "seed": 40111,
+        "outcome": "arrival",
+        "steps": 414,
+        "mean_speed": 23.593776687882762
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "25f8bb813674e76549fde3a06a41f2c196174ffe1875cfa1c8567221f96f2451",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 26.64102,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.11167807132005692,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 414,
+        "mean_speed": 23.593776720205653,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "25f8bb813674e76549fde3a06a41f2c196174ffe1875cfa1c8567221f96f2451",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 26.64102,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.11167807132005692,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 414,
+        "mean_speed": 23.593776720205653,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_11",
+      "seed": 40211,
+      "published": {
+        "route": "route_11",
+        "seed": 40211,
+        "outcome": "arrival",
+        "steps": 451,
+        "mean_speed": 21.66603129036232
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "30d274ce1c220ba6f267d34c033993e2fac9a0f91d178bb1b57015ab1dd84f17",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.8444384932518005,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 451,
+        "mean_speed": 21.666031285199065,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "30d274ce1c220ba6f267d34c033993e2fac9a0f91d178bb1b57015ab1dd84f17",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.8444384932518005,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 451,
+        "mean_speed": 21.666031285199065,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_11",
+      "seed": 40311,
+      "published": {
+        "route": "route_11",
+        "seed": 40311,
+        "outcome": "arrival",
+        "steps": 474,
+        "mean_speed": 20.61393921416591
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "8a6c542822e89ac4c5804512704c76f2d0a4abc3450d291bf9114b4f63e9b163",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 24.88656184385842,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.4416202902793884,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 474,
+        "mean_speed": 20.613939201551585,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "8a6c542822e89ac4c5804512704c76f2d0a4abc3450d291bf9114b4f63e9b163",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 24.88656184385842,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.4416202902793884,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 474,
+        "mean_speed": 20.613939201551585,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_11",
+      "seed": 40411,
+      "published": {
+        "route": "route_11",
+        "seed": 40411,
+        "outcome": "arrival",
+        "steps": 463,
+        "mean_speed": 21.09009285078212
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "0f7fc6662f92c9bd53fd3b57f9f91b098633f51a5dda6c4012e8fab7bc22e5ee",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.4563906490802765,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 463,
+        "mean_speed": 21.09009285753989,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "0f7fc6662f92c9bd53fd3b57f9f91b098633f51a5dda6c4012e8fab7bc22e5ee",
+          "edge": "781184662#1",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.4563906490802765,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 463,
+        "mean_speed": 21.09009285753989,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_12",
+      "seed": 40012,
+      "published": {
+        "route": "route_12",
+        "seed": 40012,
+        "outcome": "arrival",
+        "steps": 184,
+        "mean_speed": 26.50225368765238
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "373fbd08b7a08b26bc5677421d96bd822fea186bcbb4f3a3aeb58eeb38ee84bf",
+          "edge": "781184662#1",
+          "lane": 1,
+          "speed": 22.065654000000002,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.8123804926872253,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 184,
+        "mean_speed": 26.50225368622334,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "373fbd08b7a08b26bc5677421d96bd822fea186bcbb4f3a3aeb58eeb38ee84bf",
+          "edge": "781184662#1",
+          "lane": 1,
+          "speed": 22.065654000000002,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.8123804926872253,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 184,
+        "mean_speed": 26.50225368622334,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_12",
+      "seed": 40112,
+      "published": {
+        "route": "route_12",
+        "seed": 40112,
+        "outcome": "arrival",
+        "steps": 176,
+        "mean_speed": 27.77805388177617
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "e01bee8b1ad56ad28f0e721780edcb5b82e1ef348374539fe0f7923575d569cc",
+          "edge": "781184662#1",
+          "lane": 1,
+          "speed": 26.652132,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7289789915084839,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 176,
+        "mean_speed": 27.77805388177617,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "e01bee8b1ad56ad28f0e721780edcb5b82e1ef348374539fe0f7923575d569cc",
+          "edge": "781184662#1",
+          "lane": 1,
+          "speed": 26.652132,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7289789915084839,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 176,
+        "mean_speed": 27.77805388177617,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_12",
+      "seed": 40212,
+      "published": {
+        "route": "route_12",
+        "seed": 40212,
+        "outcome": "arrival",
+        "steps": 177,
+        "mean_speed": 27.66956819817178
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "02308e2ed3c57b333f59d49011e2e07a9f842b69eb375a662572d93b9561de7e",
+          "edge": "781184662#1",
+          "lane": 1,
+          "speed": 26.093754,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7687822580337524,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 177,
+        "mean_speed": 27.66956818811349,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "02308e2ed3c57b333f59d49011e2e07a9f842b69eb375a662572d93b9561de7e",
+          "edge": "781184662#1",
+          "lane": 1,
+          "speed": 26.093754,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7687822580337524,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 177,
+        "mean_speed": 27.66956818811349,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_12",
+      "seed": 40312,
+      "published": {
+        "route": "route_12",
+        "seed": 40312,
+        "outcome": "arrival",
+        "steps": 176,
+        "mean_speed": 27.779286869271974
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "4f8e95506194befb0f6fc280fa9993c858af584ff40665be6b0fbce4e9d8cfc7",
+          "edge": "781184662#1",
+          "lane": 1,
+          "speed": 26.87715,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7204186916351318,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 176,
+        "mean_speed": 27.779286869639815,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "4f8e95506194befb0f6fc280fa9993c858af584ff40665be6b0fbce4e9d8cfc7",
+          "edge": "781184662#1",
+          "lane": 1,
+          "speed": 26.87715,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7204186916351318,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 176,
+        "mean_speed": 27.779286869639815,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_12",
+      "seed": 40412,
+      "published": {
+        "route": "route_12",
+        "seed": 40412,
+        "outcome": "arrival",
+        "steps": 176,
+        "mean_speed": 27.69275213651093
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "be910e6912a0a137a78ef41c9f94c65517bfb07a5079709f6eaff74839d04e13",
+          "edge": "781184662#1",
+          "lane": 1,
+          "speed": 24.521406000000002,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7636720538139343,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 176,
+        "mean_speed": 27.69275221801177,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "be910e6912a0a137a78ef41c9f94c65517bfb07a5079709f6eaff74839d04e13",
+          "edge": "781184662#1",
+          "lane": 1,
+          "speed": 24.521406000000002,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7636720538139343,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 176,
+        "mean_speed": 27.69275221801177,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_13",
+      "seed": 40013,
+      "published": {
+        "route": "route_13",
+        "seed": 40013,
+        "outcome": "arrival",
+        "steps": 513,
+        "mean_speed": 14.709395079717135
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "b48f4aaa60689963b2ab8a7d2f4a2dcd325e3aede7b0353fb4c9b29594b655a0",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5429907441139221,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 513,
+        "mean_speed": 14.709395111534317,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "b48f4aaa60689963b2ab8a7d2f4a2dcd325e3aede7b0353fb4c9b29594b655a0",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5429907441139221,
+            0.0
+          ]
+        },
+        "outcome": "off_route",
+        "steps": 431,
+        "mean_speed": 13.482412007102981,
+        "route_switches": 1,
+        "index_offset_fork_steps": 0,
+        "off_route": {
+          "source": "170059994",
+          "expected": "1063527748",
+          "actual": "844484876",
+          "observed_edge": "844484876",
+          "lane": 3,
+          "kind": "other_external"
+        }
+      }
+    },
+    {
+      "route": "route_13",
+      "seed": 40113,
+      "published": {
+        "route": "route_13",
+        "seed": 40113,
+        "outcome": "arrival",
+        "steps": 515,
+        "mean_speed": 14.688130987643211
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "c648fb3e6cfd3cbf220e6e4d1d810895c8ab6642237e5ed90af00582da0863a1",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 13.554376034482566,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5428637862205505,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 515,
+        "mean_speed": 14.68813097070654,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "c648fb3e6cfd3cbf220e6e4d1d810895c8ab6642237e5ed90af00582da0863a1",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 13.554376034482566,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5428637862205505,
+            0.0
+          ]
+        },
+        "outcome": "collision",
+        "steps": 450,
+        "mean_speed": 12.739808121761117,
+        "route_switches": 1,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_13",
+      "seed": 40213,
+      "published": {
+        "route": "route_13",
+        "seed": 40213,
+        "outcome": "arrival",
+        "steps": 505,
+        "mean_speed": 14.993803622669946
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "44a185a2f8af7d4cd28de19486d1c44d8e9a61c7285be12f875c66387c629104",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 15.917185669282436,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6058154106140137,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 505,
+        "mean_speed": 14.99380370618561,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "44a185a2f8af7d4cd28de19486d1c44d8e9a61c7285be12f875c66387c629104",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 15.917185669282436,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6058154106140137,
+            0.0
+          ]
+        },
+        "outcome": "off_route",
+        "steps": 407,
+        "mean_speed": 14.289231221081257,
+        "route_switches": 1,
+        "index_offset_fork_steps": 0,
+        "off_route": {
+          "source": "170059994",
+          "expected": "1063527748",
+          "actual": "844484876",
+          "observed_edge": "844484876",
+          "lane": 3,
+          "kind": "other_external"
+        }
+      }
+    },
+    {
+      "route": "route_13",
+      "seed": 40313,
+      "published": {
+        "route": "route_13",
+        "seed": 40313,
+        "outcome": "collision",
+        "steps": 413,
+        "mean_speed": 14.03885753781293
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "109d20b7d21e1f70a340e9b2bc976f2dd4ae5d5df332fd3005716f7dd2d91b26",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 6.9611510434636426,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.42097926139831543,
+            0.0
+          ]
+        },
+        "outcome": "collision",
+        "steps": 413,
+        "mean_speed": 14.038857516837032,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "109d20b7d21e1f70a340e9b2bc976f2dd4ae5d5df332fd3005716f7dd2d91b26",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 6.9611510434636426,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.42097926139831543,
+            0.0
+          ]
+        },
+        "outcome": "off_route",
+        "steps": 428,
+        "mean_speed": 13.595318305124552,
+        "route_switches": 1,
+        "index_offset_fork_steps": 0,
+        "off_route": {
+          "source": "170059994",
+          "expected": "1063527748",
+          "actual": "844484876",
+          "observed_edge": "844484876",
+          "lane": 3,
+          "kind": "other_external"
+        }
+      }
+    },
+    {
+      "route": "route_13",
+      "seed": 40413,
+      "published": {
+        "route": "route_13",
+        "seed": 40413,
+        "outcome": "collision",
+        "steps": 423,
+        "mean_speed": 13.720914488404185
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "8378bb569353e80fdeb2c4028f2f19405b936564b977b8d9268879ece0dda821",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 2.7578464545632544,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.2628026306629181,
+            0.0
+          ]
+        },
+        "outcome": "collision",
+        "steps": 423,
+        "mean_speed": 13.720914483956586,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "8378bb569353e80fdeb2c4028f2f19405b936564b977b8d9268879ece0dda821",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 2.7578464545632544,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.2628026306629181,
+            0.0
+          ]
+        },
+        "outcome": "off_route",
+        "steps": 447,
+        "mean_speed": 13.012539232099753,
+        "route_switches": 1,
+        "index_offset_fork_steps": 0,
+        "off_route": {
+          "source": "170059994",
+          "expected": "1063527748",
+          "actual": "844484876",
+          "observed_edge": "844484876",
+          "lane": 3,
+          "kind": "other_external"
+        }
+      }
+    },
+    {
+      "route": "route_14",
+      "seed": 40014,
+      "published": {
+        "route": "route_14",
+        "seed": 40014,
+        "outcome": "arrival",
+        "steps": 469,
+        "mean_speed": 16.094643410095898
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "d040afed9b75bddef2f22649d619e1d7d631ce7cfab103d1ad57c084f93024d5",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7647244930267334,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 469,
+        "mean_speed": 16.094643400957455,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "d040afed9b75bddef2f22649d619e1d7d631ce7cfab103d1ad57c084f93024d5",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.7647244930267334,
+            0.0
+          ]
+        },
+        "outcome": "off_route",
+        "steps": 352,
+        "mean_speed": 16.521644676636367,
+        "route_switches": 1,
+        "index_offset_fork_steps": 0,
+        "off_route": {
+          "source": "170059994",
+          "expected": "1063527748",
+          "actual": "844484876",
+          "observed_edge": "844484876",
+          "lane": 3,
+          "kind": "other_external"
+        }
+      }
+    },
+    {
+      "route": "route_14",
+      "seed": 40114,
+      "published": {
+        "route": "route_14",
+        "seed": 40114,
+        "outcome": "arrival",
+        "steps": 533,
+        "mean_speed": 14.160265848893813
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "c8a19f41d8ece50ec3df49321126b52e08337cd3933d71d708f488fa691b9a6a",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 5.8436721796554165,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.36999282240867615,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 533,
+        "mean_speed": 14.160265890957104,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "c8a19f41d8ece50ec3df49321126b52e08337cd3933d71d708f488fa691b9a6a",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 5.8436721796554165,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.36999282240867615,
+            0.0
+          ]
+        },
+        "outcome": "off_route",
+        "steps": 471,
+        "mean_speed": 12.342248300651606,
+        "route_switches": 1,
+        "index_offset_fork_steps": 0,
+        "off_route": {
+          "source": "170059994",
+          "expected": "1063527748",
+          "actual": "844484876",
+          "observed_edge": "844484876",
+          "lane": 3,
+          "kind": "other_external"
+        }
+      }
+    },
+    {
+      "route": "route_14",
+      "seed": 40214,
+      "published": {
+        "route": "route_14",
+        "seed": 40214,
+        "outcome": "arrival",
+        "steps": 469,
+        "mean_speed": 16.114776342515196
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "b2bda39870c5e59308b1ceb6b7569dda247713ce207e1027103d4ae5690664ed",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 7.865177910651608,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.46168676018714905,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 469,
+        "mean_speed": 16.114776366091988,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "b2bda39870c5e59308b1ceb6b7569dda247713ce207e1027103d4ae5690664ed",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 7.865177910651608,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.46168676018714905,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 589,
+        "mean_speed": 12.837731962804508,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_14",
+      "seed": 40314,
+      "published": {
+        "route": "route_14",
+        "seed": 40314,
+        "outcome": "arrival",
+        "steps": 559,
+        "mean_speed": 13.500866863622935
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "5f01cda3c3ca999831a5c8a1bafdb4edbca4a9518b0871dc1b9d2f2df5dc6f29",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 8.070195695695375,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.4660526216030121,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 559,
+        "mean_speed": 13.500866903665003,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "5f01cda3c3ca999831a5c8a1bafdb4edbca4a9518b0871dc1b9d2f2df5dc6f29",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 8.070195695695375,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.4660526216030121,
+            0.0
+          ]
+        },
+        "outcome": "off_route",
+        "steps": 563,
+        "mean_speed": 10.328115710071593,
+        "route_switches": 1,
+        "index_offset_fork_steps": 0,
+        "off_route": {
+          "source": "170059994",
+          "expected": "1063527748",
+          "actual": "844484876",
+          "observed_edge": "844484876",
+          "lane": 3,
+          "kind": "other_external"
+        }
+      }
+    },
+    {
+      "route": "route_14",
+      "seed": 40414,
+      "published": {
+        "route": "route_14",
+        "seed": 40414,
+        "outcome": "arrival",
+        "steps": 521,
+        "mean_speed": 14.527796193832678
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "a442b4c5bb1a08de3ffeee49de76613214b4984a6cf6331badbb2c4caa43e1c7",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 11.78037365866333,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5479280352592468,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 521,
+        "mean_speed": 14.527796256433902,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "a442b4c5bb1a08de3ffeee49de76613214b4984a6cf6331badbb2c4caa43e1c7",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 11.78037365866333,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5479280352592468,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 520,
+        "mean_speed": 14.539275077676958,
+        "route_switches": 2,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_15",
+      "seed": 40015,
+      "published": {
+        "route": "route_15",
+        "seed": 40015,
+        "outcome": "arrival",
+        "steps": 581,
+        "mean_speed": 17.603189452485168
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "728f7f8cd15919ce7ed3da80eb2deeed57843d530354eee9423ea7ee4014ed7d",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 26.029860000000003,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.2576195001602173,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 581,
+        "mean_speed": 17.603189492041967,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "728f7f8cd15919ce7ed3da80eb2deeed57843d530354eee9423ea7ee4014ed7d",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 26.029860000000003,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.2576195001602173,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 581,
+        "mean_speed": 17.603189492041967,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_15",
+      "seed": 40115,
+      "published": {
+        "route": "route_15",
+        "seed": 40115,
+        "outcome": "arrival",
+        "steps": 687,
+        "mean_speed": 14.905398496214504
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "42ccf3f69fb76e7e21dd92ff455eaa61051b616cdf810d1935f1a61277d865da",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 15.73560887852526,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6311970949172974,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 687,
+        "mean_speed": 14.905398519344159,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "42ccf3f69fb76e7e21dd92ff455eaa61051b616cdf810d1935f1a61277d865da",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 15.73560887852526,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6311970949172974,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 687,
+        "mean_speed": 14.905398519344159,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_15",
+      "seed": 40215,
+      "published": {
+        "route": "route_15",
+        "seed": 40215,
+        "outcome": "arrival",
+        "steps": 624,
+        "mean_speed": 16.400330348876636
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "408c0e017b68fa80e482a228532526774fc82787bcd19a702bc86908919e13ba",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6315280795097351,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 624,
+        "mean_speed": 16.40033031898594,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "408c0e017b68fa80e482a228532526774fc82787bcd19a702bc86908919e13ba",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6315280795097351,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 624,
+        "mean_speed": 16.40033031898594,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_15",
+      "seed": 40315,
+      "published": {
+        "route": "route_15",
+        "seed": 40315,
+        "outcome": "arrival",
+        "steps": 535,
+        "mean_speed": 19.135191779481286
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "32c090e7c8fa8e2ef3d5df6412f65eb53fa555206786fd984beef45fcdfd2843",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6936033964157104,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 535,
+        "mean_speed": 19.135191801984323,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "32c090e7c8fa8e2ef3d5df6412f65eb53fa555206786fd984beef45fcdfd2843",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.6936033964157104,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 535,
+        "mean_speed": 19.135191801984323,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_15",
+      "seed": 40415,
+      "published": {
+        "route": "route_15",
+        "seed": 40415,
+        "outcome": "arrival",
+        "steps": 554,
+        "mean_speed": 18.469439542637083
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "1343b14afcfdaff0844a20809eb6293b75051eb569ca64da6811bc0e38fd1e25",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 27.004938,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5484333038330078,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 554,
+        "mean_speed": 18.469439526143685,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "1343b14afcfdaff0844a20809eb6293b75051eb569ca64da6811bc0e38fd1e25",
+          "edge": "86198728",
+          "lane": 0,
+          "speed": 27.004938,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.5484333038330078,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 554,
+        "mean_speed": 18.469439526143685,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_16",
+      "seed": 40016,
+      "published": {
+        "route": "route_16",
+        "seed": 40016,
+        "outcome": "arrival",
+        "steps": 326,
+        "mean_speed": 22.05695149303611
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "8dc396a99f951af57b2fe1c2bb7a1c0f0f67b9721c771f835b820048651d2e12",
+          "edge": "86198728",
+          "lane": 1,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5961651802062988,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 326,
+        "mean_speed": 22.05695150370098,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "8dc396a99f951af57b2fe1c2bb7a1c0f0f67b9721c771f835b820048651d2e12",
+          "edge": "86198728",
+          "lane": 1,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.5961651802062988,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 326,
+        "mean_speed": 22.05695150370098,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_16",
+      "seed": 40116,
+      "published": {
+        "route": "route_16",
+        "seed": 40116,
+        "outcome": "arrival",
+        "steps": 290,
+        "mean_speed": 24.821012843210347
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "dbe68fbd3a2e937647fd1ec06a73100a9b3029e0cb9ed9609bac23e3dbebdbc4",
+          "edge": "86198728",
+          "lane": 4,
+          "speed": 26.799366000000003,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.4786478281021118,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 290,
+        "mean_speed": 24.821012992323535,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "dbe68fbd3a2e937647fd1ec06a73100a9b3029e0cb9ed9609bac23e3dbebdbc4",
+          "edge": "86198728",
+          "lane": 4,
+          "speed": 26.799366000000003,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.4786478281021118,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 290,
+        "mean_speed": 24.821012992323535,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_16",
+      "seed": 40216,
+      "published": {
+        "route": "route_16",
+        "seed": 40216,
+        "outcome": "arrival",
+        "steps": 294,
+        "mean_speed": 24.452085373866783
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "3513436754c9b15e792b2007eca210b5475e21aa65e58c0d19f7ba327d1b245a",
+          "edge": "86198728",
+          "lane": 2,
+          "speed": 23.66856,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.39467358589172363,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 294,
+        "mean_speed": 24.452085389122416,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "3513436754c9b15e792b2007eca210b5475e21aa65e58c0d19f7ba327d1b245a",
+          "edge": "86198728",
+          "lane": 2,
+          "speed": 23.66856,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            0.39467358589172363,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 294,
+        "mean_speed": 24.452085389122416,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_16",
+      "seed": 40316,
+      "published": {
+        "route": "route_16",
+        "seed": 40316,
+        "outcome": "arrival",
+        "steps": 284,
+        "mean_speed": 25.371997571362293
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "6e9dce2bee3b6783c3e127f82f922acb09dbdfdb3e5726ac358824d022355bca",
+          "edge": "86198728",
+          "lane": 3,
+          "speed": 20.896116,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.007071300875395536,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 284,
+        "mean_speed": 25.37199760782091,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "6e9dce2bee3b6783c3e127f82f922acb09dbdfdb3e5726ac358824d022355bca",
+          "edge": "86198728",
+          "lane": 3,
+          "speed": 20.896116,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.007071300875395536,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 284,
+        "mean_speed": 25.37199760782091,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    },
+    {
+      "route": "route_16",
+      "seed": 40416,
+      "published": {
+        "route": "route_16",
+        "seed": 40416,
+        "outcome": "arrival",
+        "steps": 414,
+        "mean_speed": 17.365945304577043
+      },
+      "old": {
+        "start": {
+          "obs_sha256": "4d7960af3dd9b33390cca178a277bffcbb3023aa5ffb1d50e7474074a9983163",
+          "edge": "86198728",
+          "lane": 1,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7306716442108154,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 414,
+        "mean_speed": 17.365945320996655,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      },
+      "new": {
+        "start": {
+          "obs_sha256": "4d7960af3dd9b33390cca178a277bffcbb3023aa5ffb1d50e7474074a9983163",
+          "edge": "86198728",
+          "lane": 1,
+          "speed": 27.78,
+          "position": 0.0,
+          "time": 60.2,
+          "action": [
+            -0.7306716442108154,
+            0.0
+          ]
+        },
+        "outcome": "arrival",
+        "steps": 414,
+        "mean_speed": 17.365945320996655,
+        "route_switches": 0,
+        "index_offset_fork_steps": 0,
+        "off_route": null
+      }
+    }
+  ]
+}
