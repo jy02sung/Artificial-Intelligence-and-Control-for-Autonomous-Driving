@@ -425,9 +425,12 @@ def write_readme(summary):
                 f"{rt['arr_to_timeout']} | {rt['col_to_arr']} / {col_n_s} | {r['counts']['arrival']} |"
             )
 
+    hold_step = best_ppo if sel == 0 else sel
+    hold_label = f"PPO 최고(`{hold_step}`)" if sel == 0 else f"선정(`{hold_step}`)"
+
     lines.extend([
         "",
-        f"### 독립 교통 시드 64회 재평가 (`seed={HOLD_BASE}`, 원본 완주 {arr_n_h} / 충돌 {col_n_h}) — 원본 vs 선정 스텝(`{sel}`)",
+        f"### 독립 교통 시드 64회 재평가 (`seed={HOLD_BASE}`, 원본 완주 {arr_n_h} / 충돌 {col_n_h}) — 원본(`0`) vs {hold_label}",
         "",
         "| 학습 시드 | 스텝 | 원본 완주→완주 | 원본 완주→충돌 | 원본 완주→정지 | 원본 완주→일반 시간초과 | 원본 충돌→완주 | 총 완주 /64 |",
         "|---|---:|---:|---:|---:|---:|---:|---:|",
@@ -438,10 +441,10 @@ def write_readme(summary):
         ),
     ])
     for s in SEEDS:
-        r = hold[f"seed_{s}_{sel}"]
+        r = hold[f"seed_{s}_{hold_step}"]
         rt = r["retention"]
         lines.append(
-            f"| seed {s} | {sel} | {rt['arr_to_arr']} / {arr_n_h} | {rt['arr_to_col']} | {rt['arr_to_stall']} | "
+            f"| seed {s} | {hold_step} | {rt['arr_to_arr']} / {arr_n_h} | {rt['arr_to_col']} | {rt['arr_to_stall']} | "
             f"{rt['arr_to_timeout']} | {rt['col_to_arr']} / {col_n_h} | {r['counts']['arrival']} |"
         )
 
@@ -501,10 +504,10 @@ def write_readme(summary):
         ),
     ])
     for s in SEEDS:
-        r = hold[f"seed_{s}_{sel}"]
+        r = hold[f"seed_{s}_{hold_step}"]
         c, p = r["counts"], r["rates_pct"]
         lines.append(
-            f"| seed {s} | {sel} | {c['arrival']} ({p['arrival']:.1f}%) | {c['collision']} ({p['collision']:.1f}%) | "
+            f"| seed {s} | {hold_step} | {c['arrival']} ({p['arrival']:.1f}%) | {c['collision']} ({p['collision']:.1f}%) | "
             f"{c['stall']} ({p['stall']:.1f}%) | {c['timeout']} ({p['timeout']:.1f}%) | {r['exit13']} | {r['main16_lane0']} |"
         )
 
@@ -512,25 +515,36 @@ def write_readme(summary):
     p8 = summary["pooled_screen"]["8192"]["arrival"]
     p16 = summary["pooled_screen"]["16384"]["arrival"]
     p32 = summary["pooled_screen"]["32768"]["arrival"]
-    reverted = (p8 > p0) and (p32 < p8 or p16 < p8)
+    if p8 > p0 and (p16 < p8 or p32 < p8):
+        trend_msg = "**예** — `8,192`스텝에서 개선된 뒤 `16,384`/`32,768`스텝에서 하락(되돌림)했습니다."
+    elif p8 <= p0:
+        trend_msg = (
+            f"**아니오(초반 개선 자체가 발생하지 않음)** — 이전 `control`(`-15` 충돌, `46 → 48` 개선 후 하락)과 달리 "
+            f"이번 `+5 / −5 / +0.25 / +2` 설정에서는 `8,192`스텝부터 3개 시드 모두(`46 → 42 / 23 / 30`) 원본 대비 완주 수가 감소했습니다. "
+            f"(`seed 11`은 `16,384`스텝에서 `45`회까지 회복했으나 여전히 원본 `46`회 미만이었고 `32,768`스텝에서 `21`회로 추가 하락했습니다.)"
+        )
+    else:
+        trend_msg = "**아니오** — `8,192`스텝 개선 후에도 이후 구간에서 하락하지 않았습니다."
     lines.extend([
         "",
         "---",
         "",
-        "## 3. 8,192스텝 이후 추이 분석",
+        "## 3. 8,192스텝 개선 후 되돌림 여부 및 학습 로그 요약",
         f"- 3시드 합산 완주 수 변화 (`0 → 8,192 → 16,384 → 32,768`): **{p0} → {p8} → {p16} → {p32} / 192**",
-        f"- **8,192스텝 개선 후 되돌림(열화) 여부**: {'**예 — 8,192스텝에서 개선된 뒤 16,384/32,768에서 완주 수가 하락했습니다.**' if reverted else '**아니오 — 8,192스텝 이후에도 급락/되돌림이 관찰되지 않았거나 8,192부터 개선이 나타나지 않았습니다.**'}",
+        f"- **8,192스텝 개선 후 되돌림 여부**: {trend_msg}",
         "",
         "### 업데이트별 학습 로그 (`train_updates.jsonl` 요약)",
     ])
     for s in SEEDS:
         rows_u = [json.loads(ln) for ln in (ROOT / f"seed_{s}" / "train_updates.jsonl").read_text(encoding="utf-8").splitlines() if ln.strip()]
         if rows_u:
-            last_u = rows_u[-1]
+            first_u, last_u = rows_u[0], rows_u[-1]
             lines.append(
-                f"- `seed {s}` ({len(rows_u)} updates, final step `{last_u['step']}`): "
+                f"- `seed {s}` ({len(rows_u)} updates, `step {first_u['step']} → {last_u['step']}`): "
                 f"`policy_loss={last_u['policy_loss']:.4f}`, `value_loss={last_u['value_loss']:.4f}`, "
-                f"`entropy={last_u['entropy']:.4f}`, `approx_kl={last_u['approx_kl']:.5f}`, `clip_frac={last_u['clip_frac']:.4f}`"
+                f"`entropy={last_u['entropy']:.4f}`, "
+                f"`approx_kl={first_u['approx_kl']:.5f} → {last_u['approx_kl']:.5f}`, "
+                f"`clip_frac={first_u['clip_frac']:.4f} → {last_u['clip_frac']:.4f}`"
             )
 
     (ROOT / "README.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -635,12 +649,18 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Verify model hashes, 50-dim obs, rewards, and 0-step output match.")
     parser.add_argument("--run", action="store_true", help="Execute parallel training, screening, and held-out evaluation.")
+    parser.add_argument("--report", action="store_true", help="Regenerate README.md from existing summary.json.")
     args = parser.parse_args()
     if args.check:
         preflight_check(write_files=True)
         return
     if args.run:
         run_all()
+        return
+    if args.report:
+        summary = json.loads((ROOT / "summary.json").read_bytes())
+        write_readme(summary)
+        print("Regenerated README.md", flush=True)
         return
     parser.print_help()
 

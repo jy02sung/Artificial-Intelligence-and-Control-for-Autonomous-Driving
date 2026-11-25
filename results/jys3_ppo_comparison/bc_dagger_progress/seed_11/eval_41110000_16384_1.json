@@ -1,0 +1,431 @@
+[
+  {
+    "route": 1,
+    "case": 1,
+    "traffic_seed": 41110001,
+    "lane": 0,
+    "start": [
+      "169728849",
+      0,
+      20.302414,
+      350.79
+    ],
+    "outcome": "arrival",
+    "steps": 178,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 4,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "169728799"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 2,
+    "case": 1,
+    "traffic_seed": 41110002,
+    "lane": 0,
+    "start": [
+      "169728849",
+      0,
+      22.691064,
+      350.79
+    ],
+    "outcome": "arrival",
+    "steps": 535,
+    "slow": 11,
+    "slow_side_near": 9,
+    "moves": 2,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "169929488#1"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 3,
+    "case": 1,
+    "traffic_seed": 41110003,
+    "lane": 1,
+    "start": [
+      "52873356",
+      1,
+      19.138061161411315,
+      446.32
+    ],
+    "outcome": "arrival",
+    "steps": 327,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 2,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "37927512",
+      "1063527748",
+      "169728835"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 4,
+    "case": 1,
+    "traffic_seed": 41110004,
+    "lane": 1,
+    "start": [
+      "52873356",
+      1,
+      20.260142793790997,
+      446.32
+    ],
+    "outcome": "arrival",
+    "steps": 474,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 1,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "37927512",
+      "1063527748",
+      "797789364"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 5,
+    "case": 1,
+    "traffic_seed": 41110005,
+    "lane": 1,
+    "start": [
+      "52873356",
+      1,
+      19.066351724826678,
+      446.32
+    ],
+    "outcome": "timeout",
+    "steps": 1000,
+    "slow": 406,
+    "slow_side_near": 0,
+    "moves": 1,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "37927512"
+    ],
+    "bonus": 0.777835,
+    "timeout_distances": {
+      "remaining_m": 1086.064,
+      "last30_m": 0.164,
+      "route_length_m": 1777.28,
+      "end_edge": "37927512",
+      "end_lane": 2,
+      "end_speed_mps": 0.0,
+      "intact": true
+    }
+  },
+  {
+    "route": 6,
+    "case": 1,
+    "traffic_seed": 41110006,
+    "lane": 1,
+    "start": [
+      "52873356",
+      1,
+      7.72920755281436,
+      446.32
+    ],
+    "outcome": "collision",
+    "steps": 384,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 2,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "844484878#0"
+    ],
+    "bonus": 1.801875,
+    "timeout_distances": null
+  },
+  {
+    "route": 7,
+    "case": 1,
+    "traffic_seed": 41110007,
+    "lane": 1,
+    "start": [
+      "544295537",
+      1,
+      24.901954,
+      352.85
+    ],
+    "outcome": "arrival",
+    "steps": 202,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 5,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "169728799"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 8,
+    "case": 1,
+    "traffic_seed": 41110008,
+    "lane": 1,
+    "start": [
+      "544295537",
+      1,
+      24.34201,
+      352.85
+    ],
+    "outcome": "arrival",
+    "steps": 561,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 1,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "169929488#1"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 9,
+    "case": 1,
+    "traffic_seed": 41110009,
+    "lane": 1,
+    "start": [
+      "556956812#1",
+      1,
+      18.726552,
+      84.84
+    ],
+    "outcome": "arrival",
+    "steps": 157,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 10,
+    "case": 1,
+    "traffic_seed": 41110010,
+    "lane": 1,
+    "start": [
+      "781184662#1",
+      1,
+      22.949058,
+      449.02
+    ],
+    "outcome": "arrival",
+    "steps": 354,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 3,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "170059993",
+      "37375274"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 11,
+    "case": 1,
+    "traffic_seed": 41110011,
+    "lane": 1,
+    "start": [
+      "781184662#1",
+      1,
+      27.78,
+      449.02
+    ],
+    "outcome": "arrival",
+    "steps": 510,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 2,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "170059993",
+      "544293888#1"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 12,
+    "case": 1,
+    "traffic_seed": 41110012,
+    "lane": 1,
+    "start": [
+      "781184662#1",
+      1,
+      26.485452000000002,
+      449.02
+    ],
+    "outcome": "arrival",
+    "steps": 178,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "781184662#2"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 13,
+    "case": 1,
+    "traffic_seed": 41110013,
+    "lane": 1,
+    "start": [
+      "86198728",
+      1,
+      27.216066,
+      483.44
+    ],
+    "outcome": "collision",
+    "steps": 224,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 1,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "37927508"
+    ],
+    "bonus": 1.28637,
+    "timeout_distances": null
+  },
+  {
+    "route": 14,
+    "case": 1,
+    "traffic_seed": 41110014,
+    "lane": 1,
+    "start": [
+      "86198728",
+      1,
+      27.407748,
+      483.44
+    ],
+    "outcome": "collision",
+    "steps": 223,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 1,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "37927508"
+    ],
+    "bonus": 1.303966,
+    "timeout_distances": null
+  },
+  {
+    "route": 15,
+    "case": 1,
+    "traffic_seed": 41110015,
+    "lane": 1,
+    "start": [
+      "86198728",
+      1,
+      25.361537467571946,
+      483.44
+    ],
+    "outcome": "arrival",
+    "steps": 825,
+    "slow": 67,
+    "slow_side_near": 0,
+    "moves": 1,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "37927508",
+      "844484876"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  },
+  {
+    "route": 16,
+    "case": 1,
+    "traffic_seed": 41110016,
+    "lane": 1,
+    "start": [
+      "86198728",
+      1,
+      26.607684,
+      483.44
+    ],
+    "outcome": "arrival",
+    "steps": 448,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "86198725"
+    ],
+    "bonus": 2.0,
+    "timeout_distances": null
+  }
+]
