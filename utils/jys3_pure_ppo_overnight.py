@@ -588,7 +588,13 @@ def report():
 def main():
     torch.set_num_threads(1)
     ROOT.mkdir(exist_ok=True,parents=True)
-    initial=digest(agent().policy)
+    initial_model=agent().policy
+    initial=digest(initial_model)
+    initial_path=ROOT/"initial.pt"
+    if not initial_path.exists():
+        final.atomic_torch(dict(model=initial_model.state_dict(),seed=11,sha256=initial),initial_path)
+    initial_model.load_state_dict(torch.load(initial_path,weights_only=True)["model"])
+    assert digest(initial_model)==initial
     protocol=ROOT/"protocol.json"
     if not protocol.exists():
         design=old.preflight()
