@@ -189,6 +189,15 @@ def generate(choices):
             trans=results[arm][panel]["original_paired"]
             src_rows.append([old.SOURCE[arm],arm,LABEL[panel],trans["kept"],trans["lost"],trans["gained"]])
     doc+=table(["PPO 시작 모델","트랙","패널","원본 완주 유지","원본 완주 상실","새 완주"],src_rows)
+    failures=[]
+    for arm in "ABC":
+        trips=[r for panel in ("hold64","designated","additional")
+              for r in read(run.data_path(arm,choices[arm],panel))]
+        for route,n in Counter(r["route"] for r in trips if r["outcome"]!="arrival").most_common(3):
+            subset=[r for r in trips if r["route"]==route]
+            c=final.tally(subset)
+            failures.append([arm,route,f"{n}/{len(subset)}",c["collision"],c["stall"],c["timeout"],c["off_route"]])
+    doc+=table(["트랙","실패가 많았던 경로","실패 / 홀드아웃 출발","충돌","끝 정지","시간초과","이탈"],failures)
     doc+=["## 학습 단계별 고교통 128회", "", "같은 학습 스텝의 직전 실험과 대조했다. A·B의 스텝은 가치망 워밍업 20,000스텝 이후부터 센다."]
     doc+=table(["트랙","스텝","기존","재설계"],checkpoints_table)
     for arm in ("A","B"):
@@ -200,6 +209,11 @@ def generate(choices):
     for arm in ("A","B"):
         s=choices[arm]; m=probes[arm][s]; orig=probes[arm][0]
         doc.append(f"- {arm} 선정 모델은 원본의 {orig['correct']}/29에서 {m['correct']}/29로, 좌·우 평균 F1은 {orig['side_macro_f1']:.3f}에서 {m['side_macro_f1']:.3f}로 바뀌었다. 선정 시점까지 90:10이 실제 적용된 미니배치 비율은 {mixed[arm]:.1%}였다.")
+        prior=next(row for row in diagnostic["checkpoints"][arm]["trajectory"] if row["step"]==before[arm])
+        old_correct=sum(prior["metrics"]["matrix"][i][i] for i in (0,2))
+        doc.append(f"  기존 선정 PPO와 비교하면 변경 정답은 {old_correct}→{m['correct']}/29, "
+                   f"좌·우 평균 F1은 {prior['metrics']['side_macro_f1']:.3f}→{m['side_macro_f1']:.3f}, "
+                   f"변경 상태의 평균 차로 KL은 {prior['groups']['change']['lane']:.3f}→{m['kl_change']:.3f}였다.")
     doc+=["","## 순수 PPO의 교통 전환, 정지 수익, 차로변경","",
           "종료한 학습 주행을 종료 스텝으로 나눴다. 전환 시 이어지던 저교통 주행은 마지막 관측의 가치로 부트스트랩하고 고교통에서 새 시드로 출발했다. 전환 자체는 실패 집계에서 제외했다. 양수 수익은 10초 정지로 끝난 주행의 실제 할인 누적 보상이 0을 넘은 경우다."]
     doc+=table(["학습 스텝","재설계 수요(대/시)","기존 충돌","재설계 충돌","완주","이탈","10초 정지","양수 수익 / 10초 정지","정지 평균 할인 수익"],stage_rows)
@@ -215,6 +229,11 @@ def generate(choices):
             "","## 8번 경로와 발표 모델",""]
     doc+=table(["시드","원본 R5","기존 B","재설계 B"],[[s,*[focus[m][s] for m,_ in models]] for s in (91001008,91001208)])
     doc+=table(["패널","원본 R5","재설계 B"],r5rows)
+    fixed=sum(v=="arrival" for v in focus["재설계 KL-PPO"].values())
+    new_far=results["B"]["additional"]["new"]
+    doc += [f"기존 R5가 8번에서 끝 정지한 두 출발 중 재설계 B가 완주한 건수는 {fixed}/2였다. "
+            f"104320000 패널에서는 원본의 252/256 완주·충돌 1건에서 B의 "
+            f"{new_far['arrival']}/256 완주·충돌 {new_far['collision']}건으로 바뀌었다.", ""]
     doc+=["승격 기준은 세 홀드아웃에서 각각 완주율 95% 이상, 충돌률 5% 미만, 원본 이상의 완주 수와 원본 이하의 충돌 수를 충족하고 적어도 한 패널에서 개선되는 것이다.",
           "", "## 비교 조건","",
           "시드 11, ReLU 256×256, 관측 50개, 수정 분기, 고가 교차 20쌍 가림 보정, 안전게이트 OFF를 공통으로 썼다. 평가에는 학습용 10초 정지 종료를 적용하지 않았다. 모든 행의 경로·출발 차로·시드·첫 관측 SHA-256이 기존 주행과 일치했다. 평가 워커는 세 트랙 합계 최대 4개였다.",
