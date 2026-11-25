@@ -82,7 +82,7 @@ def rolling_expert(obs, env):
     return _decision(obs,env,'strict')[0]
 
 
-def episode(env, route, rep, mode, gui=False):
+def episode(env, route, rep, mode, gui=False, controller=_decision):
     path = f'route_{route:02d}'
     seed = BASE+rep*100+route
     env.ego_depart_lane = str(min(rep%2,env.counts[env.routes[path][0]]-1))
@@ -101,7 +101,7 @@ def episode(env, route, rep, mode, gui=False):
     reasons = Counter()
     for step in range(1,1001):
         assert obs.shape==(52,) and not obs[50:].any()
-        action,wait,direction,reason = _decision(obs[:50],env,mode)
+        action,wait,direction,reason = controller(obs[:50],env,mode)
         reasons[reason]+=1
         edge,lane = env.snapshot[:2]
         speed = float(env.snapshot[7])
