@@ -1,0 +1,86 @@
+{
+  "hashes": {
+    "BC": "61f77baac57252c3adccea5af9e2855f135c0237a14f8458ea6fc9d7ab495e7e",
+    "R5": "fb3a775fa4d4ccb56ab1c414b9e05af1a99ebf0623c992e096b063f2967728cd"
+  },
+  "protected_seeds": 1625,
+  "training_seed_ranges": [
+    [
+      205000000,
+      205250000
+    ]
+  ],
+  "panels": {
+    "screen": [
+      95380000,
+      8
+    ],
+    "hold64": [
+      81260100,
+      4
+    ],
+    "designated": [
+      91000000,
+      16
+    ],
+    "additional": [
+      104320000,
+      16
+    ]
+  },
+  "lr": 0.0001,
+  "beta": 0.0,
+  "gamma": 0.995,
+  "gae_lambda": 0.95,
+  "n_steps": 2048,
+  "n_epochs": 10,
+  "minibatch_size": 64,
+  "physical_forks": true,
+  "crossings": 20,
+  "obs_dim": 50,
+  "demand_vph": 15000,
+  "safety_gate": false,
+  "activation": "relu",
+  "hidden": [
+    256,
+    256
+  ],
+  "rewards": {
+    "progress_cap": 6,
+    "fork": 2.5,
+    "arrival": 10,
+    "collision": -12,
+    "off_route": -8,
+    "stall": -8,
+    "timeout": -8,
+    "idle_step": -0.02,
+    "clear_stop": -9
+  },
+  "initial_sha256": "ddd8aca7b07455c494d3ebafb3dc10e231603173144e2bf02a31aed0f22ed3fa",
+  "training_seed_base": 205000000,
+  "arms": [
+    "P0",
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5"
+  ],
+  "workers": 4,
+  "commit": "8d9098482ea3cbb40afe31ca707503bb8de20547",
+  "steps": [
+    300000,
+    600000
+  ],
+  "screen_interval": 50000,
+  "lane_entropy_coef": 0.002,
+  "seed": 11,
+  "critic": "independent trunk",
+  "prep": 1.0,
+  "exp_alpha": 1.0,
+  "exp_clip": 0.2,
+  "traffic_switches": [
+    80000,
+    160000
+  ]
+}

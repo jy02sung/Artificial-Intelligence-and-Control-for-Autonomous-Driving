@@ -537,7 +537,7 @@ def report():
     doc+=table(["조건","학습 한도","선정 스텝","패널","완주","충돌","이탈","끝 정지","일반 시간초과"],cells)
     doc+=["## 팀원 제안 대조","", "같은 576개 출발에서 후보의 건수에서 대조군의 건수를 뺐다. 온라인 예측 정확도는 새로 판정된 접근 상태의 학습 전 예측 기준이며, AUC는 같은 업데이트 안의 양성·음성 쌍 수로 가중했다."]
     rows=[]; comparisons={}
-    for left,right in (("P0","P1"),("P1","P2"),("P2","P3"),("P4","P5")):
+    for left,right in (("P0","P1"),("P0","P2"),("P1","P2"),("P2","P3"),("P2","P4"),("P4","P5")):
         pair=[next((r for r in records if r["arm"]==a and r["end"]==300000 and "hold" in r),None) for a in (left,right)]
         if any(r is None for r in pair):continue
         delta={k:pair[1]["hold"][k]-pair[0]["hold"][k] for k in ("arrival","off_route","collision")}
@@ -576,6 +576,7 @@ def report():
         doc+=["## 변경 효과"]
         for pair,d in comparisons.items():
             doc.append(f"- {pair}에서 완주 {d['arrival']:+d}건, 이탈 {d['off_route']:+d}건, 충돌 {d['collision']:+d}건이었다.")
+        doc.append("- P0→P1은 경험 보상 단독 효과, P0→P2는 준비 선지급 단독 효과다. P4→P5는 동일한 커리큘럼·방향 관측 위에서 두 보상을 교체한 효과다. P2→P3에는 출발 지점과 교통량, P2→P4에는 방향 인코딩과 교통량이 함께 바뀐다. 수치는 학습 시드 11에 대한 결과다.")
     if win:doc+=["",f"자동 연장 조건은 **{win}**이다."]
     doc+=["","[실행 코드](../../utils/jys3_pure_ppo_overnight.py) · [전체 집계](../../results/jys3_pure_ppo_overnight/summary.json)"]
     tmp=REPORT.with_suffix(".md.tmp")
