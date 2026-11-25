@@ -1,0 +1,12 @@
+{
+  "question": "Does removing longitudinal progress reward improve route completion under matched terminal rewards?",
+  "baseline": "terminal_ratio/collision5",
+  "initialization": "random, matched within seed",
+  "seeds": [11, 22, 33],
+  "arrival": 5, "collision": -5, "timeout_and_stall": -5, "fork": 0.25,
+  "progress_f0": 0, "progress_f1": 2,
+  "traffic": "high_real_ratio", "max_steps": 1000,
+  "screen_steps": [32768, 65536], "screen_base": 39110000,
+  "holdout_steps": [65536], "holdout_base": 41110000,
+  "episodes_per_seed_and_panel": 64
+}
