@@ -44,3 +44,5 @@
 **발표용 체크포인트**는 [보강형 dagger5.pt](../../results/jys3_final_relu_dagger/dagger5.pt)다. SHA-256은 `fb3a775fa4d4ccb56ab1c414b9e05af1a99ebf0623c992e096b063f2967728cd`다. [모델 선정 기록](../../results/jys3_final_relu_dagger/selection.json) · [전문가 선정 기록](jys3-expert-final.md)
 
 [전체 실험과 선정 과정](jys3-project-decision-history.md)에서 분기 환경을 고친 이유, 보상 변경에 따른 실패 유형, 전문가 시범 재수집 및 최종 모델 선정 근거를 확인할 수 있다.
+
+후속 검증에서 R5에 KL-PPO를 적용한 모델은 지정·추가 256회에서 각각 244회·247회 완주했다. 원본 R5는 247회·252회로 앞서 발표 모델을 유지했다. [동일한 최종 환경의 5종 PPO·모방학습 대조](jys3-relu-ppo-comparison.md)

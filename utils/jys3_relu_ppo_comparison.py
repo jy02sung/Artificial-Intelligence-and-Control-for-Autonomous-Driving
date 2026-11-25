@@ -356,7 +356,6 @@ def report(choices):
     torch.set_num_threads(1)
     source_hashes=check_sources()
     names={"C":"순수 PPO","BC":"BC","A":"BC + KL-PPO","R5":"BC + DAgger R5","B":"BC + DAgger R5 + KL-PPO"}
-    labels={"screen":"선정 128회","hold64":"64회","designated":"지정 256회","additional":"추가 256회"}
     cols=(*final.OUTCOMES,"slow10")
     counts={}
     rows_by_model={}
@@ -450,6 +449,17 @@ def report(choices):
            "","할인율 0.995, GAE 0.95, 롤아웃 2,048, 10에포크, 배치 64를 사용했다. A·B는 가치 출력층을 20,000스텝 워밍업하고 행동 파라미터의 바이트 일치를 검사했다. A는 학습률 2e−5와 KL 계수 0.5, B는 1e−5와 1.0, 엔트로피 보너스는 둘 다 0이다. C는 무작위 시드 11, 학습률 1e−4, 차로 엔트로피 0.002, 유지 편향 1이다. C 중간 체크포인트는 정확히 5만 스텝마다 그때 적용 중인 정책이고 20만은 마지막 부분 롤아웃 업데이트까지 반영했다.",
            "","학습 후 체크포인트 중 128회에서 완주 최대, 충돌 최소, 끝 정지와 시간초과 합 최소, 이탈 최소, 이른 시점 순으로 선정했다. R5 교체 기준은 세 홀드아웃에서 완주율 95% 이상·충돌률 5% 미만, 각각 기존 이상 완주·기존 이하 충돌, 적어도 한 곳에서 개선이다. 학습 초기화는 조건당 한 번이다.",
            "","[선정 스텝](../../results/jys3_relu_ppo_comparison/selection.json) · [집계와 원본 해시](../../results/jys3_relu_ppo_comparison/summary.json) · [주행별 기록](../../results/jys3_relu_ppo_comparison/evaluation)"]
+    timed_out=[row for row in detail if row["outcome"]=="timeout"]
+    stationary=[row for row in timed_out if row["last_speed"]<=.5]
+    start_stops=sum(row["end_edge"]==row["start_edge"] for row in stationary)
+    early_completed=sum(early["outcomes"].values())
+    text[3:3]=["",
+        f"순수 PPO의 첫 5만 학습 스텝에서 끝난 {early_completed}회 중 충돌은 {early['outcomes'].get('collision',0)}회였다. 20만 모델의 결정론적 128회 평가에서는 일반 시간초과 {len(timed_out)}건 중 {len(stationary)}건이 종료 순간 0.5m/s 이하였고 그중 {start_stops}건은 출발 도로에 있었다. 차로 끝 정지와 실제 오진입은 아래에서 경로별로 집계했다.",
+        "",
+        "BC에서 KL-PPO로 바꾼 뒤 완주 건수 차이는 "+", ".join(
+            f"{label} {counts['A'][panel]['arrival']-counts['BC'][panel]['arrival']:+d}건"
+            for panel,label in (("screen","선정"),("hold64","64회"),("designated","지정 256회"),("additional","추가 256회")))+
+        f"이었다. R5의 지정 8번 끝 정지 두 건 중 {sum(r['after']=='arrival' for r in fix8)}건이 KL-PPO에서 완주로 바뀌었다."]
     save(ROOT/"summary.json",dict(selection=choices,counts=counts,route8=fix8,source_hashes=source_hashes,
                                   pure_acceleration_probe=probe,pure_failure_locations=failures,promote=promote))
     (final.DOCS/"jys3-relu-ppo-comparison.md").write_text("\n".join(text)+"\n",encoding="utf8")

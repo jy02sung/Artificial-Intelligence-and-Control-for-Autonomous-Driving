@@ -1,0 +1,266 @@
+{
+  "selection": {
+    "B": 32768,
+    "A": 32768,
+    "C": 100000
+  },
+  "counts": {
+    "C": {
+      "screen": {
+        "arrival": 44,
+        "collision": 2,
+        "stall": 10,
+        "timeout": 25,
+        "off_route": 47,
+        "slow10": 5
+      },
+      "hold64": {
+        "arrival": 23,
+        "collision": 2,
+        "stall": 4,
+        "timeout": 13,
+        "off_route": 22,
+        "slow10": 2
+      },
+      "designated": {
+        "arrival": 85,
+        "collision": 4,
+        "stall": 20,
+        "timeout": 44,
+        "off_route": 103,
+        "slow10": 10
+      },
+      "additional": {
+        "arrival": 88,
+        "collision": 7,
+        "stall": 16,
+        "timeout": 47,
+        "off_route": 98,
+        "slow10": 9
+      }
+    },
+    "BC": {
+      "screen": {
+        "arrival": 107,
+        "collision": 17,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 4,
+        "slow10": 2
+      },
+      "hold64": {
+        "arrival": 57,
+        "collision": 3,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 4,
+        "slow10": 2
+      },
+      "designated": {
+        "arrival": 230,
+        "collision": 16,
+        "stall": 0,
+        "timeout": 2,
+        "off_route": 8,
+        "slow10": 9
+      },
+      "additional": {
+        "arrival": 232,
+        "collision": 16,
+        "stall": 1,
+        "timeout": 0,
+        "off_route": 7,
+        "slow10": 6
+      }
+    },
+    "A": {
+      "screen": {
+        "arrival": 109,
+        "collision": 6,
+        "stall": 2,
+        "timeout": 0,
+        "off_route": 11,
+        "slow10": 7
+      },
+      "hold64": {
+        "arrival": 57,
+        "collision": 0,
+        "stall": 2,
+        "timeout": 1,
+        "off_route": 4,
+        "slow10": 6
+      },
+      "designated": {
+        "arrival": 216,
+        "collision": 21,
+        "stall": 4,
+        "timeout": 0,
+        "off_route": 15,
+        "slow10": 9
+      },
+      "additional": {
+        "arrival": 224,
+        "collision": 13,
+        "stall": 3,
+        "timeout": 0,
+        "off_route": 16,
+        "slow10": 13
+      }
+    },
+    "R5": {
+      "screen": {
+        "arrival": 125,
+        "collision": 2,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 2
+      },
+      "hold64": {
+        "arrival": 62,
+        "collision": 0,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 2,
+        "slow10": 2
+      },
+      "designated": {
+        "arrival": 247,
+        "collision": 4,
+        "stall": 2,
+        "timeout": 0,
+        "off_route": 3,
+        "slow10": 8
+      },
+      "additional": {
+        "arrival": 252,
+        "collision": 1,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 3,
+        "slow10": 3
+      }
+    },
+    "B": {
+      "screen": {
+        "arrival": 120,
+        "collision": 4,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 4,
+        "slow10": 1
+      },
+      "hold64": {
+        "arrival": 61,
+        "collision": 2,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 4
+      },
+      "designated": {
+        "arrival": 244,
+        "collision": 5,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 7,
+        "slow10": 6
+      },
+      "additional": {
+        "arrival": 247,
+        "collision": 2,
+        "stall": 1,
+        "timeout": 1,
+        "off_route": 5,
+        "slow10": 9
+      }
+    }
+  },
+  "route8": [
+    {
+      "seed": 91001008,
+      "lane": 0,
+      "after": "off_route"
+    },
+    {
+      "seed": 91001208,
+      "lane": 0,
+      "after": "arrival"
+    }
+  ],
+  "source_hashes": {
+    "BC": "61f77baac57252c3adccea5af9e2855f135c0237a14f8458ea6fc9d7ab495e7e",
+    "R5": "fb3a775fa4d4ccb56ab1c414b9e05af1a99ebf0623c992e096b063f2967728cd"
+  },
+  "pure_acceleration_probe": {
+    "0.0": [
+      5472,
+      7031
+    ],
+    "0.1": [
+      1443,
+      2547
+    ]
+  },
+  "pure_failure_locations": {
+    "1": {},
+    "2": {
+      "\ubd84\uae30 \uc774\ud0c8 169929488#0 \u2192 169728799": 7,
+      "\uc2dc\uac04\ucd08\uacfc\u00b7\ucd9c\ubc1c \ub3c4\ub85c \uc815\uc9c0 169728849": 1
+    },
+    "3": {
+      "\ubd84\uae30 \uc774\ud0c8 52873356 \u2192 844484878#0": 4,
+      "\ucda9\ub3cc 170059991": 1
+    },
+    "4": {
+      "\uc2dc\uac04\ucd08\uacfc\u00b7\uc8fc\ud589 \uc911 \uc815\uc9c0 37927512": 4,
+      "\ubd84\uae30 \uc774\ud0c8 52873356 \u2192 844484878#0": 4
+    },
+    "5": {
+      "\uc2dc\uac04\ucd08\uacfc\u00b7\uc8fc\ud589 \uc911 \uc815\uc9c0 37927512": 4,
+      "\ubd84\uae30 \uc774\ud0c8 52873356 \u2192 844484878#0": 4
+    },
+    "6": {},
+    "7": {
+      "\ucda9\ub3cc 544295537": 1,
+      "\uc2dc\uac04\ucd08\uacfc 544295537": 3,
+      "\uc2dc\uac04\ucd08\uacfc\u00b7\ucd9c\ubc1c \ub3c4\ub85c \uc815\uc9c0 544295537": 1
+    },
+    "8": {
+      "\ubd84\uae30 \uc774\ud0c8 169929488#0 \u2192 169728799": 4,
+      "\uc2dc\uac04\ucd08\uacfc\u00b7\ucd9c\ubc1c \ub3c4\ub85c \uc815\uc9c0 544295537": 4
+    },
+    "9": {
+      "\uc2dc\uac04\ucd08\uacfc\u00b7\ucd9c\ubc1c \ub3c4\ub85c \uc815\uc9c0 556956812#1": 4
+    },
+    "10": {
+      "\ucc28\ub85c \ub05d \uc815\uc9c0 86198708": 4,
+      "\ubd84\uae30 \uc774\ud0c8 781184662#1 \u2192 781184662#2": 4
+    },
+    "11": {
+      "\ucc28\ub85c \ub05d \uc815\uc9c0 206426298": 4,
+      "\ubd84\uae30 \uc774\ud0c8 781184662#1 \u2192 781184662#2": 4
+    },
+    "12": {
+      "\uc2dc\uac04\ucd08\uacfc\u00b7\uc8fc\ud589 \uc911 \uc815\uc9c0 781184662#2": 1,
+      "\uc2dc\uac04\ucd08\uacfc 781184662#2": 1,
+      "\uc2dc\uac04\ucd08\uacfc 781184662#3": 1
+    },
+    "13": {
+      "\uc2dc\uac04\ucd08\uacfc\u00b7\uc8fc\ud589 \uc911 \uc815\uc9c0 170059994": 4,
+      "\ubd84\uae30 \uc774\ud0c8 86198728 \u2192 86198725": 4
+    },
+    "14": {
+      "\uc2dc\uac04\ucd08\uacfc\u00b7\uc8fc\ud589 \uc911 \uc815\uc9c0 170059994": 4,
+      "\ubd84\uae30 \uc774\ud0c8 86198728 \u2192 86198725": 4
+    },
+    "15": {
+      "\uc2dc\uac04\ucd08\uacfc\u00b7\uc8fc\ud589 \uc911 \uc815\uc9c0 170059994": 4,
+      "\ubd84\uae30 \uc774\ud0c8 86198728 \u2192 86198725": 4
+    },
+    "16": {
+      "\ubd84\uae30 \uc774\ud0c8 86198728 \u2192 37927508": 4
+    }
+  },
+  "promote": false
+}
