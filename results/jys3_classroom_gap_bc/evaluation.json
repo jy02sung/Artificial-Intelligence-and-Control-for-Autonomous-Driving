@@ -1,0 +1,191 @@
+{
+  "old": {
+    "outcomes": {
+      "arrival": 75,
+      "off_route": 33,
+      "stall": 12,
+      "collision": 4,
+      "timeout": 4
+    },
+    "all": {
+      "opportunities": 87,
+      "responses": 42,
+      "immediate": 36,
+      "delay_mean_s": 3.8904761904761904,
+      "delay_median_s": 0.0,
+      "missed_to_end": 42,
+      "windows": 220,
+      "windows_without_response": 178
+    },
+    "after_wait": {
+      "opportunities": 34,
+      "responses": 6,
+      "immediate": 1,
+      "delay_mean_s": 25.933333333333334,
+      "delay_median_s": 12.3,
+      "missed_to_end": 26,
+      "windows": 145,
+      "windows_without_response": 139
+    },
+    "missed_routes": [
+      2,
+      5,
+      8,
+      13,
+      14,
+      3,
+      4,
+      5,
+      7,
+      8,
+      11,
+      13,
+      14,
+      2,
+      8,
+      10,
+      13,
+      14,
+      2,
+      3,
+      4,
+      7,
+      13,
+      14,
+      14,
+      2,
+      5,
+      7,
+      8,
+      11,
+      13,
+      2,
+      5,
+      8,
+      11,
+      14,
+      16,
+      2,
+      3,
+      5,
+      8,
+      13
+    ],
+    "common_first_gap": {
+      "all": {
+        "opportunities": 109,
+        "immediate": 39
+      },
+      "after_wait": {
+        "opportunities": 49,
+        "immediate": 3
+      }
+    }
+  },
+  "dense": {
+    "outcomes": {
+      "arrival": 78,
+      "off_route": 34,
+      "stall": 10,
+      "collision": 5,
+      "timeout": 1
+    },
+    "all": {
+      "opportunities": 89,
+      "responses": 44,
+      "immediate": 35,
+      "delay_mean_s": 1.3863636363636365,
+      "delay_median_s": 0.0,
+      "missed_to_end": 37,
+      "windows": 177,
+      "windows_without_response": 133
+    },
+    "after_wait": {
+      "opportunities": 36,
+      "responses": 6,
+      "immediate": 1,
+      "delay_mean_s": 6.233333333333333,
+      "delay_median_s": 3.1,
+      "missed_to_end": 24,
+      "windows": 111,
+      "windows_without_response": 105
+    },
+    "missed_routes": [
+      5,
+      8,
+      13,
+      16,
+      3,
+      5,
+      7,
+      8,
+      14,
+      2,
+      5,
+      13,
+      16,
+      2,
+      3,
+      7,
+      10,
+      13,
+      14,
+      2,
+      16,
+      2,
+      4,
+      5,
+      7,
+      13,
+      2,
+      5,
+      8,
+      14,
+      16,
+      3,
+      5,
+      7,
+      8,
+      13,
+      14
+    ],
+    "common_first_gap": {
+      "all": {
+        "opportunities": 109,
+        "immediate": 42
+      },
+      "after_wait": {
+        "opportunities": 49,
+        "immediate": 3
+      }
+    }
+  },
+  "expert": {
+    "outcomes": {
+      "arrival": 121,
+      "timeout": 6,
+      "collision": 1
+    },
+    "all": {
+      "opportunities": 109,
+      "responses": 109,
+      "immediate": 109,
+      "delay_mean_s": 0.0,
+      "delay_median_s": 0.0,
+      "missed_to_end": 0,
+      "windows": 109,
+      "windows_without_response": 0
+    },
+    "after_wait": {
+      "opportunities": 49,
+      "responses": 49,
+      "immediate": 49,
+      "delay_mean_s": 0.0,
+      "delay_median_s": 0.0,
+      "missed_to_end": 0,
+      "windows": 49,
+      "windows_without_response": 0
+    },
+    "missed_routes": []
+  }
+}

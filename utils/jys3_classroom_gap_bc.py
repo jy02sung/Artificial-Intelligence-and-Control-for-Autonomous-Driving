@@ -1,5 +1,6 @@
 """Run the unmodified classroom BC entry point on the two physical-fork datasets."""
 import argparse
+import csv
 import hashlib
 import os
 import subprocess
@@ -9,10 +10,11 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import numpy as np
+import torch
 
 from algorithms.bc import BCPolicy
 from utils import jys3_gap_bc_eval as evaluation
-from utils.jys3_gap_bc import ROOT as PREVIOUS, SETS, EVAL_BASE, prior
+from utils.jys3_gap_bc import ROOT as PREVIOUS, DENSE, SETS, EVAL_BASE, prior
 
 ROOT = PREVIOUS.parent / 'jys3_classroom_gap_bc'
 
@@ -52,13 +54,53 @@ def load_model(folder,name):
     return BCPolicy.load(folder/name/'model.pt')
 
 
+def audit():
+    """Check the saved model against its own best epoch and common expert labels."""
+    torch.set_num_threads(2)
+    common = prior.v3.read(DENSE/'valid.json')
+    inputs, targets = prior.dagger.load_rollouts(common, DENSE/'valid_samples')
+    assert len(common)==32 and len(inputs)==11555
+    summary = {}
+    for name in SETS:
+        cfg = prior.v3.read(ROOT/name/'config.json')
+        manifest = prior.v3.read(ROOT/'inputs'/f'{name}.json')
+        assert {r['seed'] for r in common}.isdisjoint(r['seed'] for r in manifest)
+        with (ROOT/name/'training_log.csv').open(encoding='utf8', newline='') as stream:
+            history = list(csv.DictReader(stream))
+        assert len(history)==50
+        best = min(history,key=lambda r:float(r['val_loss']))
+        model = load_model(ROOT,name)
+        with np.load(ROOT/'inputs'/f'{name}.npz') as data, torch.no_grad():
+            val = np.isin(data['episode'],cfg['val_episodes'])
+            train_changes=int(np.count_nonzero(data['action_raw'][~val,1]))
+            pred = model(torch.from_numpy(data['observation'][val]))
+            mse = torch.nn.functional.mse_loss(pred,torch.from_numpy(data['action_raw'][val])).item()
+            assert abs(mse - float(best['val_loss'])) < 1e-6
+            common_pred = model(inputs)
+        raw = common_pred[:,1]
+        cmd = (raw>=.5).int() - (raw<=-.5).int()
+        changed = targets[:,1]!=0
+        summary[name] = dict(best_epoch=int(best['epoch']), validation_mse=mse,
+            train_steps=cfg['train_samples'],validation_steps=cfg['val_samples'],
+            train_change_labels=train_changes,
+            common_change_labels=int(changed.sum()), common_correct_changes=int((cmd[changed]==targets[changed,1]).sum()),
+            common_spurious_changes=int((cmd[~changed]!=0).sum()),
+            common_accel_mae=float((common_pred[:,0]-targets[:,0]).abs().mean()),
+            checkpoint_sha256=hashlib.sha256((ROOT/name/'model.pt').read_bytes()).hexdigest())
+    prior.v3.save(ROOT/'audit.json',summary)
+    print(summary)
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('phase',choices=['train','evaluate'])
-    if parser.parse_args().phase=='train':
+    parser.add_argument('phase',choices=['train','evaluate','audit'])
+    phase=parser.parse_args().phase
+    if phase=='train':
         with ThreadPoolExecutor(2) as pool:
             list(pool.map(train,SETS))
         pairs = [[(r['route'],r['lane']) for r in prior.v3.read(ROOT/'inputs'/f'{n}.json')] for n in SETS]
         assert pairs[0]==pairs[1]
+    elif phase=='audit':
+        audit()
     else:
         evaluation.main(ROOT,load_model)
