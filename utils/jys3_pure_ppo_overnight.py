@@ -529,11 +529,28 @@ def report():
          "자가 주행 경험만으로 얻은 분기 보상이 올바른 경로 선택을 늘리는지 동일한 출발에서 비교했다. 최종 제출 후보는 보강형 DAgger R5다.",
          "",f"완료한 고교통 중간 평가 {len(timeline)}/42개. 576회 홀드아웃을 집계한 모델 {sum('hold' in r for r in records)}/7개.",
          "", "## 선정 모델 비교"]
+    source_rows=[r for panel in old.PANELS if panel!="screen" for r in read(old.data_path("R5",0,panel))]
+    original=final.tally(source_rows)
+    assert len(source_rows)==576 and original["arrival"]==561 and original["collision"]==5
+    doc+=["",f"같은 홀드아웃의 보존 모델 DAgger R5는 완주 {original['arrival']}/576 "
+          f"({original['arrival']/576:.2%}), 충돌 {original['collision']}/576 ({original['collision']/576:.2%})였다. "
+          "아래 순수 PPO는 모두 동일한 무작위 초기 가중치에서 출발했다."]
+    completed={r["arm"]:r for r in records if r["end"]==300000 and "hold" in r}
+    if len(completed)==6:
+        top=max(completed.values(),key=lambda r:(r["hold"]["arrival"],-r["hold"]["collision"]))
+        doc+=["",f"30만 이내 선정 모델 중 홀드아웃 완주가 가장 많았던 조건은 **{top['arm']}**로 "
+              f"{top['hold']['arrival']}/576 완주, {top['hold']['collision']}/576 충돌이었다."]
+        for key,other in (("P0","P1"),("P4","P5")):
+            a,b=completed[key]["hold"],completed[other]["hold"]
+            doc.append(f"- {key}→{other}의 자가 경험 보상 대조에서 완주는 {a['arrival']}→{b['arrival']}, "
+                       f"충돌은 {a['collision']}→{b['collision']}, 이탈은 {a['off_route']}→{b['off_route']}건이었다.")
+        all_goals=any(r["hold"]["arrival"]/576>=.95 and r["hold"]["collision"]/576<.05 for r in completed.values())
+        doc+=["",f"6개 조건 중 완주율 95% 이상·충돌률 5% 미만을 동시에 충족한 조건은 {'있었다' if all_goals else '없었다'}."]
     cells=[]
     for r in records:
         for key in ("screen","hold"):
             if key in r:
-                cells.append([r["arm"],r["end"],r["selected"],key,*scores(r[key])])
+                cells.append([r["arm"],r["end"],r["selected"],"선정 128회" if key=="screen" else "홀드아웃 576회",*scores(r[key])])
     doc+=table(["조건","학습 한도","선정 스텝","패널","완주","충돌","이탈","끝 정지","일반 시간초과"],cells)
     doc+=["## 팀원 제안 대조","", "같은 576개 출발에서 후보의 건수에서 대조군의 건수를 뺐다. 온라인 예측 정확도는 새로 판정된 접근 상태의 학습 전 예측 기준이며, AUC는 같은 업데이트 안의 양성·음성 쌍 수로 가중했다."]
     rows=[]; comparisons={}; transitions={}
@@ -609,7 +626,13 @@ def report():
 
     doc+=["","[실행 코드](../../utils/jys3_pure_ppo_overnight.py) · [전체 집계](../../results/jys3_pure_ppo_overnight/summary.json)"]
     tmp=REPORT.with_suffix(".md.tmp")
-    tmp.write_text("\n".join(doc)+"\n",encoding="utf8")
+    formatted=[]
+    for line in doc:
+        if formatted and formatted[-1] and (formatted[-1].startswith("#") or (line.startswith("- ") and not formatted[-1].startswith("- "))):
+            formatted.append("")
+        if line or (formatted and formatted[-1]):
+            formatted.append(line)
+    tmp.write_text("\n".join(formatted)+"\n",encoding="utf8")
     tmp.replace(REPORT)
     save(ROOT/"summary.json",dict(winner=win,models=records,comparisons=comparisons,paired_transitions=transitions,extension_only=extra,screens=len(timeline)))
 

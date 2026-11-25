@@ -1,5 +1,5 @@
 {
-  "winner": null,
+  "winner": "P0",
   "models": [
     {
       "arm": "P0",
@@ -24,6 +24,113 @@
           "left": 1835,
           "right": 5310,
           "steps": 16617
+        }
+      },
+      "hold": {
+        "n": 576,
+        "arrival": 398,
+        "collision": 83,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 95,
+        "slow10": 0,
+        "required": 234,
+        "required_arrived": 135,
+        "commands": {
+          "left": 13888,
+          "right": 49390,
+          "steps": 174293
+        },
+        "required_commands": {
+          "left": 7916,
+          "right": 24458,
+          "steps": 76296
+        }
+      },
+      "panels": {
+        "hold64": {
+          "n": 64,
+          "arrival": 43,
+          "collision": 10,
+          "stall": 0,
+          "timeout": 0,
+          "off_route": 11,
+          "slow10": 0,
+          "required": 26,
+          "required_arrived": 17,
+          "commands": {
+            "left": 1659,
+            "right": 5982,
+            "steps": 19517
+          },
+          "required_commands": {
+            "left": 988,
+            "right": 3101,
+            "steps": 9260
+          }
+        },
+        "designated": {
+          "n": 256,
+          "arrival": 177,
+          "collision": 36,
+          "stall": 0,
+          "timeout": 0,
+          "off_route": 43,
+          "slow10": 0,
+          "required": 104,
+          "required_arrived": 57,
+          "commands": {
+            "left": 5978,
+            "right": 21486,
+            "steps": 77383
+          },
+          "required_commands": {
+            "left": 3226,
+            "right": 10630,
+            "steps": 33214
+          }
+        },
+        "additional": {
+          "n": 256,
+          "arrival": 178,
+          "collision": 37,
+          "stall": 0,
+          "timeout": 0,
+          "off_route": 41,
+          "slow10": 0,
+          "required": 104,
+          "required_arrived": 61,
+          "commands": {
+            "left": 6251,
+            "right": 21922,
+            "steps": 77393
+          },
+          "required_commands": {
+            "left": 3702,
+            "right": 10727,
+            "steps": 33822
+          }
+        }
+      },
+      "required_512": {
+        "n": 512,
+        "arrival": 355,
+        "collision": 73,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 84,
+        "slow10": 0,
+        "required": 208,
+        "required_arrived": 118,
+        "commands": {
+          "left": 12229,
+          "right": 43408,
+          "steps": 154776
+        },
+        "required_commands": {
+          "left": 6928,
+          "right": 21357,
+          "steps": 67036
         }
       },
       "predictor": {
@@ -60,6 +167,113 @@
           "steps": 15470
         }
       },
+      "hold": {
+        "n": 576,
+        "arrival": 274,
+        "collision": 66,
+        "stall": 0,
+        "timeout": 31,
+        "off_route": 205,
+        "slow10": 0,
+        "required": 234,
+        "required_arrived": 88,
+        "commands": {
+          "left": 11785,
+          "right": 56262,
+          "steps": 199834
+        },
+        "required_commands": {
+          "left": 5866,
+          "right": 23153,
+          "steps": 72709
+        }
+      },
+      "panels": {
+        "hold64": {
+          "n": 64,
+          "arrival": 34,
+          "collision": 4,
+          "stall": 0,
+          "timeout": 4,
+          "off_route": 22,
+          "slow10": 0,
+          "required": 26,
+          "required_arrived": 12,
+          "commands": {
+            "left": 1317,
+            "right": 5981,
+            "steps": 22594
+          },
+          "required_commands": {
+            "left": 698,
+            "right": 2554,
+            "steps": 8292
+          }
+        },
+        "designated": {
+          "n": 256,
+          "arrival": 121,
+          "collision": 31,
+          "stall": 0,
+          "timeout": 14,
+          "off_route": 90,
+          "slow10": 0,
+          "required": 104,
+          "required_arrived": 40,
+          "commands": {
+            "left": 5518,
+            "right": 25773,
+            "steps": 89372
+          },
+          "required_commands": {
+            "left": 2728,
+            "right": 10525,
+            "steps": 32217
+          }
+        },
+        "additional": {
+          "n": 256,
+          "arrival": 119,
+          "collision": 31,
+          "stall": 0,
+          "timeout": 13,
+          "off_route": 93,
+          "slow10": 0,
+          "required": 104,
+          "required_arrived": 36,
+          "commands": {
+            "left": 4950,
+            "right": 24508,
+            "steps": 87868
+          },
+          "required_commands": {
+            "left": 2440,
+            "right": 10074,
+            "steps": 32200
+          }
+        }
+      },
+      "required_512": {
+        "n": 512,
+        "arrival": 240,
+        "collision": 62,
+        "stall": 0,
+        "timeout": 27,
+        "off_route": 183,
+        "slow10": 0,
+        "required": 208,
+        "required_arrived": 76,
+        "commands": {
+          "left": 10468,
+          "right": 50281,
+          "steps": 177240
+        },
+        "required_commands": {
+          "left": 5168,
+          "right": 20599,
+          "steps": 64417
+        }
+      },
       "predictor": {
         "n": 973,
         "exp_sum": -218.7336213759845,
@@ -92,6 +306,113 @@
           "left": 7085,
           "right": 9333,
           "steps": 29670
+        }
+      },
+      "hold": {
+        "n": 576,
+        "arrival": 287,
+        "collision": 61,
+        "stall": 0,
+        "timeout": 96,
+        "off_route": 132,
+        "slow10": 0,
+        "required": 234,
+        "required_arrived": 67,
+        "commands": {
+          "left": 72245,
+          "right": 59512,
+          "steps": 283738
+        },
+        "required_commands": {
+          "left": 36958,
+          "right": 37780,
+          "steps": 131907
+        }
+      },
+      "panels": {
+        "hold64": {
+          "n": 64,
+          "arrival": 31,
+          "collision": 8,
+          "stall": 0,
+          "timeout": 10,
+          "off_route": 15,
+          "slow10": 0,
+          "required": 26,
+          "required_arrived": 8,
+          "commands": {
+            "left": 8781,
+            "right": 5611,
+            "steps": 31356
+          },
+          "required_commands": {
+            "left": 5212,
+            "right": 2702,
+            "steps": 13950
+          }
+        },
+        "designated": {
+          "n": 256,
+          "arrival": 125,
+          "collision": 29,
+          "stall": 0,
+          "timeout": 43,
+          "off_route": 59,
+          "slow10": 0,
+          "required": 104,
+          "required_arrived": 31,
+          "commands": {
+            "left": 31129,
+            "right": 27942,
+            "steps": 126866
+          },
+          "required_commands": {
+            "left": 16081,
+            "right": 17814,
+            "steps": 59580
+          }
+        },
+        "additional": {
+          "n": 256,
+          "arrival": 131,
+          "collision": 24,
+          "stall": 0,
+          "timeout": 43,
+          "off_route": 58,
+          "slow10": 0,
+          "required": 104,
+          "required_arrived": 28,
+          "commands": {
+            "left": 32335,
+            "right": 25959,
+            "steps": 125516
+          },
+          "required_commands": {
+            "left": 15665,
+            "right": 17264,
+            "steps": 58377
+          }
+        }
+      },
+      "required_512": {
+        "n": 512,
+        "arrival": 256,
+        "collision": 53,
+        "stall": 0,
+        "timeout": 86,
+        "off_route": 117,
+        "slow10": 0,
+        "required": 208,
+        "required_arrived": 59,
+        "commands": {
+          "left": 63464,
+          "right": 53901,
+          "steps": 252382
+        },
+        "required_commands": {
+          "left": 31746,
+          "right": 35078,
+          "steps": 117957
         }
       },
       "predictor": {
@@ -128,6 +449,113 @@
           "steps": 14971
         }
       },
+      "hold": {
+        "n": 576,
+        "arrival": 310,
+        "collision": 107,
+        "stall": 14,
+        "timeout": 0,
+        "off_route": 145,
+        "slow10": 22,
+        "required": 234,
+        "required_arrived": 96,
+        "commands": {
+          "left": 16812,
+          "right": 103755,
+          "steps": 175134
+        },
+        "required_commands": {
+          "left": 8486,
+          "right": 39954,
+          "steps": 75344
+        }
+      },
+      "panels": {
+        "hold64": {
+          "n": 64,
+          "arrival": 36,
+          "collision": 13,
+          "stall": 0,
+          "timeout": 0,
+          "off_route": 15,
+          "slow10": 2,
+          "required": 26,
+          "required_arrived": 11,
+          "commands": {
+            "left": 1828,
+            "right": 10399,
+            "steps": 19020
+          },
+          "required_commands": {
+            "left": 915,
+            "right": 3934,
+            "steps": 8223
+          }
+        },
+        "designated": {
+          "n": 256,
+          "arrival": 141,
+          "collision": 39,
+          "stall": 8,
+          "timeout": 0,
+          "off_route": 68,
+          "slow10": 13,
+          "required": 104,
+          "required_arrived": 42,
+          "commands": {
+            "left": 8230,
+            "right": 47426,
+            "steps": 80087
+          },
+          "required_commands": {
+            "left": 4142,
+            "right": 18660,
+            "steps": 34920
+          }
+        },
+        "additional": {
+          "n": 256,
+          "arrival": 133,
+          "collision": 55,
+          "stall": 6,
+          "timeout": 0,
+          "off_route": 62,
+          "slow10": 7,
+          "required": 104,
+          "required_arrived": 43,
+          "commands": {
+            "left": 6754,
+            "right": 45930,
+            "steps": 76027
+          },
+          "required_commands": {
+            "left": 3429,
+            "right": 17360,
+            "steps": 32201
+          }
+        }
+      },
+      "required_512": {
+        "n": 512,
+        "arrival": 274,
+        "collision": 94,
+        "stall": 14,
+        "timeout": 0,
+        "off_route": 130,
+        "slow10": 20,
+        "required": 208,
+        "required_arrived": 85,
+        "commands": {
+          "left": 14984,
+          "right": 93356,
+          "steps": 156114
+        },
+        "required_commands": {
+          "left": 7571,
+          "right": 36020,
+          "steps": 67121
+        }
+      },
       "predictor": {
         "n": 1698,
         "exp_sum": 0.0,
@@ -160,6 +588,113 @@
           "left": 3904,
           "right": 8781,
           "steps": 17557
+        }
+      },
+      "hold": {
+        "n": 576,
+        "arrival": 356,
+        "collision": 132,
+        "stall": 0,
+        "timeout": 10,
+        "off_route": 78,
+        "slow10": 7,
+        "required": 234,
+        "required_arrived": 105,
+        "commands": {
+          "left": 34643,
+          "right": 87839,
+          "steps": 181166
+        },
+        "required_commands": {
+          "left": 16973,
+          "right": 33921,
+          "steps": 73313
+        }
+      },
+      "panels": {
+        "hold64": {
+          "n": 64,
+          "arrival": 42,
+          "collision": 14,
+          "stall": 0,
+          "timeout": 1,
+          "off_route": 7,
+          "slow10": 2,
+          "required": 26,
+          "required_arrived": 12,
+          "commands": {
+            "left": 4237,
+            "right": 9472,
+            "steps": 20165
+          },
+          "required_commands": {
+            "left": 2229,
+            "right": 3873,
+            "steps": 8911
+          }
+        },
+        "designated": {
+          "n": 256,
+          "arrival": 164,
+          "collision": 56,
+          "stall": 0,
+          "timeout": 4,
+          "off_route": 32,
+          "slow10": 2,
+          "required": 104,
+          "required_arrived": 51,
+          "commands": {
+            "left": 15853,
+            "right": 40183,
+            "steps": 82771
+          },
+          "required_commands": {
+            "left": 8007,
+            "right": 16535,
+            "steps": 35097
+          }
+        },
+        "additional": {
+          "n": 256,
+          "arrival": 150,
+          "collision": 62,
+          "stall": 0,
+          "timeout": 5,
+          "off_route": 39,
+          "slow10": 3,
+          "required": 104,
+          "required_arrived": 42,
+          "commands": {
+            "left": 14553,
+            "right": 38184,
+            "steps": 78230
+          },
+          "required_commands": {
+            "left": 6737,
+            "right": 13513,
+            "steps": 29305
+          }
+        }
+      },
+      "required_512": {
+        "n": 512,
+        "arrival": 314,
+        "collision": 118,
+        "stall": 0,
+        "timeout": 9,
+        "off_route": 71,
+        "slow10": 5,
+        "required": 208,
+        "required_arrived": 93,
+        "commands": {
+          "left": 30406,
+          "right": 78367,
+          "steps": 161001
+        },
+        "required_commands": {
+          "left": 14744,
+          "right": 30048,
+          "steps": 64402
         }
       },
       "predictor": {
@@ -196,6 +731,113 @@
           "steps": 16760
         }
       },
+      "hold": {
+        "n": 576,
+        "arrival": 392,
+        "collision": 111,
+        "stall": 1,
+        "timeout": 0,
+        "off_route": 72,
+        "slow10": 1,
+        "required": 234,
+        "required_arrived": 111,
+        "commands": {
+          "left": 88387,
+          "right": 36625,
+          "steps": 177748
+        },
+        "required_commands": {
+          "left": 42343,
+          "right": 10766,
+          "steps": 69218
+        }
+      },
+      "panels": {
+        "hold64": {
+          "n": 64,
+          "arrival": 38,
+          "collision": 18,
+          "stall": 0,
+          "timeout": 0,
+          "off_route": 8,
+          "slow10": 0,
+          "required": 26,
+          "required_arrived": 10,
+          "commands": {
+            "left": 9463,
+            "right": 3959,
+            "steps": 19119
+          },
+          "required_commands": {
+            "left": 4686,
+            "right": 1078,
+            "steps": 7445
+          }
+        },
+        "designated": {
+          "n": 256,
+          "arrival": 181,
+          "collision": 41,
+          "stall": 0,
+          "timeout": 0,
+          "off_route": 34,
+          "slow10": 0,
+          "required": 104,
+          "required_arrived": 53,
+          "commands": {
+            "left": 42316,
+            "right": 15906,
+            "steps": 81046
+          },
+          "required_commands": {
+            "left": 19739,
+            "right": 5049,
+            "steps": 31676
+          }
+        },
+        "additional": {
+          "n": 256,
+          "arrival": 173,
+          "collision": 52,
+          "stall": 1,
+          "timeout": 0,
+          "off_route": 30,
+          "slow10": 1,
+          "required": 104,
+          "required_arrived": 48,
+          "commands": {
+            "left": 36608,
+            "right": 16760,
+            "steps": 77583
+          },
+          "required_commands": {
+            "left": 17918,
+            "right": 4639,
+            "steps": 30097
+          }
+        }
+      },
+      "required_512": {
+        "n": 512,
+        "arrival": 354,
+        "collision": 93,
+        "stall": 1,
+        "timeout": 0,
+        "off_route": 64,
+        "slow10": 1,
+        "required": 208,
+        "required_arrived": 101,
+        "commands": {
+          "left": 78924,
+          "right": 32666,
+          "steps": 158629
+        },
+        "required_commands": {
+          "left": 37657,
+          "right": 9688,
+          "steps": 61773
+        }
+      },
       "predictor": {
         "n": 1336,
         "exp_sum": -276.96741843689233,
@@ -204,8 +846,348 @@
         "pairs": 19087074,
         "auc": 0.7422218041382351
       }
+    },
+    {
+      "arm": "P0",
+      "end": 600000,
+      "selected": 250000,
+      "screen": {
+        "n": 128,
+        "arrival": 89,
+        "collision": 20,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 19,
+        "slow10": 1,
+        "required": 52,
+        "required_arrived": 30,
+        "commands": {
+          "left": 3421,
+          "right": 11237,
+          "steps": 38487
+        },
+        "required_commands": {
+          "left": 1835,
+          "right": 5310,
+          "steps": 16617
+        }
+      },
+      "hold": {
+        "n": 576,
+        "arrival": 398,
+        "collision": 83,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 95,
+        "slow10": 0,
+        "required": 234,
+        "required_arrived": 135,
+        "commands": {
+          "left": 13888,
+          "right": 49390,
+          "steps": 174293
+        },
+        "required_commands": {
+          "left": 7916,
+          "right": 24458,
+          "steps": 76296
+        }
+      },
+      "panels": {
+        "hold64": {
+          "n": 64,
+          "arrival": 43,
+          "collision": 10,
+          "stall": 0,
+          "timeout": 0,
+          "off_route": 11,
+          "slow10": 0,
+          "required": 26,
+          "required_arrived": 17,
+          "commands": {
+            "left": 1659,
+            "right": 5982,
+            "steps": 19517
+          },
+          "required_commands": {
+            "left": 988,
+            "right": 3101,
+            "steps": 9260
+          }
+        },
+        "designated": {
+          "n": 256,
+          "arrival": 177,
+          "collision": 36,
+          "stall": 0,
+          "timeout": 0,
+          "off_route": 43,
+          "slow10": 0,
+          "required": 104,
+          "required_arrived": 57,
+          "commands": {
+            "left": 5978,
+            "right": 21486,
+            "steps": 77383
+          },
+          "required_commands": {
+            "left": 3226,
+            "right": 10630,
+            "steps": 33214
+          }
+        },
+        "additional": {
+          "n": 256,
+          "arrival": 178,
+          "collision": 37,
+          "stall": 0,
+          "timeout": 0,
+          "off_route": 41,
+          "slow10": 0,
+          "required": 104,
+          "required_arrived": 61,
+          "commands": {
+            "left": 6251,
+            "right": 21922,
+            "steps": 77393
+          },
+          "required_commands": {
+            "left": 3702,
+            "right": 10727,
+            "steps": 33822
+          }
+        }
+      },
+      "required_512": {
+        "n": 512,
+        "arrival": 355,
+        "collision": 73,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 84,
+        "slow10": 0,
+        "required": 208,
+        "required_arrived": 118,
+        "commands": {
+          "left": 12229,
+          "right": 43408,
+          "steps": 154776
+        },
+        "required_commands": {
+          "left": 6928,
+          "right": 21357,
+          "steps": 67036
+        }
+      },
+      "predictor": {
+        "n": 1248,
+        "exp_sum": 0.0,
+        "states": 0,
+        "correct": 0,
+        "pairs": 0,
+        "auc": null
+      }
     }
   ],
-  "comparisons": {},
-  "screens": 36
+  "comparisons": {
+    "P0\u2192P1": {
+      "arrival": -124,
+      "off_route": 110,
+      "collision": -17
+    },
+    "P0\u2192P2": {
+      "arrival": -111,
+      "off_route": 37,
+      "collision": -22
+    },
+    "P1\u2192P2": {
+      "arrival": 13,
+      "off_route": -73,
+      "collision": -5
+    },
+    "P2\u2192P3": {
+      "arrival": 23,
+      "off_route": 13,
+      "collision": 46
+    },
+    "P2\u2192P4": {
+      "arrival": 69,
+      "off_route": -54,
+      "collision": 71
+    },
+    "P4\u2192P5": {
+      "arrival": 36,
+      "off_route": -6,
+      "collision": -21
+    }
+  },
+  "paired_transitions": {
+    "P0\u2192P1": {
+      "kept": 209,
+      "lost": 189,
+      "gained": 65,
+      "matrix": {
+        "arrival->timeout": 29,
+        "arrival->arrival": 209,
+        "off_route->off_route": 60,
+        "collision->arrival": 37,
+        "arrival->off_route": 125,
+        "collision->collision": 24,
+        "collision->off_route": 20,
+        "arrival->collision": 35,
+        "off_route->collision": 7,
+        "off_route->arrival": 28,
+        "collision->timeout": 2
+      }
+    },
+    "P0\u2192P2": {
+      "kept": 218,
+      "lost": 180,
+      "gained": 69,
+      "matrix": {
+        "arrival->arrival": 218,
+        "arrival->timeout": 66,
+        "arrival->off_route": 84,
+        "off_route->timeout": 12,
+        "collision->arrival": 27,
+        "collision->timeout": 18,
+        "collision->off_route": 30,
+        "arrival->collision": 30,
+        "off_route->arrival": 42,
+        "off_route->collision": 23,
+        "collision->collision": 8,
+        "off_route->off_route": 18
+      }
+    },
+    "P1\u2192P2": {
+      "kept": 178,
+      "lost": 96,
+      "gained": 109,
+      "matrix": {
+        "timeout->arrival": 29,
+        "arrival->timeout": 34,
+        "arrival->arrival": 178,
+        "arrival->off_route": 38,
+        "off_route->timeout": 41,
+        "off_route->arrival": 61,
+        "collision->timeout": 21,
+        "off_route->off_route": 74,
+        "off_route->collision": 29,
+        "collision->collision": 8,
+        "arrival->collision": 24,
+        "collision->arrival": 19,
+        "collision->off_route": 18,
+        "timeout->off_route": 2
+      }
+    },
+    "P2\u2192P3": {
+      "kept": 175,
+      "lost": 112,
+      "gained": 135,
+      "matrix": {
+        "arrival->arrival": 175,
+        "timeout->arrival": 56,
+        "arrival->collision": 40,
+        "off_route->off_route": 36,
+        "timeout->collision": 24,
+        "off_route->arrival": 51,
+        "timeout->off_route": 9,
+        "off_route->collision": 39,
+        "collision->arrival": 28,
+        "arrival->off_route": 72,
+        "collision->collision": 4,
+        "collision->off_route": 28,
+        "timeout->stall": 7,
+        "off_route->stall": 6,
+        "collision->stall": 1
+      }
+    },
+    "P2\u2192P4": {
+      "kept": 205,
+      "lost": 82,
+      "gained": 151,
+      "matrix": {
+        "arrival->arrival": 205,
+        "timeout->arrival": 61,
+        "off_route->arrival": 62,
+        "off_route->collision": 37,
+        "off_route->off_route": 33,
+        "collision->arrival": 28,
+        "collision->collision": 16,
+        "arrival->collision": 53,
+        "arrival->off_route": 19,
+        "collision->off_route": 17,
+        "timeout->collision": 26,
+        "arrival->timeout": 10,
+        "timeout->off_route": 9
+      }
+    },
+    "P4\u2192P5": {
+      "kept": 287,
+      "lost": 69,
+      "gained": 105,
+      "matrix": {
+        "arrival->arrival": 287,
+        "arrival->collision": 43,
+        "collision->collision": 51,
+        "off_route->collision": 14,
+        "collision->off_route": 18,
+        "arrival->off_route": 26,
+        "collision->arrival": 63,
+        "off_route->arrival": 37,
+        "off_route->off_route": 26,
+        "timeout->off_route": 2,
+        "timeout->arrival": 5,
+        "timeout->collision": 3,
+        "off_route->stall": 1
+      }
+    }
+  },
+  "extension_only": {
+    "arm": "P0",
+    "selected": 500000,
+    "screen": {
+      "n": 128,
+      "arrival": 84,
+      "collision": 19,
+      "stall": 0,
+      "timeout": 1,
+      "off_route": 24,
+      "slow10": 2,
+      "required": 52,
+      "required_arrived": 26,
+      "commands": {
+        "left": 7550,
+        "right": 6119,
+        "steps": 39779
+      },
+      "required_commands": {
+        "left": 2989,
+        "right": 2975,
+        "steps": 15926
+      }
+    },
+    "hold": {
+      "n": 576,
+      "arrival": 370,
+      "collision": 100,
+      "stall": 3,
+      "timeout": 2,
+      "off_route": 101,
+      "slow10": 5,
+      "required": 234,
+      "required_arrived": 115,
+      "commands": {
+        "left": 30505,
+        "right": 29025,
+        "steps": 175500
+      },
+      "required_commands": {
+        "left": 11448,
+        "right": 14021,
+        "steps": 67927
+      }
+    }
+  },
+  "screens": 42
 }
