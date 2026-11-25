@@ -74,7 +74,7 @@ def checkpoint(k):
     return ROOT / ("bc.pt" if k==0 else f"dagger{k}.pt")
 
 
-def run_episodes(task):
+def run_episodes(task, *, record_terminal=False):
     name, cases, selected, model_path, collect, demo = task
     torch.set_num_threads(1)
     model = network(model_path) if model_path else None
@@ -107,6 +107,8 @@ def run_episodes(task):
                         xs.append(state.copy())
                         ys.append(label)
                     action=label if model is None else model.det_action(torch.from_numpy(state).unsqueeze(0))[0].numpy()
+                    if record_terminal:
+                        before = env.snapshot
                     obs,_,done,cut,info=env.step(action)
                     if done or cut:
                         break
@@ -115,6 +117,11 @@ def run_episodes(task):
                 accepted=not demo or (info["outcome"]=="arrival" and (name!="train" or longest<50))
                 row=dict(route=route,rep=rep,lane=lane,seed=seed,steps=step,outcome=info["outcome"],
                          longest_slow=longest,accepted=accepted,initial_sha256=digest)
+                if record_terminal:
+                    end = env.snapshot or before
+                    row.update(start_edge=env.routes[path][0], end_edge=end[0], end_lane=end[1],
+                               last_speed=float(end[7]), remaining_lane_m=float(end[8]),
+                               before_edge=before[0], off_route_detail=info.get("off_route_detail"))
                 rows.append(row)
                 if accepted:
                     if collect:
