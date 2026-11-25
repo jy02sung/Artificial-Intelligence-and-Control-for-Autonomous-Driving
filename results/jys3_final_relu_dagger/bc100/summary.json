@@ -1,0 +1,49 @@
+{
+  "counts": {
+    "bc50": {
+      "arrival": 107,
+      "collision": 17,
+      "stall": 0,
+      "timeout": 0,
+      "off_route": 4,
+      "slow10": 2
+    },
+    "best100": {
+      "arrival": 107,
+      "collision": 13,
+      "stall": 0,
+      "timeout": 0,
+      "off_route": 8,
+      "slow10": 1
+    },
+    "last100": {
+      "arrival": 107,
+      "collision": 16,
+      "stall": 0,
+      "timeout": 0,
+      "off_route": 5,
+      "slow10": 1
+    }
+  },
+  "transitions": {
+    "best100": {
+      "arrival -> arrival": 100,
+      "collision -> collision": 8,
+      "arrival -> collision": 5,
+      "collision -> arrival": 7,
+      "arrival -> off_route": 2,
+      "off_route -> off_route": 4,
+      "collision -> off_route": 2
+    },
+    "last100": {
+      "arrival -> arrival": 102,
+      "collision -> collision": 11,
+      "arrival -> collision": 4,
+      "collision -> arrival": 5,
+      "arrival -> off_route": 1,
+      "collision -> off_route": 1,
+      "off_route -> off_route": 3,
+      "off_route -> collision": 1
+    }
+  }
+}
