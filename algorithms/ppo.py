@@ -245,7 +245,7 @@ class PPO:
     # ==================================================================
     # 3단계) 정책 업데이트 (clipped surrogate)
     # ==================================================================
-    def update(self, advantages, returns) -> dict:
+    def update(self, advantages, returns, *, reference_policy=None, reference_coef=0.) -> dict:
         obs_t, act_t, old_log_prob_t = self.buffer.to_tensors(self.device)
         adv_t = torch.as_tensor(advantages, device=self.device)
         ret_t = torch.as_tensor(returns, device=self.device)
@@ -259,6 +259,12 @@ class PPO:
         stats = {"policy_loss": 0.0, "value_loss": 0.0,
                  "entropy": 0.0, "approx_kl": 0.0, "clip_frac": 0.0}
         n_batches = 0
+
+        if reference_policy is not None:
+            with torch.no_grad():
+                ref_mu, ref_std, ref_logits, _ = reference_policy(obs_t)
+                ref_logp = ref_logits.log_softmax(-1)
+            stats["reference_kl"] = 0.
 
         for _ in range(self.n_epochs):
             np.random.shuffle(indices)
@@ -292,6 +298,16 @@ class PPO:
                         hasattr(self.policy, "lane_entropy"):
                     loss = loss - (self.lane_entropy_coef
                                    * self.policy.lane_entropy(obs_t[mb]).mean())
+
+                if reference_policy is not None:
+                    mu, std, logits, _ = self.policy(obs_t[mb])
+                    logp = logits.log_softmax(-1)
+                    lane_kl = (logp.exp() * (logp - ref_logp[mb])).sum(-1)
+                    accel_kl = (torch.log(ref_std / std)
+                                + (std.square() + (mu-ref_mu[mb]).square()) / (2*ref_std.square()) - .5)
+                    reference_kl = (lane_kl + accel_kl.sum(-1)).mean()
+                    loss = loss + reference_coef * reference_kl
+                    stats["reference_kl"] += float(reference_kl.detach())
 
                 self.optimizer.zero_grad()
                 loss.backward()
