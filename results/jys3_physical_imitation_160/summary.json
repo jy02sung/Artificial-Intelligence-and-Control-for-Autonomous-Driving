@@ -1,0 +1,87 @@
+{
+  "validation_samples": 11548,
+  "models": {
+    "BC": {
+      "update_samples": 57458,
+      "checkpoint_sha256": "050a22c9302321918b72f92f7a7939af91469e3f58a4314ab34808f227a1f6ac",
+      "old_matched": {
+        "arrival": 21,
+        "collision": 40,
+        "off_route": 3
+      },
+      "matched": {
+        "arrival": 39,
+        "collision": 23,
+        "off_route": 2
+      },
+      "fresh": {
+        "arrival": 42,
+        "collision": 21,
+        "off_route": 1
+      },
+      "transitions": {
+        "arrival -> arrival": 21,
+        "collision -> arrival": 18,
+        "collision -> collision": 21,
+        "collision -> off_route": 1,
+        "off_route -> off_route": 1,
+        "off_route -> collision": 2
+      }
+    },
+    "DAgger": {
+      "update_samples": 15820,
+      "checkpoint_sha256": "2d20ef546ccd0af46142798919ee13283d620c494bb0f74e4e3ad92f423b45b7",
+      "old_matched": {
+        "off_route": 25,
+        "arrival": 33,
+        "collision": 6
+      },
+      "matched": {
+        "collision": 45,
+        "off_route": 13,
+        "arrival": 6
+      },
+      "fresh": {
+        "collision": 43,
+        "off_route": 10,
+        "arrival": 10,
+        "stall": 1
+      },
+      "transitions": {
+        "off_route -> collision": 19,
+        "arrival -> off_route": 7,
+        "arrival -> collision": 20,
+        "collision -> collision": 6,
+        "arrival -> arrival": 6,
+        "off_route -> off_route": 6
+      }
+    },
+    "BC_DAgger": {
+      "update_samples": 74961,
+      "checkpoint_sha256": "6690df50d70c82c1b61230e2e90d112c6ddb03af61516385e1d8c56f66a83eb3",
+      "old_matched": {
+        "arrival": 51,
+        "collision": 10,
+        "off_route": 3
+      },
+      "matched": {
+        "arrival": 59,
+        "collision": 4,
+        "off_route": 1
+      },
+      "fresh": {
+        "arrival": 57,
+        "off_route": 3,
+        "collision": 4
+      },
+      "transitions": {
+        "arrival -> arrival": 49,
+        "collision -> arrival": 8,
+        "arrival -> collision": 2,
+        "off_route -> off_route": 1,
+        "collision -> collision": 2,
+        "off_route -> arrival": 2
+      }
+    }
+  }
+}
