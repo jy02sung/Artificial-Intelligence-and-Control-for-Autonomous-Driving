@@ -246,6 +246,7 @@ def evaluate(job, *, checkpoint=None):
                     bonus+=info["progress_bonus"]
                     if done or cut:break
                 outcome="arrival" if info["arrived"] else "collision" if info["collided"] else "stall" if info["stalled"] else "timeout" if cut else "other"
+                outcome = info.get("outcome") or outcome
                 assert bonus<=env.progress_cap+1e-5 and (outcome!="arrival" or abs(bonus-(env.progress_cap if env.progress_enabled else 0))<1e-5)
                 rows.append(dict(speed_metrics=dict(speed_totals),timeout_distances=timeout_distances,route=route,case=rep,traffic_seed=traffic_seed,start=start,outcome=outcome,steps=t,slow=slow,slow_side_near=slow_side_near,moves=moves,actual_left=actual_left,first_left=first,left_cmds=lefts,prep=prep,forks=forks,bonus=bonus,track=track))
         finally:env.close()
