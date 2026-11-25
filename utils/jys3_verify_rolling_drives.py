@@ -33,7 +33,7 @@ def cases():
     return jobs
 
 
-def drive(env, job):
+def drive(env, job, *, original=False):
     group, route, seed, start_lane = job
     path = f"route_{route:02d}"
     env.ego_depart_lane = str(min(start_lane, env.counts[env.routes[path][0]] - 1))
@@ -43,7 +43,10 @@ def drive(env, job):
     active = None
     previous_key = None
     for step in range(1, 1001):
-        action, wait, direction, reason = recovery.control(x[:50], env, "queue_tail")
+        if original:
+            action, wait, direction, reason = roll._decision(x[:50], env, "old")
+        else:
+            action, wait, direction, reason = recovery.control(x[:50], env, "queue_tail")
         edge, lane = env.snapshot[:2]
         key = (edge, lane, direction) if direction and not x[38] and not edge.startswith(":") else None
         if key != previous_key:
@@ -74,20 +77,67 @@ def drive(env, job):
                 active["reasons"][reason] += 1
             active["slow"] = active["slow"] + 1 if wait and speed < 1 else 0
             active["longest_slow"] = max(active["longest_slow"], active["slow"])
+        before, snapshot = x, env.snapshot
         x, _, done, cut, info = env.step(action)
         post = env.snapshot
         if active is not None and post and post[0] == edge and post[1] == lane + direction:
             active.update(move=step, move_speed=speed)
         if done or cut:
             assert info["outcome"] != "arrival" or info["route_intact"]
-            return dict(group=group, route=route, seed=seed, lane=int(env.ego_depart_lane),
-                        steps=step, outcome=info["outcome"], events=events)
+            row = dict(group=group, route=route, seed=seed, lane=int(env.ego_depart_lane),
+                       steps=step, outcome=info["outcome"], events=events)
+            if info["outcome"] != "arrival":
+                terminal = dict(edge=edge, lane=lane, speed=snapshot[7], remaining=snapshot[-1],
+                                direction=direction, reason=reason, action=action.tolist(),
+                                own_front_m=float(before[9])*env.visibility)
+                if direction:
+                    i = 1 + 4 * (2 - direction)
+                    terminal.update(front_m=float(before[i])*env.visibility,
+                                    rear_m=-float(before[i+2])*env.visibility,
+                                    overlap=bool(before[37 if direction == 1 else 36]))
+                row["terminal"] = terminal
+            return row
     raise AssertionError("missing terminal outcome")
 
 
 def shard(jobs):
     with roll.baseline.simulator() as env:
         return [drive(env, job) for job in jobs]
+
+
+def compare_long_waits(rows):
+    comparison = []
+    with roll.baseline.simulator() as env:
+        for r in rows:
+            slow = max((e["longest_slow"] for e in r["events"]), default=0)
+            if slow < 50:
+                continue
+            old = drive(env, (r["group"], r["route"], r["seed"], r["lane"]), original=True)
+            comparison.append(old)
+    save(ROOT / "original_long_waits.json", comparison)
+
+
+def summarize(rows):
+    events = [e for r in rows for e in r["events"]]
+    waited = [e for e in events if e["wait_steps"]]
+    opened = [e for e in waited if e["first_open"] is not None]
+    moved = [e for e in opened if e["move"] is not None]
+    speeds = [e["move_speed"] for e in moved]
+    slow = [max((e["longest_slow"] for e in r["events"]), default=0) for r in rows]
+    return dict(
+        episodes=len(rows), outcomes=dict(Counter(r["outcome"] for r in rows)),
+        failures=[(r["route"], r["seed"], r["outcome"]) for r in rows if r["outcome"] != "arrival"],
+        waits=len(waited), openings_after_wait=len(opened),
+        immediate_commands=sum(e["first_open"] == e["first_command"] for e in opened),
+        immediate_moves=sum(e["first_open"] == e["move"] for e in opened),
+        confirmed_moves=len(moved), moving_at_least_1mps=sum(v >= 1 for v in speeds),
+        median_move_speed_mps=float(np.median(speeds)) if speeds else None,
+        wait_with_acceleration=sum(e["accel"].get("1", 0) > 0 for e in waited),
+        wait_with_braking=sum(e["accel"].get("-1", 0) > 0 for e in waited),
+        slow_5s=sum(v >= 25 for v in slow), slow_10s=sum(v >= 50 for v in slow),
+        max_slow_s=round(max(slow) * roll.DT, 1),
+        by_route={i:dict(Counter(r["outcome"] for r in rows if r["route"] == i))
+                  for i in range(1, 17)})
 
 
 def main():
@@ -102,6 +152,10 @@ def main():
             print(len(rows), "/", len(jobs), dict(Counter(r["outcome"] for r in rows)), flush=True)
     assert len(rows) == len(jobs)
     save(ROOT / "episodes.json", sorted(rows, key=lambda r: (r["group"], r["seed"])))
+    save(ROOT / "summary.json", {name:summarize([r for r in rows if r["group"] == name])
+                                 for name in sorted({r["group"] for r in rows})}
+         | {"all":summarize(rows)})
+    compare_long_waits(rows)
 
 
 if __name__ == "__main__":
