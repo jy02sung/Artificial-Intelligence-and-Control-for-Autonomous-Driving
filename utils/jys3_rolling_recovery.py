@@ -14,7 +14,7 @@ CASES=[(5,4),(14,6)]
 MODES=('reserve20','reserve30','queue_tail')
 
 
-def control(x,env,mode,*,revised=False):
+def control(x,env,mode,*,revised=False,short_reserve=False):
     action,waiting,d,reason=roll._decision(x,env,'revised' if revised else 'strict')
     if mode=='strict' or not waiting:
         return action,waiting,d,reason
@@ -29,6 +29,8 @@ def control(x,env,mode,*,revised=False):
     if remain>70. or not ((front<20. and vf<13.) or (rear<18. and vr<13.)):
         return action,waiting,d,reason
     reserve={'reserve20':20.,'reserve30':30.,'queue_tail':24.}[mode]
+    if short_reserve and mode == 'queue_tail' and float(x[31])*env.vmax <= 14.:
+        reserve = 12.
     target=np.sqrt(2*2.5*max(0.,remain-reserve))
     if mode=='queue_tail':
         target=min(target,max(0.,vf-4.+.35*(front-10.)))
