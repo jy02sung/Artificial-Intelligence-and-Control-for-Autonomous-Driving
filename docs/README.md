@@ -15,5 +15,6 @@
 | [수업 평가 기준](../project_materials/6_Project_Evaluation.md) | 원본 수업 요구사항 |
 | [데이터 보관 정책](../data/README.md) | GitHub와 로컬에 보관할 파일 구분 |
 | [과거 문서 보관함](archive/README.md) | 이전 설계·실패 실험·맵 기록 |
+| [발표 영상용 스크립트 시나리오 및 이식 가이드](review/mcw2-demo-scripted-scenario-guide-20261125.md) | `route_05`/`13`/`08` 추월·눈치싸움·가려짐 타이밍 및 신규 모델 이식 방법 |
 
 원본 수업 자료는 project_materials에 유지합니다. 소형 실험 설정과 설계 JSON은 Git에서 관리하고, 개별 사례·추적·학습 데이터는 로컬에 보존합니다.

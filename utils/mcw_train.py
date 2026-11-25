@@ -33,26 +33,24 @@ from env.road_config import EGO, ROAD, TRAFFIC
 from env.sumo_env import traci
 from utils.buffer import RolloutBuffer
 from utils.logger import RunLogger
+from utils.mcw_demo import (
+    CROSS_DEPART_LANES,
+    DemoOcclusionOverlay,
+    SCRIPTED_DEPART_LANES,
+    ScriptedDemoDirector,
+    VEHICLE_TYPE_COLORS,
+    apply_real_vehicle_colors_and_shapes,
+    attach_gui_settings_to_sumocfg,
+    build_demo_overtake_network,
+    configure_dense_or_overtake_flows,
+    configure_scripted_flows,
+    write_demo_gui_settings,
+)
 from utils.train_lane_learning import ProgressReward
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_SCENARIO = ROOT / "scenarios" / "hv_high15000_entryprep"
 ROUTES = [f"route_{i:02d}" for i in range(1, 17)]
-
-VEHICLE_TYPE_COLORS = {
-    "car_krauss": "0.82,0.84,0.88",
-    "car_idm": "0.82,0.84,0.88",
-    "car_eidm": "0.82,0.84,0.88",
-    "car_acc": "0.82,0.84,0.88",
-    "car_krauss_violator": "1.0,0.52,0.12",
-    "car_idm_violator": "1.0,0.52,0.12",
-    "car_eidm_violator": "1.0,0.52,0.12",
-    "car_acc_violator": "1.0,0.52,0.12",
-    "delivery_idm": "0.18,0.78,0.92",
-    "truck_idm": "0.98,0.78,0.10",
-    "bus_idm": "0.18,0.45,0.98",
-    "ego_type": "1.0,0.20,0.25",
-}
 
 
 def _segment_intersects_obb(
@@ -129,16 +127,21 @@ def load_network_metadata(net_path: Path, rou_path: Path, nav_horizon: float = 4
     return road, nav
 
 
-def prepare_scenario(stage: str, cache_dir: Path, color_by_type: bool = True) -> Path:
-    """Create a scenario folder for stage ('none', 'low', 'high', 'real_ratio') and return run.sumocfg."""
+def prepare_scenario(stage: str, cache_dir: Path, color_by_type: bool = True, gui_delay: float = 60.0) -> Path:
+    """Create a scenario folder for stage ('none', 'low', 'high', 'real_ratio', 'high_real_ratio', 'demo_dense', 'demo_overtake') and return run.sumocfg."""
     dest = cache_dir / stage
     dest.mkdir(parents=True, exist_ok=True)
     net_dst = dest / "network.net.xml"
     rou_dst = dest / "highway.rou.xml"
     cfg_dst = dest / "run.sumocfg"
 
-    shutil.copy2(str(BASE_SCENARIO / "network.net.xml"), str(net_dst))
+    if stage in ("demo_overtake", "demo_scripted"):
+        build_demo_overtake_network(BASE_SCENARIO / "network.net.xml", net_dst)
+    else:
+        shutil.copy2(str(BASE_SCENARIO / "network.net.xml"), str(net_dst))
     shutil.copy2(str(BASE_SCENARIO / "run.sumocfg"), str(cfg_dst))
+    write_demo_gui_settings(dest, delay_ms=gui_delay)
+    attach_gui_settings_to_sumocfg(cfg_dst, "highway.gui.xml")
 
     tree = ET.parse(str(BASE_SCENARIO / "highway.rou.xml"))
     root = tree.getroot()
@@ -150,6 +153,10 @@ def prepare_scenario(stage: str, cache_dir: Path, color_by_type: bool = True) ->
         for flow in root.findall("flow"):
             num = int(flow.get("number", "100"))
             flow.set("number", str(max(1, round(num * 0.2))))
+    elif stage in ("demo_dense", "demo_overtake"):
+        configure_dense_or_overtake_flows(root, include_slow_trucks=True)
+    elif stage == "demo_scripted":
+        configure_scripted_flows(root)
     elif stage in ("real_ratio", "high_real_ratio"):
         # 2025 observed mix: Passenger 77%, Small Delivery 18%, Heavy Truck 4%, Bus 1%
         # Add delivery and truck vTypes and update carDist probabilities.
@@ -186,12 +193,7 @@ def prepare_scenario(stage: str, cache_dir: Path, color_by_type: bool = True) ->
                 flow.set("number", str(max(1, round(num * 0.5))))
 
     if color_by_type:
-        for flow in root.findall("flow"):
-            flow.attrib.pop("color", None)
-        for vt in root.findall("vType"):
-            vid = vt.get("id", "")
-            if vid in VEHICLE_TYPE_COLORS:
-                vt.set("color", VEHICLE_TYPE_COLORS[vid])
+        apply_real_vehicle_colors_and_shapes(root)
 
     tree.write(str(rou_dst), encoding="utf-8", xml_declaration=True)
     return cfg_dst
@@ -227,6 +229,8 @@ class McwEnv(ClarityEnv):
                  noise_vel_slope: float = 1.35,
                  occlusion: bool = False, occ_truck_rate: float = 1.0,
                  occ_bus_rate: float = 1.0, occ_delivery_rate: float = 0.5,
+                 cross_lane: bool = False, scripted: bool = False,
+                 train_routes=None,
                  gui: bool = False, **kwargs):
         self.use_route_conn = route_conn
         self.agenda2 = bool(agenda2)
@@ -244,6 +248,9 @@ class McwEnv(ClarityEnv):
         self.occ_truck_rate = float(occ_truck_rate)
         self.occ_bus_rate = float(occ_bus_rate)
         self.occ_delivery_rate = float(occ_delivery_rate)
+        self.cross_lane = bool(cross_lane)
+        self.scripted = bool(scripted)
+        self.train_routes = list(train_routes) if train_routes else None
         self._noise_rng = np.random.default_rng(11)
         self._occ_sensor_mask = False
         self._occ_subscribed = False
@@ -252,27 +259,63 @@ class McwEnv(ClarityEnv):
         self._ctx_vehicles = {}
         self._occluded_cache = {}
         self._colored_delivery_ids = set()
+        self._demo_overlay = DemoOcclusionOverlay()
+        self._scripted_director = ScriptedDemoDirector()
+        self.lc_reverse_cooldown = 12 if bool(scripted) else 0
+        self._last_lc_step = -999
+        self._last_lc_dir = 0
+        self._last_lc_cmd = 0
+        self._last_hud_phase = ""
+        self._last_hud_log_step = -999
         self.stall_steps = 0
         self.eval_mode = False
         self.credits = ProgressReward()
         super().__init__(*args, **kwargs)
+        self._base_depart_lane = self.ego_depart_lane
         self.gui = bool(gui)
 
     def reset(self, *args, **kwargs):
         self.credits = ProgressReward()
         self.stall_steps = 0
+        self._last_lc_step = -999
+        self._last_lc_dir = 0
+        self._last_lc_cmd = 0
+        self._last_hud_phase = ""
+        self._last_hud_log_step = -999
         self._occ_sensor_mask = False
         self._occ_subscribed = False
         self._occ_boxes = []
         self._ctx_vehicles = {}
         self._occluded_cache = {}
         self._colored_delivery_ids = set()
+        if getattr(self, "_started", False):
+            self._demo_overlay.clear(traci)
         seed = kwargs.get("seed") if kwargs else None
         if seed is None and len(args) >= 1:
             seed = args[0]
         if seed is not None:
             self._noise_rng = np.random.default_rng(int(seed) + 777)
-        return super().reset(*args, **kwargs)
+        if getattr(self, "cross_lane", False) or getattr(self, "scripted", False):
+            opts = dict(kwargs.get("options") or {})
+            rt = opts.get("route")
+            if rt is None:
+                if not getattr(self, "schedule", None):
+                    pool = list(self.train_routes) if getattr(self, "train_routes", None) else list(self.routes)
+                    self.schedule = list(self.route_rng.permutation(pool))
+                rt = str(self.schedule.pop())
+                opts["route"] = rt
+                kwargs = dict(kwargs)
+                kwargs["options"] = opts
+            lane_map = SCRIPTED_DEPART_LANES if getattr(self, "scripted", False) else CROSS_DEPART_LANES
+            self.ego_depart_lane = lane_map.get(str(rt), self._base_depart_lane)
+            if getattr(self, "scripted", False):
+                self._scripted_director.reset(str(rt))
+        else:
+            self.ego_depart_lane = self._base_depart_lane
+        obs, info = super().reset(*args, **kwargs)
+        if getattr(self, "scripted", False):
+            self._scripted_director.step(traci, 0, self.ego_id)
+        return obs, info
 
     def _occluder_rate(self, vclass: str) -> float:
         if vclass == "truck":
@@ -378,6 +421,36 @@ class McwEnv(ClarityEnv):
             self._occ_sensor_mask = True
         try:
             obs = super()._get_obs()
+            if getattr(self, "gui", False) and getattr(self, "occlusion", False) and self.ego_id in traci.vehicle.getIDList():
+                tc = traci.constants
+                occ_targets = []
+                for vid, vals in self._ctx_vehicles.items():
+                    if vid != self.ego_id and self._is_occluded(vid):
+                        fx, fy = vals[tc.VAR_POSITION]
+                        ang = math.radians(float(vals[tc.VAR_ANGLE]))
+                        vlen = float(vals[tc.VAR_LENGTH])
+                        occ_targets.append((float(fx) - 0.5 * vlen * math.sin(ang), float(fy) - 0.5 * vlen * math.cos(ang)))
+                ex_g, ey_g = traci.vehicle.getPosition(self.ego_id)
+                eang_g = float(traci.vehicle.getAngle(self.ego_id))
+                ev_g = float(traci.vehicle.getSpeed(self.ego_id))
+                lead_g = self._neighbor(0, leader=True)
+                if self._last_lc_cmd != 0:
+                    phase_g = "LC_OVERTAKE"
+                elif occ_targets and (lead_g is not None and lead_g[0] < 45.0):
+                    phase_g = "OCC_CHECK"
+                elif lead_g is not None and lead_g[0] < 38.0 and lead_g[1] < 16.0:
+                    phase_g = "GAP_WAIT"
+                else:
+                    phase_g = "CRUISE"
+                self._demo_overlay.render(
+                    traci, self._occ_sensor[0], self._occ_sensor[1], self.visibility, self._occ_boxes, occ_targets,
+                    ex=float(ex_g), ey=float(ey_g), eang=eang_g, ego_v=ev_g,
+                    lc_dir=int(self._last_lc_cmd), phase=phase_g,
+                )
+                if getattr(self, "scripted", False) and phase_g != self._last_hud_phase and (self.step_count - self._last_hud_log_step) >= 8:
+                    self._last_hud_phase = phase_g
+                    self._last_hud_log_step = int(self.step_count)
+                    print(f"[DEMO {self._scripted_director.route} step={self.step_count}] phase={phase_g} v={ev_g*3.6:.0f}km/h occ={len(occ_targets)}", flush=True)
         finally:
             self._occ_sensor_mask = False
         out = obs.copy()
@@ -650,12 +723,40 @@ class McwEnv(ClarityEnv):
         ego_v_before = float(v_api.getSpeed(self.ego_id)) if alive_before else 0.0
         nav = self.navigation_context() if (alive_before and (self.use_prep_reward or self.stall_penalty > 0.0)) else None
 
-        act_arr = np.asarray(action, dtype=np.float32).reshape(-1)
+        act_arr = np.asarray(action, dtype=np.float32).reshape(-1).copy()
         lc_cmd = self._quantize_lane_change(float(act_arr[self.lane_change_index])) if (alive_before and act_arr.size > self.lane_change_index) else 0
+        if self.lc_reverse_cooldown > 0 and alive_before and lc_cmd != 0 and self._last_lc_dir != 0:
+            dt_lc = self.step_count - self._last_lc_step
+            is_reverse = (lc_cmd == -self._last_lc_dir and dt_lc < self.lc_reverse_cooldown)
+            is_rapid = (dt_lc < 4)
+            if is_reverse or is_rapid:
+                cur_nav = nav if nav is not None else self.navigation_context()
+                targets = (cur_nav.get("current_targets") or []) if cur_nav is not None else []
+                ndist = cur_nav.get("distance") if cur_nav is not None else None
+                urgent_nav = bool(targets and lane_before not in targets and ndist is not None and ndist < 90.0)
+                lead_b = self._neighbor(0, leader=True)
+                urgent_ttc = bool(
+                    lead_b is not None and (
+                        lead_b[0] < 6.5
+                        or (ego_v_before - lead_b[1] > 1.5 and lead_b[0] / (ego_v_before - lead_b[1]) < 0.8)
+                    )
+                )
+                if not urgent_nav and not urgent_ttc:
+                    act_arr[self.lane_change_index] = 0.0
+                    lc_cmd = 0
+        self._last_lc_cmd = int(lc_cmd)
         lat_front = self._neighbor(lc_cmd, leader=True) if (alive_before and self.use_ttc_reward and lc_cmd != 0) else None
         lat_rear = self._neighbor(lc_cmd, leader=False) if (alive_before and self.use_ttc_reward and lc_cmd != 0) else None
 
-        obs, reward, done, cut, info = super().step(action)
+        obs, reward, done, cut, info = super().step(act_arr)
+        if alive_before and not done and self.ego_id in v_api.getIDList():
+            lane_after = v_api.getLaneIndex(self.ego_id)
+            edge_after = v_api.getRoadID(self.ego_id)
+            if edge_after == edge_before and not edge_after.startswith(":") and lane_after != lane_before:
+                self._last_lc_step = int(self.step_count)
+                self._last_lc_dir = int(np.sign(lane_after - lane_before))
+        if getattr(self, "scripted", False) and not done:
+            self._scripted_director.step(traci, self.step_count, self.ego_id)
 
         extra = 0.0
         if cut and not done and self.timeout_penalty > 0.0:
@@ -754,28 +855,35 @@ def build_configs(args):
         approach_horizon=float(args.approach_horizon),
         spawn_protect=15.0,
     )
+    overtake_reward = bool(
+        getattr(args, "overtake_reward", False)
+        or (args.stage in ("demo_overtake", "demo_scripted") and getattr(args, "overtake_reward", None) is None)
+    )
     reward_cfg = dict(
         REWARD_DEFAULTS,
-        speed_weight=0.1,
+        speed_weight=0.14 if overtake_reward else 0.1,
         collision_penalty=args.collision_penalty,
         arrival_bonus=args.arrival_bonus,
         close_gap_threshold=6.0,
         close_gap_penalty=0.1,
-        blocked_penalty=0.05,
-        blocked_gap=20.0,
-        blocked_speed_frac=0.7,
-        lane_change_penalty=args.lc_penalty,
+        blocked_penalty=0.12 if overtake_reward else 0.05,
+        blocked_gap=26.0 if overtake_reward else 20.0,
+        blocked_speed_frac=0.72 if overtake_reward else 0.7,
+        lane_change_penalty=min(args.lc_penalty, 0.015) if overtake_reward else args.lc_penalty,
         invalid_action_penalty=0.0,
         ramp_speed_compliance=False,
         early_lane_guidance=False,
     )
     warmup = 5 if args.stage == "none" else (150 if args.smoke else 300)
+    default_zoom = 2000.0 if args.stage in ("demo_overtake", "demo_scripted") else 1400.0
+    gui_zoom = float(getattr(args, "gui_zoom", None) or default_zoom)
     sim_cfg = dict(
         SIMULATION,
         step_length=0.2,
         max_steps=3000,   # 3000 * 0.2s = 600s max per episode
         warmup_steps=warmup,
         gui_delay=float(getattr(args, "gui_delay", SIMULATION.get("gui_delay", 100.0))),
+        gui_zoom=gui_zoom,
     )
     ego_cfg = dict(EGO, max_speed=27.78, depart_lane="best", depart_speed="max")
     traffic_cfg = dict(TRAFFIC, prefill={"enabled": False})
@@ -802,15 +910,19 @@ def make_env(cfg_path, road, nav, args, action_cfg, reward_cfg, sim_cfg, ego_cfg
         occ_truck_rate=float(getattr(args, "occ_truck_rate", 1.0)),
         occ_bus_rate=float(getattr(args, "occ_bus_rate", 1.0)),
         occ_delivery_rate=float(getattr(args, "occ_delivery_rate", 0.5)),
+        cross_lane=bool(getattr(args, "cross_lane", False)),
+        scripted=(args.stage == "demo_scripted"),
+        train_routes=getattr(args, "train_routes", None),
     )
 
 
-def evaluate_16_routes(agent, env, episodes_per_route: int = 1, base_seed: int = 40001):
+def evaluate_16_routes(agent, env, episodes_per_route: int = 1, base_seed: int = 40001, routes=None):
     prev_eval_mode = getattr(env, "eval_mode", False)
     env.eval_mode = True
     rows = []
+    target_routes = list(routes) if routes else list(ROUTES)
     try:
-        for r_idx, route in enumerate(ROUTES):
+        for r_idx, route in enumerate(target_routes):
             for ep in range(episodes_per_route):
                 s = base_seed + ep * 100 + r_idx
                 try:
@@ -858,7 +970,7 @@ def evaluate_16_routes(agent, env, episodes_per_route: int = 1, base_seed: int =
     return summary
 
 
-def distill_safe_policy(agent, env, hparams, run_dir: Path, passes: int = 4, lr: float = 3e-4, eval_episodes: int = 1, epochs: int = 12):
+def distill_safe_policy(agent, env, hparams, run_dir: Path, passes: int = 4, lr: float = 3e-4, eval_episodes: int = 1, epochs: int = 12, train_routes=None, eval_routes=None):
     """On-policy DAgger distillation: internalize safe gap timing into the 47-dim neural policy for gate-free execution."""
     mentor = PPO(obs_dim=47, act_dim=2, buffer=RolloutBuffer(), **hparams)
     mentor.policy.load_state_dict(agent.policy.state_dict())
@@ -872,6 +984,8 @@ def distill_safe_policy(agent, env, hparams, run_dir: Path, passes: int = 4, lr:
     hard_routes = ["route_03", "route_05", "route_07", "route_10", "route_13", "route_14", "route_15"]
     if getattr(env, "agenda2", False):
         hard_routes = ["route_02"] + hard_routes
+    if getattr(env, "cross_lane", False):
+        hard_routes = hard_routes + ["route_04", "route_08"]
 
     def _can_change(direction: int) -> bool:
         if direction == 0 or env.ego_id not in traci.vehicle.getIDList():
@@ -895,7 +1009,7 @@ def distill_safe_policy(agent, env, hparams, run_dir: Path, passes: int = 4, lr:
             return False
 
     for p_idx in range(passes):
-        schedule = list(ROUTES) + hard_routes * 2
+        schedule = list(train_routes) * 4 if train_routes else (list(ROUTES) + hard_routes * 2)
         rng.shuffle(schedule)
         prev_eval = getattr(env, "eval_mode", False)
         env.eval_mode = False
@@ -927,7 +1041,8 @@ def distill_safe_policy(agent, env, hparams, run_dir: Path, passes: int = 4, lr:
                                 best_t = min(targets, key=lambda t: abs(t - cur_l))
                                 req_dir = int(np.sign(best_t - cur_l))
                                 dist = nav.get("distance")
-                                if req_dir != 0 and (dist is None or dist < 250.0):
+                                dist_limit = 380.0 if getattr(env, "cross_lane", False) else 250.0
+                                if req_dir != 0 and (dist is None or dist < dist_limit):
                                     if _can_change(req_dir):
                                         lc_t = req_dir
                                         urgent_lc = (dist is not None and dist < 60.0)
@@ -940,8 +1055,19 @@ def distill_safe_policy(agent, env, hparams, run_dir: Path, passes: int = 4, lr:
                         except traci.TraCIException:
                             pass
 
+                    in_rev_cool = (
+                        getattr(env, "lc_reverse_cooldown", 0) > 0
+                        and env._last_lc_dir != 0
+                        and (env.step_count - env._last_lc_step) < env.lc_reverse_cooldown
+                    )
+                    if in_rev_cool and not urgent_lc and lc_t == -env._last_lc_dir:
+                        lc_t = 0
+
                     if s_lc != 0 and not _can_change(s_lc):
                         w = 8.0
+                        lc_t = 0
+                    elif in_rev_cool and not urgent_lc and s_lc == -env._last_lc_dir:
+                        w = 6.0
                         lc_t = 0
                     elif urgent_lc:
                         w = 8.0
@@ -987,7 +1113,7 @@ def distill_safe_policy(agent, env, hparams, run_dir: Path, passes: int = 4, lr:
                 torch.nn.utils.clip_grad_norm_(agent.policy.parameters(), 0.5)
                 optimizer.step()
 
-        summary = evaluate_16_routes(agent, env, episodes_per_route=eval_episodes)
+        summary = evaluate_16_routes(agent, env, episodes_per_route=eval_episodes, routes=eval_routes)
         (run_dir / f"eval_pass_{p_idx + 1}.json").write_text(
             json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
         )
@@ -1007,7 +1133,7 @@ def distill_safe_policy(agent, env, hparams, run_dir: Path, passes: int = 4, lr:
 
 def main():
     p = argparse.ArgumentParser(description="MCW Toegyewon IC curriculum trainer & evaluator")
-    p.add_argument("--stage", choices=["none", "low", "high", "real_ratio", "high_real_ratio"], default="low")
+    p.add_argument("--stage", choices=["none", "low", "high", "real_ratio", "high_real_ratio", "demo_dense", "demo_overtake", "demo_scripted"], default="low")
     p.add_argument("--steps", type=int, default=200000)
     p.add_argument("--seed", type=int, default=11)
     p.add_argument("--lr", type=float, default=1e-4)
@@ -1043,9 +1169,18 @@ def main():
     p.add_argument("--occ-bus-rate", type=float, default=1.0, help="Fraction of buses blocking sight [0..1]")
     p.add_argument("--occ-delivery-rate", type=float, default=0.5, help="Fraction of delivery vans blocking sight [0..1]")
     p.add_argument("--gui", action="store_true", default=False, help="Launch sumo-gui for presentation recording")
-    p.add_argument("--gui-delay", type=float, default=80.0, help="Delay (ms) per simulation step in sumo-gui")
+    p.add_argument("--gui-delay", type=float, default=60.0, help="Delay (ms) per simulation step in sumo-gui")
+    p.add_argument("--gui-zoom", type=float, default=None, help="Camera zoom (%%) in sumo-gui (auto ~2400 for demo_overtake, 1400 otherwise)")
     p.add_argument("--color-by-type", dest="color_by_type", action="store_true", default=True)
     p.add_argument("--no-color-by-type", dest="color_by_type", action="store_false")
+    p.add_argument("--cross-lane", dest="cross_lane", action="store_true", default=False,
+                   help="Force spawning in opposite far lane on multi-lane entries for demo/stress tests")
+    p.add_argument("--no-cross-lane", dest="cross_lane", action="store_false")
+    p.add_argument("--overtake-reward", dest="overtake_reward", action="store_true", default=None,
+                   help="Encourage active overtaking around slow trucks/buses")
+    p.add_argument("--no-overtake-reward", dest="overtake_reward", action="store_false")
+    p.add_argument("--eval-routes", nargs="*", default=None, help="Optional route subset for eval/demo (e.g. route_05 route_13)")
+    p.add_argument("--train-routes", nargs="*", default=None, help="Optional route subset for training rollouts (e.g. route_05 route_13 route_08)")
     p.add_argument("--ttc-reward", dest="ttc_reward", action="store_true", default=True)
     p.add_argument("--no-ttc-reward", dest="ttc_reward", action="store_false")
     p.add_argument("--prep-reward", dest="prep_reward", action="store_true", default=True)
@@ -1062,7 +1197,7 @@ def main():
     args = p.parse_args()
 
     cache_dir = ROOT / "results" / "mcw_scenarios"
-    cfg_path = prepare_scenario(args.stage, cache_dir, color_by_type=bool(args.color_by_type))
+    cfg_path = prepare_scenario(args.stage, cache_dir, color_by_type=bool(args.color_by_type), gui_delay=float(args.gui_delay))
     road, nav = load_network_metadata(cfg_path.parent / "network.net.xml", cfg_path.parent / "highway.rou.xml", args.nav_horizon)
     action_cfg, reward_cfg, sim_cfg, ego_cfg, traffic_cfg = build_configs(args)
 
@@ -1122,7 +1257,7 @@ def main():
 
     try:
         if args.eval_only:
-            summary = evaluate_16_routes(agent, env, episodes_per_route=args.eval_episodes)
+            summary = evaluate_16_routes(agent, env, episodes_per_route=args.eval_episodes, routes=args.eval_routes)
             (run_dir / "eval_16routes.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
             print(
                 f"[EVAL {args.stage}] arrival={summary['arrivals']}/{summary['total']} "
@@ -1138,10 +1273,11 @@ def main():
                 agent, env, hparams, run_dir,
                 passes=args.distill_passes, lr=distill_lr, eval_episodes=args.eval_episodes,
                 epochs=args.distill_epochs,
+                train_routes=args.train_routes, eval_routes=args.eval_routes,
             )
+            if (run_dir / "best_model.pt").exists():
+                agent.load(str(run_dir / "best_model.pt"))
             if args.steps <= 0:
-                if (run_dir / "best_model.pt").exists():
-                    agent.load(str(run_dir / "best_model.pt"))
                 agent.save(str(run_dir / "model.pt"))
                 return
 
@@ -1165,7 +1301,7 @@ def main():
                 }, verbose=True)
 
                 if args.eval_interval > 0 and n_updates % args.eval_interval == 0:
-                    summary = evaluate_16_routes(agent, env, episodes_per_route=args.eval_episodes)
+                    summary = evaluate_16_routes(agent, env, episodes_per_route=args.eval_episodes, routes=args.eval_routes)
                     (run_dir / f"eval_{agent.num_timesteps}.json").write_text(
                         json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
                     )
@@ -1192,7 +1328,7 @@ def main():
             logger.close()
             agent.save(str(run_dir / "model.pt"))
             # Final 16-route evaluation
-            summary = evaluate_16_routes(agent, env, episodes_per_route=args.eval_episodes)
+            summary = evaluate_16_routes(agent, env, episodes_per_route=args.eval_episodes, routes=args.eval_routes)
             (run_dir / "eval_final.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
             print(
                 f"[FINAL EVAL {args.stage}] arrival={summary['arrivals']}/{summary['total']} "
