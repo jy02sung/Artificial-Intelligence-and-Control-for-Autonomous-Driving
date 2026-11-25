@@ -1,0 +1,1051 @@
+{
+  "winner": "collision5",
+  "paired": {
+    "32768": {
+      "F1": {
+        "11": {
+          "counts": {
+            "collision": 31,
+            "stall": 10,
+            "timeout": 14,
+            "arrival": 9
+          },
+          "transitions": {
+            "collision->collision": 31,
+            "stall->stall": 10,
+            "timeout->timeout": 14,
+            "arrival->arrival": 9
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 11
+        },
+        "22": {
+          "counts": {
+            "timeout": 51,
+            "collision": 4,
+            "stall": 8,
+            "arrival": 1
+          },
+          "transitions": {
+            "timeout->timeout": 51,
+            "collision->collision": 4,
+            "stall->stall": 8,
+            "arrival->arrival": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 0
+        },
+        "33": {
+          "counts": {
+            "arrival": 12,
+            "stall": 15,
+            "collision": 24,
+            "timeout": 13
+          },
+          "transitions": {
+            "arrival->arrival": 12,
+            "stall->stall": 15,
+            "collision->collision": 24,
+            "timeout->timeout": 13
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 9
+        }
+      },
+      "arrival10": {
+        "11": {
+          "counts": {
+            "collision": 39,
+            "arrival": 12,
+            "stall": 13
+          },
+          "transitions": {
+            "collision->collision": 30,
+            "stall->collision": 5,
+            "timeout->arrival": 4,
+            "timeout->stall": 8,
+            "stall->stall": 5,
+            "collision->arrival": 1,
+            "arrival->arrival": 7,
+            "timeout->collision": 2,
+            "arrival->collision": 2
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 13
+        },
+        "22": {
+          "counts": {
+            "timeout": 29,
+            "stall": 13,
+            "arrival": 9,
+            "collision": 13
+          },
+          "transitions": {
+            "timeout->timeout": 26,
+            "timeout->stall": 7,
+            "timeout->arrival": 8,
+            "collision->timeout": 3,
+            "stall->stall": 6,
+            "timeout->collision": 10,
+            "stall->collision": 2,
+            "arrival->arrival": 1,
+            "collision->collision": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 3
+        },
+        "33": {
+          "counts": {
+            "timeout": 25,
+            "collision": 17,
+            "arrival": 6,
+            "stall": 16
+          },
+          "transitions": {
+            "arrival->timeout": 8,
+            "stall->timeout": 8,
+            "collision->collision": 12,
+            "timeout->timeout": 5,
+            "collision->arrival": 1,
+            "collision->stall": 7,
+            "arrival->arrival": 4,
+            "stall->stall": 3,
+            "timeout->stall": 6,
+            "stall->collision": 3,
+            "timeout->collision": 2,
+            "collision->timeout": 4,
+            "stall->arrival": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 4
+        }
+      },
+      "collision5": {
+        "11": {
+          "counts": {
+            "timeout": 21,
+            "arrival": 14,
+            "stall": 14,
+            "collision": 15
+          },
+          "transitions": {
+            "collision->timeout": 9,
+            "stall->timeout": 4,
+            "timeout->arrival": 6,
+            "timeout->timeout": 6,
+            "stall->stall": 5,
+            "collision->arrival": 1,
+            "arrival->arrival": 7,
+            "collision->collision": 13,
+            "collision->stall": 8,
+            "stall->collision": 1,
+            "arrival->timeout": 2,
+            "timeout->stall": 1,
+            "timeout->collision": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 3
+        },
+        "22": {
+          "counts": {
+            "collision": 5,
+            "stall": 14,
+            "timeout": 33,
+            "arrival": 12
+          },
+          "transitions": {
+            "timeout->collision": 4,
+            "timeout->stall": 7,
+            "timeout->timeout": 29,
+            "timeout->arrival": 11,
+            "collision->stall": 3,
+            "stall->stall": 4,
+            "stall->collision": 1,
+            "stall->timeout": 3,
+            "arrival->arrival": 1,
+            "collision->timeout": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 2
+        },
+        "33": {
+          "counts": {
+            "collision": 27,
+            "stall": 21,
+            "arrival": 14,
+            "timeout": 2
+          },
+          "transitions": {
+            "arrival->collision": 2,
+            "stall->stall": 11,
+            "collision->arrival": 4,
+            "timeout->stall": 4,
+            "collision->stall": 6,
+            "arrival->arrival": 10,
+            "collision->collision": 13,
+            "timeout->collision": 9,
+            "stall->collision": 3,
+            "collision->timeout": 1,
+            "stall->timeout": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 6
+        }
+      },
+      "both": {
+        "11": {
+          "counts": {
+            "arrival": 12,
+            "stall": 21,
+            "collision": 27,
+            "timeout": 4
+          },
+          "transitions": {
+            "collision->arrival": 3,
+            "stall->stall": 6,
+            "timeout->collision": 6,
+            "timeout->timeout": 2,
+            "timeout->stall": 4,
+            "stall->collision": 4,
+            "arrival->arrival": 7,
+            "collision->collision": 17,
+            "collision->stall": 11,
+            "arrival->timeout": 2,
+            "timeout->arrival": 2
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 12
+        },
+        "22": {
+          "counts": {
+            "collision": 12,
+            "stall": 10,
+            "timeout": 32,
+            "arrival": 10
+          },
+          "transitions": {
+            "timeout->collision": 9,
+            "timeout->stall": 5,
+            "timeout->timeout": 28,
+            "timeout->arrival": 9,
+            "collision->collision": 3,
+            "stall->stall": 5,
+            "stall->timeout": 3,
+            "arrival->arrival": 1,
+            "collision->timeout": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 5
+        },
+        "33": {
+          "counts": {
+            "collision": 22,
+            "stall": 24,
+            "arrival": 13,
+            "timeout": 5
+          },
+          "transitions": {
+            "arrival->collision": 2,
+            "stall->stall": 12,
+            "collision->arrival": 3,
+            "timeout->timeout": 4,
+            "stall->timeout": 1,
+            "collision->stall": 8,
+            "collision->collision": 13,
+            "arrival->arrival": 10,
+            "timeout->stall": 4,
+            "stall->collision": 2,
+            "timeout->collision": 5
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 1
+        }
+      },
+      "collision5_fork1": {
+        "11": {
+          "counts": {
+            "arrival": 15,
+            "stall": 22,
+            "timeout": 7,
+            "collision": 20
+          },
+          "transitions": {
+            "collision->arrival": 3,
+            "stall->stall": 8,
+            "timeout->arrival": 3,
+            "timeout->stall": 4,
+            "timeout->timeout": 4,
+            "stall->timeout": 1,
+            "timeout->collision": 3,
+            "arrival->arrival": 9,
+            "collision->collision": 16,
+            "collision->timeout": 2,
+            "collision->stall": 10,
+            "stall->collision": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 4
+        },
+        "22": {
+          "counts": {
+            "collision": 15,
+            "timeout": 23,
+            "arrival": 16,
+            "stall": 10
+          },
+          "transitions": {
+            "timeout->collision": 9,
+            "timeout->timeout": 23,
+            "timeout->arrival": 13,
+            "timeout->stall": 6,
+            "collision->stall": 1,
+            "stall->stall": 3,
+            "stall->collision": 3,
+            "stall->arrival": 2,
+            "collision->collision": 3,
+            "arrival->arrival": 1
+          },
+          "exit13": 2,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 5
+        },
+        "33": {
+          "counts": {
+            "collision": 11,
+            "timeout": 17,
+            "stall": 26,
+            "arrival": 10
+          },
+          "transitions": {
+            "arrival->collision": 2,
+            "stall->collision": 4,
+            "collision->timeout": 7,
+            "timeout->timeout": 6,
+            "stall->timeout": 4,
+            "collision->stall": 12,
+            "arrival->arrival": 10,
+            "stall->stall": 7,
+            "timeout->stall": 7,
+            "collision->collision": 5
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 4
+        }
+      }
+    },
+    "65536": {
+      "F1": {
+        "11": {
+          "counts": {
+            "timeout": 22,
+            "stall": 9,
+            "arrival": 9,
+            "collision": 24
+          },
+          "transitions": {
+            "timeout->timeout": 22,
+            "stall->stall": 9,
+            "arrival->arrival": 9,
+            "collision->collision": 24
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 3
+        },
+        "22": {
+          "counts": {
+            "timeout": 52,
+            "collision": 3,
+            "stall": 9
+          },
+          "transitions": {
+            "timeout->timeout": 52,
+            "collision->collision": 3,
+            "stall->stall": 9
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 0
+        },
+        "33": {
+          "counts": {
+            "timeout": 36,
+            "arrival": 5,
+            "stall": 2,
+            "collision": 21
+          },
+          "transitions": {
+            "timeout->timeout": 36,
+            "arrival->arrival": 5,
+            "stall->stall": 2,
+            "collision->collision": 21
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 0
+        }
+      },
+      "arrival10": {
+        "11": {
+          "counts": {
+            "arrival": 14,
+            "stall": 15,
+            "timeout": 11,
+            "collision": 24
+          },
+          "transitions": {
+            "timeout->arrival": 5,
+            "stall->stall": 7,
+            "timeout->timeout": 9,
+            "arrival->arrival": 8,
+            "timeout->stall": 5,
+            "timeout->collision": 3,
+            "arrival->timeout": 1,
+            "collision->collision": 20,
+            "collision->stall": 3,
+            "stall->collision": 1,
+            "stall->timeout": 1,
+            "collision->arrival": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 8
+        },
+        "22": {
+          "counts": {
+            "timeout": 29,
+            "stall": 22,
+            "arrival": 10,
+            "collision": 3
+          },
+          "transitions": {
+            "timeout->timeout": 26,
+            "timeout->stall": 13,
+            "timeout->arrival": 10,
+            "collision->timeout": 3,
+            "stall->stall": 9,
+            "timeout->collision": 3
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 2
+        },
+        "33": {
+          "counts": {
+            "timeout": 37,
+            "stall": 8,
+            "collision": 17,
+            "arrival": 2
+          },
+          "transitions": {
+            "timeout->timeout": 29,
+            "arrival->timeout": 4,
+            "stall->stall": 1,
+            "collision->stall": 3,
+            "collision->collision": 14,
+            "arrival->collision": 1,
+            "collision->timeout": 4,
+            "timeout->collision": 2,
+            "stall->arrival": 1,
+            "timeout->stall": 4,
+            "timeout->arrival": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 1
+        }
+      },
+      "collision5": {
+        "11": {
+          "counts": {
+            "arrival": 17,
+            "timeout": 14,
+            "stall": 21,
+            "collision": 12
+          },
+          "transitions": {
+            "timeout->arrival": 8,
+            "stall->timeout": 4,
+            "timeout->stall": 7,
+            "arrival->arrival": 7,
+            "stall->stall": 4,
+            "arrival->timeout": 2,
+            "timeout->timeout": 5,
+            "collision->collision": 10,
+            "collision->stall": 10,
+            "stall->arrival": 1,
+            "timeout->collision": 2,
+            "collision->timeout": 3,
+            "collision->arrival": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 1
+        },
+        "22": {
+          "counts": {
+            "arrival": 19,
+            "timeout": 5,
+            "collision": 15,
+            "stall": 25
+          },
+          "transitions": {
+            "timeout->arrival": 17,
+            "timeout->timeout": 5,
+            "timeout->collision": 14,
+            "timeout->stall": 16,
+            "collision->stall": 3,
+            "stall->stall": 6,
+            "stall->arrival": 2,
+            "stall->collision": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 9
+        },
+        "33": {
+          "counts": {
+            "arrival": 13,
+            "stall": 15,
+            "collision": 36
+          },
+          "transitions": {
+            "timeout->arrival": 5,
+            "timeout->stall": 9,
+            "timeout->collision": 22,
+            "arrival->arrival": 5,
+            "stall->stall": 2,
+            "collision->collision": 14,
+            "collision->stall": 4,
+            "collision->arrival": 3
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 0
+        }
+      },
+      "both": {
+        "11": {
+          "counts": {
+            "collision": 22,
+            "stall": 26,
+            "arrival": 14,
+            "timeout": 2
+          },
+          "transitions": {
+            "timeout->collision": 10,
+            "stall->stall": 6,
+            "timeout->arrival": 4,
+            "timeout->stall": 8,
+            "arrival->collision": 1,
+            "arrival->arrival": 7,
+            "arrival->timeout": 1,
+            "collision->stall": 12,
+            "collision->arrival": 3,
+            "collision->collision": 8,
+            "stall->collision": 3,
+            "collision->timeout": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 9
+        },
+        "22": {
+          "counts": {
+            "arrival": 9,
+            "stall": 17,
+            "timeout": 33,
+            "collision": 5
+          },
+          "transitions": {
+            "timeout->arrival": 9,
+            "timeout->stall": 7,
+            "timeout->timeout": 33,
+            "collision->collision": 2,
+            "stall->stall": 9,
+            "timeout->collision": 3,
+            "collision->stall": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 2
+        },
+        "33": {
+          "counts": {
+            "timeout": 24,
+            "arrival": 12,
+            "stall": 11,
+            "collision": 17
+          },
+          "transitions": {
+            "timeout->timeout": 19,
+            "timeout->arrival": 6,
+            "timeout->stall": 8,
+            "timeout->collision": 3,
+            "arrival->arrival": 4,
+            "stall->stall": 2,
+            "collision->collision": 14,
+            "arrival->timeout": 1,
+            "collision->stall": 1,
+            "collision->timeout": 4,
+            "collision->arrival": 2
+          },
+          "exit13": 1,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 1
+        }
+      },
+      "collision5_fork1": {
+        "11": {
+          "counts": {
+            "arrival": 24,
+            "stall": 36,
+            "collision": 3,
+            "timeout": 1
+          },
+          "transitions": {
+            "timeout->arrival": 10,
+            "stall->stall": 9,
+            "timeout->stall": 12,
+            "arrival->arrival": 9,
+            "collision->collision": 3,
+            "collision->stall": 15,
+            "collision->timeout": 1,
+            "collision->arrival": 5
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 0
+        },
+        "22": {
+          "counts": {
+            "arrival": 27,
+            "collision": 9,
+            "stall": 27,
+            "timeout": 1
+          },
+          "transitions": {
+            "timeout->arrival": 27,
+            "timeout->collision": 8,
+            "timeout->stall": 16,
+            "collision->stall": 3,
+            "timeout->timeout": 1,
+            "stall->stall": 8,
+            "stall->collision": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 2
+        },
+        "33": {
+          "counts": {
+            "arrival": 13,
+            "stall": 24,
+            "timeout": 17,
+            "collision": 10
+          },
+          "transitions": {
+            "timeout->arrival": 5,
+            "timeout->stall": 13,
+            "timeout->timeout": 13,
+            "arrival->arrival": 5,
+            "timeout->collision": 5,
+            "stall->stall": 1,
+            "collision->collision": 5,
+            "collision->stall": 10,
+            "collision->timeout": 3,
+            "collision->arrival": 3,
+            "stall->timeout": 1
+          },
+          "exit13": 0,
+          "main16": 0,
+          "left16": 0,
+          "pass_then_crash": 1
+        }
+      }
+    }
+  },
+  "holdout": {
+    "F1": {
+      "11": {
+        "counts": {
+          "timeout": 23,
+          "stall": 12,
+          "arrival": 7,
+          "collision": 22
+        },
+        "transitions": {
+          "timeout->timeout": 23,
+          "stall->stall": 12,
+          "arrival->arrival": 7,
+          "collision->collision": 22
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 1
+      },
+      "22": {
+        "counts": {
+          "timeout": 53,
+          "collision": 1,
+          "stall": 10
+        },
+        "transitions": {
+          "timeout->timeout": 53,
+          "collision->collision": 1,
+          "stall->stall": 10
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 0
+      },
+      "33": {
+        "counts": {
+          "timeout": 32,
+          "arrival": 3,
+          "collision": 25,
+          "stall": 4
+        },
+        "transitions": {
+          "timeout->timeout": 32,
+          "arrival->arrival": 3,
+          "collision->collision": 25,
+          "stall->stall": 4
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 1
+      }
+    },
+    "arrival10": {
+      "11": {
+        "counts": {
+          "arrival": 14,
+          "stall": 17,
+          "timeout": 11,
+          "collision": 22
+        },
+        "transitions": {
+          "timeout->arrival": 7,
+          "stall->stall": 10,
+          "timeout->timeout": 8,
+          "arrival->arrival": 6,
+          "timeout->stall": 3,
+          "timeout->collision": 5,
+          "collision->collision": 17,
+          "collision->arrival": 1,
+          "collision->stall": 4,
+          "arrival->timeout": 1,
+          "stall->timeout": 2
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 5
+      },
+      "22": {
+        "counts": {
+          "timeout": 28,
+          "stall": 23,
+          "arrival": 11,
+          "collision": 2
+        },
+        "transitions": {
+          "timeout->timeout": 27,
+          "timeout->stall": 13,
+          "timeout->arrival": 11,
+          "collision->timeout": 1,
+          "timeout->collision": 2,
+          "stall->stall": 10
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 1
+      },
+      "33": {
+        "counts": {
+          "timeout": 38,
+          "collision": 18,
+          "stall": 7,
+          "arrival": 1
+        },
+        "transitions": {
+          "timeout->timeout": 30,
+          "arrival->timeout": 3,
+          "collision->timeout": 5,
+          "stall->collision": 3,
+          "collision->collision": 14,
+          "collision->stall": 5,
+          "collision->arrival": 1,
+          "stall->stall": 1,
+          "timeout->collision": 1,
+          "timeout->stall": 1
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 2
+      }
+    },
+    "collision5": {
+      "11": {
+        "counts": {
+          "arrival": 21,
+          "timeout": 13,
+          "stall": 21,
+          "collision": 9
+        },
+        "transitions": {
+          "timeout->arrival": 10,
+          "stall->timeout": 4,
+          "timeout->stall": 4,
+          "timeout->timeout": 7,
+          "arrival->arrival": 6,
+          "stall->stall": 6,
+          "collision->timeout": 1,
+          "collision->collision": 7,
+          "collision->arrival": 3,
+          "collision->stall": 11,
+          "stall->arrival": 2,
+          "timeout->collision": 2,
+          "arrival->timeout": 1
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 0
+      },
+      "22": {
+        "counts": {
+          "arrival": 21,
+          "stall": 24,
+          "collision": 13,
+          "timeout": 6
+        },
+        "transitions": {
+          "timeout->arrival": 21,
+          "timeout->stall": 16,
+          "timeout->collision": 12,
+          "collision->stall": 1,
+          "timeout->timeout": 4,
+          "stall->stall": 7,
+          "stall->timeout": 2,
+          "stall->collision": 1
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 8
+      },
+      "33": {
+        "counts": {
+          "arrival": 13,
+          "stall": 14,
+          "collision": 37
+        },
+        "transitions": {
+          "timeout->arrival": 5,
+          "timeout->stall": 9,
+          "timeout->collision": 18,
+          "arrival->arrival": 3,
+          "collision->arrival": 5,
+          "stall->collision": 4,
+          "collision->collision": 15,
+          "collision->stall": 5
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 0
+      }
+    },
+    "both": {
+      "11": {
+        "counts": {
+          "timeout": 7,
+          "stall": 27,
+          "arrival": 12,
+          "collision": 18
+        },
+        "transitions": {
+          "timeout->timeout": 5,
+          "stall->stall": 8,
+          "timeout->arrival": 6,
+          "timeout->stall": 8,
+          "timeout->collision": 4,
+          "arrival->collision": 2,
+          "stall->collision": 4,
+          "arrival->arrival": 4,
+          "collision->timeout": 1,
+          "collision->collision": 8,
+          "collision->stall": 11,
+          "collision->arrival": 2,
+          "arrival->timeout": 1
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 8
+      },
+      "22": {
+        "counts": {
+          "arrival": 9,
+          "stall": 17,
+          "timeout": 32,
+          "collision": 6
+        },
+        "transitions": {
+          "timeout->arrival": 9,
+          "timeout->stall": 7,
+          "timeout->timeout": 32,
+          "timeout->collision": 5,
+          "collision->collision": 1,
+          "stall->stall": 10
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 3
+      },
+      "33": {
+        "counts": {
+          "timeout": 26,
+          "arrival": 7,
+          "stall": 15,
+          "collision": 16
+        },
+        "transitions": {
+          "timeout->timeout": 20,
+          "timeout->arrival": 1,
+          "timeout->stall": 9,
+          "arrival->arrival": 3,
+          "collision->timeout": 6,
+          "stall->stall": 4,
+          "collision->collision": 14,
+          "collision->arrival": 3,
+          "collision->stall": 2,
+          "timeout->collision": 2
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 1
+      }
+    },
+    "collision5_fork1": {
+      "11": {
+        "counts": {
+          "arrival": 23,
+          "stall": 35,
+          "collision": 5,
+          "timeout": 1
+        },
+        "transitions": {
+          "timeout->arrival": 10,
+          "stall->stall": 12,
+          "timeout->stall": 12,
+          "arrival->arrival": 7,
+          "collision->arrival": 6,
+          "collision->collision": 5,
+          "collision->stall": 11,
+          "timeout->timeout": 1
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 1
+      },
+      "22": {
+        "counts": {
+          "arrival": 24,
+          "stall": 29,
+          "collision": 11
+        },
+        "transitions": {
+          "timeout->arrival": 24,
+          "timeout->stall": 20,
+          "collision->stall": 1,
+          "timeout->collision": 9,
+          "stall->stall": 8,
+          "stall->collision": 2
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 5
+      },
+      "33": {
+        "counts": {
+          "arrival": 15,
+          "stall": 25,
+          "timeout": 15,
+          "collision": 9
+        },
+        "transitions": {
+          "timeout->arrival": 7,
+          "timeout->stall": 12,
+          "timeout->timeout": 11,
+          "arrival->arrival": 3,
+          "timeout->collision": 2,
+          "collision->arrival": 5,
+          "stall->stall": 2,
+          "collision->collision": 7,
+          "collision->stall": 11,
+          "collision->timeout": 2,
+          "stall->timeout": 2
+        },
+        "exit13": 0,
+        "main16": 0,
+        "left16": 0,
+        "pass_then_crash": 0
+      }
+    }
+  }
+}
