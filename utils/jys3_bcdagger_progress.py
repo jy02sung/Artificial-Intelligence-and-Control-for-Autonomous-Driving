@@ -2,7 +2,9 @@
 import argparse
 import csv
 import hashlib
+import importlib.util
 import json
+import os
 import subprocess
 import time
 from collections import Counter
@@ -15,6 +17,10 @@ import numpy as np
 from utils import jys3
 from utils import jys3_ppo_compare as paired
 from utils import jys3_pure_f as pure_f
+
+# experiment_a sets IC_LIBSUMO=1 after sumo_env loads in the parent; reset when libsumo is unavailable so Windows spawn workers inherit "0".
+if importlib.util.find_spec("libsumo") is None:
+    os.environ["IC_LIBSUMO"] = "0"
 
 ROOT = paired.OUT / "bc_dagger_progress"
 START = jys3.m.ROOT / "models" / "jys3" / "onehop_dagger1.pt"
