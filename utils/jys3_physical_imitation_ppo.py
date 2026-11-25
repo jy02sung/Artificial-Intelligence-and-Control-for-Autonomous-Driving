@@ -4,6 +4,7 @@ from concurrent.futures import ProcessPoolExecutor
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import TemporaryDirectory
+import argparse
 import hashlib
 import json
 
@@ -18,11 +19,12 @@ INTERVAL = 8192
 
 
 @contextmanager
-def environment():
+def environment(collision):
     with TemporaryDirectory() as tmp:
         meta = imitation.data.bc.environment('high_real_ratio', 11, Path(tmp)/'map')
-        env = trial.Env(trial.ARM, Path(tmp)/'physical', 11)
+        env = trial.Env({-5:v3.ARMS[0], -7:v3.ARMS[1]}[collision], Path(tmp)/'physical', 11)
         env.sim.signs, env.sim.road_flags = meta.signs, meta.road_flags
+        assert v3.j.COLLISION_REWARD == collision and env.progress_cap == 3 and env.off_route_penalty == -4
         try:
             yield env
         finally:
@@ -39,16 +41,16 @@ class Episodes(v3.j.ScheduledEpisodes):
         return obs[:50], reward, done, cut, info
 
 
-def checkpoint(step):
-    return ROOT/f'policy_{step}.pt' if step else INITIAL
+def checkpoint(step, root):
+    return root/f'policy_{step}.pt' if step else INITIAL
 
 
-def evaluate(step, panel, rep):
+def evaluate(step, panel, rep, root, collision):
     imitation.torch.set_num_threads(1)
-    model = imitation.dagger.policy(checkpoint(step))
+    model = imitation.dagger.policy(checkpoint(step, root))
     previous = v3.read(imitation.ROOT/'BC_DAgger'/panel/f'{rep}.json')
     rows = []
-    with environment() as env:
+    with environment(collision) as env:
         for ref in previous:
             _, row = imitation.replay.drive(env, model, ref['route'], ref['seed'], ref['depart_lane'], True)
             assert ref['start'] == row['start']
@@ -74,25 +76,26 @@ def decision(baseline, current):
     return 'extend'
 
 
-def main():
+def main(collision=-7):
+    root = ROOT if collision == -7 else ROOT.with_name(ROOT.name+'_col5')
     assert hashlib.sha256(INITIAL.read_bytes()).hexdigest() == HASH
-    ROOT.mkdir(exist_ok=False)
+    root.mkdir(exist_ok=False)
     imitation.torch.set_num_threads(1)
     model = imitation.dagger.policy(INITIAL)
     model.policy.train()
     assert model.optimizer.param_groups[0]['lr'] == .0001
     jobs = {}
     def schedule(pool, step):
-        jobs[step] = {panel:[pool.submit(evaluate,step,panel,rep) for rep in range(4)]
+        jobs[step] = {panel:[pool.submit(evaluate,step,panel,rep,root,collision) for rep in range(4)]
                       for panel in imitation.PANELS}
     def finish(step):
         rows={panel:[r for f in shards for r in f.result()] for panel,shards in jobs[step].items()}
         assert all(len(v)==64 for v in rows.values())
-        v3.save(ROOT/f'eval_{step}.json', rows)
+        v3.save(root/f'eval_{step}.json', rows)
         return rows
-    with ProcessPoolExecutor(6) as pool, environment() as env:
+    with ProcessPoolExecutor(6) as pool, environment(collision) as env:
         schedule(pool,0)
-        episodes = Episodes(env,11,ROOT/'episodes.jsonl')
+        episodes = Episodes(env,11,root/'episodes.jsonl')
         obs,_ = episodes.reset()
         stats=[0.,0]
         for step in range(2048,65537,2048):
@@ -101,24 +104,30 @@ def main():
             adv,returns=model.buffer.compute_gae(last,model.gamma,model.gae_lambda)
             metrics=model.update(adv,returns)
             assert model.num_timesteps==step
-            with (ROOT/'updates.jsonl').open('a') as fp:
+            with (root/'updates.jsonl').open('a') as fp:
                 print(json.dumps(dict(step=step,rewards=dict(env.sums),**metrics)),file=fp)
             if step%INTERVAL:
                 continue
-            v3.j.atomic_torch(dict(schema=imitation.dagger.SCHEMA,policy=model.policy.state_dict()),checkpoint(step))
+            v3.j.atomic_torch(dict(schema=imitation.dagger.SCHEMA,policy=model.policy.state_dict()),checkpoint(step, root))
             schedule(pool,step)
             if step==INTERVAL:
                 baseline=finish(0)
+            for mark in jobs:
+                if mark < step and not (root/f'eval_{mark}.json').exists() and all(
+                        future.done() for group in jobs[mark].values() for future in group):
+                    finish(mark)
             if step==32768:
                 current=finish(step)
                 verdict=decision(baseline,current)
-                v3.save(ROOT/'decision.json',dict(step=step,decision=verdict))
+                v3.save(root/'decision.json',dict(step=step,decision=verdict))
                 if verdict!='extend':
                     break
         for mark in jobs:
-            if not (ROOT/f'eval_{mark}.json').exists():
+            if not (root/f'eval_{mark}.json').exists():
                 finish(mark)
 
 
 if __name__=='__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--collision',type=int,choices=(-7,-5),default=-7)
+    main(parser.parse_args().collision)
