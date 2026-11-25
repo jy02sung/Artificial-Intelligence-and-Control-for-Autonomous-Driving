@@ -447,9 +447,9 @@ def promote(stage):
     return winner
 
 
-def run_stage(arms, seeds, end):
-    stage = ROOT / ("stage1" if end == 300000 else "stage2")
-    stage.mkdir(exist_ok=True)
+def run_stage(arms, seeds, end, output_root=ROOT):
+    stage = output_root / ("stage1" if end == 300000 else "stage2")
+    stage.mkdir(parents=True, exist_ok=True)
     with ProcessPoolExecutor(max_workers=12) as pool:
         screen = screen_stage(arms,seeds,end,stage,pool)
         if end == 300000:
@@ -461,7 +461,7 @@ def run_stage(arms, seeds, end):
                 c.update(screen[f"{arm}_{seed}_{n}"]["outcomes"])
             return c["arrival"],-c["collision"],-n
         best = max(MARKS,key=score)
-        save(ROOT/"selection.json",{arm:best})
+        save(output_root/"selection.json",{arm:best})
         pending = []
         for panel in (PAIRED,FRESH,NOVEL):
             for n in sorted({best,end}):
@@ -667,7 +667,7 @@ def report():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     group = parser.add_mutually_exclusive_group(required=True)
-    for name in ("check","stage1","stage2","report","auto"):
+    for name in ("check","stage1","stage2","report","auto","s2-extension"):
         group.add_argument("--"+name,action="store_true")
     parser.add_argument("--arms",nargs="+",choices=ARMS)
     args = parser.parse_args()
@@ -679,6 +679,10 @@ def main():
     with (ROOT/"manager.lock").open("a+b") as lock:
         lock.seek(0)
         msvcrt.locking(lock.fileno(),msvcrt.LK_NBLCK,1)
+        if args.s2_extension:
+            assert read(ROOT/"preflight_checks.json")["resume_equivalence"]["equal_optimizer"]
+            run_stage([ARMS[1]], (11,22,33), 600000, ROOT/"s2_extension")
+            return
         if args.check or args.auto:
             save(ROOT/"protocol.json",protocol())
             check()
