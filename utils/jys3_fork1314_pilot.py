@@ -111,7 +111,16 @@ class Pilot:
                 r["changes"] += int(before[1] != after[1])
             self.last_fork_lane = before[1]
         if after and after[0] != FORK and not after[0].startswith(":") and r["actual"] is None:
-            r["actual"] = after[0]
+            # A single 0.2 s simulation step can traverse the entire 5.37 m link.
+            # Verify the first external edge from SUMO's executed itinerary.
+            vehicle = j.traci.vehicle
+            executed = tuple(vehicle.getRoute(env.ego_id))
+            end = vehicle.getRouteIndex(env.ego_id)
+            start = executed.index(FORK)
+            assert start < end and executed[end] == after[0], (executed, end, after[0])
+            r["actual"] = executed[start+1]
+            r["first_sampled_external"] = after[0]
+            assert r["actual"] in env.links[FORK]
             r["crossing_lane"] = self.last_fork_lane
         r["progress"] += float(info["progress_bonus"])
         r["fork_reward"] += float(info["fork_passed"])
@@ -119,10 +128,10 @@ class Pilot:
             r.update(outcome=info["outcome"], steps=env.sim.step_count)
             assert r["progress"] <= env.progress_cap + 1e-5 and r["fork_reward"] <= 1.
             if r["outcome"] == "off_route":
-                assert r["actual"] != r["expected"] and info["off_route_detail"]["actual"] == r["actual"]
+                assert r["actual"] != r["expected"] and info["off_route_detail"]["actual"] == r["first_sampled_external"]
                 assert reward == -5.
             if r["outcome"] == "arrival":
-                assert r["actual"] == r["expected"] and r["fork_reward"] == 1.
+                assert r["actual"] == r["expected"] and r["fork_reward"] == 1., (r, info)
             if self.training:
                 append(self.folder/"episodes.jsonl", r)
         return obs,reward,done,cut,info
