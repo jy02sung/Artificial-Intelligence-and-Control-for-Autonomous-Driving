@@ -536,14 +536,20 @@ def report():
                 cells.append([r["arm"],r["end"],r["selected"],key,*scores(r[key])])
     doc+=table(["조건","학습 한도","선정 스텝","패널","완주","충돌","이탈","끝 정지","일반 시간초과"],cells)
     doc+=["## 팀원 제안 대조","", "같은 576개 출발에서 후보의 건수에서 대조군의 건수를 뺐다. 온라인 예측 정확도는 새로 판정된 접근 상태의 학습 전 예측 기준이며, AUC는 같은 업데이트 안의 양성·음성 쌍 수로 가중했다."]
-    rows=[]; comparisons={}
+    rows=[]; comparisons={}; transitions={}
     for left,right in (("P0","P1"),("P0","P2"),("P1","P2"),("P2","P3"),("P2","P4"),("P4","P5")):
         pair=[next((r for r in records if r["arm"]==a and r["end"]==300000 and "hold" in r),None) for a in (left,right)]
         if any(r is None for r in pair):continue
         delta={k:pair[1]["hold"][k]-pair[0]["hold"][k] for k in ("arrival","off_route","collision")}
         comparisons[left+"→"+right]=delta
+        trips=[[trip for panel in old.PANELS if panel!="screen"
+               for trip in read(panel_path(r["arm"],r["selected"],panel))["rows"]] for r in pair]
+        switches=Counter((a["outcome"],b["outcome"]) for a,b in zip(*trips))
+        transitions[left+"→"+right]=dict(**old.paired(*trips),matrix={f"{a}->{b}":v for (a,b),v in switches.items()})
         rows.append([left+" → "+right,*[f"{x:+d}" for x in delta.values()]])
     doc+=table(["대조 → 후보","완주 증감","이탈 증감","충돌 증감"],rows)
+    doc+=table(["같은 출발의 완주 전환","양쪽 완주","기존 완주 상실","새 완주"],
+               [[k,v["kept"],v["lost"],v["gained"]] for k,v in transitions.items()])
     rows=[]
     for r in records:
         s=r["predictor"]
@@ -582,7 +588,7 @@ def report():
     tmp=REPORT.with_suffix(".md.tmp")
     tmp.write_text("\n".join(doc)+"\n",encoding="utf8")
     tmp.replace(REPORT)
-    save(ROOT/"summary.json",dict(winner=win,models=records,comparisons=comparisons,screens=len(timeline)))
+    save(ROOT/"summary.json",dict(winner=win,models=records,comparisons=comparisons,paired_transitions=transitions,screens=len(timeline)))
 
 
 def main():
@@ -625,5 +631,10 @@ def main():
 
 
 if __name__=="__main__":
-    main()
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--report",action="store_true",help="Rebuild the tables from saved evaluations.")
+    if parser.parse_args().report:
+        report()
+    else:
+        main()
 
