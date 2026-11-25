@@ -1,0 +1,42 @@
+{
+  "settings": {
+    "F1": [
+      5,
+      -15,
+      0.25
+    ],
+    "arrival10": [
+      10,
+      -15,
+      0.25
+    ],
+    "collision5": [
+      5,
+      -5,
+      0.25
+    ],
+    "both": [
+      10,
+      -5,
+      0.25
+    ]
+  },
+  "marks": [
+    0,
+    8192,
+    16384,
+    32768,
+    65536
+  ],
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "paired_base": 39110000,
+  "holdout": 41110000,
+  "gate": "At 65536, more completions than control pooled and in at least two training seeds; rank by pooled completions, then fewer collisions.",
+  "timeout": -5,
+  "cap": 1000,
+  "stall_seconds": 30
+}
