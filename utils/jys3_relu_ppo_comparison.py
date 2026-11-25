@@ -88,11 +88,12 @@ def append(path, record):
 
 
 class TrainingEpisodes:
-    def __init__(self, env, arm, phase, on_step):
+    def __init__(self, env, arm, phase, on_step, *, root=ROOT, clear_penalty=-7.):
         self.env,self.arm,self.phase,self.on_step=env,arm,phase,on_step
         self.base=episode_bases(arm,phase)
         self.count=self.steps=0
-        self.folder=ROOT/arm
+        self.folder=root/arm
+        self.clear_penalty=clear_penalty
         self.outcomes=Counter()
         self.first_rewards=Counter()
         self.first_outcomes=Counter()
@@ -131,8 +132,8 @@ class TrainingEpisodes:
             reward-=.02
             env.sums["idle_clear"]-=.02
         if self.idle>=50 and not (done or cut):
-            reward-=7.
-            env.sums["clear_stop"]-=7.
+            reward+=self.clear_penalty
+            env.sums["clear_stop"]+=self.clear_penalty
             done=True
             info["outcome"]="clear_stop"
         self.episode_return+=reward
@@ -140,7 +141,7 @@ class TrainingEpisodes:
             parts={"arrival":10.*info["arrived"],"fork":2.5*info["fork_passed"],
                    "progress":info["progress_bonus"],"collision":-10.*info["collided"],
                    "off_route":-8.*info["off_route"],"timeout_stall":info["timeout_reward"],
-                   "idle_clear":-.02*clear,"clear_stop":-7.*(info["outcome"]=="clear_stop")}
+                   "idle_clear":-.02*clear,"clear_stop":self.clear_penalty*(info["outcome"]=="clear_stop")}
             assert np.isclose(sum(parts.values()),reward)
             self.first_rewards.update(parts)
             if done or cut:
@@ -263,11 +264,15 @@ def rank(arm,step):
     return c["arrival"],-c["collision"],-c["stall"]-c["timeout"],-c["off_route"],-step
 
 
-def run(workers):
+def run(workers, experiment=None):
+    # All arms share one evaluation pool, including when training runs concurrently.
+    exp = experiment or sys.modules[__name__]
+    ROOT, evaluate, rank = exp.ROOT, exp.evaluate, exp.rank
+    path_for, data_path = exp.path_for, exp.data_path
     ROOT.mkdir(parents=True,exist_ok=True)
     ev=ROOT/"evaluation"
     ev.mkdir(exist_ok=True)
-    save(ROOT/"protocol.json",preflight())
+    save(ROOT/"protocol.json",exp.preflight())
     processes={}
     outputs=[]
     tasks={}
@@ -297,10 +302,10 @@ def run(workers):
                 continue
             f=(ROOT/f"{arm}.log").open("a",encoding="utf8")
             outputs.append(f)
-            processes[arm]=subprocess.Popen([sys.executable,"-u","-m",__spec__.name,"--train",arm],
+            processes[arm]=subprocess.Popen([sys.executable,"-u","-m",exp.__spec__.name,"--train",arm],
                                            stdout=f,stderr=subprocess.STDOUT)
         with ProcessPoolExecutor(workers) as pool:
-            for arm in ORIG:
+            for arm in ORIG if experiment is None else ():
                 for panel in PANELS:
                     schedule(pool,arm,0,panel)
             while True:
@@ -319,6 +324,8 @@ def run(workers):
                             up=counts[-1]>counts[-2] and counts[-1]>counts[0]
                             threshold=107 if arm=="A" else 125
                             extend=up and (counts[-1]>=threshold if arm=="A" else counts[-1]>threshold)
+                            if experiment is not None:
+                                extend=exp.extend(arm,counts[-1],up)
                             save(ROOT/arm/"extension.json",dict(counts=counts,up=up,extend=extend))
                     done=ROOT/arm/"done.json"
                     if done.exists() and arm not in choices:
@@ -344,7 +351,7 @@ def run(workers):
                 else:
                     time.sleep(1)
         save(ROOT/"selection.json",choices)
-        report(choices)
+        exp.report(choices)
     finally:
         for proc in processes.values():
             if proc.poll() is None:

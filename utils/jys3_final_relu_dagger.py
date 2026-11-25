@@ -74,7 +74,7 @@ def checkpoint(k):
     return ROOT / ("bc.pt" if k==0 else f"dagger{k}.pt")
 
 
-def run_episodes(task, *, record_terminal=False):
+def run_episodes(task, *, record_terminal=False, record_commands=False):
     name, cases, selected, model_path, collect, demo = task
     torch.set_num_threads(1)
     model = network(model_path) if model_path else None
@@ -92,6 +92,7 @@ def run_episodes(task, *, record_terminal=False):
             while True:
                 obs,_=env.reset(seed=seed,options={"route":path})
                 digest=hashlib.sha256(obs.tobytes()).hexdigest()
+                left=right=0
                 slow=longest=0
                 previous=None
                 xs,ys=[],[]
@@ -107,6 +108,9 @@ def run_episodes(task, *, record_terminal=False):
                         xs.append(state.copy())
                         ys.append(label)
                     action=label if model is None else model.det_action(torch.from_numpy(state).unsqueeze(0))[0].numpy()
+                    if record_commands:
+                        left += int(action[1] > .5)
+                        right += int(action[1] < -.5)
                     if record_terminal:
                         before = env.snapshot
                     obs,_,done,cut,info=env.step(action)
@@ -117,6 +121,8 @@ def run_episodes(task, *, record_terminal=False):
                 accepted=not demo or (info["outcome"]=="arrival" and (name!="train" or longest<50))
                 row=dict(route=route,rep=rep,lane=lane,seed=seed,steps=step,outcome=info["outcome"],
                          longest_slow=longest,accepted=accepted,initial_sha256=digest)
+                if record_commands:
+                    row.update(left_commands=left, right_commands=right)
                 if record_terminal:
                     end = env.snapshot or before
                     row.update(start_edge=env.routes[path][0], end_edge=end[0], end_lane=end[1],

@@ -245,7 +245,7 @@ class PPO:
     # ==================================================================
     # 3단계) 정책 업데이트 (clipped surrogate)
     # ==================================================================
-    def update(self, advantages, returns, *, reference_policy=None, reference_coef=0.) -> dict:
+    def update(self, advantages, returns, *, reference_policy=None, reference_coef=0., stratified_reference=False) -> dict:
         obs_t, act_t, old_log_prob_t = self.buffer.to_tensors(self.device)
         adv_t = torch.as_tensor(advantages, device=self.device)
         ret_t = torch.as_tensor(returns, device=self.device)
@@ -265,6 +265,9 @@ class PPO:
                 ref_mu, ref_std, ref_logits, _ = reference_policy(obs_t)
                 ref_logp = ref_logits.log_softmax(-1)
             stats["reference_kl"] = 0.
+            if stratified_reference:
+                ref_keep = ref_logits.argmax(-1) == 1
+                stats["mixed_batch_fraction"] = 0.
 
         for _ in range(self.n_epochs):
             np.random.shuffle(indices)
@@ -305,7 +308,13 @@ class PPO:
                     lane_kl = (logp.exp() * (logp - ref_logp[mb])).sum(-1)
                     accel_kl = (torch.log(ref_std / std)
                                 + (std.square() + (mu-ref_mu[mb]).square()) / (2*ref_std.square()) - .5)
-                    reference_kl = (lane_kl + accel_kl.sum(-1)).mean()
+                    joint_kl = lane_kl + accel_kl.sum(-1)
+                    reference_kl = joint_kl.mean()
+                    if stratified_reference:
+                        keep = ref_keep[mb]
+                        if keep.any() and (~keep).any():
+                            reference_kl = .9 * joint_kl[keep].mean() + .1 * joint_kl[~keep].mean()
+                            stats["mixed_batch_fraction"] += 1
                     loss = loss + reference_coef * reference_kl
                     stats["reference_kl"] += float(reference_kl.detach())
 
