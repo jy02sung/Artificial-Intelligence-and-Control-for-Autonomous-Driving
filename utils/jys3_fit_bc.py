@@ -23,6 +23,10 @@ def main():
     train=[r for r in complete if r['seed']<24113400]
     valid=[r for r in complete if r['seed']>=24113400]
     x,y=load(train); vx,vy=load(valid)
+    fit(x,y,vx,vy,len(train),len(valid),OUT)
+
+
+def fit(x,y,vx,vy,train_count,valid_count,folder):
     torch.set_num_threads(2)
     model=m.PPO(obs_dim=OBS_DIM,act_dim=2,buffer=m.RolloutBuffer(),seed=11,**HP).policy
     optim=torch.optim.Adam(model.parameters(),lr=.0004)
@@ -51,8 +55,8 @@ def main():
             history.append(dict(epoch=epoch,change_f1=f1.tolist(),accel_mae=errs,confusion=conf.tolist(),score=score))
         if score>best:
             best=score;selected=epoch
-            torch.save(dict(schema=SCHEMA,policy=model.state_dict()),OUT/'bc.pt')
-    report=dict(fit_episodes=len(train),valid_episodes=len(valid),fit_samples=len(x),valid_samples=len(vx),fit_actions=dict(Counter(map(int,y[:,1]))),selected_epoch=selected,history=history)
-    (OUT/'fit.json').write_text(json.dumps(report,indent=2));print(selected,len(x),len(vx),flush=True)
+            torch.save(dict(schema=SCHEMA,policy=model.state_dict()),folder/'bc.pt')
+    report=dict(fit_episodes=train_count,valid_episodes=valid_count,fit_samples=len(x),valid_samples=len(vx),fit_actions=dict(Counter(map(int,y[:,1]))),selected_epoch=selected,history=history)
+    (folder/'fit.json').write_text(json.dumps(report,indent=2));print(selected,len(x),len(vx),flush=True)
 
 if __name__=='__main__':main()
