@@ -1,0 +1,173 @@
+{
+  "screen": [
+    {
+      "step": 0,
+      "outcomes": {
+        "arrival": 115,
+        "collision": 8,
+        "off_route": 4,
+        "clear_stop": 1
+      },
+      "baseline_transitions": {
+        "arrival -> arrival": 115,
+        "collision -> collision": 8,
+        "off_route -> off_route": 4,
+        "clear_stop -> clear_stop": 1
+      },
+      "expert_accel_to_brake": 18,
+      "expert_keep_to_move": 153,
+      "expert_move_correct": 29
+    },
+    {
+      "step": 8192,
+      "outcomes": {
+        "arrival": 109,
+        "collision": 11,
+        "off_route": 7,
+        "clear_stop": 1
+      },
+      "baseline_transitions": {
+        "arrival -> arrival": 105,
+        "collision -> collision": 5,
+        "arrival -> off_route": 5,
+        "off_route -> off_route": 2,
+        "clear_stop -> clear_stop": 1,
+        "arrival -> collision": 5,
+        "off_route -> collision": 1,
+        "collision -> arrival": 3,
+        "off_route -> arrival": 1
+      },
+      "expert_accel_to_brake": 23,
+      "expert_keep_to_move": 177,
+      "expert_move_correct": 27
+    },
+    {
+      "step": 16384,
+      "outcomes": {
+        "arrival": 109,
+        "collision": 10,
+        "off_route": 7,
+        "clear_stop": 2
+      },
+      "baseline_transitions": {
+        "arrival -> arrival": 104,
+        "arrival -> collision": 6,
+        "collision -> off_route": 2,
+        "arrival -> off_route": 4,
+        "off_route -> arrival": 2,
+        "collision -> collision": 3,
+        "collision -> arrival": 3,
+        "arrival -> clear_stop": 1,
+        "clear_stop -> clear_stop": 1,
+        "off_route -> off_route": 1,
+        "off_route -> collision": 1
+      },
+      "expert_accel_to_brake": 18,
+      "expert_keep_to_move": 148,
+      "expert_move_correct": 23
+    },
+    {
+      "step": 24576,
+      "outcomes": {
+        "arrival": 107,
+        "collision": 11,
+        "off_route": 9,
+        "clear_stop": 1
+      },
+      "baseline_transitions": {
+        "arrival -> arrival": 102,
+        "collision -> collision": 4,
+        "arrival -> off_route": 6,
+        "arrival -> collision": 7,
+        "off_route -> off_route": 3,
+        "collision -> arrival": 4,
+        "clear_stop -> clear_stop": 1,
+        "off_route -> arrival": 1
+      },
+      "expert_accel_to_brake": 33,
+      "expert_keep_to_move": 132,
+      "expert_move_correct": 26
+    },
+    {
+      "step": 32768,
+      "outcomes": {
+        "arrival": 104,
+        "off_route": 10,
+        "collision": 13,
+        "clear_stop": 1
+      },
+      "baseline_transitions": {
+        "arrival -> arrival": 103,
+        "collision -> off_route": 2,
+        "arrival -> off_route": 5,
+        "off_route -> off_route": 3,
+        "collision -> collision": 5,
+        "clear_stop -> clear_stop": 1,
+        "arrival -> collision": 7,
+        "off_route -> collision": 1,
+        "collision -> arrival": 1
+      },
+      "expert_accel_to_brake": 17,
+      "expert_keep_to_move": 124,
+      "expert_move_correct": 27
+    }
+  ],
+  "holdout": {
+    "0": {
+      "outcomes": {
+        "arrival": 54,
+        "collision": 7,
+        "off_route": 3
+      },
+      "transitions": {
+        "arrival -> arrival": 54,
+        "collision -> collision": 7,
+        "off_route -> off_route": 3
+      }
+    },
+    "16384": {
+      "outcomes": {
+        "arrival": 54,
+        "off_route": 3,
+        "collision": 7
+      },
+      "transitions": {
+        "arrival -> arrival": 49,
+        "arrival -> off_route": 2,
+        "collision -> arrival": 4,
+        "collision -> collision": 3,
+        "arrival -> collision": 3,
+        "off_route -> off_route": 1,
+        "off_route -> collision": 1,
+        "off_route -> arrival": 1
+      }
+    },
+    "32768": {
+      "outcomes": {
+        "arrival": 50,
+        "collision": 8,
+        "off_route": 6
+      },
+      "transitions": {
+        "arrival -> arrival": 49,
+        "arrival -> collision": 4,
+        "collision -> collision": 4,
+        "collision -> arrival": 1,
+        "collision -> off_route": 2,
+        "arrival -> off_route": 1,
+        "off_route -> off_route": 3
+      }
+    }
+  },
+  "original_rule_change": {
+    "arrival -> arrival": 115,
+    "collision -> collision": 8,
+    "off_route -> off_route": 4,
+    "clear_stop -> clear_stop": 1
+  },
+  "selection": {
+    "best_ppo": 16384,
+    "last": 32768,
+    "holdout_seed": 81260100
+  }
+}
