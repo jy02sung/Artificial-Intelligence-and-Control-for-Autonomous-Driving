@@ -33,7 +33,7 @@ def cases():
     return jobs
 
 
-def drive(env, job, *, original=False):
+def drive(env, job, *, original=False, revised=False):
     group, route, seed, start_lane = job
     path = f"route_{route:02d}"
     env.ego_depart_lane = str(min(start_lane, env.counts[env.routes[path][0]] - 1))
@@ -46,7 +46,7 @@ def drive(env, job, *, original=False):
         if original:
             action, wait, direction, reason = roll._decision(x[:50], env, "old")
         else:
-            action, wait, direction, reason = recovery.control(x[:50], env, "queue_tail")
+            action, wait, direction, reason = recovery.control(x[:50], env, "queue_tail", revised=revised)
         edge, lane = env.snapshot[:2]
         key = (edge, lane, direction) if direction and not x[38] and not edge.startswith(":") else None
         if key != previous_key:

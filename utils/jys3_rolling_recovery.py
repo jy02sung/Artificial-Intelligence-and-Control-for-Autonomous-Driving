@@ -14,8 +14,8 @@ CASES=[(5,4),(14,6)]
 MODES=('reserve20','reserve30','queue_tail')
 
 
-def control(x,env,mode):
-    action,waiting,d,reason=roll._decision(x,env,'strict')
+def control(x,env,mode,*,revised=False):
+    action,waiting,d,reason=roll._decision(x,env,'revised' if revised else 'strict')
     if mode=='strict' or not waiting:
         return action,waiting,d,reason
     i=1+4*(2-d)

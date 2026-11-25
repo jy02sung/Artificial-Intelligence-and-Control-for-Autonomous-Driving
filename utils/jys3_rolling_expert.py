@@ -59,16 +59,21 @@ def _decision(obs, env, mode):
     else:
         # Start from the original blocked-merge target, before its 14 m reserve cap.
         target = min(limit,max(2.,np.sqrt(2.8*remaining)))
-        if overlap or front<=front_req:
+        revised = mode == 'revised'
+        margin = 13. if revised else 10.
+        stop_cap = np.sqrt(2.*2.5*max(0.,remaining-margin))
+        front_blocked = overlap or front <= front_req
+        if front_blocked and (not revised or remaining > 25.):
             front_speed = max(0.,speed-front_closing) if front<env.visibility else speed
-            target = min(target,max(5.,front_speed-3.5))
+            drop = min(3., .15*limit) if revised else 3.5
+            floor = max(5., .70*limit) if revised and limit <= 14. else 5.
+            target = min(target,max(floor,front_speed-drop))
             reason = 'yield_alongside'
-        elif lead>15. and remaining>30.:
+        elif not front_blocked and lead>15. and remaining>30. and (not revised or stop_cap > speed+3.):
             target = min(limit,max(target,rear_speed+3.))
             reason = 'advance_ahead'
         else:
             reason = 'approach_end'
-        stop_cap = np.sqrt(2.*2.5*max(0.,remaining-10.))
         # Gentle speed alignment; following and the stop envelope can brake harder.
         alignment = max(-2.5,(target-speed)/1.3)
         accel = min(idm,alignment,(stop_cap-speed)/1.3)
