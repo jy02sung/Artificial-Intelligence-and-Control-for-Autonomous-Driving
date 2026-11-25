@@ -225,11 +225,52 @@ def run_stage(arms, seeds, end):
 
 
 def eval_stage(args):
-    stage,job=args
-    setup()
-    core.ROOT=stage
-    MixEnv.offset=job[2]
-    core.evaluate(job)
+    import time
+    stage, job = args
+    arm, seed, step, rep, base = job
+    path = stage/f"{arm}_{seed}"/f"eval_{base}_{step}_{rep}.json"
+    lock = path.with_suffix(".running")
+    while not path.exists():
+        try:
+            lock.touch(exist_ok=False)
+        except FileExistsError:
+            time.sleep(.5)
+            continue
+        try:
+            if not path.exists():
+                setup()
+                core.ROOT = stage
+                MixEnv.offset = step
+                core.evaluate(job)
+        finally:
+            lock.unlink(missing_ok=True)
+    assert len(read(path)) == 16
+
+
+def assist_eval():
+    import time
+    stage = ROOT/"stage2"
+    arms = read(ROOT/"stage1_summary.json")["promoted"]
+    # Work from newest snapshots first while the main evaluator starts at the oldest.
+    with ProcessPoolExecutor(7) as pool:
+        for n in reversed(MARKS):
+            batch = [(stage,(a,s,n,r,SCREEN)) for a in arms for s in (33,22,11)
+                     if (stage/f"{a}_{s}"/f"policy_{n}.pt").exists() for r in range(4)]
+            list(pool.map(eval_stage,batch))
+    while not (stage/"screen.json").exists():
+        time.sleep(2)
+    screen = read(stage/"screen.json")
+    with ProcessPoolExecutor(2) as pool:
+        jobs = []
+        for a in arms:
+            def rank(n):
+                c = Counter()
+                for s in (11,22,33):
+                    c.update(screen[f"{a}_{s}_{n}"]["outcomes"])
+                return c["arrival"], -c["collision"], -n
+            for n in {max(MARKS,key=rank),600000}:
+                jobs.extend((stage,(a,s,n,r,b)) for b in (FRESH,PAIRED) for s in (33,22,11) for r in reversed(range(4)))
+        list(pool.map(eval_stage,jobs))
 
 
 def report():
@@ -300,11 +341,14 @@ def report():
 
 def main():
     parser=argparse.ArgumentParser()
-    for flag in ("check","stage1","stage2","auto","report"):
+    for flag in ("check","stage1","stage2","auto","report","assist"):
         parser.add_argument("--"+flag,action="store_true")
     parser.add_argument("--arms",nargs="+",choices=ARMS)
     args=parser.parse_args()
     ROOT.mkdir(parents=True,exist_ok=True)
+    if args.assist:
+        assist_eval()
+        return
     if args.report:
         report()
         return
