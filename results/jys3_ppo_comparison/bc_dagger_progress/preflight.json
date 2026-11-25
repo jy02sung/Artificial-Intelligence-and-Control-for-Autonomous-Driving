@@ -1,0 +1,78 @@
+{
+  "model_path": "models/jys3/onehop_dagger1.pt",
+  "model_bytes": 324610,
+  "model_file_sha256": "ef75561d485d3012fc7ceed9534c8f870d834f7505f2af9ea3f0ea0d878403b5",
+  "orig_state_sha256": "9f78340e2aed78bd2ef2732ce4c6799af96df2f8f1987023cf4f3351e11fb09f",
+  "schema": "jys3_onehop_bc_v1",
+  "obs_dim": 50,
+  "rewards": {
+    "arrival": 5.0,
+    "collision": -5.0,
+    "fork": 0.25,
+    "timeout": -5.0,
+    "progress_max": 2.0,
+    "stall_seconds": 30.0
+  },
+  "hp": {
+    "hidden_sizes": [
+      256,
+      256
+    ],
+    "n_steps": 2048,
+    "n_epochs": 10,
+    "minibatch_size": 64,
+    "lr": 0.0001,
+    "lane_entropy_coef": 0.002,
+    "lane_keep_bias": 1.0,
+    "device": "cpu"
+  },
+  "steps": [
+    0,
+    8192,
+    16384,
+    32768
+  ],
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "screen_base": 34110000,
+  "hold_base": 41110000,
+  "seed_checks": {
+    "11": {
+      "state_sha256": "9f78340e2aed78bd2ef2732ce4c6799af96df2f8f1987023cf4f3351e11fb09f",
+      "zero_step_max_diff": 0.0
+    },
+    "22": {
+      "state_sha256": "9f78340e2aed78bd2ef2732ce4c6799af96df2f8f1987023cf4f3351e11fb09f",
+      "zero_step_max_diff": 0.0
+    },
+    "33": {
+      "state_sha256": "9f78340e2aed78bd2ef2732ce4c6799af96df2f8f1987023cf4f3351e11fb09f",
+      "zero_step_max_diff": 0.0
+    }
+  },
+  "sample_live_obs_output": {
+    "det_action": [
+      -0.24413596093654633,
+      0.0
+    ],
+    "mean": [
+      -0.24413596093654633
+    ],
+    "log_std": [
+      0.6065306663513184
+    ],
+    "lane_logits": [
+      -3.0312304496765137,
+      10.491567611694336,
+      -11.53631591796875
+    ],
+    "value": 0.08897075057029724
+  },
+  "git": {
+    "branch": "jys3-bcdagger-ppo-f",
+    "commit": "f0fd87fcde1a0436ed739a6adce058b369b8fae1"
+  }
+}
