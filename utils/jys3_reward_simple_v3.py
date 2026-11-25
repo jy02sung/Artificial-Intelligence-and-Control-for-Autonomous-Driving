@@ -392,19 +392,19 @@ def import_stage1(arm, seed, stage):
                                        method="restore PPO optimizer, RNG and replay unfinished SUMO episode"))
 
 
-def screen_stage(arms, seeds, end, stage, pool):
+def screen_stage(arms, seeds, end, stage, pool, *, from_stage1=True, env_type=Env):
     futures = set()
     scheduled = set()
     pairs = [(a,s) for a in arms for s in seeds]
     marks = [n for n in MARKS if n <= end]
-    if end == 600000:
+    if end == 600000 and from_stage1:
         for arm in arms:
             for seed in (11,22):
                 import_stage1(arm, seed, stage)
     for arm,seed in pairs:
         folder = stage / f"{arm}_{seed}"
         if not (folder / f"policy_{end}.pt").exists() or not (folder / "resume.pt").exists():
-            futures.add(pool.submit(train_job,arm,seed,end,stage))
+            futures.add(pool.submit(train_job,arm,seed,end,stage,env_type=env_type))
     while True:
         for n in marks:
             for a,s in pairs:
@@ -413,7 +413,7 @@ def screen_stage(arms, seeds, end, stage, pool):
                     continue
                 for r in range(4):
                     if not (folder / f"eval_{SCREEN}_{n}_{r}.json").exists():
-                        futures.add(pool.submit(eval_job,stage,a,s,n,r,SCREEN))
+                        futures.add(pool.submit(eval_job,stage,a,s,n,r,SCREEN,env_type=env_type))
                 scheduled.add((a,s,n))
         if not futures:
             assert len(scheduled) == len(pairs)*len(marks)
