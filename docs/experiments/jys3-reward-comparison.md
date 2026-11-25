@@ -63,3 +63,5 @@
 | 분기 +0.25 → +1 · 도착 +10 고정 | +10 | −17 | −2 | +9 | 기존 충돌 32건 중 **12건은 완주, 11건은 끝정지**, 4건은 시간초과, 5건은 다시 충돌 |
 
 [BC+DAgger 보상 비교](../../results/jys3_ppo_comparison/reward_ab/README.md) · [동일 주행 전환 원표](jys3-reward-transitions.md)
+
+후속 실험의 충돌 벌점 스케줄과 위험 보상 설계는 [순수 PPO 보상 조합 비교](jys3-reward-mix-v1.md)에 정리했다.
