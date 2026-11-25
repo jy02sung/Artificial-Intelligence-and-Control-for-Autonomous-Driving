@@ -1,5 +1,7 @@
 # 순수 PPO에서 보강형 DAgger R5까지 · 실험과 선정 기록
 
+[발표 성능표에서 제외한 모델·평가](archived-models/README.md)에 과거 가중치별 제외 사유와 수정 후 재평가를 모았다.
+
 **발표 모델은 보강형 DAgger R5다.** 고교통 16개 경로에서 모델을 고른 뒤 가중치를 고정하고 두 묶음을 각각 256회 주행했다. 지정 검증은 완주 247회·충돌 4회, 추가 검증은 완주 252회·충돌 1회였다. 이 문서는 실험 중 팀에서 제기한 질문을 주제별로 재구성하고, 결정을 바꾼 주행과 대조 결과를 연결한다. [발표용 한 장](jys3-presentation-main-model.md) · [전체 원자료 다운로드](https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/releases/tag/jys3-project-archive-20261126)
 
 ## 1. 처음 묻고 싶었던 것 — 같은 분기에서 목적지만 바꾸면 운전도 달라지는가?
