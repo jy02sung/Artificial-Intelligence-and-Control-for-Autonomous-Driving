@@ -1,0 +1,111 @@
+{
+  "old": {
+    "outcomes": {
+      "arrival": 81,
+      "collision": 43,
+      "off_route": 4
+    },
+    "all": {
+      "opportunities": 56,
+      "responses": 53,
+      "immediate": 53,
+      "delay_mean_s": 0.0,
+      "delay_median_s": 0.0,
+      "missed_to_end": 1,
+      "windows": 57,
+      "windows_without_response": 4
+    },
+    "after_wait": {
+      "opportunities": 1,
+      "responses": 0,
+      "immediate": 0,
+      "delay_mean_s": null,
+      "delay_median_s": null,
+      "missed_to_end": 0,
+      "windows": 1,
+      "windows_without_response": 1
+    },
+    "missed_routes": [
+      16
+    ],
+    "common_first_gap": {
+      "all": {
+        "opportunities": 109,
+        "immediate": 94
+      },
+      "after_wait": {
+        "opportunities": 49,
+        "immediate": 34
+      }
+    }
+  },
+  "dense": {
+    "outcomes": {
+      "arrival": 104,
+      "collision": 19,
+      "off_route": 5
+    },
+    "all": {
+      "opportunities": 63,
+      "responses": 58,
+      "immediate": 56,
+      "delay_mean_s": 0.020689655172413793,
+      "delay_median_s": 0.0,
+      "missed_to_end": 2,
+      "windows": 64,
+      "windows_without_response": 6
+    },
+    "after_wait": {
+      "opportunities": 6,
+      "responses": 2,
+      "immediate": 1,
+      "delay_mean_s": 0.5,
+      "delay_median_s": 0.5,
+      "missed_to_end": 1,
+      "windows": 7,
+      "windows_without_response": 5
+    },
+    "missed_routes": [
+      7,
+      16
+    ],
+    "common_first_gap": {
+      "all": {
+        "opportunities": 109,
+        "immediate": 89
+      },
+      "after_wait": {
+        "opportunities": 49,
+        "immediate": 32
+      }
+    }
+  },
+  "expert": {
+    "outcomes": {
+      "arrival": 121,
+      "timeout": 6,
+      "collision": 1
+    },
+    "all": {
+      "opportunities": 109,
+      "responses": 109,
+      "immediate": 109,
+      "delay_mean_s": 0.0,
+      "delay_median_s": 0.0,
+      "missed_to_end": 0,
+      "windows": 109,
+      "windows_without_response": 0
+    },
+    "after_wait": {
+      "opportunities": 49,
+      "responses": 49,
+      "immediate": 49,
+      "delay_mean_s": 0.0,
+      "delay_median_s": 0.0,
+      "missed_to_end": 0,
+      "windows": 49,
+      "windows_without_response": 0
+    },
+    "missed_routes": []
+  }
+}
