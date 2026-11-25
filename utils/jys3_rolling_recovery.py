@@ -1,8 +1,12 @@
 """Diagnose stopped side-by-side vehicles; test holding more approach space in a slow queue."""
 import argparse
+import os
+import sys
 from collections import Counter
 from concurrent.futures import ProcessPoolExecutor
 import numpy as np
+if __name__=='__main__' and '--gui' in sys.argv:
+    os.environ['IC_LIBSUMO']='0'
 from utils import jys3_rolling_expert as roll
 
 ROOT=roll.ROOT.parent/'jys3_rolling_recovery'
@@ -31,6 +35,10 @@ def control(x,env,mode):
     accel=min(float(action[0])* (env.max_decel if action[0]<0 else env.max_accel),(target-v)/1.3)
     a=np.array([np.clip(accel/(env.max_decel if accel<0 else env.max_accel),-1.,1.),0.],np.float32)
     return a,waiting,d,'reserve'
+
+
+def queue_tail_expert(obs, env):
+    return control(obs,env,'queue_tail')[0]
 
 
 def inspect_case(job):
@@ -71,7 +79,7 @@ def inspect_case(job):
                     path_hv=veh.getRoute(vehicle)
                     final.append(dict(id=vehicle,type=veh.getTypeID(vehicle),vehicle_class=veh.getVehicleClass(vehicle),
                         stop_state=veh.getStopState(vehicle),next_edge=path_hv[ix+1] if ix+1<len(path_hv) else None,
-                        exits=env.links.get(edge,{}),leader=veh.getLeader(vehicle,120.),length=veh.getLength(vehicle),
+                        exits={e:sorted(lanes) for e,lanes in env.links.get(edge,{}).items()},leader=veh.getLeader(vehicle,120.),length=veh.getLength(vehicle),
                         position=veh.getLanePosition(vehicle),timeline=track[vehicle]))
             x,_,done,cut,info=env.step(a)
             if done or cut:break
@@ -115,4 +123,23 @@ def run():
 
 
 if __name__=='__main__':
-    run()
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--gui',action='store_true')
+    parser.add_argument('--mode',choices=('strict',*MODES),default='queue_tail')
+    parser.add_argument('--route',type=int)
+    parser.add_argument('--seed',type=int)
+    parser.add_argument('--delay-ms',type=int,default=30)
+    args=parser.parse_args()
+    if args.gui:
+        if args.route not in range(1,17) or args.seed is None or args.delay_ms<0:
+            parser.error('Specify a valid --route, --seed and nonnegative delay.')
+        rep,rem=divmod(args.seed-roll.BASE-args.route,100)
+        if not 0<=rep<8 or rem!=0:
+            parser.error('Seed is outside the paired 128-episode panel.')
+        with roll.baseline.simulator() as env:
+            env.sim.gui=True
+            env.sim.gui_delay=args.delay_ms
+            result=roll.episode(env,args.route,rep,args.mode,True,controller=control)
+            print(result['outcome'],result['steps'])
+    else:
+        run()

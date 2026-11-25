@@ -1,0 +1,31 @@
+{
+  "candidate": "queue_tail",
+  "metrics": {
+    "outcomes": {
+      "arrival": 127,
+      "collision": 1
+    },
+    "slow5": 3,
+    "slow10": 0,
+    "wait": {
+      "median": 0.0,
+      "p90": 9.839999999999998,
+      "maximum": 32.0
+    },
+    "slow": {
+      "median": 0.0,
+      "p90": 0.0,
+      "maximum": 8.6
+    },
+    "moves": 115,
+    "move_speed": 14.849830043215713,
+    "rolling10_18": 38,
+    "arrival_median": 75.60000000000001,
+    "zero_timeouts": 0
+  },
+  "transitions": {
+    "arrival -> arrival": 125,
+    "collision -> collision": 1,
+    "timeout -> arrival": 2
+  }
+}
