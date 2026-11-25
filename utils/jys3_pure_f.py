@@ -161,11 +161,13 @@ def agent(seed):
     j.torch.set_num_threads(1)
     return j.m.PPO(obs_dim=52,act_dim=2,buffer=j.m.RolloutBuffer(),seed=seed,**j.HP)
 
-def train(job):
+def train(job, initial_weights=None):
     arm,seed,marks=job
     folder=ROOT/f"{arm}_{seed}"
     folder.mkdir(exist_ok=False)
     model=agent(seed)
+    if initial_weights is not None:
+        model.policy.load_state_dict(j.torch.load(initial_weights, weights_only=True)['policy'])
     env=FactorEnv(arm,folder/"map",seed)
     try:
         env.training_16=[]
