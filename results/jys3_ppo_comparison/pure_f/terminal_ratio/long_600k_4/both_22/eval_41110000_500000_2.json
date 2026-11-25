@@ -1,0 +1,1131 @@
+[
+  {
+    "speed_metrics": {
+      "measured": 1000,
+      "overspeed": 0,
+      "overspeed10": 0,
+      "following": 1,
+      "following_close_to_target": 0,
+      "clear_low_speed": 157,
+      "speed_sum": 1469.3525776847546,
+      "target_error": 20750.647422315255,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": {
+      "remaining_m": 442.449,
+      "last30_m": 0.0,
+      "route_length_m": 736.32,
+      "end_edge": "169728849",
+      "end_lane": 0,
+      "end_speed_mps": 0.0,
+      "intact": true
+    },
+    "route": 1,
+    "case": 2,
+    "traffic_seed": 41110101,
+    "start": [
+      "169728849",
+      0,
+      21.422302,
+      350.79
+    ],
+    "outcome": "timeout",
+    "steps": 1000,
+    "slow": 360,
+    "slow_side_near": 0,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [],
+    "bonus": 0.7982141339008872,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 566,
+      "overspeed": 7,
+      "overspeed10": 2,
+      "following": 94,
+      "following_close_to_target": 0,
+      "clear_low_speed": 165,
+      "speed_sum": 2119.5910062833987,
+      "target_error": 10480.735238997217,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 2,
+    "case": 2,
+    "traffic_seed": 41110102,
+    "start": [
+      "169728849",
+      0,
+      24.413114,
+      350.79
+    ],
+    "outcome": "stall",
+    "steps": 566,
+    "slow": 185,
+    "slow_side_near": 37,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [],
+    "bonus": 0.5248465370004369,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 325,
+      "overspeed": 111,
+      "overspeed10": 108,
+      "following": 37,
+      "following_close_to_target": 3,
+      "clear_low_speed": 0,
+      "speed_sum": 6203.901025810039,
+      "target_error": 2762.3810210551915,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 3,
+    "case": 2,
+    "traffic_seed": 41110103,
+    "start": [
+      "52873356",
+      0,
+      4.750720194225975,
+      446.69
+    ],
+    "outcome": "arrival",
+    "steps": 326,
+    "slow": 10,
+    "slow_side_near": 0,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "37927512",
+      "1063527748",
+      "169728835"
+    ],
+    "bonus": 2.000000000000001,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 534,
+      "overspeed": 35,
+      "overspeed10": 11,
+      "following": 50,
+      "following_close_to_target": 3,
+      "clear_low_speed": 150,
+      "speed_sum": 4436.465681481521,
+      "target_error": 5732.925184989928,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 4,
+    "case": 2,
+    "traffic_seed": 41110104,
+    "start": [
+      "52873356",
+      0,
+      4.985979533440044,
+      446.69
+    ],
+    "outcome": "stall",
+    "steps": 534,
+    "slow": 166,
+    "slow_side_near": 56,
+    "moves": 1,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "37927512"
+    ],
+    "bonus": 1.429422658829214,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 591,
+      "overspeed": 47,
+      "overspeed10": 40,
+      "following": 54,
+      "following_close_to_target": 8,
+      "clear_low_speed": 0,
+      "speed_sum": 8874.549759142026,
+      "target_error": 5775.401521310039,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 5,
+    "case": 2,
+    "traffic_seed": 41110105,
+    "start": [
+      "52873356",
+      0,
+      0.9417004354752448,
+      446.69
+    ],
+    "outcome": "arrival",
+    "steps": 592,
+    "slow": 29,
+    "slow_side_near": 0,
+    "moves": 1,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "37927512",
+      "844484876"
+    ],
+    "bonus": 2.000000000000004,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 321,
+      "overspeed": 0,
+      "overspeed10": 0,
+      "following": 101,
+      "following_close_to_target": 33,
+      "clear_low_speed": 0,
+      "speed_sum": 6234.341835673108,
+      "target_error": 2683.038164326908,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 6,
+    "case": 2,
+    "traffic_seed": 41110106,
+    "start": [
+      "52873356",
+      0,
+      2.921949934917489,
+      446.69
+    ],
+    "outcome": "arrival",
+    "steps": 322,
+    "slow": 13,
+    "slow_side_near": 0,
+    "moves": 1,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "844484878#0"
+    ],
+    "bonus": 2.0000000000000018,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 235,
+      "overspeed": 24,
+      "overspeed10": 0,
+      "following": 0,
+      "following_close_to_target": 0,
+      "clear_low_speed": 0,
+      "speed_sum": 3685.4593074750223,
+      "target_error": 1622.0277804200834,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 7,
+    "case": 2,
+    "traffic_seed": 41110107,
+    "start": [
+      "544295537",
+      0,
+      20.426845999999998,
+      353.43
+    ],
+    "outcome": "arrival",
+    "steps": 236,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "169728799"
+    ],
+    "bonus": 2.0,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 236,
+      "overspeed": 78,
+      "overspeed10": 57,
+      "following": 11,
+      "following_close_to_target": 0,
+      "clear_low_speed": 150,
+      "speed_sum": 2143.252767377308,
+      "target_error": 3590.777423442594,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 8,
+    "case": 2,
+    "traffic_seed": 41110108,
+    "start": [
+      "544295537",
+      0,
+      20.426845999999998,
+      353.43
+    ],
+    "outcome": "stall",
+    "steps": 236,
+    "slow": 150,
+    "slow_side_near": 23,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [],
+    "bonus": 0.5272042144863748,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 154,
+      "overspeed": 0,
+      "overspeed10": 0,
+      "following": 0,
+      "following_close_to_target": 0,
+      "clear_low_speed": 0,
+      "speed_sum": 3742.8627555813227,
+      "target_error": 285.0572444186882,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 9,
+    "case": 2,
+    "traffic_seed": 41110109,
+    "start": [
+      "556956812#1",
+      0,
+      19.793808000000002,
+      84.53
+    ],
+    "outcome": "arrival",
+    "steps": 155,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [],
+    "bonus": 2.0000000000000013,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 437,
+      "overspeed": 45,
+      "overspeed10": 27,
+      "following": 0,
+      "following_close_to_target": 0,
+      "clear_low_speed": 150,
+      "speed_sum": 6440.961002196043,
+      "target_error": 5230.652905269804,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 10,
+    "case": 2,
+    "traffic_seed": 41110110,
+    "start": [
+      "781184662#1",
+      0,
+      27.78,
+      449.02
+    ],
+    "outcome": "stall",
+    "steps": 437,
+    "slow": 150,
+    "slow_side_near": 28,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "170059993",
+      "37375274"
+    ],
+    "bonus": 1.8859874147646285,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 568,
+      "overspeed": 0,
+      "overspeed10": 0,
+      "following": 43,
+      "following_close_to_target": 2,
+      "clear_low_speed": 150,
+      "speed_sum": 7857.053982661863,
+      "target_error": 6462.486017338117,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 11,
+    "case": 2,
+    "traffic_seed": 41110111,
+    "start": [
+      "781184662#1",
+      0,
+      26.791032,
+      449.02
+    ],
+    "outcome": "stall",
+    "steps": 568,
+    "slow": 150,
+    "slow_side_near": 50,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "170059993",
+      "544293888#1"
+    ],
+    "bonus": 1.611626076914428,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 193,
+      "overspeed": 0,
+      "overspeed10": 0,
+      "following": 0,
+      "following_close_to_target": 0,
+      "clear_low_speed": 0,
+      "speed_sum": 4871.800314905454,
+      "target_error": 489.73968509455386,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 12,
+    "case": 2,
+    "traffic_seed": 41110112,
+    "start": [
+      "781184662#1",
+      0,
+      24.799206,
+      449.02
+    ],
+    "outcome": "arrival",
+    "steps": 194,
+    "slow": 0,
+    "slow_side_near": 0,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "781184662#2"
+    ],
+    "bonus": 2.0000000000000018,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 654,
+      "overspeed": 52,
+      "overspeed10": 39,
+      "following": 68,
+      "following_close_to_target": 60,
+      "clear_low_speed": 151,
+      "speed_sum": 5784.889392316369,
+      "target_error": 6579.900175514255,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 13,
+    "case": 2,
+    "traffic_seed": 41110113,
+    "start": [
+      "86198728",
+      0,
+      25.743726,
+      483.44
+    ],
+    "outcome": "stall",
+    "steps": 654,
+    "slow": 211,
+    "slow_side_near": 65,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": 3,
+    "forks": [
+      "37927508"
+    ],
+    "bonus": 1.5301847669611832,
+    "track": [
+      [
+        1,
+        "86198728",
+        0,
+        483.4,
+        25.74,
+        -0.39,
+        0
+      ],
+      [
+        26,
+        "86198728",
+        0,
+        366.1,
+        22.97,
+        -0.01,
+        0
+      ],
+      [
+        51,
+        "86198728",
+        0,
+        249.3,
+        23.71,
+        0.03,
+        0
+      ],
+      [
+        76,
+        "86198728",
+        0,
+        135.0,
+        21.58,
+        -0.16,
+        0
+      ],
+      [
+        101,
+        "86198728",
+        0,
+        42.3,
+        15.83,
+        0.24,
+        0
+      ],
+      [
+        126,
+        "37927508",
+        0,
+        40.4,
+        4.82,
+        -0.9,
+        0
+      ],
+      [
+        151,
+        "37927508",
+        0,
+        38.1,
+        0.43,
+        0.07,
+        0
+      ],
+      [
+        176,
+        "37927508",
+        0,
+        32.6,
+        1.51,
+        0.02,
+        0
+      ],
+      [
+        201,
+        "37927508",
+        0,
+        21.0,
+        5.07,
+        0.33,
+        0
+      ],
+      [
+        226,
+        "86198720",
+        0,
+        43.4,
+        11.54,
+        0.09,
+        1
+      ],
+      [
+        251,
+        "170059988",
+        0,
+        277.1,
+        11.92,
+        -0.02,
+        0
+      ],
+      [
+        276,
+        "170059988",
+        0,
+        219.1,
+        11.53,
+        -0.03,
+        0
+      ],
+      [
+        301,
+        "170059988",
+        0,
+        161.3,
+        11.64,
+        0.0,
+        0
+      ],
+      [
+        326,
+        "170059988",
+        0,
+        95.3,
+        14.48,
+        0.03,
+        1
+      ],
+      [
+        351,
+        "170059988",
+        0,
+        22.2,
+        14.46,
+        -0.07,
+        1
+      ],
+      [
+        376,
+        "170059996",
+        0,
+        3.5,
+        13.37,
+        -0.07,
+        1
+      ],
+      [
+        401,
+        "170059995",
+        0,
+        66.1,
+        12.13,
+        0.0,
+        1
+      ],
+      [
+        426,
+        "170059995",
+        0,
+        46.6,
+        0.0,
+        -0.23,
+        1
+      ],
+      [
+        451,
+        "170059995",
+        0,
+        46.6,
+        0.0,
+        -0.15,
+        -1
+      ],
+      [
+        476,
+        "170059995",
+        0,
+        17.6,
+        11.95,
+        0.3,
+        1
+      ],
+      [
+        501,
+        "170059994",
+        3,
+        11.2,
+        13.07,
+        -0.41,
+        1
+      ],
+      [
+        526,
+        "170059994",
+        3,
+        0.0,
+        0.0,
+        0.0,
+        1
+      ],
+      [
+        551,
+        "170059994",
+        3,
+        0.0,
+        0.0,
+        -0.3,
+        1
+      ],
+      [
+        576,
+        "170059994",
+        3,
+        0.0,
+        0.0,
+        -0.42,
+        1
+      ],
+      [
+        601,
+        "170059994",
+        3,
+        0.0,
+        0.0,
+        -0.46,
+        1
+      ],
+      [
+        626,
+        "170059994",
+        3,
+        0.0,
+        0.0,
+        0.13,
+        1
+      ],
+      [
+        651,
+        "170059994",
+        3,
+        0.0,
+        0.0,
+        -0.0,
+        1
+      ]
+    ]
+  },
+  {
+    "speed_metrics": {
+      "measured": 451,
+      "overspeed": 68,
+      "overspeed10": 55,
+      "following": 59,
+      "following_close_to_target": 11,
+      "clear_low_speed": 5,
+      "speed_sum": 6812.426999685133,
+      "target_error": 3612.7459663806644,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 14,
+    "case": 2,
+    "traffic_seed": 41110114,
+    "start": [
+      "86198728",
+      0,
+      13.563453275267301,
+      483.44
+    ],
+    "outcome": "collision",
+    "steps": 452,
+    "slow": 6,
+    "slow_side_near": 0,
+    "moves": 2,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": 2,
+    "forks": [
+      "37927508",
+      "1063527748"
+    ],
+    "bonus": 1.80234118354694,
+    "track": [
+      [
+        1,
+        "86198728",
+        0,
+        483.4,
+        13.56,
+        -0.38,
+        0
+      ],
+      [
+        26,
+        "86198728",
+        0,
+        426.5,
+        12.79,
+        0.26,
+        0
+      ],
+      [
+        51,
+        "86198728",
+        0,
+        355.0,
+        17.1,
+        0.23,
+        0
+      ],
+      [
+        76,
+        "86198728",
+        0,
+        259.1,
+        20.46,
+        0.06,
+        0
+      ],
+      [
+        101,
+        "86198728",
+        0,
+        155.0,
+        21.08,
+        0.04,
+        0
+      ],
+      [
+        126,
+        "86198728",
+        0,
+        48.5,
+        21.72,
+        0.04,
+        0
+      ],
+      [
+        151,
+        "37927508",
+        0,
+        25.6,
+        8.38,
+        -0.82,
+        0
+      ],
+      [
+        176,
+        "37927508",
+        0,
+        0.2,
+        8.12,
+        0.31,
+        -1
+      ],
+      [
+        201,
+        "86198720",
+        0,
+        11.5,
+        13.56,
+        0.13,
+        1
+      ],
+      [
+        226,
+        "170059988",
+        0,
+        234.3,
+        14.54,
+        0.02,
+        0
+      ],
+      [
+        251,
+        "170059988",
+        0,
+        159.5,
+        15.33,
+        0.03,
+        0
+      ],
+      [
+        276,
+        "170059988",
+        0,
+        72.6,
+        18.79,
+        0.04,
+        1
+      ],
+      [
+        301,
+        "170059996",
+        0,
+        27.7,
+        19.17,
+        -0.02,
+        1
+      ],
+      [
+        326,
+        "170059995",
+        0,
+        72.8,
+        8.02,
+        -0.78,
+        1
+      ],
+      [
+        351,
+        "170059995",
+        0,
+        46.0,
+        9.83,
+        0.4,
+        1
+      ],
+      [
+        376,
+        "170059994",
+        3,
+        43.7,
+        19.77,
+        -0.82,
+        1
+      ],
+      [
+        401,
+        "1063527748",
+        1,
+        199.3,
+        6.68,
+        0.75,
+        0
+      ],
+      [
+        426,
+        "1063527748",
+        1,
+        118.1,
+        23.77,
+        0.33,
+        0
+      ],
+      [
+        451,
+        "1063527748",
+        0,
+        0.0,
+        0.0,
+        0.98,
+        -1
+      ]
+    ]
+  },
+  {
+    "speed_metrics": {
+      "measured": 731,
+      "overspeed": 62,
+      "overspeed10": 33,
+      "following": 52,
+      "following_close_to_target": 10,
+      "clear_low_speed": 1,
+      "speed_sum": 10211.88856157301,
+      "target_error": 6313.008883048854,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 15,
+    "case": 2,
+    "traffic_seed": 41110115,
+    "start": [
+      "86198728",
+      0,
+      7.694054852767311,
+      483.44
+    ],
+    "outcome": "arrival",
+    "steps": 732,
+    "slow": 26,
+    "slow_side_near": 0,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [
+      "37927508",
+      "844484876"
+    ],
+    "bonus": 1.9999999999999947,
+    "track": []
+  },
+  {
+    "speed_metrics": {
+      "measured": 271,
+      "overspeed": 0,
+      "overspeed10": 0,
+      "following": 43,
+      "following_close_to_target": 28,
+      "clear_low_speed": 150,
+      "speed_sum": 2397.5901514573857,
+      "target_error": 5130.7898485426185,
+      "over_cost": 0.0,
+      "match_cost": 0.0
+    },
+    "timeout_distances": null,
+    "route": 16,
+    "case": 2,
+    "traffic_seed": 41110116,
+    "start": [
+      "86198728",
+      0,
+      18.632046,
+      483.44
+    ],
+    "outcome": "stall",
+    "steps": 271,
+    "slow": 150,
+    "slow_side_near": 26,
+    "moves": 0,
+    "actual_left": null,
+    "first_left": null,
+    "left_cmds": 0,
+    "prep": null,
+    "forks": [],
+    "bonus": 0.6712067253958665,
+    "track": [
+      [
+        1,
+        "86198728",
+        0,
+        483.4,
+        18.63,
+        -0.0,
+        0
+      ],
+      [
+        26,
+        "86198728",
+        0,
+        387.0,
+        21.47,
+        0.32,
+        0
+      ],
+      [
+        51,
+        "86198728",
+        0,
+        276.1,
+        20.99,
+        -0.09,
+        0
+      ],
+      [
+        76,
+        "86198728",
+        0,
+        177.2,
+        18.62,
+        -0.02,
+        0
+      ],
+      [
+        101,
+        "86198728",
+        0,
+        89.5,
+        16.35,
+        -0.06,
+        0
+      ],
+      [
+        126,
+        "86198728",
+        0,
+        0.0,
+        0.0,
+        0.97,
+        0
+      ],
+      [
+        151,
+        "86198728",
+        0,
+        0.0,
+        0.0,
+        0.99,
+        0
+      ],
+      [
+        176,
+        "86198728",
+        0,
+        0.0,
+        0.0,
+        0.99,
+        0
+      ],
+      [
+        201,
+        "86198728",
+        0,
+        0.0,
+        0.0,
+        0.99,
+        0
+      ],
+      [
+        226,
+        "86198728",
+        0,
+        0.0,
+        0.0,
+        0.98,
+        0
+      ],
+      [
+        251,
+        "86198728",
+        0,
+        0.0,
+        0.0,
+        0.98,
+        0
+      ]
+    ]
+  }
+]

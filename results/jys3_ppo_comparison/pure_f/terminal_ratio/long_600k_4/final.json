@@ -1,0 +1,991 @@
+{
+  "best": {
+    "F1": 550000,
+    "arrival10": 600000,
+    "collision5": 550000,
+    "both": 600000
+  },
+  "hold": {
+    "F1_11_65536": {
+      "outcomes": {
+        "timeout": 18,
+        "stall": 12,
+        "arrival": 10,
+        "collision": 24
+      },
+      "slow_s": 54.54,
+      "slow_pct": 63.0,
+      "side_s": 1.16,
+      "moves": 0.36,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        0
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "F1_11_550000": {
+      "outcomes": {
+        "timeout": 23,
+        "arrival": 11,
+        "stall": 15,
+        "collision": 15
+      },
+      "slow_s": 69.58,
+      "slow_pct": 69.0,
+      "side_s": 1.92,
+      "moves": 0.48,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        0
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "F1_11_600000": {
+      "outcomes": {
+        "timeout": 45,
+        "arrival": 4,
+        "collision": 13,
+        "stall": 2
+      },
+      "slow_s": 116.45,
+      "slow_pct": 80.0,
+      "side_s": 5.67,
+      "moves": 0.17,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        0
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "arrival10_11_65536": {
+      "outcomes": {
+        "arrival": 15,
+        "stall": 20,
+        "timeout": 9,
+        "collision": 20
+      },
+      "slow_s": 32.37,
+      "slow_pct": 47.8,
+      "side_s": 3.4,
+      "moves": 0.56,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        2
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "arrival10_11_600000": {
+      "outcomes": {
+        "arrival": 19,
+        "timeout": 13,
+        "stall": 22,
+        "collision": 9,
+        "other": 1
+      },
+      "slow_s": 34.33,
+      "slow_pct": 39.0,
+      "side_s": 3.82,
+      "moves": 0.23,
+      "prep13": [
+        0,
+        2
+      ],
+      "prep14": [
+        0,
+        4
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "collision5_11_65536": {
+      "outcomes": {
+        "arrival": 18,
+        "timeout": 11,
+        "stall": 26,
+        "collision": 9
+      },
+      "slow_s": 31.66,
+      "slow_pct": 39.9,
+      "side_s": 5.68,
+      "moves": 0.09,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        1
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "collision5_11_550000": {
+      "outcomes": {
+        "arrival": 45,
+        "collision": 8,
+        "stall": 11
+      },
+      "slow_s": 6.33,
+      "slow_pct": 9.7,
+      "side_s": 2.95,
+      "moves": 1.38,
+      "prep13": [
+        0,
+        4
+      ],
+      "prep14": [
+        0,
+        2
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 1,
+        "change": 1,
+        "main": 1,
+        "finish": 1,
+        "first_m": [
+          null,
+          0.0
+        ]
+      }
+    },
+    "collision5_11_600000": {
+      "outcomes": {
+        "arrival": 37,
+        "stall": 20,
+        "collision": 7
+      },
+      "slow_s": 13.11,
+      "slow_pct": 18.8,
+      "side_s": 6.53,
+      "moves": 2.14,
+      "prep13": [
+        0,
+        3
+      ],
+      "prep14": [
+        0,
+        3
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "both_11_65536": {
+      "outcomes": {
+        "timeout": 6,
+        "stall": 29,
+        "arrival": 13,
+        "collision": 16
+      },
+      "slow_s": 22.9,
+      "slow_pct": 36.9,
+      "side_s": 5.31,
+      "moves": 0.02,
+      "prep13": [
+        0,
+        1
+      ],
+      "prep14": [
+        0,
+        1
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "both_11_600000": {
+      "outcomes": {
+        "arrival": 23,
+        "stall": 22,
+        "collision": 19
+      },
+      "slow_s": 11.77,
+      "slow_pct": 18.5,
+      "side_s": 6.23,
+      "moves": 0.39,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        0
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "F1_22_65536": {
+      "outcomes": {
+        "timeout": 51,
+        "collision": 4,
+        "stall": 9
+      },
+      "slow_s": 128.48,
+      "slow_pct": 76.8,
+      "side_s": 21.03,
+      "moves": 0.0,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        0
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "F1_22_550000": {
+      "outcomes": {
+        "arrival": 19,
+        "stall": 28,
+        "timeout": 15,
+        "collision": 2
+      },
+      "slow_s": 44.78,
+      "slow_pct": 46.4,
+      "side_s": 14.94,
+      "moves": 0.06,
+      "prep13": [
+        0,
+        2
+      ],
+      "prep14": [
+        0,
+        2
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "F1_22_600000": {
+      "outcomes": {
+        "arrival": 21,
+        "stall": 23,
+        "timeout": 12,
+        "collision": 8
+      },
+      "slow_s": 39.84,
+      "slow_pct": 47.6,
+      "side_s": 8.9,
+      "moves": 0.72,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        1
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "arrival10_22_65536": {
+      "outcomes": {
+        "timeout": 29,
+        "stall": 21,
+        "arrival": 11,
+        "collision": 3
+      },
+      "slow_s": 67.53,
+      "slow_pct": 56.4,
+      "side_s": 6.25,
+      "moves": 0.09,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        0
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "arrival10_22_600000": {
+      "outcomes": {
+        "timeout": 11,
+        "arrival": 17,
+        "stall": 33,
+        "collision": 3
+      },
+      "slow_s": 41.98,
+      "slow_pct": 47.5,
+      "side_s": 6.81,
+      "moves": 0.14,
+      "prep13": [
+        0,
+        2
+      ],
+      "prep14": [
+        0,
+        3
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "collision5_22_65536": {
+      "outcomes": {
+        "arrival": 23,
+        "timeout": 4,
+        "collision": 15,
+        "stall": 22
+      },
+      "slow_s": 16.34,
+      "slow_pct": 24.7,
+      "side_s": 4.14,
+      "moves": 0.19,
+      "prep13": [
+        0,
+        3
+      ],
+      "prep14": [
+        0,
+        2
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "collision5_22_550000": {
+      "outcomes": {
+        "arrival": 40,
+        "collision": 17,
+        "stall": 6,
+        "timeout": 1
+      },
+      "slow_s": 6.61,
+      "slow_pct": 10.0,
+      "side_s": 3.34,
+      "moves": 6.42,
+      "prep13": [
+        1,
+        4
+      ],
+      "prep14": [
+        2,
+        2
+      ],
+      "exit13": 3,
+      "exit14": 2,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "collision5_22_600000": {
+      "outcomes": {
+        "arrival": 29,
+        "collision": 19,
+        "stall": 15,
+        "other": 1
+      },
+      "slow_s": 9.74,
+      "slow_pct": 16.1,
+      "side_s": 3.66,
+      "moves": 2.08,
+      "prep13": [
+        0,
+        3
+      ],
+      "prep14": [
+        1,
+        2
+      ],
+      "exit13": 1,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "both_22_65536": {
+      "outcomes": {
+        "arrival": 10,
+        "stall": 16,
+        "timeout": 28,
+        "collision": 10
+      },
+      "slow_s": 84.43,
+      "slow_pct": 72.6,
+      "side_s": 18.52,
+      "moves": 0.0,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        1
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "both_22_600000": {
+      "outcomes": {
+        "arrival": 27,
+        "stall": 33,
+        "timeout": 1,
+        "collision": 3
+      },
+      "slow_s": 20.69,
+      "slow_pct": 27.7,
+      "side_s": 6.46,
+      "moves": 0.33,
+      "prep13": [
+        0,
+        2
+      ],
+      "prep14": [
+        0,
+        3
+      ],
+      "exit13": 1,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "F1_33_65536": {
+      "outcomes": {
+        "timeout": 34,
+        "arrival": 3,
+        "stall": 2,
+        "collision": 25
+      },
+      "slow_s": 84.38,
+      "slow_pct": 75.3,
+      "side_s": 1.61,
+      "moves": 0.14,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        0
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "F1_33_550000": {
+      "outcomes": {
+        "arrival": 26,
+        "stall": 37,
+        "collision": 1
+      },
+      "slow_s": 18.34,
+      "slow_pct": 28.6,
+      "side_s": 7.58,
+      "moves": 0.14,
+      "prep13": [
+        0,
+        2
+      ],
+      "prep14": [
+        0,
+        2
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "F1_33_600000": {
+      "outcomes": {
+        "arrival": 23,
+        "stall": 35,
+        "collision": 6
+      },
+      "slow_s": 17.46,
+      "slow_pct": 29.2,
+      "side_s": 6.83,
+      "moves": 0.06,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        1
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "arrival10_33_65536": {
+      "outcomes": {
+        "timeout": 38,
+        "collision": 18,
+        "stall": 7,
+        "arrival": 1
+      },
+      "slow_s": 94.02,
+      "slow_pct": 73.1,
+      "side_s": 1.53,
+      "moves": 0.08,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        0
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "arrival10_33_600000": {
+      "outcomes": {
+        "arrival": 25,
+        "stall": 35,
+        "collision": 4
+      },
+      "slow_s": 17.05,
+      "slow_pct": 26.0,
+      "side_s": 6.36,
+      "moves": 0.41,
+      "prep13": [
+        0,
+        3
+      ],
+      "prep14": [
+        0,
+        3
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "collision5_33_65536": {
+      "outcomes": {
+        "arrival": 12,
+        "stall": 13,
+        "collision": 39
+      },
+      "slow_s": 6.12,
+      "slow_pct": 22.9,
+      "side_s": 1.97,
+      "moves": 0.2,
+      "prep13": [
+        0,
+        0
+      ],
+      "prep14": [
+        0,
+        2
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "collision5_33_550000": {
+      "outcomes": {
+        "arrival": 35,
+        "stall": 15,
+        "collision": 14
+      },
+      "slow_s": 10.91,
+      "slow_pct": 16.4,
+      "side_s": 2.8,
+      "moves": 1.34,
+      "prep13": [
+        0,
+        2
+      ],
+      "prep14": [
+        2,
+        4
+      ],
+      "exit13": 1,
+      "exit14": 2,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "collision5_33_600000": {
+      "outcomes": {
+        "arrival": 33,
+        "collision": 22,
+        "stall": 8,
+        "timeout": 1
+      },
+      "slow_s": 8.11,
+      "slow_pct": 15.2,
+      "side_s": 1.2,
+      "moves": 2.2,
+      "prep13": [
+        1,
+        1
+      ],
+      "prep14": [
+        2,
+        2
+      ],
+      "exit13": 1,
+      "exit14": 2,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "both_33_65536": {
+      "outcomes": {
+        "arrival": 16,
+        "timeout": 16,
+        "stall": 13,
+        "collision": 19
+      },
+      "slow_s": 36.7,
+      "slow_pct": 37.5,
+      "side_s": 1.98,
+      "moves": 0.62,
+      "prep13": [
+        1,
+        2
+      ],
+      "prep14": [
+        0,
+        0
+      ],
+      "exit13": 1,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    },
+    "both_33_600000": {
+      "outcomes": {
+        "timeout": 6,
+        "stall": 37,
+        "arrival": 21
+      },
+      "slow_s": 29.15,
+      "slow_pct": 34.0,
+      "side_s": 7.52,
+      "moves": 0.11,
+      "prep13": [
+        0,
+        2
+      ],
+      "prep14": [
+        0,
+        2
+      ],
+      "exit13": 0,
+      "exit14": 0,
+      "sixteen": {
+        "n": 2,
+        "command": 0,
+        "change": 0,
+        "main": 0,
+        "finish": 0,
+        "first_m": [
+          null,
+          null
+        ]
+      }
+    }
+  }
+}
