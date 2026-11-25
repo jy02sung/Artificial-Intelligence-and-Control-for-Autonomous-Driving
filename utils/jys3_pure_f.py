@@ -13,6 +13,7 @@ ROOT = OUT / "pure_f"
 ARMS = ("F0","F1","F2","F3")
 
 class FactorEnv:
+    progress_cap = 2.0
     def __init__(self, arm, folder, seed):
         self.sim = j.environment("high_real_ratio",seed,folder)
         self.progress_enabled = arm in ("F1","F3")
@@ -101,7 +102,7 @@ class FactorEnv:
         elif self.snapshot and info["route_intact"] and not info["collided"]:coord=self.coordinate()
         gain=max(0.,coord-self.high)
         self.high=max(self.high,coord)
-        bonus=2*gain/(self.total-self.start) if self.progress_enabled else 0.
+        bonus=self.progress_cap*gain/(self.total-self.start) if self.progress_enabled else 0.
         info["progress_bonus"]=bonus
         if self.training_log is not None:
             self.training_steps+=1
@@ -242,7 +243,7 @@ def evaluate(job):
                     bonus+=info["progress_bonus"]
                     if done or cut:break
                 outcome="arrival" if info["arrived"] else "collision" if info["collided"] else "stall" if info["stalled"] else "timeout" if cut else "other"
-                assert bonus<=2.00001 and (outcome!="arrival" or abs(bonus-(2 if env.progress_enabled else 0))<1e-5)
+                assert bonus<=env.progress_cap+1e-5 and (outcome!="arrival" or abs(bonus-(env.progress_cap if env.progress_enabled else 0))<1e-5)
                 rows.append(dict(speed_metrics=dict(speed_totals),timeout_distances=timeout_distances,route=route,case=rep,traffic_seed=traffic_seed,start=start,outcome=outcome,steps=t,slow=slow,slow_side_near=slow_side_near,moves=moves,actual_left=actual_left,first_left=first,left_cmds=lefts,prep=prep,forks=forks,bonus=bonus,track=track))
         finally:env.close()
     save(folder/f"eval_{base}_{n}_{rep}.json",rows)
