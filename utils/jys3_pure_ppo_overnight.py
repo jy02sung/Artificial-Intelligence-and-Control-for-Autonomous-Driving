@@ -561,10 +561,12 @@ def report():
     for r in records:
         if "required_512" not in r: continue
         x=r["required_512"]; c=x["required_commands"]
+        commanded=c["left"]+c["right"]
+        mix=f"{c['left']/commanded:.1%} / {c['right']/commanded:.1%}" if commanded else "명령 0회"
         rows.append([r["arm"],r["end"],f"{x['required_arrived']}/208 ({x['required_arrived']/208:.1%})",
-                     c["left"],c["right"],f"{c['left']/c['steps']:.1%}",f"{c['right']/c['steps']:.1%}"])
+                     c["left"],c["right"],f"{c['left']/c['steps']:.1%}",f"{c['right']/c['steps']:.1%}",mix])
     doc+=["## 변경이 필요한 출발","", "지정·추가 256회에서 첫 분기 전 변경이 필요한 208회를 집계했다. 좌·우 비율 분모는 해당 주행의 전체 행동 스텝이다."]
-    doc+=table(["조건","학습 한도","완주","좌 명령","우 명령","좌 비율","우 비율"],rows)
+    doc+=table(["조건","학습 한도","완주","좌 명령","우 명령","좌 / 전체 스텝","우 / 전체 스텝","변경 명령 중 좌 / 우"],rows)
     doc+=["## 5만 스텝 간격 중간 평가"]
     doc+=table(["조건","스텝","완주","충돌","이탈","끝 정지","일반 시간초과","10초 대기","변경 필요 완주","좌 명령","우 명령"],
                [[a,n,*scores(m),m["slow10"],f"{m['required_arrived']}/{m['required']}",m["commands"]["left"],m["commands"]["right"]] for a,n,m in timeline])
@@ -575,6 +577,7 @@ def report():
           "- 공통 수치는 전진 +6, 분기 +2.5, 완주 +10, 충돌 −12, 이탈·끝 정지·시간초과 −8, 앞이 빈 저속 −0.02/스텝, 50스텝 연속 시 −9 종료다. 평가 시 학습용 10초 종료는 껐다. 동일 시드 11에서 256×256 ReLU, 분리 가치망, γ 0.995, λ 0.95, Adam 1e−4, 10에포크, 미니배치 64를 사용했다.",
           "- 모델 선정은 지정 128회에서 완주 수, 충돌 수, 변경 필요 출발 완주 수 순이다. 동률은 이른 스텝과 조건 번호 순으로 정했다. 60만 연장은 우승 조건 30만의 정책·가치망·옵티마이저·경험 버퍼에서 이어갔다. 60만 최선은 5만~60만 후보 전체에서 고른다.",
           "- 경험 보상 예측기는 자기 주행의 해당 분기 정상 통과·이탈·충돌·끝 정지로 라벨링한다. 일반 시간제한 및 학습용 저속 조기종료는 라벨에서 제외한다. 예측기는 성공·실패 상태 각각 200개가 쌓여 첫 학습을 끝낸 다음부터 보상에 사용한다. 클리핑과 분기 경계 초기화가 있는 차분이라 모든 왕복에 대한 보상 불변성은 보장되지 않는다.",
+          "- 학습 교통 시드는 공통으로 205000000 + 에피소드 순번을 사용한다. 같은 순번은 같은 경로 편성이며 정책별 에피소드 길이에 따라 예산 안에서 실제로 사용한 시드 수는 달라진다. 평가 시드는 매 주행의 시작 관측 해시까지 대조했다.",
           "- 학습 롤아웃은 기본 2,048스텝이며 5만 저장 지점과 교통 전환에서는 남은 스텝만 처리한다. 교통 전환 시 진행 중 주행의 마지막 관측으로 가치를 부트스트랩한다. 모든 평가는 고교통, 16개 경로, 같은 물리적 분기와 시야 보정으로 진행했다.",
           "",f"동일 초기 가중치 SHA-256 `{protocol['initial_sha256']}`. 원본 R5 SHA-256 `{old.HASH['R5']}`."]
     if causes:doc+=table(["조건","한도","실패가 많은 경로 (건수)"],[[a,n,", ".join(f"{k}번 ({v})" for k,v in ls)] for a,n,ls in causes])
@@ -583,6 +586,12 @@ def report():
         for pair,d in comparisons.items():
             doc.append(f"- {pair}에서 완주 {d['arrival']:+d}건, 이탈 {d['off_route']:+d}건, 충돌 {d['collision']:+d}건이었다.")
         doc.append("- P0→P1은 경험 보상 단독 효과, P0→P2는 준비 선지급 단독 효과다. P4→P5는 동일한 커리큘럼·방향 관측 위에서 두 보상을 교체한 효과다. P2→P3에는 출발 지점과 교통량, P2→P4에는 방향 인코딩과 교통량이 함께 바뀐다. 수치는 학습 시드 11에 대한 결과다.")
+        for key in ("P0→P1","P4→P5"):
+            if key in comparisons:
+                d=comparisons[key]
+                achieved=d["arrival"]>0 and d["off_route"]<0 and d["collision"]<=0
+                doc.append(f"- {key}의 자가 경험 보상이 완주 증가·이탈 감소·충돌 유지 또는 감소를 동시에 "
+                           f"달성했는지에 대한 판정은 **{'충족' if achieved else '미달'}**이다.")
     if win:doc+=["",f"자동 연장 조건은 **{win}**이다."]
     doc+=["","[실행 코드](../../utils/jys3_pure_ppo_overnight.py) · [전체 집계](../../results/jys3_pure_ppo_overnight/summary.json)"]
     tmp=REPORT.with_suffix(".md.tmp")

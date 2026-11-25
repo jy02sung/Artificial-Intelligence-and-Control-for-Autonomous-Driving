@@ -1,6 +1,211 @@
 {
   "winner": null,
-  "models": [],
+  "models": [
+    {
+      "arm": "P0",
+      "end": 300000,
+      "selected": 250000,
+      "screen": {
+        "n": 128,
+        "arrival": 89,
+        "collision": 20,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 19,
+        "slow10": 1,
+        "required": 52,
+        "required_arrived": 30,
+        "commands": {
+          "left": 3421,
+          "right": 11237,
+          "steps": 38487
+        },
+        "required_commands": {
+          "left": 1835,
+          "right": 5310,
+          "steps": 16617
+        }
+      },
+      "predictor": {
+        "n": 1248,
+        "exp_sum": 0.0,
+        "states": 0,
+        "correct": 0,
+        "pairs": 0,
+        "auc": null
+      }
+    },
+    {
+      "arm": "P1",
+      "end": 300000,
+      "selected": 200000,
+      "screen": {
+        "n": 128,
+        "arrival": 64,
+        "collision": 15,
+        "stall": 0,
+        "timeout": 7,
+        "off_route": 42,
+        "slow10": 0,
+        "required": 52,
+        "required_arrived": 17,
+        "commands": {
+          "left": 2542,
+          "right": 13293,
+          "steps": 45700
+        },
+        "required_commands": {
+          "left": 1085,
+          "right": 5390,
+          "steps": 15470
+        }
+      },
+      "predictor": {
+        "n": 973,
+        "exp_sum": -218.7336213759845,
+        "states": 106966,
+        "correct": 71904,
+        "pairs": 26497266,
+        "auc": 0.7422199520509022
+      }
+    },
+    {
+      "arm": "P2",
+      "end": 300000,
+      "selected": 250000,
+      "screen": {
+        "n": 128,
+        "arrival": 65,
+        "collision": 10,
+        "stall": 0,
+        "timeout": 21,
+        "off_route": 32,
+        "slow10": 0,
+        "required": 52,
+        "required_arrived": 18,
+        "commands": {
+          "left": 14494,
+          "right": 13494,
+          "steps": 63478
+        },
+        "required_commands": {
+          "left": 7085,
+          "right": 9333,
+          "steps": 29670
+        }
+      },
+      "predictor": {
+        "n": 1120,
+        "exp_sum": 0.0,
+        "states": 0,
+        "correct": 0,
+        "pairs": 0,
+        "auc": null
+      }
+    },
+    {
+      "arm": "P3",
+      "end": 300000,
+      "selected": 250000,
+      "screen": {
+        "n": 128,
+        "arrival": 67,
+        "collision": 20,
+        "stall": 4,
+        "timeout": 0,
+        "off_route": 37,
+        "slow10": 4,
+        "required": 52,
+        "required_arrived": 20,
+        "commands": {
+          "left": 3392,
+          "right": 23127,
+          "steps": 38335
+        },
+        "required_commands": {
+          "left": 1612,
+          "right": 8203,
+          "steps": 14971
+        }
+      },
+      "predictor": {
+        "n": 1698,
+        "exp_sum": 0.0,
+        "states": 0,
+        "correct": 0,
+        "pairs": 0,
+        "auc": null
+      }
+    },
+    {
+      "arm": "P4",
+      "end": 300000,
+      "selected": 250000,
+      "screen": {
+        "n": 128,
+        "arrival": 83,
+        "collision": 30,
+        "stall": 0,
+        "timeout": 1,
+        "off_route": 14,
+        "slow10": 0,
+        "required": 52,
+        "required_arrived": 25,
+        "commands": {
+          "left": 7949,
+          "right": 21186,
+          "steps": 42103
+        },
+        "required_commands": {
+          "left": 3904,
+          "right": 8781,
+          "steps": 17557
+        }
+      },
+      "predictor": {
+        "n": 1219,
+        "exp_sum": 0.0,
+        "states": 0,
+        "correct": 0,
+        "pairs": 0,
+        "auc": null
+      }
+    },
+    {
+      "arm": "P5",
+      "end": 300000,
+      "selected": 300000,
+      "screen": {
+        "n": 128,
+        "arrival": 82,
+        "collision": 29,
+        "stall": 1,
+        "timeout": 0,
+        "off_route": 16,
+        "slow10": 2,
+        "required": 52,
+        "required_arrived": 24,
+        "commands": {
+          "left": 20520,
+          "right": 8013,
+          "steps": 40146
+        },
+        "required_commands": {
+          "left": 10353,
+          "right": 2615,
+          "steps": 16760
+        }
+      },
+      "predictor": {
+        "n": 1336,
+        "exp_sum": -276.96741843689233,
+        "states": 146713,
+        "correct": 103792,
+        "pairs": 19087074,
+        "auc": 0.7422218041382351
+      }
+    }
+  ],
   "comparisons": {},
-  "screens": 18
+  "screens": 36
 }
