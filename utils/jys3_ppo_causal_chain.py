@@ -1,10 +1,11 @@
 """Matched pure PPO lineage and S3. Run python -m utils.jys3_ppo_causal_chain to resume."""
 import hashlib
 import math
+import sys
+import time
 import subprocess
 from collections import Counter, deque
 from concurrent.futures import ProcessPoolExecutor, as_completed
-from copy import deepcopy
 from functools import partial
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -380,15 +381,23 @@ def report():
     doc=["# 순수 PPO 분리형 Critic과 컷인 보상 대조","",
          "각 모델은 같은 고교통 576회에서 평가했다. 선정 패널은 별도 128회다. 변경 필요 출발은 두 256회 패널 안의 208회다. 실제 이동은 SUMO 차로변경 출력으로 충돌 스텝까지 기록했다. 유효 명령은 지정한 경계·실선 무효 조건에 걸리지 않은 좌우 명령 수다.",
          "", "## Part 1 단계별 결과"]
+    count=sum(f"{arm}/{s}" in table for stage in STAGES for arm,s in stage)
+    doc.insert(2,f"신규 9런 중 576회 최종 검증 {count}/9 완료. 고교통 15,000대/시, 16경로, 수정 분기, 고가 20쌍 보정, 50차원 관측, 안전게이트 OFF 환경을 사용했다. 학습용 10초 조기 종료는 평가에서 껐다.")
     def row(key,m):
         return [key,m["step"],*[fmt(m[c]) for c in anti.OUT]]
     doc+=draw(["모델/시드","스텝","완주","충돌","이탈","끝 정지","시간초과"],[row(k,table[k]) for k in
         ("C/11","Link1/11","P0/11","P0/22","P0/33","Q1/11","Q1/22","Q1/33") if k in table])
     doc+=["C와 Link-1은 원래 C의 2,048스텝 롤아웃 경계와 20만 종료 업데이트를 맞췄다. P0는 5만마다 롤아웃을 잘라 업데이트한다. Link-1→P0에는 두 벌점과 이 업데이트 경계 차이가 함께 있다. Q1의 관측 교정은 34번 방향과 40~49번 도로 특성을 함께 변환한다."]
-    for n,baseline,data_path in [(100000,"C",lambda h:old.data_path("C",100000,h)),(250000,"P0",lambda h:p.panel_path("P0",250000,h))]:
+    matched=[]
+    for n,baseline in [(100000,"C"),(250000,"P0")]:
         if all(panel("Link1",11,n,h).exists() for h in HOLDS):
-            a=summary([read(panel("Link1",11,n,h))["rows"] for h in HOLDS])
-            doc.append(f"- 같은 {n:,}스텝의 {baseline}과 Link-1 완주 수는 {table[baseline+'/11']['arrival']}건과 {a['arrival']}건, 충돌 수는 {table[baseline+'/11']['collision']}건과 {a['collision']}건이었다.")
+            link=summary([read(panel("Link1",11,n,h))["rows"] for h in HOLDS])
+            other=table[baseline+"/11"]
+            first,last=(other,link) if baseline=="C" else (link,other)
+            label="C → Link1" if baseline=="C" else "Link1 → P0"
+            change="분리 Critic 단독, 같은 10만" if baseline=="C" else "두 벌점 및 롤아웃 경계, 같은 25만"
+            matched.append([label,change,*[f"{100*(last[k]-first[k])/576:+.2f}" for k in ("arrival","collision","off_route")],"—"])
+            doc.append(f"- 같은 {n:,}스텝의 {baseline}과 Link-1 완주 수는 {other['arrival']}건과 {link['arrival']}건, 충돌 수는 {other['collision']}건과 {link['collision']}건이었다.")
     doc+=["","## Part 2와 시드별 변화"]
     cols=["모델/시드","스텝","완주","충돌","이탈","끝 정지","시간초과","변경 필요 완주 /208","유효 명령","무효 명령","실제 변경","컷인 충돌"]
     doc+=draw(cols,[row(key,table[key])+[fmt(table[key]["required"],208),*[table[key].get(c,"—") for c in ("valid","invalid","moves","cutin")]]
@@ -400,7 +409,7 @@ def report():
             means.append([arm,",".join(map(str,seeds)),*[f"{np.mean([m[k] for m in ms])*100/576:.2f}%" for k in anti.OUT],f"{np.mean([m['required'] for m in ms])*100/208:.2f}%",
                          *[f"{np.mean([m[k] for m in ms]):.1f}" if all(k in m for m in ms) else "—" for k in ("valid","invalid","moves","cutin")]])
     doc+=draw(["조건","시드","평균 완주율","충돌률","이탈률","끝 정지율","시간초과율","변경 필요 완주율","평균 유효","평균 무효","평균 변경","평균 컷인"],means)
-    effects=[]
+    effects=matched.copy()
     for arm,base,mechanism,seeds in [
         ("Q1","P0","도로 단위 방향·도로 특성 교정",(11,22,33)),
         ("S3-A","Q1","무효 명령 비용과 추가 미세조정",(22,33)),
@@ -416,6 +425,30 @@ def report():
         for s in anti.SEEDS:
             m,b=table[f"S3-C/{s}"],table[f"Q1/{s}"]
             doc.append(f"- 시드 {s}의 Q1 대비 완주 증가·충돌 감소 동시 달성 여부는 "+("달성" if m["arrival"]>b["arrival"] and m["collision"]<b["collision"] else "미달")+"이다.")
+    doc+=["", "## 컷인과 무효 명령 대조", "",
+          "컷인 충돌은 이전 진단과 같은 기준으로 집계했다. 충돌 포함 직전 3스텝 안에 같은 도로의 접촉 차로로 실제 이동했고 변경 전 관측의 동적 앞·뒤 간격 또는 겹침 기준을 충족한 사건이다. B·C 학습의 6m/10m/1.5초 기준은 보상 계산에 사용한다. 두 정의의 분모를 구분했다.",
+          "이전 S2/22는 576회에서 이탈 228건, S2/33은 충돌 55건 중 컷인 49건이었다. 다음 표는 각 모델을 평가한 동일 교통 시드에서 명령 억제와 위험 변화를 함께 보여준다."]
+    paired=[]
+    for seed,traffic in ((22,104320713),(33,104320011)):
+        for arm in ("Q1","S3-A","S3-B","S3-C"):
+            key=f"{arm}/{seed}"
+            if key not in table or "cutin" not in table[key]:
+                continue
+            m=table[key]
+            row=next(r for r in read(panel(arm,seed,m["step"],"additional"))["rows"] if r["seed"]==traffic)
+            paired.append([key,traffic,row["route"],row["outcome"],row["steps"],row["right_commands"],row["invalid"],row["moves"],m["off_route"],f"{m['cutin']} / {m['collision']}"])
+    doc+=draw(["모델","교통 시드","경로","종료","스텝","우 명령","좌우 무효 합","실제 변경","전체 이탈 /576","전체 컷인 /충돌"],paired)
+    doc.append("Q1 선택은 시드 11·22·33 모두 30만 이내에 일어났다. P0와 Q1의 시드별 비교는 같은 초기화와 교통 시드를 사용한다. S3-A/B/C는 매번 같은 Q1에서 독립 출발한다. 한 시드에서는 새 보상 구성이 방문 상태와 그 이후 수집 데이터를 바꿀 수 있다.")
+    doc+=["","## 중간 선정 패널 128회"]
+    checkpoints=[]
+    for stage in STAGES:
+        for arm,s in stage:
+            for step in marks(arm):
+                f=panel(arm,s,step,"screen")
+                if f.exists():
+                    m=read(f)["metrics"]
+                    checkpoints.append([arm,s,step,*[fmt(m[k],128) for k in anti.OUT],m["required_arrived"]])
+    doc+=draw(["런","시드","스텝","완주","충돌","이탈","끝 정지","시간초과","변경 필요 완주 /52"],checkpoints)
     doc+=["","[실험 코드](../../utils/jys3_ppo_causal_chain.py) · [결과 JSON](../../results/jys3_ppo_causal_chain/summary.json)"]
     tmp=REPORT.with_suffix(".tmp")
     tmp.write_text("\n".join(doc)+"\n",encoding="utf8")
@@ -456,6 +489,31 @@ def main():
     report()
 
 
-if __name__=="__main__":
-    main()
+def early_screens():
+    # The main runner occupies only three slots until the first full training job completes.
+    # Release this fourth slot well before that at the first 150k checkpoint.
+    stage=STAGES[0]
+    def reserved():
+        return any((dest(arm,s)/"policy_150000.pt").exists() for arm,s in stage)
+    while not reserved():
+        advanced=False
+        for n in (50000,100000):
+            for arm,s in stage:
+                if panel(arm,s,n,"screen").exists() or not (dest(arm,s)/f"policy_{n}.pt").exists():
+                    continue
+                for rep in range(old.PANELS["screen"][1]):
+                    if reserved():
+                        return
+                    evaluate(arm,s,n,"screen",rep)
+                finish_panel(arm,s,n,"screen")
+                report()
+                advanced=True
+        if not advanced:
+            time.sleep(10)
 
+
+if __name__=="__main__":
+    if sys.argv[1:]==["--early-screens"]:
+        early_screens()
+    else:
+        main()
