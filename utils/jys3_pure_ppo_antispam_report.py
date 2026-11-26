@@ -1,4 +1,6 @@
 """Matched episode comparisons for the pure-PPO command penalty study."""
+import json
+
 from utils import jys3_pure_ppo_antispam as s
 
 
@@ -62,6 +64,22 @@ def generate():
     header=["모델","시드","선정 PPO 스텝","완주","충돌","이탈","끝 정지","시간초과","좌 / 우 명령","명령 / 주행","변경 필요 완주 /208"]
     docs+=table(header,[[a,seed,n,*[percent(m[k],576) for k in s.OUT],f"{m['left']:,} / {m['right']:,}",
                          f"{m['commands_per_episode']:.2f}",percent(m["change208"],208)] for (a,seed),(n,m) in results.items()])
+    if len(comparisons)==4:
+        docs+=["## 판정",""]
+        for seed in s.SEEDS:
+            base=results["Q1",seed][1]
+            current=results["S2",seed][1]
+            docs.append(f"- 정점에서 이어 학습한 시드 {seed}는 Q1 대비 완주 {current['arrival']-base['arrival']:+d}건, "
+                        f"충돌 {current['collision']-base['collision']:+d}건, 변경 필요 출발 완주 {current['change208']-base['change208']:+d}건이었다.")
+        before=results["Q1",22][1]
+        after=results["S1",22][1]
+        docs+= [f"- 시드 22의 처음부터 학습에서는 주행당 명령이 {before['commands_per_episode']:.1f}→{after['commands_per_episode']:.1f}회로 줄었지만 "
+                 f"같은 도로 안에서 관측된 실제 차로변경은 {before['within_edge_moves']:,}→{after['within_edge_moves']:,}회, 충돌은 "
+                 f"{before['collision']}→{after['collision']}건이 됐다. 명령 수만으로 실제 움직임과 위험을 설명하기 어렵다.",
+                 "- Q1의 결정론적 홀드아웃에서 겹침 방향 명령은 시드 22에서 0회, 33에서 6회였다. "
+                 "이 지표는 차로 명령 직전에 관측된 겹침만 센다. 충돌 때의 상대 위치나 충돌 종류는 별도 지표다.",
+                 "- 35만 스텝의 중간 평가에서 두 트랙 모두 Q1의 충돌 급증을 줄였지만, 최선 체크포인트의 홀드아웃에서는 시드별 효과가 달랐다. "
+                 "보상 세 항과 학습 일정이 함께 바뀌었으므로 효과는 각 트랙 전체에 해당한다.",""]
     docs+=["## Q1에서 바뀐 주행",""]
     deltas=[]
     for (a,seed),(n,m) in results.items():
@@ -91,6 +109,20 @@ def generate():
             later.append([arm,seed,first,curve[first]["collision"],peak,curve[peak]["collision"],curve[last]["collision"],
                           f"{curve[last]['collision']-curve[first]['collision']:+d}"])
     docs+=table(["모델","시드","구간 시작","첫 충돌","최다 시점","최다 충돌","35만 충돌","첫 평가 대비"],later)
+    docs+=["## 학습 중 두 차로 비용이 발동한 횟수","",
+           "각 업데이트의 실제 롤아웃에서 집계했다. 워밍업은 제외했다. 겹침은 정책이 보는 관측에서 명령 방향의 신호가 0.5를 넘을 때다."]
+    costs=[]
+    for (arm,seed),(n,m) in results.items():
+        if arm=="Q1":
+            continue
+        updates=[json.loads(line) for line in (s.folder(arm,seed)/"updates.jsonl").read_text().splitlines()]
+        for period,limit in [("선정까지",n),("전체",s.MARKS[arm][-1])]:
+            logs=[u["metrics"] for u in updates if u["step"]<=limit]
+            commands=sum(u["commands"] for u in logs)
+            overlap=sum(u["overlap_commands"] for u in logs)
+            costs.append([arm,seed,period,limit,commands,overlap,f"{overlap/max(commands,1):.3%}",
+                          f"{sum(u['command_cost'] for u in logs):.2f}",f"{sum(u['overlap_cost'] for u in logs):.2f}"])
+    docs+=table(["모델","시드","집계","스텝","변경 명령","겹친 방향 명령","변경 명령 중 겹침","명령 비용 합","겹침 비용 합"],costs)
     docs+=["## 실행 조건","",
            "- 전 경로 고교통 15,000대/시, 수정 분기, 고가 시야 보정, 도로 단위 부호 교정, 50차원 정책, 안전게이트 OFF를 Q1과 맞췄다. 같은 관측에 포함된 오른쪽 겹침 36번·왼쪽 겹침 37번을 명령 직전 읽었다.",
            "- 유지 이외 명령에 −0.02, 명령 방향이 겹치면 추가 −0.30, 충돌 −16을 적용했다. 행동 실행은 기존 시뮬레이터가 그대로 담당했다. 완주 +10, 분기 +2.5, 전진 상한 +6, 경로 이탈·끝 정지·시간초과 −8, 앞이 빈 저속 −0.02 및 50스텝 연속 −9 종료는 Q1과 같다.",

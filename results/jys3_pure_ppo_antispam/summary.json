@@ -17,6 +17,23 @@
       "overlap_commands": 0,
       "within_edge_moves": 986
     },
+    "S1/22": {
+      "selected_step": 300000,
+      "n": 576,
+      "arrival": 421,
+      "collision": 64,
+      "off_route": 86,
+      "stall": 0,
+      "timeout": 5,
+      "left": 15338,
+      "right": 21344,
+      "required": 234,
+      "required_arrived": 133,
+      "change208": 120,
+      "commands_per_episode": 63.68402777777778,
+      "overlap_commands": 0,
+      "within_edge_moves": 2742
+    },
     "S2/22": {
       "selected_step": 75000,
       "n": 576,
@@ -51,6 +68,23 @@
       "overlap_commands": 6,
       "within_edge_moves": 2005
     },
+    "S1/33": {
+      "selected_step": 300000,
+      "n": 576,
+      "arrival": 355,
+      "collision": 18,
+      "off_route": 197,
+      "stall": 0,
+      "timeout": 6,
+      "left": 536,
+      "right": 1645,
+      "required": 234,
+      "required_arrived": 64,
+      "change208": 60,
+      "commands_per_episode": 3.7864583333333335,
+      "overlap_commands": 0,
+      "within_edge_moves": 393
+    },
     "S2/33": {
       "selected_step": 75000,
       "n": 576,
@@ -70,6 +104,24 @@
     }
   },
   "comparisons": {
+    "S1/22": {
+      "kept": 343,
+      "lost": 88,
+      "gained": 78,
+      "outcomes": {
+        "arrival_to_arrival": 343,
+        "collision_to_off_route": 21,
+        "collision_to_arrival": 17,
+        "off_route_to_collision": 16,
+        "arrival_to_off_route": 50,
+        "off_route_to_arrival": 61,
+        "collision_to_collision": 12,
+        "arrival_to_collision": 36,
+        "off_route_to_off_route": 15,
+        "off_route_to_timeout": 3,
+        "arrival_to_timeout": 2
+      }
+    },
     "S2/22": {
       "kept": 262,
       "lost": 169,
@@ -86,6 +138,26 @@
         "off_route_to_collision": 7,
         "collision_to_stall": 1,
         "arrival_to_stall": 2
+      }
+    },
+    "S1/33": {
+      "kept": 300,
+      "lost": 146,
+      "gained": 55,
+      "outcomes": {
+        "arrival_to_arrival": 300,
+        "arrival_to_off_route": 129,
+        "collision_to_arrival": 39,
+        "collision_to_off_route": 47,
+        "arrival_to_timeout": 5,
+        "timeout_to_off_route": 14,
+        "timeout_to_arrival": 9,
+        "timeout_to_collision": 4,
+        "off_route_to_arrival": 7,
+        "off_route_to_off_route": 7,
+        "arrival_to_collision": 12,
+        "collision_to_collision": 2,
+        "collision_to_timeout": 1
       }
     },
     "S2/33": {
@@ -110,5 +182,5 @@
       }
     }
   },
-  "screens": 16
+  "screens": 30
 }
