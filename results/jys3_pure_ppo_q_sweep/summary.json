@@ -1,6 +1,6 @@
 {
-  "winner": null,
-  "screens": 20,
+  "winner": "Q1",
+  "screens": 40,
   "q_holdouts": [],
   "models": {
     "P0": {
@@ -161,7 +161,169 @@
       }
     }
   },
-  "selected": {},
+  "selected": {
+    "Q1/11": {
+      "step": 100000,
+      "screen": {
+        "n": 128,
+        "arrival": 85,
+        "collision": 12,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 31,
+        "slow10": 0,
+        "required": 52,
+        "required_arrived": 23,
+        "commands": {
+          "left": 97,
+          "right": 10105,
+          "steps": 42684
+        },
+        "required_commands": {
+          "left": 40,
+          "right": 4202,
+          "steps": 16236
+        }
+      },
+      "training": {
+        "updates": 50,
+        "kl_stops": 0,
+        "route_coverage": 10.125,
+        "route_share_sd": 0.08249481050009562,
+        "last_lr": 0.0001
+      }
+    },
+    "Q2/11": {
+      "step": 350000,
+      "screen": {
+        "n": 128,
+        "arrival": 47,
+        "collision": 2,
+        "stall": 11,
+        "timeout": 9,
+        "off_route": 59,
+        "slow10": 4,
+        "required": 52,
+        "required_arrived": 0,
+        "commands": {
+          "left": 0,
+          "right": 0,
+          "steps": 44465
+        },
+        "required_commands": {
+          "left": 0,
+          "right": 0,
+          "steps": 10087
+        }
+      },
+      "training": {
+        "updates": 175,
+        "kl_stops": 175,
+        "route_coverage": 10.80952380952381,
+        "route_share_sd": 0.08206594898572413,
+        "last_lr": 2.1307896429720172e-05
+      }
+    },
+    "Q3/11": {
+      "step": 350000,
+      "screen": {
+        "n": 128,
+        "arrival": 39,
+        "collision": 13,
+        "stall": 8,
+        "timeout": 11,
+        "off_route": 57,
+        "slow10": 0,
+        "required": 52,
+        "required_arrived": 0,
+        "commands": {
+          "left": 0,
+          "right": 0,
+          "steps": 39043
+        },
+        "required_commands": {
+          "left": 0,
+          "right": 0,
+          "steps": 8701
+        }
+      },
+      "training": {
+        "updates": 91,
+        "kl_stops": 89,
+        "route_coverage": 14.654761904761905,
+        "route_share_sd": 0.0535017384823715,
+        "last_lr": 2.1366391852570328e-05
+      }
+    },
+    "Q4/11": {
+      "step": 250000,
+      "screen": {
+        "n": 128,
+        "arrival": 50,
+        "collision": 2,
+        "stall": 11,
+        "timeout": 2,
+        "off_route": 63,
+        "slow10": 3,
+        "required": 52,
+        "required_arrived": 0,
+        "commands": {
+          "left": 0,
+          "right": 0,
+          "steps": 38129
+        },
+        "required_commands": {
+          "left": 0,
+          "right": 0,
+          "steps": 7684
+        }
+      },
+      "training": {
+        "updates": 125,
+        "kl_stops": 125,
+        "route_coverage": 10.008333333333333,
+        "route_share_sd": 0.08222153744218448,
+        "last_lr": 4.3923689289160505e-05
+      }
+    },
+    "Q5/11": {
+      "step": 350000,
+      "screen": {
+        "n": 128,
+        "arrival": 36,
+        "collision": 0,
+        "stall": 7,
+        "timeout": 43,
+        "off_route": 42,
+        "slow10": 2,
+        "required": 52,
+        "required_arrived": 0,
+        "commands": {
+          "left": 0,
+          "right": 0,
+          "steps": 68743
+        },
+        "required_commands": {
+          "left": 0,
+          "right": 0,
+          "steps": 18730
+        }
+      },
+      "training": {
+        "updates": 175,
+        "kl_stops": 175,
+        "route_coverage": 10.017857142857142,
+        "route_share_sd": 0.08496245314909229,
+        "last_lr": 2.1307896429720172e-05,
+        "accuracy": 0.8373041488175577,
+        "auc": 0.904084602880933,
+        "open_next": 144,
+        "shaped_steps": 178863,
+        "r_exp": -122.2652355660298,
+        "episodes": 1967
+      }
+    }
+  },
   "comparisons": {},
   "three_seed": {}
 }
