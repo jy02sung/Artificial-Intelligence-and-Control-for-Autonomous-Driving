@@ -1,0 +1,177 @@
+{
+  "initial_sha256": {
+    "11": "ddd8aca7b07455c494d3ebafb3dc10e231603173144e2bf02a31aed0f22ed3fa",
+    "22": "2e8a9a107afa9b1b02ea8dabc67e07fefd7ae6a978c9ccd4d6f59d2af549b4a6",
+    "33": "70cf7c594eb95265ca353ff278cb01586dd520017c61c27904d7186602494d21"
+  },
+  "protected_sha256": {
+    "BC": "61f77baac57252c3adccea5af9e2855f135c0237a14f8458ea6fc9d7ab495e7e",
+    "R5": "fb3a775fa4d4ccb56ab1c414b9e05af1a99ebf0623c992e096b063f2967728cd"
+  },
+  "geometry": [
+    {
+      "src": "1063527748",
+      "right": "169728835",
+      "left": "797789364",
+      "right_m": -1.6153975479851739,
+      "left_m": 3.1719812315635707,
+      "right_lanes": [
+        0,
+        1
+      ],
+      "left_lanes": [
+        2
+      ],
+      "flipped": true,
+      "slots_ok": true
+    },
+    {
+      "src": "169929488#0",
+      "right": "169728799",
+      "left": "169929488#1",
+      "right_m": -3.1496560972817083,
+      "left_m": 1.6308812503751884,
+      "right_lanes": [
+        0
+      ],
+      "left_lanes": [
+        1,
+        2
+      ],
+      "flipped": true,
+      "slots_ok": true
+    },
+    {
+      "src": "170059994",
+      "right": "1063527748",
+      "left": "844484876",
+      "right_m": -1.60068975669503,
+      "left_m": 4.796266423108833,
+      "right_lanes": [
+        0,
+        1,
+        2
+      ],
+      "left_lanes": [
+        3
+      ],
+      "flipped": true,
+      "slots_ok": true
+    },
+    {
+      "src": "52873356",
+      "right": "37927512",
+      "left": "844484878#0",
+      "right_m": -9.370165288784776,
+      "left_m": 2.2669412578407253,
+      "right_lanes": [
+        0
+      ],
+      "left_lanes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "flipped": false,
+      "slots_ok": true
+    },
+    {
+      "src": "544293888#0",
+      "right": "37375274",
+      "left": "544293888#1",
+      "right_m": -1.5939085188883102,
+      "left_m": 1.6131120007343807,
+      "right_lanes": [
+        0
+      ],
+      "left_lanes": [
+        1
+      ],
+      "flipped": false,
+      "slots_ok": true
+    },
+    {
+      "src": "781184662#1",
+      "right": "170059993",
+      "left": "781184662#2",
+      "right_m": -2.5898852774514536,
+      "left_m": 2.6018712931596797,
+      "right_lanes": [
+        0
+      ],
+      "left_lanes": [
+        0,
+        1
+      ],
+      "flipped": false,
+      "slots_ok": true
+    },
+    {
+      "src": "86198728",
+      "right": "37927508",
+      "left": "86198725",
+      "right_m": -6.364180279344678,
+      "left_m": 1.5947511414914992,
+      "right_lanes": [
+        0
+      ],
+      "left_lanes": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "flipped": false,
+      "slots_ok": true
+    }
+  ],
+  "route_signs": {
+    "wrong": 0,
+    "RIGHT": 17,
+    "LEFT": 10
+  },
+  "baseline_commit": "8724960eb98a288ce3938ed21e504272882ff20e",
+  "code_commit": "cf2e3c437823dfdef308d9d57bc839434b958078",
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "steps": 400000,
+  "interval": 50000,
+  "workers": 4,
+  "panels": {
+    "screen": [
+      95380000,
+      8
+    ],
+    "hold64": [
+      81260100,
+      4
+    ],
+    "designated": [
+      91000000,
+      16
+    ],
+    "additional": [
+      104320000,
+      16
+    ]
+  },
+  "gamma": 0.995,
+  "gae_lambda": 0.95,
+  "lr": [
+    0.0001,
+    1e-05
+  ],
+  "target_kl": 0.015,
+  "gate": "Latest nonempty pre-training validation rollout. Disable again below 0.70.",
+  "arm_changes": {
+    "Q1": "lateral signs and map slots",
+    "Q2": "Q1 plus linear LR and minibatch KL stop",
+    "Q3": "Q2 plus 4096/128",
+    "Q4": "Q2 plus -16 collision/-10 deviation",
+    "Q5": "Q2 plus accuracy-gated PBRS alpha 0.3 clip 0.1"
+  }
+}

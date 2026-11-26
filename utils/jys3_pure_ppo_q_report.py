@@ -108,6 +108,30 @@ def generate():
     doc+=["## 변경별 대조",""]
     doc+=table(["대조","완주 증감","충돌 증감","이탈 증감","기존 완주 유지","상실","새 완주"],
                [[k,*[f"{v['delta'][j]:+d}" for j in OUT[:3]],v["kept"],v["lost"],v["gained"]] for k,v in comparisons.items()])
+    if "Q1/11" in data:
+        after=data["Q1/11"]
+        r16=after["routes"]["16"].get("arrival",0)
+        doc+=["",f"Q1의 75% 기준은 576회 중 432회다. 실제 완주는 {after['arrival']}회로 **{'달성' if after['arrival']>=432 else '미달'}**이다. "
+              f"16번 완주는 P0의 0/36에서 Q1의 {r16}/36으로 바뀌었다. 16번 첫 분기의 지도 부호는 원래도 일치했다."]
+    if "Q4/11" in data:
+        after=data["Q4/11"]
+        safe=after["collision"]/576<.10 and after["off_route"]/576<.10 and after["stall"]+after["timeout"]==0
+        doc+=["",f"Q4의 충돌률 {after['collision']/576:.1%}, 이탈률 {after['off_route']/576:.1%}, 끝 정지·시간초과 {after['stall']+after['timeout']}건. "
+              f"두 비율 모두 10% 미만이고 정지·시간초과가 0건인 목표는 **{'달성' if safe else '미달'}**이다."]
+    if any(row[2]>=250000 for row in screens):
+        doc+=["","### 25만 이후 같은 128회에서의 완주 수",""]
+        late=q.MARKS[4:]
+        trends=[]
+        for arm in ("P0","Q1","Q2"):
+            values=[]
+            for step in late:
+                source=p.panel_path(arm,step,"screen") if arm=="P0" else q.panel(arm,11,step,"screen")
+                values.append(read(source)["metrics"]["arrival"] if source.exists() else None)
+            trend="평가 중"
+            if all(v is not None for v in values):
+                trend=f"{values[-1]-values[0]:+d}건"
+            trends.append([arm,*["—" if v is None else v for v in values],trend])
+        doc+=table(["시드 11","25만","30만","35만","40만","25만→40만"],trends)
     doc+=["## 차로 명령과 변경 필요 출발","",
           "좌·우 비율의 분모는 좌·우 명령 수의 합이다. 변경 필요 208회는 두 256회 패널에서 지도 연결상 첫 분기 전에 차로를 옮겨야 하는 출발이다."]
     def mix(m):
