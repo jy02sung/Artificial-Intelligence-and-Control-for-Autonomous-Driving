@@ -47,11 +47,8 @@ def episode(ep):
         arrays.append(a)
     return pa.Table.from_arrays(arrays,names=table.column_names),tracks,rows[-1]["outcome"]
 
-def block(pool,i,workers):
+def write_block(i,workers,result,reused,start):
     eps=range(i*16,i*16+16)
-    reused=sum(raw_path(ep).exists() for ep in eps)
-    start=time.perf_counter()
-    result=list(pool.map(episode,eps))
     with TemporaryDirectory(dir=ROOT) as tmp:
         stage=Path(tmp)/"block"
         stage.mkdir()
@@ -87,14 +84,77 @@ def main():
     for b in sorted(DATA.glob("block-*")):
         assert b.name==f"block-{i:05}"
         update(json.loads((b/"summary.json").read_text()))
-    while steps<TARGET:
-        workers=2 if i<=2 else 3
-        with ProcessPoolExecutor(workers) as pool:
-            while steps<TARGET and (workers==3 or i<=2):
-                m=block(pool,i,workers)
+    import psutil
+    plan=ROOT/"worker_benchmark.json"
+    bench=json.loads(plan.read_text()) if plan.exists() else {"trials":{}}
+    candidates=sorted(set(min(n,os.cpu_count() or 1) for n in (3,6,8,10,12)))
+    def run_batches(pool,workers,batches):
+        nonlocal i
+        for _ in range(batches):
+            if steps>=TARGET: break
+            # Dispatch two blocks together so workers can start the second
+            # while the coordinator verifies and publishes the first.
+            begin=i
+            batch_blocks=1 if TARGET-steps<=16000 else 2
+            sets=[]
+            for offset in range(batch_blocks):
+                eps=range(16*(begin+offset),16*(begin+offset+1))
+                reused=sum(raw_path(ep).exists() for ep in eps)
+                sets.append((reused,[pool.submit(episode,ep) for ep in eps]))
+            for reused,futures in sets:
+                start=time.perf_counter()
+                m=write_block(i,workers,[f.result() for f in futures],reused,start)
                 update(m)
                 save(ROOT/"progress.json",dict(blocks=i,episodes=i*16,steps=steps,bytes=size,
                      outcomes=counts,workers=workers,complete=steps>=TARGET,checkpoint_sha256=ck))
                 print(json.dumps(m),flush=True)
+    for workers in candidates:
+        if str(workers) in bench["trials"] or steps>=TARGET: continue
+        with ProcessPoolExecutor(workers) as pool:
+            run_batches(pool,workers,1)
+            begin=i
+            old_steps=steps
+            psutil.cpu_percent()
+            start=time.perf_counter()
+            run_batches(pool,workers,2)
+            elapsed=time.perf_counter()-start
+            bench["trials"][str(workers)]=dict(first_block=begin,last_block=i-1,
+                steps=steps-old_steps,seconds=elapsed,rate=(steps-old_steps)/elapsed,
+                cpu_percent=psutil.cpu_percent())
+            save(plan,bench)
+    if steps<TARGET:
+        # Keep one block being verified and two more available to the workers.
+        # Only queue an extra block when the outstanding blocks cannot reach TARGET.
+        from collections import deque
+        workers=int(max(bench["trials"],key=lambda k:bench["trials"][k]["rate"]))
+        bench["selected_workers"]=workers
+        save(plan,bench)
+        with ProcessPoolExecutor(workers) as pool:
+            queue=deque()
+            measured_start=None
+            start_block=i
+            while steps<TARGET:
+                while len(queue)<3 and (not queue or TARGET-steps>len(queue)*16000):
+                    idx=i+len(queue)
+                    eps=range(16*idx,16*(idx+1))
+                    reused=sum(raw_path(ep).exists() for ep in eps)
+                    queue.append((reused,[pool.submit(episode,ep) for ep in eps]))
+                reused,futures=queue.popleft()
+                start=time.perf_counter()
+                m=write_block(i,workers,[f.result() for f in futures],reused,start)
+                update(m)
+                save(ROOT/"progress.json",dict(blocks=i,episodes=i*16,steps=steps,bytes=size,
+                     outcomes=counts,workers=workers,complete=steps>=TARGET,checkpoint_sha256=ck))
+                print(json.dumps(m),flush=True)
+                if i==start_block+3:
+                    measured_start=time.perf_counter()
+                    measured_steps=steps
+                    psutil.cpu_percent()
+                if i==start_block+11:
+                    elapsed=time.perf_counter()-measured_start
+                    bench["continuous"]=dict(workers=workers,first_block=start_block+3,last_block=i-1,
+                        steps=steps-measured_steps,seconds=elapsed,rate=(steps-measured_steps)/elapsed,
+                        cpu_percent=psutil.cpu_percent())
+                    save(plan,bench)
     lock.close()
 if __name__=="__main__": main()
