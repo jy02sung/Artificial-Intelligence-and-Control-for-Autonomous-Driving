@@ -1,0 +1,41 @@
+{
+  "rewards": {
+    "control": [
+      5.0,
+      0.25
+    ],
+    "A": [
+      10.0,
+      0.25
+    ],
+    "B": [
+      10.0,
+      1.0
+    ]
+  },
+  "collision": -15,
+  "timeout": -5,
+  "seed": 11,
+  "steps": [
+    0,
+    8192,
+    16384,
+    32768
+  ],
+  "hp": {
+    "hidden_sizes": [
+      256,
+      256
+    ],
+    "n_steps": 2048,
+    "n_epochs": 10,
+    "minibatch_size": 64,
+    "lr": 0.0001,
+    "lane_entropy_coef": 0.002,
+    "lane_keep_bias": 1.0,
+    "device": "cpu"
+  },
+  "initial": "D:\\local-experiments\\jys3\\results\\jys3_ppo_comparison\\bc_dagger\\policy_0.pt",
+  "sha256": "ab8f4b10d366e3d8160cf3f4f439fab3ca49ddb494443de561636b34b7d6cda7",
+  "eval_base": 34110000
+}

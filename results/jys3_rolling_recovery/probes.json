@@ -1,0 +1,194 @@
+{
+  "reserve20": [
+    {
+      "route": 5,
+      "seed": 95380405,
+      "rep": 4,
+      "start": [
+        "52873356",
+        0,
+        1.6025813572344478,
+        446.69
+      ],
+      "obs_sha256": "41dee7cefb486354ac3024b1efe08c58840b52558818519332b107e2a4944157",
+      "steps": 553,
+      "outcome": "arrival",
+      "longest_wait": 40,
+      "longest_slow": 12,
+      "terminal_zero_steps": 0,
+      "moves": [
+        {
+          "step": 328,
+          "edge": "170059994",
+          "source": 2,
+          "target": 3,
+          "speed": 0.0,
+          "commanded": 1
+        }
+      ],
+      "reasons": {
+        "unchanged": 513,
+        "reserve": 40
+      }
+    },
+    {
+      "route": 14,
+      "seed": 95380614,
+      "rep": 6,
+      "start": [
+        "86198728",
+        0,
+        13.525962767275912,
+        483.44
+      ],
+      "obs_sha256": "23949ec52a51386ce7ae887d176ce37d53303557711b9835137ec14b379bf61f",
+      "steps": 505,
+      "outcome": "arrival",
+      "longest_wait": 57,
+      "longest_slow": 27,
+      "terminal_zero_steps": 0,
+      "moves": [
+        {
+          "step": 394,
+          "edge": "170059994",
+          "source": 3,
+          "target": 2,
+          "speed": 0.010402104406092775,
+          "commanded": -1
+        }
+      ],
+      "reasons": {
+        "unchanged": 448,
+        "reserve": 57
+      }
+    }
+  ],
+  "reserve30": [
+    {
+      "route": 5,
+      "seed": 95380405,
+      "rep": 4,
+      "start": [
+        "52873356",
+        0,
+        1.6025813572344478,
+        446.69
+      ],
+      "obs_sha256": "41dee7cefb486354ac3024b1efe08c58840b52558818519332b107e2a4944157",
+      "steps": 547,
+      "outcome": "arrival",
+      "longest_wait": 30,
+      "longest_slow": 11,
+      "terminal_zero_steps": 0,
+      "moves": [
+        {
+          "step": 318,
+          "edge": "170059994",
+          "source": 2,
+          "target": 3,
+          "speed": 0.0,
+          "commanded": 1
+        }
+      ],
+      "reasons": {
+        "unchanged": 517,
+        "reserve": 30
+      }
+    },
+    {
+      "route": 14,
+      "seed": 95380614,
+      "rep": 6,
+      "start": [
+        "86198728",
+        0,
+        13.525962767275912,
+        483.44
+      ],
+      "obs_sha256": "23949ec52a51386ce7ae887d176ce37d53303557711b9835137ec14b379bf61f",
+      "steps": 461,
+      "outcome": "arrival",
+      "longest_wait": 12,
+      "longest_slow": 0,
+      "terminal_zero_steps": 0,
+      "moves": [
+        {
+          "step": 349,
+          "edge": "170059994",
+          "source": 3,
+          "target": 2,
+          "speed": 5.666226361918672,
+          "commanded": -1
+        }
+      ],
+      "reasons": {
+        "unchanged": 449,
+        "reserve": 12
+      }
+    }
+  ],
+  "queue_tail": [
+    {
+      "route": 5,
+      "seed": 95380405,
+      "rep": 4,
+      "start": [
+        "52873356",
+        0,
+        1.6025813572344478,
+        446.69
+      ],
+      "obs_sha256": "41dee7cefb486354ac3024b1efe08c58840b52558818519332b107e2a4944157",
+      "steps": 545,
+      "outcome": "arrival",
+      "longest_wait": 23,
+      "longest_slow": 0,
+      "terminal_zero_steps": 0,
+      "moves": [
+        {
+          "step": 311,
+          "edge": "170059994",
+          "source": 2,
+          "target": 3,
+          "speed": 2.0685607202723797,
+          "commanded": 1
+        }
+      ],
+      "reasons": {
+        "unchanged": 522,
+        "reserve": 23
+      }
+    },
+    {
+      "route": 14,
+      "seed": 95380614,
+      "rep": 6,
+      "start": [
+        "86198728",
+        0,
+        13.525962767275912,
+        483.44
+      ],
+      "obs_sha256": "23949ec52a51386ce7ae887d176ce37d53303557711b9835137ec14b379bf61f",
+      "steps": 460,
+      "outcome": "arrival",
+      "longest_wait": 2,
+      "longest_slow": 0,
+      "terminal_zero_steps": 0,
+      "moves": [
+        {
+          "step": 339,
+          "edge": "170059994",
+          "source": 3,
+          "target": 2,
+          "speed": 9.128929672169912,
+          "commanded": -1
+        }
+      ],
+      "reasons": {
+        "unchanged": 458,
+        "reserve": 2
+      }
+    }
+  ]
+}

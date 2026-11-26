@@ -13,6 +13,7 @@ ROOT = OUT / "pure_f"
 ARMS = ("F0","F1","F2","F3")
 
 class FactorEnv:
+    progress_cap = 2.0
     def __init__(self, arm, folder, seed):
         self.sim = j.environment("high_real_ratio",seed,folder)
         self.progress_enabled = arm in ("F1","F3")
@@ -101,7 +102,7 @@ class FactorEnv:
         elif self.snapshot and info["route_intact"] and not info["collided"]:coord=self.coordinate()
         gain=max(0.,coord-self.high)
         self.high=max(self.high,coord)
-        bonus=2*gain/(self.total-self.start) if self.progress_enabled else 0.
+        bonus=self.progress_cap*gain/(self.total-self.start) if self.progress_enabled else 0.
         info["progress_bonus"]=bonus
         if self.training_log is not None:
             self.training_steps+=1
@@ -160,11 +161,13 @@ def agent(seed):
     j.torch.set_num_threads(1)
     return j.m.PPO(obs_dim=52,act_dim=2,buffer=j.m.RolloutBuffer(),seed=seed,**j.HP)
 
-def train(job):
+def train(job, initial_weights=None):
     arm,seed,marks=job
     folder=ROOT/f"{arm}_{seed}"
     folder.mkdir(exist_ok=False)
     model=agent(seed)
+    if initial_weights is not None:
+        model.policy.load_state_dict(j.torch.load(initial_weights, weights_only=True)['policy'])
     env=FactorEnv(arm,folder/"map",seed)
     try:
         env.training_16=[]
@@ -188,11 +191,11 @@ def train(job):
             save(folder/f"training16_{n}.json",env.training_16)
     finally:env.close()
 
-def evaluate(job):
+def evaluate(job, *, checkpoint=None):
     arm,seed,n,rep,base=job
     folder=ROOT/f"{arm}_{seed}"
     model=agent(seed)
-    model.policy.load_state_dict(j.torch.load(folder/f"policy_{n}.pt",weights_only=True)["policy"])
+    model.policy.load_state_dict(j.torch.load(checkpoint or folder/f"policy_{n}.pt",weights_only=True)["policy"])
     model.policy.eval()
     rows=[]
     with TemporaryDirectory() as tmp:
@@ -230,7 +233,8 @@ def evaluate(job):
                     if post and not(done or edge.startswith(":")) and edge==post[0] and lane!=post[1]:moves+=1
                     if route==16 and idx==0 and edge=="86198728" and lane==0 and post and post[0]==edge and post[1]>lane and actual_left is None:
                         actual_left=round(remaining,1)
-                    if info["fork_passed"]:forks.append(env.last_external[1])
+                    if info["fork_passed"]:
+                        forks.extend(info.get("passed_edges", [env.last_external[1]]))
                     if post and not done and info["speed"] is not None and info["speed"]<=.5 and (info["gap"] is None or info["gap"]>25):
                         slow+=1
                         if not post[0].startswith(":") and post[3]+1<len(post[2]):
@@ -242,7 +246,8 @@ def evaluate(job):
                     bonus+=info["progress_bonus"]
                     if done or cut:break
                 outcome="arrival" if info["arrived"] else "collision" if info["collided"] else "stall" if info["stalled"] else "timeout" if cut else "other"
-                assert bonus<=2.00001 and (outcome!="arrival" or abs(bonus-(2 if env.progress_enabled else 0))<1e-5)
+                outcome = info.get("outcome") or outcome
+                assert bonus<=env.progress_cap+1e-5 and (outcome!="arrival" or abs(bonus-(env.progress_cap if env.progress_enabled else 0))<1e-5)
                 rows.append(dict(speed_metrics=dict(speed_totals),timeout_distances=timeout_distances,route=route,case=rep,traffic_seed=traffic_seed,start=start,outcome=outcome,steps=t,slow=slow,slow_side_near=slow_side_near,moves=moves,actual_left=actual_left,first_left=first,left_cmds=lefts,prep=prep,forks=forks,bonus=bonus,track=track))
         finally:env.close()
     save(folder/f"eval_{base}_{n}_{rep}.json",rows)

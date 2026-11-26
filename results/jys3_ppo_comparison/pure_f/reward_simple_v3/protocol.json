@@ -1,0 +1,80 @@
+{
+  "base_commit": "42968ce273ed40bbc6d9361bf565be2cc8f129cb",
+  "arms": [
+    "S1_dir_col5",
+    "S2_dir_col7"
+  ],
+  "training_backend": "libsumo",
+  "environment": {
+    "traffic": "high_real_ratio",
+    "demand_vph": 15000,
+    "observation": 52,
+    "nav2": false,
+    "occlusion": true,
+    "obs_noise": true,
+    "visibility_m": 120,
+    "safety_gate": false,
+    "max_steps": 1000,
+    "stall_seconds": 30,
+    "timeout_is_failure": true
+  },
+  "ppo": {
+    "hidden_sizes": [
+      256,
+      256
+    ],
+    "n_steps": 2048,
+    "n_epochs": 10,
+    "minibatch_size": 64,
+    "lr": 0.0001,
+    "lane_entropy_coef": 0.002,
+    "lane_keep_bias": 1.0,
+    "device": "cpu",
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "initialization": "random"
+  },
+  "shared_rewards": {
+    "arrival": 5,
+    "route_progress_cap": 2,
+    "first_valid_fork": 1,
+    "stall": -5,
+    "timeout": -5,
+    "off_route": -5,
+    "idle": 0,
+    "potential": 0
+  },
+  "collision": {
+    "S1_dir_col5": -5,
+    "S2_dir_col7": -7
+  },
+  "panels": {
+    "screen": 41110000,
+    "hold_paired": 43110000,
+    "hold_fresh": 45110000,
+    "previously_unused": 77110000,
+    "cases_per_seed": 64,
+    "note": "45110000 held out for v3 and reused from v1 evaluation; 77110000 additionally locked before training"
+  },
+  "stage1": {
+    "seeds": [
+      11,
+      22
+    ],
+    "steps": 300000,
+    "interval": 50000,
+    "ranking": "20/25/30\ub9cc \ud569\uc0b0 \uc644\uc8fc \ucd5c\ub2e4, \ucd5c\uc18c \uc2dc\ub4dc \uc644\uc8fc \ucd5c\ub2e4, \ucda9\ub3cc \ucd5c\uc18c, \ub05d \uc815\uc9c0+\uc77c\ubc18 \uc2dc\uac04\ucd08\uacfc+\uacbd\ub85c \uc774\ud0c8 \ucd5c\uc18c, 13\u00b716\ubc88 \ud1b5\uacfc \ucd5c\ub2e4 \uc21c. \ubaa8\ub450 \uac19\uc73c\uba74 S1"
+  },
+  "stage2": {
+    "seeds": [
+      11,
+      22,
+      33
+    ],
+    "steps": 600000,
+    "interval": 50000,
+    "continuation": "11/22 resume from stage1 with optimizer and RNG; 33 random initialization",
+    "selection": "highest total arrivals, fewest collisions, earliest checkpoint"
+  },
+  "source_sha256": "bf0e86f0b0f2cb3627b12a3f1a95e95751c678d1e8e2efbf493a52efa6fb71be"
+}

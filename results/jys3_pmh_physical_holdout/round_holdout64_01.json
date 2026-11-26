@@ -1,0 +1,514 @@
+{
+  "panel": "round_holdout64",
+  "rep": 1,
+  "sha256": "502ce37d120f2c4a9dd55b6e2754e9d74ac486c698b87cf8c55b7e4fd421f2d2",
+  "initial_observations_equal": true,
+  "rows": [
+    {
+      "route": 1,
+      "seed": 29010101,
+      "depart_lane": 0,
+      "old": {
+        "start": [
+          "169728849",
+          0,
+          21.224544,
+          350.79
+        ],
+        "outcome": "arrival",
+        "steps": 176,
+        "edge": "1414146971",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "169728849",
+          0,
+          21.224544,
+          350.79
+        ],
+        "outcome": "arrival",
+        "steps": 176,
+        "edge": "1414146971",
+        "lane": 0,
+        "detail": null
+      }
+    },
+    {
+      "route": 2,
+      "seed": 29010102,
+      "depart_lane": 0,
+      "old": {
+        "start": [
+          "169728849",
+          0,
+          18.422601999999998,
+          350.79
+        ],
+        "outcome": "arrival",
+        "steps": 519,
+        "edge": "844484877#1",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "169728849",
+          0,
+          18.422601999999998,
+          350.79
+        ],
+        "outcome": "arrival",
+        "steps": 519,
+        "edge": "844484877#1",
+        "lane": 0,
+        "detail": null
+      }
+    },
+    {
+      "route": 3,
+      "seed": 29010103,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "52873356",
+          1,
+          7.034902774607066,
+          446.32
+        ],
+        "outcome": "arrival",
+        "steps": 372,
+        "edge": "169728835",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "52873356",
+          1,
+          7.034902774607066,
+          446.32
+        ],
+        "outcome": "arrival",
+        "steps": 372,
+        "edge": "169728835",
+        "lane": 0,
+        "detail": null
+      }
+    },
+    {
+      "route": 4,
+      "seed": 29010104,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "52873356",
+          1,
+          16.678821713036456,
+          446.32
+        ],
+        "outcome": "arrival",
+        "steps": 413,
+        "edge": "781184662#3",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "52873356",
+          1,
+          16.678821713036456,
+          446.32
+        ],
+        "outcome": "off_route",
+        "steps": 139,
+        "edge": "844484878#0",
+        "lane": 1,
+        "detail": {
+          "src": "52873356",
+          "expected": "37927512",
+          "actual": "844484878#0",
+          "kind": "missed_exit"
+        }
+      }
+    },
+    {
+      "route": 5,
+      "seed": 29010105,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "52873356",
+          1,
+          24.974884587085747,
+          446.32
+        ],
+        "outcome": "arrival",
+        "steps": 502,
+        "edge": "169929503#2",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "52873356",
+          1,
+          24.974884587085747,
+          446.32
+        ],
+        "outcome": "arrival",
+        "steps": 489,
+        "edge": "169929503#2",
+        "lane": 0,
+        "detail": null
+      }
+    },
+    {
+      "route": 6,
+      "seed": 29010106,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "52873356",
+          1,
+          15.164533492775291,
+          446.32
+        ],
+        "outcome": "arrival",
+        "steps": 284,
+        "edge": "1414146971",
+        "lane": 2,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "52873356",
+          1,
+          15.164533492775291,
+          446.32
+        ],
+        "outcome": "arrival",
+        "steps": 284,
+        "edge": "1414146971",
+        "lane": 2,
+        "detail": null
+      }
+    },
+    {
+      "route": 7,
+      "seed": 29010107,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "544295537",
+          1,
+          24.766412,
+          352.85
+        ],
+        "outcome": "arrival",
+        "steps": 193,
+        "edge": "1414146971",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "544295537",
+          1,
+          24.766412,
+          352.85
+        ],
+        "outcome": "arrival",
+        "steps": 192,
+        "edge": "1414146971",
+        "lane": 0,
+        "detail": null
+      }
+    },
+    {
+      "route": 8,
+      "seed": 29010108,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "544295537",
+          1,
+          21.460075999999997,
+          352.85
+        ],
+        "outcome": "arrival",
+        "steps": 418,
+        "edge": "844484877#1",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "544295537",
+          1,
+          21.460075999999997,
+          352.85
+        ],
+        "outcome": "arrival",
+        "steps": 418,
+        "edge": "844484877#1",
+        "lane": 0,
+        "detail": null
+      }
+    },
+    {
+      "route": 9,
+      "seed": 29010109,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "556956812#1",
+          1,
+          21.947760000000002,
+          84.84
+        ],
+        "outcome": "arrival",
+        "steps": 149,
+        "edge": "169929503#2",
+        "lane": 1,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "556956812#1",
+          1,
+          21.947760000000002,
+          84.84
+        ],
+        "outcome": "arrival",
+        "steps": 149,
+        "edge": "169929503#2",
+        "lane": 1,
+        "detail": null
+      }
+    },
+    {
+      "route": 10,
+      "seed": 29010110,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "781184662#1",
+          1,
+          19.54397655828081,
+          449.02
+        ],
+        "outcome": "arrival",
+        "steps": 399,
+        "edge": "1414146971",
+        "lane": 1,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "781184662#1",
+          1,
+          19.54397655828081,
+          449.02
+        ],
+        "outcome": "arrival",
+        "steps": 399,
+        "edge": "1414146971",
+        "lane": 1,
+        "detail": null
+      }
+    },
+    {
+      "route": 11,
+      "seed": 29010111,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "781184662#1",
+          1,
+          21.123097790311505,
+          449.02
+        ],
+        "outcome": "arrival",
+        "steps": 451,
+        "edge": "844484877#1",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "781184662#1",
+          1,
+          21.123097790311505,
+          449.02
+        ],
+        "outcome": "arrival",
+        "steps": 451,
+        "edge": "844484877#1",
+        "lane": 0,
+        "detail": null
+      }
+    },
+    {
+      "route": 12,
+      "seed": 29010112,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "781184662#1",
+          1,
+          26.882706000000002,
+          449.02
+        ],
+        "outcome": "arrival",
+        "steps": 176,
+        "edge": "781184662#3",
+        "lane": 2,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "781184662#1",
+          1,
+          26.882706000000002,
+          449.02
+        ],
+        "outcome": "arrival",
+        "steps": 176,
+        "edge": "781184662#3",
+        "lane": 2,
+        "detail": null
+      }
+    },
+    {
+      "route": 13,
+      "seed": 29010113,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "86198728",
+          1,
+          24.044845670471297,
+          483.44
+        ],
+        "outcome": "arrival",
+        "steps": 453,
+        "edge": "169728835",
+        "lane": 1,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "86198728",
+          1,
+          24.044845670471297,
+          483.44
+        ],
+        "outcome": "arrival",
+        "steps": 453,
+        "edge": "169728835",
+        "lane": 1,
+        "detail": null
+      }
+    },
+    {
+      "route": 14,
+      "seed": 29010114,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "86198728",
+          1,
+          27.78,
+          483.44
+        ],
+        "outcome": "arrival",
+        "steps": 424,
+        "edge": "781184662#3",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "86198728",
+          1,
+          27.78,
+          483.44
+        ],
+        "outcome": "off_route",
+        "steps": 299,
+        "edge": "844484876",
+        "lane": 0,
+        "detail": {
+          "src": "170059994",
+          "expected": "1063527748",
+          "actual": "844484876",
+          "kind": "other_external"
+        }
+      }
+    },
+    {
+      "route": 15,
+      "seed": 29010115,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "86198728",
+          1,
+          13.592112160908309,
+          483.44
+        ],
+        "outcome": "arrival",
+        "steps": 526,
+        "edge": "169929503#2",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "86198728",
+          1,
+          13.592112160908309,
+          483.44
+        ],
+        "outcome": "arrival",
+        "steps": 526,
+        "edge": "169929503#2",
+        "lane": 0,
+        "detail": null
+      }
+    },
+    {
+      "route": 16,
+      "seed": 29010116,
+      "depart_lane": 1,
+      "old": {
+        "start": [
+          "86198728",
+          1,
+          23.94232833360114,
+          483.44
+        ],
+        "outcome": "arrival",
+        "steps": 335,
+        "edge": "844484877#1",
+        "lane": 0,
+        "detail": null
+      },
+      "new": {
+        "start": [
+          "86198728",
+          1,
+          23.94232833360114,
+          483.44
+        ],
+        "outcome": "arrival",
+        "steps": 335,
+        "edge": "844484877#1",
+        "lane": 0,
+        "detail": null
+      }
+    }
+  ]
+}

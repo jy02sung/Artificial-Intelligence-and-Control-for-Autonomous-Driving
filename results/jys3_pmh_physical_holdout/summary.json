@@ -1,0 +1,59 @@
+{
+  "final256": {
+    "episodes": 256,
+    "old": {
+      "arrival": 245,
+      "stall": 9,
+      "collision": 2
+    },
+    "new": {
+      "arrival": 231,
+      "off_route": 24,
+      "collision": 1
+    },
+    "transitions": {
+      "arrival->arrival": 230,
+      "arrival->off_route": 15,
+      "stall->off_route": 8,
+      "collision->off_route": 1,
+      "stall->arrival": 1,
+      "collision->collision": 1
+    }
+  },
+  "reference64": {
+    "episodes": 64,
+    "old": {
+      "arrival": 60,
+      "stall": 4
+    },
+    "new": {
+      "arrival": 58,
+      "off_route": 5,
+      "collision": 1
+    },
+    "transitions": {
+      "arrival->arrival": 58,
+      "stall->off_route": 4,
+      "arrival->off_route": 1,
+      "arrival->collision": 1
+    }
+  },
+  "round_holdout64": {
+    "episodes": 64,
+    "old": {
+      "arrival": 63,
+      "stall": 1
+    },
+    "new": {
+      "arrival": 59,
+      "off_route": 4,
+      "collision": 1
+    },
+    "transitions": {
+      "arrival->arrival": 59,
+      "arrival->off_route": 3,
+      "arrival->collision": 1,
+      "stall->off_route": 1
+    }
+  }
+}

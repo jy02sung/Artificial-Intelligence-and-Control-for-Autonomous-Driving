@@ -212,6 +212,7 @@ class HybridActorCritic(nn.Module):
         self.trunk = build_mlp(obs_dim, hidden_sizes, None, activation)
         last = hidden_sizes[-1]
         self.mu_head = orthogonal_init(nn.Linear(last, 1), gain=0.01)
+        self.value_trunk = None
         self.lane_head = orthogonal_init(nn.Linear(last, 3), gain=0.01)
         self.v_head = orthogonal_init(nn.Linear(last, 1), gain=1.0)
         with torch.no_grad():
@@ -226,7 +227,8 @@ class HybridActorCritic(nn.Module):
         mu = torch.tanh(self.mu_head(z))          # 가감속 평균 ∈ [-1,1]
         std = torch.exp(self.log_std)
         lane_logits = self.lane_head(z)
-        return mu, std, lane_logits, self.v_head(z).squeeze(-1)
+        value_features = self.value_trunk(obs) if self.value_trunk is not None else z
+        return mu, std, lane_logits, self.v_head(value_features).squeeze(-1)
 
     # ---- 알고리즘이 쓰는 표준 인터페이스 ----------------------------
     def sample(self, obs):

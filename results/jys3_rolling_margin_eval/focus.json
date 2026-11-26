@@ -1,0 +1,456 @@
+[
+  {
+    "group": "old",
+    "route": 5,
+    "seed": 68173405,
+    "lane": 1,
+    "steps": 687,
+    "outcome": "arrival",
+    "events": [
+      {
+        "edge": "52873356",
+        "lane": 1,
+        "direction": -1,
+        "start": 16,
+        "first_open": 17,
+        "first_command": 17,
+        "move": 17,
+        "wait_steps": 1,
+        "slow": 0,
+        "longest_slow": 0,
+        "accel": {
+          "1": 1
+        },
+        "reasons": {
+          "advance_ahead": 1
+        },
+        "first_speed": 16.404371553993705,
+        "front_at_command": 17.829228043556213,
+        "rear_at_command": 8.551548421382904,
+        "remaining_at_command": 396.6090921967807,
+        "move_speed": 16.589920448995116
+      },
+      {
+        "edge": "170059994",
+        "lane": 2,
+        "direction": 1,
+        "start": 277,
+        "first_open": 462,
+        "first_command": 462,
+        "move": 462,
+        "wait_steps": 185,
+        "slow": 0,
+        "longest_slow": 138,
+        "accel": {
+          "-1": 167,
+          "1": 18
+        },
+        "reasons": {
+          "reserve": 185
+        },
+        "first_speed": 11.825002879758985,
+        "front_at_command": 3.525833487510681,
+        "rear_at_command": 17.466382384300232,
+        "remaining_at_command": 27.194576000704,
+        "move_speed": 0.8813182738982139
+      }
+    ]
+  },
+  {
+    "group": "dense",
+    "route": 2,
+    "seed": 94601802,
+    "lane": 0,
+    "steps": 462,
+    "outcome": "arrival",
+    "events": [
+      {
+        "edge": "169929488#0",
+        "lane": 0,
+        "direction": 1,
+        "start": 86,
+        "first_open": 86,
+        "first_command": 86,
+        "move": 86,
+        "wait_steps": 0,
+        "slow": 0,
+        "longest_slow": 0,
+        "accel": {},
+        "reasons": {},
+        "first_speed": 20.862513004119798,
+        "front_at_command": 120.0,
+        "rear_at_command": 120.0,
+        "remaining_at_command": 65.56576316581001,
+        "move_speed": 20.862513004119798
+      },
+      {
+        "edge": "844484877",
+        "lane": 0,
+        "direction": 1,
+        "start": 312,
+        "first_open": 428,
+        "first_command": 428,
+        "move": 428,
+        "wait_steps": 116,
+        "slow": 0,
+        "longest_slow": 31,
+        "accel": {
+          "-1": 102,
+          "1": 14
+        },
+        "reasons": {
+          "yield_alongside": 54,
+          "approach_end": 62
+        },
+        "first_speed": 22.829879012703724,
+        "front_at_command": 5.768475383520126,
+        "rear_at_command": 31.140843629837036,
+        "remaining_at_command": 5.7809533072183115,
+        "move_speed": 0.004788396796029008
+      }
+    ]
+  },
+  {
+    "group": "dense",
+    "route": 2,
+    "seed": 94601102,
+    "lane": 0,
+    "steps": 495,
+    "outcome": "arrival",
+    "events": [
+      {
+        "edge": "169929488#0",
+        "lane": 0,
+        "direction": 1,
+        "start": 84,
+        "first_open": 84,
+        "first_command": 84,
+        "move": 84,
+        "wait_steps": 0,
+        "slow": 0,
+        "longest_slow": 0,
+        "accel": {},
+        "reasons": {},
+        "first_speed": 20.48454569138295,
+        "front_at_command": 120.0,
+        "rear_at_command": 120.0,
+        "remaining_at_command": 66.10419167094345,
+        "move_speed": 20.48454569138295
+      },
+      {
+        "edge": "844484877",
+        "lane": 0,
+        "direction": 1,
+        "start": 312,
+        "first_open": 461,
+        "first_command": 461,
+        "move": 461,
+        "wait_steps": 149,
+        "slow": 0,
+        "longest_slow": 67,
+        "accel": {
+          "-1": 133,
+          "1": 16
+        },
+        "reasons": {
+          "yield_alongside": 56,
+          "approach_end": 93
+        },
+        "first_speed": 22.82573098153863,
+        "front_at_command": 5.1581597328186035,
+        "rear_at_command": 34.30677652359009,
+        "remaining_at_command": 5.740373859007434,
+        "move_speed": 1.3717433312776008e-05
+      }
+    ]
+  },
+  {
+    "group": "dense",
+    "route": 8,
+    "seed": 94601308,
+    "lane": 1,
+    "steps": 682,
+    "outcome": "arrival",
+    "events": [
+      {
+        "edge": "844484877",
+        "lane": 0,
+        "direction": 1,
+        "start": 337,
+        "first_open": 648,
+        "first_command": 648,
+        "move": 648,
+        "wait_steps": 311,
+        "slow": 0,
+        "longest_slow": 229,
+        "accel": {
+          "-1": 296,
+          "1": 15
+        },
+        "reasons": {
+          "yield_alongside": 55,
+          "advance_ahead": 3,
+          "approach_end": 253
+        },
+        "first_speed": 22.905836355758574,
+        "front_at_command": 4.1139645874500275,
+        "rear_at_command": 47.66477108001709,
+        "remaining_at_command": 5.692337097012995,
+        "move_speed": 2.231804005812747e-17
+      }
+    ]
+  },
+  {
+    "group": "dense",
+    "route": 13,
+    "seed": 94600413,
+    "lane": 0,
+    "steps": 955,
+    "outcome": "arrival",
+    "events": [
+      {
+        "edge": "170059994",
+        "lane": 3,
+        "direction": -1,
+        "start": 327,
+        "first_open": 841,
+        "first_command": 841,
+        "move": 841,
+        "wait_steps": 514,
+        "slow": 0,
+        "longest_slow": 481,
+        "accel": {
+          "-1": 221,
+          "1": 7,
+          "0": 286
+        },
+        "reasons": {
+          "reserve": 514
+        },
+        "first_speed": 11.683767165187191,
+        "front_at_command": 120.0,
+        "rear_at_command": 7.61081725358963,
+        "remaining_at_command": 19.48829173764372,
+        "move_speed": 0.0
+      },
+      {
+        "edge": "1063527748",
+        "lane": 2,
+        "direction": -1,
+        "start": 865,
+        "first_open": 865,
+        "first_command": 865,
+        "move": 865,
+        "wait_steps": 0,
+        "slow": 0,
+        "longest_slow": 0,
+        "accel": {},
+        "reasons": {},
+        "first_speed": 9.41664219260216,
+        "front_at_command": 120.0,
+        "rear_at_command": 120.0,
+        "remaining_at_command": 200.84863591775087,
+        "move_speed": 9.41664219260216
+      }
+    ]
+  },
+  {
+    "group": "dense",
+    "route": 13,
+    "seed": 94601313,
+    "lane": 1,
+    "steps": 780,
+    "outcome": "arrival",
+    "events": [
+      {
+        "edge": "86198728",
+        "lane": 1,
+        "direction": -1,
+        "start": 17,
+        "first_open": 17,
+        "first_command": 17,
+        "move": 17,
+        "wait_steps": 0,
+        "slow": 0,
+        "longest_slow": 0,
+        "accel": {},
+        "reasons": {},
+        "first_speed": 27.100687663704154,
+        "front_at_command": 98.06506633758545,
+        "rear_at_command": 17.462997436523438,
+        "remaining_at_command": 397.70717101660375,
+        "move_speed": 27.100687663704154
+      },
+      {
+        "edge": "170059994",
+        "lane": 3,
+        "direction": -1,
+        "start": 325,
+        "first_open": 665,
+        "first_command": 665,
+        "move": 665,
+        "wait_steps": 340,
+        "slow": 0,
+        "longest_slow": 303,
+        "accel": {
+          "-1": 329,
+          "1": 11
+        },
+        "reasons": {
+          "reserve": 340
+        },
+        "first_speed": 12.10918753236998,
+        "front_at_command": 120.0,
+        "rear_at_command": 5.7409098744392395,
+        "remaining_at_command": 23.18231553898208,
+        "move_speed": 9.637102615896307e-23
+      },
+      {
+        "edge": "1063527748",
+        "lane": 2,
+        "direction": -1,
+        "start": 691,
+        "first_open": 691,
+        "first_command": 691,
+        "move": 691,
+        "wait_steps": 0,
+        "slow": 0,
+        "longest_slow": 0,
+        "accel": {},
+        "reasons": {},
+        "first_speed": 9.964353066086773,
+        "front_at_command": 120.0,
+        "rear_at_command": 48.24073076248169,
+        "remaining_at_command": 200.71236205909602,
+        "move_speed": 9.964353066086773
+      }
+    ]
+  },
+  {
+    "group": "dense",
+    "route": 14,
+    "seed": 94600014,
+    "lane": 0,
+    "steps": 532,
+    "outcome": "arrival",
+    "events": [
+      {
+        "edge": "170059994",
+        "lane": 3,
+        "direction": -1,
+        "start": 321,
+        "first_open": 422,
+        "first_command": 422,
+        "move": 422,
+        "wait_steps": 101,
+        "slow": 0,
+        "longest_slow": 72,
+        "accel": {
+          "-1": 84,
+          "1": 2,
+          "0": 15
+        },
+        "reasons": {
+          "reserve": 101
+        },
+        "first_speed": 11.987620011259256,
+        "front_at_command": 19.17116403579712,
+        "rear_at_command": 4.198046028614044,
+        "remaining_at_command": 19.10732258943006,
+        "move_speed": 0.0
+      }
+    ]
+  },
+  {
+    "group": "dense",
+    "route": 14,
+    "seed": 94600214,
+    "lane": 0,
+    "steps": 677,
+    "outcome": "arrival",
+    "events": [
+      {
+        "edge": "170059994",
+        "lane": 3,
+        "direction": -1,
+        "start": 313,
+        "first_open": 567,
+        "first_command": 567,
+        "move": 567,
+        "wait_steps": 254,
+        "slow": 0,
+        "longest_slow": 227,
+        "accel": {
+          "-1": 254
+        },
+        "reasons": {
+          "reserve": 254
+        },
+        "first_speed": 12.479267537298584,
+        "front_at_command": 120.0,
+        "rear_at_command": 120.0,
+        "remaining_at_command": 17.626058590821856,
+        "move_speed": 2.896654594231174e-17
+      }
+    ]
+  },
+  {
+    "group": "fresh",
+    "route": 5,
+    "seed": 98643105,
+    "lane": 1,
+    "steps": 505,
+    "outcome": "arrival",
+    "events": [
+      {
+        "edge": "52873356",
+        "lane": 1,
+        "direction": -1,
+        "start": 28,
+        "first_open": 117,
+        "first_command": 117,
+        "move": 117,
+        "wait_steps": 89,
+        "slow": 0,
+        "longest_slow": 0,
+        "accel": {
+          "1": 61,
+          "-1": 28
+        },
+        "reasons": {
+          "yield_alongside": 44,
+          "approach_end": 12,
+          "advance_ahead": 33
+        },
+        "first_speed": 13.247925243337166,
+        "front_at_command": 12.099654078483582,
+        "rear_at_command": 12.159072160720825,
+        "remaining_at_command": 125.60455150561171,
+        "move_speed": 17.56779701027692
+      },
+      {
+        "edge": "170059994",
+        "lane": 2,
+        "direction": 1,
+        "start": 280,
+        "first_open": 284,
+        "first_command": 284,
+        "move": 284,
+        "wait_steps": 4,
+        "slow": 0,
+        "longest_slow": 0,
+        "accel": {
+          "-1": 4
+        },
+        "reasons": {
+          "reserve": 4
+        },
+        "first_speed": 13.191892444500334,
+        "front_at_command": 120.0,
+        "rear_at_command": 51.15081310272217,
+        "remaining_at_command": 40.683654211429385,
+        "move_speed": 8.871892444500334
+      }
+    ]
+  }
+]

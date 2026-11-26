@@ -1,0 +1,237 @@
+{
+  "start_sha256": "61f77baac57252c3adccea5af9e2855f135c0237a14f8458ea6fc9d7ab495e7e",
+  "rounds": {
+    "1": {
+      "uniform": {
+        "arrival": 99,
+        "collision": 12,
+        "stall": 8,
+        "timeout": 0,
+        "off_route": 9,
+        "slow10": 13
+      },
+      "enhanced": {
+        "arrival": 108,
+        "collision": 13,
+        "stall": 6,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 8
+      },
+      "transitions": {
+        "arrival -> arrival": 96,
+        "arrival -> stall": 3,
+        "off_route -> collision": 1,
+        "arrival -> off_route": 7,
+        "collision -> collision": 9,
+        "stall -> stall": 5,
+        "collision -> arrival": 2,
+        "arrival -> collision": 2,
+        "stall -> arrival": 1,
+        "collision -> off_route": 2
+      },
+      "states": 107380
+    },
+    "2": {
+      "uniform": {
+        "arrival": 111,
+        "collision": 9,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 8,
+        "slow10": 3
+      },
+      "enhanced": {
+        "arrival": 113,
+        "collision": 12,
+        "stall": 2,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 4
+      },
+      "transitions": {
+        "arrival -> arrival": 107,
+        "collision -> collision": 7,
+        "arrival -> off_route": 4,
+        "off_route -> off_route": 1,
+        "collision -> off_route": 3,
+        "stall -> arrival": 2,
+        "collision -> arrival": 2,
+        "arrival -> collision": 2
+      },
+      "states": 156996
+    },
+    "3": {
+      "uniform": {
+        "arrival": 112,
+        "collision": 8,
+        "stall": 1,
+        "timeout": 0,
+        "off_route": 7,
+        "slow10": 3
+      },
+      "enhanced": {
+        "arrival": 119,
+        "collision": 7,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 2,
+        "slow10": 1
+      },
+      "transitions": {
+        "arrival -> arrival": 109,
+        "collision -> collision": 4,
+        "arrival -> off_route": 5,
+        "off_route -> off_route": 1,
+        "off_route -> arrival": 1,
+        "arrival -> collision": 4,
+        "arrival -> stall": 1,
+        "collision -> arrival": 2,
+        "collision -> off_route": 1
+      },
+      "states": 207211
+    },
+    "4": {
+      "uniform": {
+        "arrival": 116,
+        "collision": 6,
+        "stall": 2,
+        "timeout": 0,
+        "off_route": 4,
+        "slow10": 4
+      },
+      "enhanced": {
+        "arrival": 124,
+        "collision": 3,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 3
+      },
+      "transitions": {
+        "arrival -> arrival": 115,
+        "arrival -> collision": 5,
+        "arrival -> off_route": 2,
+        "collision -> off_route": 2,
+        "arrival -> stall": 2,
+        "collision -> collision": 1,
+        "off_route -> arrival": 1
+      },
+      "states": 256103
+    },
+    "5": {
+      "uniform": {
+        "arrival": 118,
+        "collision": 6,
+        "stall": 1,
+        "timeout": 0,
+        "off_route": 3,
+        "slow10": 4
+      },
+      "enhanced": {
+        "arrival": 125,
+        "collision": 2,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 2
+      },
+      "transitions": {
+        "arrival -> arrival": 116,
+        "arrival -> collision": 5,
+        "arrival -> off_route": 3,
+        "collision -> arrival": 1,
+        "arrival -> stall": 1,
+        "collision -> collision": 1,
+        "off_route -> arrival": 1
+      },
+      "states": 307320
+    }
+  },
+  "panels": {
+    "hold64": {
+      "uniform": {
+        "arrival": 61,
+        "collision": 1,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 2,
+        "slow10": 3
+      },
+      "enhanced": {
+        "arrival": 62,
+        "collision": 0,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 2,
+        "slow10": 2
+      },
+      "transitions": {
+        "arrival -> arrival": 60,
+        "off_route -> arrival": 1,
+        "arrival -> off_route": 1,
+        "off_route -> off_route": 1,
+        "arrival -> collision": 1
+      }
+    },
+    "final256": {
+      "uniform": {
+        "arrival": 234,
+        "collision": 9,
+        "stall": 2,
+        "timeout": 1,
+        "off_route": 10,
+        "slow10": 8
+      },
+      "enhanced": {
+        "arrival": 247,
+        "collision": 4,
+        "stall": 2,
+        "timeout": 0,
+        "off_route": 3,
+        "slow10": 8
+      },
+      "transitions": {
+        "arrival -> arrival": 231,
+        "arrival -> collision": 8,
+        "arrival -> off_route": 6,
+        "arrival -> stall": 1,
+        "collision -> collision": 1,
+        "collision -> arrival": 2,
+        "arrival -> timeout": 1,
+        "off_route -> arrival": 1,
+        "off_route -> off_route": 2,
+        "stall -> off_route": 1,
+        "collision -> off_route": 1,
+        "stall -> stall": 1
+      }
+    },
+    "novel256": {
+      "uniform": {
+        "arrival": 246,
+        "collision": 5,
+        "stall": 2,
+        "timeout": 0,
+        "off_route": 3,
+        "slow10": 11
+      },
+      "enhanced": {
+        "arrival": 252,
+        "collision": 1,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 3,
+        "slow10": 3
+      },
+      "transitions": {
+        "arrival -> arrival": 243,
+        "arrival -> collision": 5,
+        "arrival -> off_route": 2,
+        "collision -> arrival": 1,
+        "off_route -> arrival": 2,
+        "arrival -> stall": 2,
+        "off_route -> off_route": 1
+      }
+    }
+  }
+}

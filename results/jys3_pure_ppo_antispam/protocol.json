@@ -1,0 +1,38 @@
+{
+  "commit": "d7778a21e3477a2121839fe4e7f12904b538af30",
+  "source_step": {
+    "22": 200000,
+    "33": 250000
+  },
+  "workers": 4,
+  "marks": {
+    "S2": [
+      25000,
+      50000,
+      75000,
+      100000,
+      125000,
+      150000,
+      175000,
+      200000
+    ],
+    "S1": [
+      50000,
+      100000,
+      150000,
+      200000,
+      250000,
+      300000,
+      350000
+    ]
+  },
+  "command_cost": -0.02,
+  "overlap_cost": -0.3,
+  "collision": -16.0,
+  "warm_steps": 10000,
+  "warm_lr": 2e-05,
+  "fresh_adam": true,
+  "ppo_epochs": 10,
+  "source_folder": "D:\\local-experiments\\jys3\\results\\jys3_pure_ppo_q_sweep",
+  "execution_commit": "2d4fb509c3eebd49ed5d0ef712da7d44f61553c9"
+}

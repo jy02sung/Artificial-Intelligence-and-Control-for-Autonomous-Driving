@@ -1,0 +1,84 @@
+{
+  "schema": "jys3_onehop_bc_v1",
+  "traffic": "high_real_ratio",
+  "vph": 15000,
+  "collection_seed_base": 68172500,
+  "expert": "jys3_bc_v2.expert",
+  "episodes": 160,
+  "samples": 57458,
+  "attempts": 162,
+  "outcomes": {
+    "arrival": 160,
+    "timeout": 2
+  },
+  "failures": [
+    {
+      "route": 7,
+      "seed": 68172807,
+      "lane": 1,
+      "steps": 1000,
+      "outcome": "timeout",
+      "departure": null,
+      "file": "route_07_68172807.npz",
+      "rep": 3,
+      "sha256": "b2b979cb04567718c2754ff8b0ae067e4d43a7432df1badce50c599313dfc13b"
+    },
+    {
+      "route": 13,
+      "seed": 68172513,
+      "lane": 0,
+      "steps": 1000,
+      "outcome": "timeout",
+      "departure": null,
+      "file": "route_13_68172513.npz",
+      "rep": 0,
+      "sha256": "1ad315d97c77af7181a38e8c54a3ae67baf5457068c0d45a9a65002d92b16651"
+    }
+  ],
+  "legacy_checks": [
+    {
+      "route": 3,
+      "seed": 24112703,
+      "lane": 1,
+      "steps": 548,
+      "outcome": "arrival",
+      "departure": null,
+      "same_observations": false,
+      "same_actions": false,
+      "old_steps": 548
+    },
+    {
+      "route": 13,
+      "seed": 24112713,
+      "lane": 1,
+      "steps": 456,
+      "outcome": "arrival",
+      "departure": null,
+      "same_observations": false,
+      "same_actions": false,
+      "old_steps": 456
+    },
+    {
+      "route": 14,
+      "seed": 24112714,
+      "lane": 1,
+      "steps": 424,
+      "outcome": "arrival",
+      "departure": null,
+      "same_observations": false,
+      "same_actions": false,
+      "old_steps": 424
+    },
+    {
+      "route": 16,
+      "seed": 24112716,
+      "lane": 1,
+      "steps": 383,
+      "outcome": "arrival",
+      "departure": null,
+      "same_observations": true,
+      "same_actions": true,
+      "old_steps": 383
+    }
+  ]
+}

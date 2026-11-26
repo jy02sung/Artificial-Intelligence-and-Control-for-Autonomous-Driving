@@ -1,0 +1,12 @@
+{
+  "base_commit":"da29cb4fc20fa79f7b9e5ca3ac6f35a7db4bbd89",
+  "stage1":{"seeds":[11],"steps":300000,"interval":50000,"reject":"timeout at 300k >15/64 or best arrival <25/64","rank":"lexicographic totals over 200k,250k,300k: most arrivals, fewest collisions, fewest general timeouts, then most exit13+main16","promote":1},
+  "stage2":{"seeds":[11,22,33],"steps":600000,"interval":50000,"seed11":"rerun from zero; assert exact equality of first six policy checkpoints","selection":"most pooled arrivals, fewest collisions, earliest step"},
+  "panels":{"screen":41110000,"hold_paired":43110000,"hold_fresh":45110000,"cases_per_seed":64},
+  "environment":{"traffic":"high_real_ratio","demand_vph":15000,"observation":52,"nav2":false,"occlusion":true,"obs_noise":true,"visibility_m":120,"safety_gate":false,"max_steps":1000,"stall_seconds":30,"timeout_is_failure":true},
+  "ppo":{"initialization":"random","lr":0.0001,"gamma":0.99,"gae_lambda":0.95,"hidden_sizes":[256,256],"n_steps":2048,"n_epochs":10,"minibatch_size":64,"lane_entropy_coef":0.002,"lane_keep_bias":1},
+  "shared_rewards":{"progress_cap":3,"arrival":5,"fork":1,"timeout":-5,"stall":-5,"idle_clear":-0.02,"idle_predicate":"nonterminal, speed < 0.5 and (gap is None or gap > 25)"},
+  "R1_knox_bal":{"collision":-10},
+  "R2_cpo_stage":{"collision":[-5,-10,-15],"boundaries_before_action":[200000,400000]},
+  "R3_pot_safe":{"collision":-10,"potential_scale":1.5,"initial_terminal_phi":0,"front_ttc_s":2.5,"side_horizon_s":2,"minimum_front_closing_mps":0.5}
+}

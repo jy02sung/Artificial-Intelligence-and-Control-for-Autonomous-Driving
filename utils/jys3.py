@@ -36,9 +36,27 @@ class SparseRouteEnv(DaggerSensors):
         if self.ego_id not in vehicle.getIDList():
             return np.zeros(OBS_DIM, dtype=np.float32)
         edge = vehicle.getRoadID(self.ego_id)
-        path = vehicle.getRoute(self.ego_id)
         lane = vehicle.getLaneIndex(self.ego_id)
-        index = vehicle.getRouteIndex(self.ego_id)
+        if getattr(self, "physical_forks", False):
+            # SUMO may replace its executable route. Navigation always uses the mission.
+            path = self.routes[self.episode_route]
+            index = self.last_external[0] if self.last_external is not None else 0
+            self.crossed_short_link = False
+            if index + 1 < len(path) and edge == path[index + 1]:
+                index += 1
+            elif not edge.startswith(":") and edge != path[index] and edge in path[index+2:]:
+                # A short edge may be crossed between two 0.2 s observations.
+                # Verify every intermediate edge against SUMO's actual executed route.
+                end = path.index(edge, index+2)
+                runtime_end = vehicle.getRouteIndex(self.ego_id) + 1
+                runtime_start = runtime_end - (end-index+1)
+                runtime = vehicle.getRoute(self.ego_id)
+                if runtime_start >= 0 and tuple(runtime[runtime_start:runtime_end]) == tuple(path[index:end+1]):
+                    self.crossed_short_link = True
+                    index = end
+        else:
+            path = vehicle.getRoute(self.ego_id)
+            index = vehicle.getRouteIndex(self.ego_id)
         remaining = traci.lane.getLength(vehicle.getLaneID(self.ego_id)) - vehicle.getLanePosition(self.ego_id)
         fork, distance = self.split(path, index, remaining) if not edge.startswith(":") else (None, None)
         # Use the same visibility mask for the two extra overlap cues as for the base observations.
@@ -59,6 +77,7 @@ class SparseRouteEnv(DaggerSensors):
         return np.concatenate((base, np.asarray(extra, dtype=np.float32), flags)).clip(-1, 1)
 
     def reset(self, *args, **kwargs):
+        self.last_external = None
         obs, info = super().reset(*args, **kwargs)
         self.last_external = self.snapshot[3], self.snapshot[0]
         self.route_intact = self.last_external == (0, self.routes[self.episode_route][0])
@@ -82,7 +101,8 @@ class SparseRouteEnv(DaggerSensors):
             edge, lane, _, index, _, _, _, speed, remaining = self.snapshot
             if not edge.startswith(":"):
                 follows_route = (0 <= index < len(path) and edge == path[index]
-                                 and index in (previous_index, previous_index + 1))
+                                 and (index in (previous_index, previous_index + 1)
+                                      or getattr(self, "crossed_short_link", False)))
                 self.route_intact = self.route_intact and follows_route
                 passed = (self.route_intact and index == previous_index + 1 and edge == path[index]
                           and previous_edge == path[previous_index]
@@ -90,6 +110,12 @@ class SparseRouteEnv(DaggerSensors):
                           and previous_index not in self.paid_forks)
                 if passed:
                     self.paid_forks.add(previous_index)
+                if self.route_intact and getattr(self, "crossed_short_link", False):
+                    for k in range(previous_index, index):
+                        if (path[k], path[k+1]) in self.signs and k not in self.paid_forks:
+                            self.paid_forks.add(k)
+                            info.setdefault("passed_edges", []).append(path[k+1])
+                            passed = True
                 self.last_external = index, edge
                 if follows_route and index + 1 < len(path) and remaining <= 5.0:
                     limit = traci.lane.getMaxSpeed(traci.vehicle.getLaneID(self.ego_id))

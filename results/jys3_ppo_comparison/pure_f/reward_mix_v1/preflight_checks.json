@@ -1,0 +1,79 @@
+{
+  "smoke": {
+    "R1_knox_bal": [
+      "b64044aede93134c764e068419166b8585d400f217f167210f2a082ac8e90bbf",
+      {
+        "step": 2048,
+        "batch": 2048,
+        "lr": 0.0001,
+        "rewards": {
+          "progress": 11.444442707649596,
+          "arrival": 0.0,
+          "fork": 4.0,
+          "collision": -100,
+          "timeout": 0.0,
+          "idle_clear": -3.0200000000000022,
+          "pot": 0.0
+        },
+        "policy_loss": -0.006639537723094691,
+        "value_loss": 2.2698887625709174,
+        "entropy": 1.8976396720856428,
+        "approx_kl": 0.005215163723914884,
+        "clip_frac": 0.030078125,
+        "p_lane_change": 0.42321518063545227
+      }
+    ],
+    "R2_cpo_stage": [
+      "b64044aede93134c764e068419166b8585d400f217f167210f2a082ac8e90bbf",
+      {
+        "step": 2048,
+        "batch": 2048,
+        "lr": 0.0001,
+        "rewards": {
+          "progress": 11.444442707649596,
+          "arrival": 0.0,
+          "fork": 4.0,
+          "collision": -50,
+          "timeout": 0.0,
+          "idle_clear": -3.0200000000000022,
+          "pot": 0.0
+        },
+        "policy_loss": -0.0070667849373421635,
+        "value_loss": 0.5342391349375248,
+        "entropy": 1.8988499987870455,
+        "approx_kl": 0.005321766971610487,
+        "clip_frac": 0.033056640625,
+        "p_lane_change": 0.4260735809803009
+      }
+    ],
+    "R3_pot_safe": [
+      "b64044aede93134c764e068419166b8585d400f217f167210f2a082ac8e90bbf",
+      {
+        "step": 2048,
+        "batch": 2048,
+        "lr": 0.0001,
+        "rewards": {
+          "progress": 11.444442707649596,
+          "arrival": 0.0,
+          "fork": 4.0,
+          "collision": -100,
+          "timeout": 0.0,
+          "idle_clear": -3.0200000000000022,
+          "pot": 0.6154036825434106
+        },
+        "policy_loss": -0.006729585267021321,
+        "value_loss": 2.1855066140182315,
+        "entropy": 1.8972014531493187,
+        "approx_kl": 0.005016102106310427,
+        "clip_frac": 0.0302734375,
+        "p_lane_change": 0.424135684967041
+      }
+    ]
+  },
+  "arrival_progress": [
+    3.0000000000000036
+  ],
+  "idle": true,
+  "potential": true,
+  "boundaries": true
+}

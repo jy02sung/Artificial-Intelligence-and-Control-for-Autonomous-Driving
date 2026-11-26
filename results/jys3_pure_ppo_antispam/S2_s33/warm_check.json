@@ -1,0 +1,48 @@
+{
+  "actor_bits_identical": true,
+  "critic_trunk_and_head_changed": true,
+  "source_step": 250000,
+  "updates": [
+    {
+      "step": 2048,
+      "last_mse": 2.190514087677002,
+      "commands": 1433,
+      "overlap_commands": 0,
+      "command_cost": -28.659999999999478,
+      "overlap_cost": 0.0
+    },
+    {
+      "step": 4096,
+      "last_mse": 1.0819872617721558,
+      "commands": 1786,
+      "overlap_commands": 0,
+      "command_cost": -35.719999999999985,
+      "overlap_cost": 0.0
+    },
+    {
+      "step": 6144,
+      "last_mse": 3.3057425022125244,
+      "commands": 1420,
+      "overlap_commands": 0,
+      "command_cost": -28.399999999999483,
+      "overlap_cost": 0.0
+    },
+    {
+      "step": 8192,
+      "last_mse": 1.8134777545928955,
+      "commands": 1567,
+      "overlap_commands": 0,
+      "command_cost": -31.33999999999942,
+      "overlap_cost": 0.0
+    },
+    {
+      "step": 10000,
+      "last_mse": 0.7769458293914795,
+      "commands": 1367,
+      "overlap_commands": 0,
+      "command_cost": -27.339999999999506,
+      "overlap_cost": 0.0
+    }
+  ],
+  "sha256": "b381734c971b4d12494ec039a1be702b9b34f65dacb6163bbefc299a7f0e4cf6"
+}

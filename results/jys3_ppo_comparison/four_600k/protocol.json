@@ -1,0 +1,33 @@
+{
+  "seed": 11,
+  "marks": [
+    0,
+    32768,
+    100000,
+    200000,
+    300000,
+    400000,
+    500000,
+    600000
+  ],
+  "hp": {
+    "hidden_sizes": [
+      256,
+      256
+    ],
+    "n_steps": 2048,
+    "n_epochs": 10,
+    "minibatch_size": 64,
+    "lr": 0.0001,
+    "lane_entropy_coef": 0.002,
+    "lane_keep_bias": 1.0,
+    "device": "cpu"
+  },
+  "traffic": "high_real_ratio",
+  "fresh_base": 34110000,
+  "initial_models": {
+    "bc": "onehop_bc_v2.pt",
+    "bc_dagger": "onehop_dagger1.pt",
+    "dagger": "onehop_dagger_cold.pt"
+  }
+}

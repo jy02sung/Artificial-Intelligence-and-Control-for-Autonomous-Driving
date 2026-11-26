@@ -1,0 +1,76 @@
+{
+  "expert": "original",
+  "traffic": "high_real_ratio",
+  "demand_vph": 15000,
+  "physical_forks": true,
+  "safety_gate": false,
+  "observations": 50,
+  "statistics": {
+    "original_train": {
+      "episodes": 160,
+      "steps": 57458,
+      "lane_commands": {
+        "0": 57313,
+        "1": 70,
+        "-1": 75
+      },
+      "traffic_blocked_episodes": 63,
+      "traffic_blocked_steps": 2250,
+      "close_following_episodes": 108,
+      "close_following_steps": 2788
+    },
+    "train": {
+      "episodes": 160,
+      "steps": 59221,
+      "lane_commands": {
+        "0": 59076,
+        "1": 70,
+        "-1": 75
+      },
+      "traffic_blocked_episodes": 74,
+      "traffic_blocked_steps": 3574,
+      "close_following_episodes": 106,
+      "close_following_steps": 2720
+    },
+    "valid": {
+      "episodes": 32,
+      "steps": 11555,
+      "lane_commands": {
+        "0": 11526,
+        "1": 14,
+        "-1": 15
+      },
+      "traffic_blocked_episodes": 13,
+      "traffic_blocked_steps": 413,
+      "close_following_episodes": 25,
+      "close_following_steps": 530
+    },
+    "same_cohort_first_successes": {
+      "episodes": 160,
+      "steps": 57876,
+      "lane_commands": {
+        "0": 57731,
+        "1": 70,
+        "-1": 75
+      },
+      "traffic_blocked_episodes": 63,
+      "traffic_blocked_steps": 2381,
+      "close_following_episodes": 95,
+      "close_following_steps": 2655
+    }
+  },
+  "train_merge_after_wait": 74,
+  "train_merge_after_wait_events": 81,
+  "strata": {
+    "ordered": 96,
+    "traffic_enriched": 64
+  },
+  "candidates": {
+    "arrival": 309,
+    "timeout": 11
+  },
+  "validation_candidates": {
+    "arrival": 63,
+    "timeout": 1
+  }
+}

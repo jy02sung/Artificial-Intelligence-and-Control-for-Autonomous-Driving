@@ -4,6 +4,12 @@ import zlib
 import numpy as np
 from env.navigation_clarity import ClarityEnv
 from env.sumo_env import SumoHighwayEnv, traci
+from env.toegyewon_crossings import CROSSINGS
+
+# Resolve a pair of road segments in either driving direction.
+_CROSSING_BOUNDS = {(a, b): (x0, y0, x1, y1)
+                    for upper, lower, x0, y0, x1, y1 in CROSSINGS
+                    for a, b in ((upper, lower), (lower, upper))}
 
 def _segment_intersects_obb(
     sx: float, sy: float, tx: float, ty: float,
@@ -123,13 +129,15 @@ class DaggerSensors(ClarityEnv):
                     self.ego_id,
                     tc.CMD_GET_VEHICLE_VARIABLE,
                     self.visibility + 25.0,
-                    [tc.VAR_POSITION, tc.VAR_ANGLE, tc.VAR_LENGTH, tc.VAR_WIDTH, tc.VAR_VEHICLECLASS],
+                    [tc.VAR_POSITION, tc.VAR_ANGLE, tc.VAR_LENGTH, tc.VAR_WIDTH,
+                     tc.VAR_VEHICLECLASS, tc.VAR_ROAD_ID],
                 )
                 self._occ_subscribed = True
             ctx = traci.vehicle.getContextSubscriptionResults(self.ego_id)
             if not ctx:
                 return
             self._ctx_vehicles = ctx
+            self._occ_ego_edge = traci.vehicle.getRoadID(self.ego_id)
             ex, ey = traci.vehicle.getPosition(self.ego_id)
             erad = math.radians(float(traci.vehicle.getAngle(self.ego_id)))
             # Driver windshield / front-roof sensor origin (~1.2m back from front bumper)
@@ -160,7 +168,15 @@ class DaggerSensors(ClarityEnv):
                 cy = float(fy) - 0.5 * vlen * uy
                 if math.hypot(cx - sx, cy - sy) > self.visibility + 12.0:
                     continue
-                self._occ_boxes.append((vid, cx, cy, ux, uy, rx, ry, 0.5 * vlen, 0.5 * vwid))
+                crossing = _CROSSING_BOUNDS.get((self._occ_ego_edge, vals[tc.VAR_ROAD_ID]))
+                on_other_level = False
+                if crossing:
+                    x0, y0, x1, y1 = crossing
+                    half_x = (abs(ux) * vlen + abs(rx) * vwid) / 2
+                    half_y = (abs(uy) * vlen + abs(ry) * vwid) / 2
+                    on_other_level = (x0 - half_x <= cx <= x1 + half_x and
+                                      y0 - half_y <= cy <= y1 + half_y)
+                self._occ_boxes.append((vid, cx, cy, ux, uy, rx, ry, 0.5 * vlen, 0.5 * vwid, on_other_level))
         except traci.TraCIException:
             self._occ_boxes = []
 
@@ -174,19 +190,23 @@ class DaggerSensors(ClarityEnv):
             tc = traci.constants
             vals = self._ctx_vehicles.get(vid)
             if vals is not None:
+                target_edge = vals[tc.VAR_ROAD_ID]
                 fx, fy = vals[tc.VAR_POSITION]
                 ang = math.radians(float(vals[tc.VAR_ANGLE]))
                 vlen = float(vals[tc.VAR_LENGTH])
             else:
+                target_edge = traci.vehicle.getRoadID(vid)
                 fx, fy = traci.vehicle.getPosition(vid)
                 ang = math.radians(float(traci.vehicle.getAngle(vid)))
                 vlen = float(traci.vehicle.getLength(vid))
             tcx = float(fx) - 0.5 * vlen * math.sin(ang)
             tcy = float(fy) - 0.5 * vlen * math.cos(ang)
             sx, sy = self._occ_sensor
+            same_edge = target_edge == self._occ_ego_edge
             occluded = any(
-                vid != occ_id and _segment_intersects_obb(sx, sy, tcx, tcy, cx, cy, ux, uy, rx, ry, hl, hw)
-                for occ_id, cx, cy, ux, uy, rx, ry, hl, hw in self._occ_boxes
+                vid != occ_id and not (same_edge and on_other_level) and
+                _segment_intersects_obb(sx, sy, tcx, tcy, cx, cy, ux, uy, rx, ry, hl, hw)
+                for occ_id, cx, cy, ux, uy, rx, ry, hl, hw, on_other_level in self._occ_boxes
             )
         except traci.TraCIException:
             occluded = False

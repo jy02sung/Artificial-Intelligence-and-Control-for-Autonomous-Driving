@@ -1,0 +1,9037 @@
+{
+  "offline": {
+    "results": {
+      "BC": {
+        "mismatch": 0,
+        "steps": 57458,
+        "episodes": 160,
+        "opposite_5s": 0,
+        "lane_change": 145,
+        "invalid": 0,
+        "close": 688,
+        "close_accel": 2,
+        "ttc": 21,
+        "ttc_accel": 0,
+        "open_hard": 149,
+        "open_hard_overlimit": 20,
+        "open_hard_move": 8,
+        "open_hard_ineligible": 132,
+        "open_hard_unexplained": 0,
+        "stopped_open": 627,
+        "stopped_open_brake": 0
+      },
+      "valid": {
+        "mismatch": 0,
+        "steps": 11548,
+        "episodes": 32,
+        "opposite_5s": 0,
+        "lane_change": 29,
+        "invalid": 0,
+        "close": 163,
+        "close_accel": 0,
+        "ttc": 2,
+        "ttc_accel": 0,
+        "open_hard": 41,
+        "open_hard_overlimit": 2,
+        "open_hard_move": 3,
+        "open_hard_ineligible": 41,
+        "open_hard_unexplained": 0,
+        "stopped_open": 166,
+        "stopped_open_brake": 0
+      },
+      "failed": {
+        "mismatch": 0,
+        "steps": 2000,
+        "episodes": 2,
+        "opposite_5s": 0,
+        "lane_change": 0,
+        "invalid": 0,
+        "close": 4,
+        "close_accel": 0,
+        "ttc": 0,
+        "ttc_accel": 0,
+        "open_hard": 2,
+        "open_hard_overlimit": 0,
+        "open_hard_move": 0,
+        "open_hard_ineligible": 2,
+        "open_hard_unexplained": 0,
+        "stopped_open": 1393,
+        "stopped_open_brake": 0
+      },
+      "1": {
+        "mismatch": 0,
+        "steps": 17503,
+        "episodes": 64,
+        "opposite_5s": 0,
+        "lane_change": 53,
+        "invalid": 0,
+        "close": 1068,
+        "close_accel": 0,
+        "ttc": 281,
+        "ttc_accel": 0,
+        "open_hard": 276,
+        "open_hard_overlimit": 23,
+        "open_hard_move": 2,
+        "open_hard_ineligible": 259,
+        "open_hard_unexplained": 0,
+        "stopped_open": 12,
+        "stopped_open_brake": 0,
+        "crash_ep": 22,
+        "tail_n": 329,
+        "tail_brake": 314,
+        "tail_accel": 15,
+        "tail_move": 0,
+        "last_accel": 1,
+        "last_brake": 21
+      },
+      "2": {
+        "mismatch": 0,
+        "steps": 45678,
+        "episodes": 144,
+        "opposite_5s": 0,
+        "lane_change": 146,
+        "invalid": 0,
+        "close": 1091,
+        "close_accel": 3,
+        "ttc": 158,
+        "ttc_accel": 0,
+        "open_hard": 195,
+        "open_hard_overlimit": 72,
+        "open_hard_move": 32,
+        "open_hard_ineligible": 126,
+        "open_hard_unexplained": 0,
+        "stopped_open": 78,
+        "stopped_open_brake": 0,
+        "crash_ep": 21,
+        "tail_n": 306,
+        "tail_brake": 128,
+        "tail_accel": 101,
+        "tail_move": 0,
+        "last_accel": 6,
+        "last_brake": 8
+      },
+      "3": {
+        "mismatch": 0,
+        "steps": 47927,
+        "episodes": 144,
+        "opposite_5s": 0,
+        "lane_change": 162,
+        "invalid": 0,
+        "close": 446,
+        "close_accel": 55,
+        "ttc": 72,
+        "ttc_accel": 0,
+        "open_hard": 428,
+        "open_hard_overlimit": 110,
+        "open_hard_move": 54,
+        "open_hard_ineligible": 320,
+        "open_hard_unexplained": 0,
+        "stopped_open": 283,
+        "stopped_open_brake": 0,
+        "crash_ep": 14,
+        "tail_n": 206,
+        "tail_brake": 91,
+        "tail_accel": 66,
+        "tail_move": 0,
+        "last_accel": 2,
+        "last_brake": 9
+      },
+      "4": {
+        "mismatch": 0,
+        "steps": 48021,
+        "episodes": 144,
+        "opposite_5s": 0,
+        "lane_change": 132,
+        "invalid": 0,
+        "close": 347,
+        "close_accel": 68,
+        "ttc": 41,
+        "ttc_accel": 0,
+        "open_hard": 217,
+        "open_hard_overlimit": 100,
+        "open_hard_move": 5,
+        "open_hard_ineligible": 127,
+        "open_hard_unexplained": 0,
+        "stopped_open": 97,
+        "stopped_open_brake": 0,
+        "crash_ep": 10,
+        "tail_n": 150,
+        "tail_brake": 57,
+        "tail_accel": 28,
+        "tail_move": 0,
+        "last_accel": 0,
+        "last_brake": 6
+      },
+      "5": {
+        "mismatch": 0,
+        "steps": 49578,
+        "episodes": 144,
+        "opposite_5s": 0,
+        "lane_change": 159,
+        "invalid": 0,
+        "close": 645,
+        "close_accel": 60,
+        "ttc": 25,
+        "ttc_accel": 0,
+        "open_hard": 225,
+        "open_hard_overlimit": 37,
+        "open_hard_move": 6,
+        "open_hard_ineligible": 191,
+        "open_hard_unexplained": 0,
+        "stopped_open": 947,
+        "stopped_open_brake": 0,
+        "crash_ep": 10,
+        "tail_n": 150,
+        "tail_brake": 19,
+        "tail_accel": 100,
+        "tail_move": 0,
+        "last_accel": 5,
+        "last_brake": 4
+      }
+    },
+    "examples": {
+      "close_accel": [
+        [
+          13,
+          68173113,
+          345,
+          14.0,
+          0.2,
+          0.12
+        ]
+      ]
+    }
+  },
+  "teacher_panel": [
+    {
+      "route": 1,
+      "seed": 91000001,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 187,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.55,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        31.82445035270365,
+        18.572207069590874,
+        "ea912d9c520cb9aff6e3812fee34eae947d908244d56ccdf4bdd6075db4c793a"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000002,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 424,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.51,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": null
+    },
+    {
+      "route": 3,
+      "seed": 91000003,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 371,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 3.42,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        78.81601106232029,
+        22.134588148067724,
+        "992353aced482c64c0462f25a7f3dd208ca0e485f5ca752052a1cbcca9e06cfc"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000004,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 405,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 2.53,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        83.42416688203619,
+        23.91184349257176,
+        "01713efc7701fef28192e2843e7e4e0f4fe967e9c5c014c63f6c3c8643d22e1a"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91000005,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 528,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.88,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        66.21414335403327,
+        22.178397821597,
+        "c47d4115953910b05ecc5b746b405ddcb8d91fe5c8a0a72bc3d8958570982789"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91000006,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 302,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 3.91,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        9.246160348179501,
+        27.77875565077034,
+        "00f1df3b9023c1f454e4dd5ad5cddadc9c6c8654e20d70d63bb77202da15d696"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000007,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 180,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 1.61,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        31.63520338585505,
+        20.53358308328879,
+        "0ce8122630ba4e3135da16c38dd9556bffc285d98859eaad7d105595255f5db7"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91000008,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 436,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 4.59,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "544295537",
+        0,
+        29.367131456657205,
+        9.387997043169472,
+        "357a20f7704b9e290e393410f9ddebc3a5951e94304e96ad98414710fbcc5e1c"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91000009,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 148,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.06,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        89.93166760408161,
+        27.768426864733726,
+        "56d2866bf0e6f63ed95d6c793d24f24f43fda69c749ccc4059ce75a9362a6f50"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91000010,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 286,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 3.57,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":86198708.-50_0",
+        0,
+        3.23911517785902,
+        24.094803822720618,
+        "2d8d90c62935620f46a8b442d4a6858cf176e875e6ae13bb9579bb7f9fff05ab"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91000011,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 456,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.14,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        16.086552421817657,
+        20.237204880085123,
+        "4523b9dc31cb03195d349439308104e850821fb86b5602bd77f9a45aea10199c"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91000012,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 191,
+      "edge": "781184662#3",
+      "lane": 1,
+      "lane_end": 3.09,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        1,
+        80.84461976362059,
+        27.764020381127633,
+        "04685f956c34ea2b0fa3a3db41230d8ad8b449d6d01ade9036681f404f0daaca"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000013,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 498,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 0.65,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        ":1812112753_3",
+        0,
+        6.349768288340593,
+        4.152655030950844,
+        "f014fce154c23fbf35dfa9cb9342484e14870e640e39d589f81489880b9187a0"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000014,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 436,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 1.03,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        62.42260064846835,
+        24.660325142420504,
+        "5e583ce5e17a34114ab2028260b7adf66eab8284c12c2e7b1dc20596ae4e5657"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000015,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 569,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 3.83,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        76.05213113078776,
+        25.043758503505153,
+        "34d06c7c9c124aa157a6a34e6617e3b6facf82dbb679f8bfb5b561d44c43d2a9"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91000016,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 304,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.7,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": null
+    },
+    {
+      "route": 1,
+      "seed": 91000101,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 189,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.63,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        48.07088553441642,
+        21.75599180712952,
+        "60c1d67e7ca73a32dace7c926bfeb437ccf02dfd2af636508bf2ad78a1c774c1"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000102,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 400,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 4.44,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        20.24624839533297,
+        19.773541453812424,
+        "5b25e9eac3bb729a131eecb105b5006f6758a8f5284d13387dd3ace732db03a8"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000103,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 354,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 3.61,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "52873356",
+        1,
+        259.20473466587845,
+        18.441606704220764,
+        "8b071ced67925353329b8d5813d4c2323e4ed22bf43c77815a2f0560d107e622"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000104,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 413,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 0.82,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        ":1000493460_0",
+        2,
+        84.23227222607026,
+        10.018096064790365,
+        "2e5dd3394477112839fa2c4097b2402ce631af4e7902ce0552f65aec28e9666b"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91000105,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 481,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 4.59,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        77.9949150714798,
+        25.56255746228898,
+        "09056eb0aa88587544da9d51f66c57129b66ad9f003be9eb3c68c8e7dc091a86"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91000106,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 285,
+      "edge": "1414146971",
+      "lane": 2,
+      "lane_end": 1.68,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":86198708.-50_0",
+        1,
+        0.9091699951308341,
+        22.231442560112406,
+        "5c54f54180a2d20289dbfaf355673559f05c189c1f0e06652a2e7b4b92bf9815"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000107,
+      "kind": "expert",
+      "outcome": "timeout",
+      "steps": 1000,
+      "edge": "169929488#0",
+      "lane": 1,
+      "lane_end": 6.84,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "169929488#0",
+        1,
+        30.35261368401698,
+        11.656332776779974,
+        "6e92e57fe6da4bc879e82ad307e6b1f595022a0a3c94e7608c18c8ba14759192"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91000108,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 435,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.63,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        1.1089592766099372,
+        9.130190952118781,
+        "b7305537478e98560abcc28baed1315259d659097d566a0c85483af7c5919cc2"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91000109,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 171,
+      "edge": "169929503#2",
+      "lane": 1,
+      "lane_end": 3.99,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        1,
+        72.93538515975465,
+        23.863590974323238,
+        "02063179bf3d846862502816a6f5fa165395aac32dd83e241b98a6fc75d82654"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91000110,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 329,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 4.95,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        9.88028361601161,
+        27.558323133713575,
+        "7a0be74348485e97f7e1b885e85c8cf0a1221795f0585423e0ca07e616b3fae8"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91000111,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 474,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.88,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        15.471298779124993,
+        19.123992270350588,
+        "119e6075a261821fb42b155c1bed4300c672cf09c74895b3505c85544c9aa206"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91000112,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 185,
+      "edge": "781184662#3",
+      "lane": 2,
+      "lane_end": 3.18,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        2,
+        80.60842576752802,
+        25.21325190760505,
+        "41d707c1baa829c02ef71dfa7cbcc29899de190059e6b64c1a4633b637c662b5"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000113,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 525,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 3.0,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        23.66528669911613,
+        8.664982980850608,
+        "5464ed1a56c34cd5121ffa2ed9ed7a9f2565f9d74098457498d41893475a97cd"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000114,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 411,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 2.91,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        64.77170455372908,
+        22.721439674044078,
+        "c4803bc14e2c0cab8fac4a92627752a01fb8b1a22f983711116cb5a95fca8fea"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000115,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 553,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 2.59,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "86198728",
+        1,
+        467.6008046834422,
+        26.359725214734972,
+        "28eec23c5841705b51e6de454fdab8ceea121ba5fa41fbd48a9888ac6b8f59cd"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91000116,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 296,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.8,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        25.170361889703287,
+        21.585735118554247,
+        "131acfdf18348080cdc3239572024e75634845a66c38e227a31523ddd24b8115"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91000201,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 192,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 3.56,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        33.72590680927212,
+        20.730466442225374,
+        "34b28cde3035f791f66e665dfab14d4db3428e2272b803cb03d0b4b614c68de4"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000202,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 439,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.56,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        6.593237423133445,
+        1.1854618282099243,
+        "83e121ad2af05fbb55d57871f2c3e6883615c57eaf850cf36f1af47ffce754ec"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000203,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 347,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 2.34,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        41.1249356309835,
+        21.247703461350866,
+        "c5a66cb39cb45eb4d67b9ba1a29b969e16a710fa8122937ccfbf0184f070d241"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000204,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 391,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 0.75,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        58.38764486086961,
+        20.948938775289708,
+        "9bf0052971a1455ed42f3450655cc85949546e96c382c08820aacf2a80b756b1"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91000205,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 516,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 4.31,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": null
+    },
+    {
+      "route": 6,
+      "seed": 91000206,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 310,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 1.65,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708#1",
+        0,
+        37.08864144559615,
+        19.96998887797816,
+        "73ceabd79a70719b54760782a68651d86bf4f25f910739aba415792759c73246"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000207,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 211,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.26,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        43.98586165569836,
+        22.163344587720932,
+        "34018ccb68db5c042e4e4c9912b9f5eb280d0928ab586703ac46a4a469203b9f"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91000208,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 529,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.55,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": null
+    },
+    {
+      "route": 9,
+      "seed": 91000209,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 156,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 3.76,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        77.57103501880133,
+        25.83647223458792,
+        "07f620fae5dbd7a6b9fd6336bd6e40e96d4aa225a6ea89a7dd70ec080fa0955a"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91000210,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 280,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 4.6,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        4.0128175842012865,
+        27.57160298052479,
+        "be4a33de4e3d53b4081b0c69bb5185ea2c0ce1f12245dac3d8f9bd390223e96d"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91000211,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 510,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 4.61,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        154.17613945798638,
+        20.287536292076116,
+        "3d4b9379272bbb9f42eaa5b82a5edc44ec4fc3c9aaf6f0f17a77bd900b3bc72b"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91000212,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 192,
+      "edge": "781184662#3",
+      "lane": 1,
+      "lane_end": 4.96,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        1,
+        77.15677876979905,
+        27.76389701030307,
+        "ebee9c9341ca63c603597565d16a9146f1eb7c8d1f93142aacd323ef7e284273"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000213,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 426,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 1.18,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        1,
+        63.20062039625009,
+        22.09574445866227,
+        "01b95fa1b1f135d1310ecb72f7e53a51b06fe1f694976526afbb8946ad7e25ef"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000214,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 494,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 1.06,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        71.00438843966107,
+        23.70615484635262,
+        "ca09037a4c3940a3027528e18538e1564fefd37457c9d6006bfe6c44b82dc682"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000215,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 561,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 5.03,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        105.1026538830578,
+        25.848338267156294,
+        "a680a6900fb28797a7380333be0185e703a5e152021eda08266c21d4941e0b7b"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91000216,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 353,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.37,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        18.803165021890464,
+        21.255339136043425,
+        "c26130795538b00ce14eb4cdaa8d983df2037c535e9f4242a20604849f425f55"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91000301,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 198,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 0.87,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        29.22422337595117,
+        17.902299461920272,
+        "4ba78d488fdc22e81bde2a5fc24c641719345a4bdf1c021ce2a0080f8d2d5359"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000302,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 566,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.32,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        0,
+        72.34198173810876,
+        16.545326343215894,
+        "f8fa8820378a751947a6fcf29b201a0209843806a6b52ef980c2415f9166bf7f"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000303,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 375,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 2.34,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        60.71187560967533,
+        20.27559115556865,
+        "d702cfdae6a0204ac20085af1d70a504b041ae74affabcbe4a998e2285c0a620"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000304,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 363,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 5.15,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        63.56628816024545,
+        23.313101202103102,
+        "a2c4d7ae3fa6e3c8c011d3810ac6103b35547fe963dfb900470f1e69a8e4c442"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91000305,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 501,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 3.54,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        74.10790310142417,
+        24.52144845793769,
+        "ce08b39664f09748001d95c50edfac8e11d8f38e1a75c588eb669fdc08424111"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91000306,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 292,
+      "edge": "1414146971",
+      "lane": 2,
+      "lane_end": 0.69,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":86198708.-50_0",
+        1,
+        3.262234555220396,
+        23.424414085589294,
+        "ca6d30d5b521032f9857a819c9adc82d2f0c2522b8eccd4087117a339758e4c0"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000307,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 213,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 0.24,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "169929488#0",
+        1,
+        29.47556388369653,
+        11.151067401100192,
+        "48f16c3251786a00e5e4bbc088431673a7b98d1b4fa92e50e97be4aa686dd1ca"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91000308,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 530,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.27,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877#1",
+        0,
+        34.553567942096144,
+        8.665241108926661,
+        "48495d19a767abc9cbd9f27452298359ad7c812a147b599aeac9c6e2a1f336ff"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91000309,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 158,
+      "edge": "169929503#2",
+      "lane": 1,
+      "lane_end": 4.82,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        1,
+        77.01205322736942,
+        27.7573238753056,
+        "86cbf7a1ee490f62134d410613ca82dbbf0cddb02f35d8df1ee8d90f6bb1b9fe"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91000310,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 289,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 3.91,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708#1",
+        0,
+        43.85449968912955,
+        22.36607442110252,
+        "037d863395ef79f7845012f8d439fc3ee587403737477101ea1ebe571da4280a"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91000311,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 441,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.76,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        19.604640753846468,
+        21.080440829010964,
+        "7384a258c10cf653b972e21d68101b0b8c674c95b8ec546166c59b76bbc254d4"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91000312,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 176,
+      "edge": "781184662#3",
+      "lane": 2,
+      "lane_end": 3.67,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        2,
+        75.82526155926132,
+        27.737011413931008,
+        "26fef2c02fb8f4179d62585859873b4e389160bd37963647e0ca8c7ad32b3b1c"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000313,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 506,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 2.87,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "1063527748",
+        1,
+        113.39990804266043,
+        18.60481720333034,
+        "d1a8ad654d86c1e81e18a764dad20a70c9edc4a3a706a6643bff9ac7b9230e6b"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000314,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 457,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 4.7,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        32.00278477298121,
+        9.247417494164539,
+        "6fb93542eccd5c3c338287f1f6f0cd5241bcd89f2963a3e33a45f3c233704290"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000315,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 522,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 3.39,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        66.70368081435586,
+        21.929011919919596,
+        "bbbfd134f320e4320690e4c474ec9a87e85c53a6d454a3feff188ef12fff4e52"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91000316,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 351,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.0,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        14.653821317272474,
+        19.655361783822414,
+        "b61e8a5294d075694e35ea6bcb5a630ef968bac4e17f467f446566ad474f7088"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91000401,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 167,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 3.21,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        35.67361866044152,
+        22.02160644139276,
+        "3ba8f600cb6d2ca25d1504169b50e1b9c9cb422d28c868f1b8ebb29ca4d9d4f5"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000402,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 402,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.43,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "169728849",
+        0,
+        51.832393792239486,
+        21.97588850937227,
+        "b79a5353a37b502ae7c37182c7d02f733d7c9c6bfd4a3f56ea7083bdd47c7bab"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000403,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 364,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 4.15,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        56.97221438427833,
+        21.87816554603198,
+        "73d6b807e94558df49ce3cbc34630cac9c38a7f67a777c6a91fd193c8593d245"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000404,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 399,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 2.73,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        64.12107956784558,
+        24.659021158492518,
+        "d3e3a08f42bed6b8097ef74db3d26f94d4368d72178632f08ad4a119f39658f8"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91000405,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 509,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 4.39,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        69.88162283374419,
+        24.34997124246761,
+        "9b3d332da7596c664e849127c984a798739c4b1ba8a5025b1e8c80027463378d"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91000406,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 297,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 1.21,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        3.3380421499574595,
+        26.097134945152767,
+        "a4a098b72c99cdf6103fc9abfc87ea4f89533a6e80c516b77f521f9a295975ba"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000407,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 223,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 1.89,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        32.383770128995224,
+        18.644266020020527,
+        "d3fc9c810accb12497e5574d83326fbca975958831e8f0e9830534d4eea34f73"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91000408,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 483,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.62,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":844484877.189_0",
+        0,
+        0.5404271693767431,
+        7.737178418754021,
+        "d36d5649bdcff2a1d326a3adfce84381b4fde9dd126bf1bb4e62a85d5cd02dec"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91000409,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 168,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.07,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        73.62217401399937,
+        23.582165321022103,
+        "2cb93e795b04665f0f8234c6592ad0a69f75e0c19d8c18e62f68a03d2cf03bc6"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91000410,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 281,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 5.15,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":86198708.-50_0",
+        0,
+        7.553305216352385,
+        25.152566316323348,
+        "eaa24db8f3975c4cca87985b2560d1f3cf715cd49c86776e90eac9a056642202"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91000411,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 502,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.61,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        15.393918298968117,
+        19.525023016433472,
+        "376250549ee0e10e6093da3124e61e0795dd878d73c8b538bfb50b7b340c7d52"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91000412,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 179,
+      "edge": "781184662#3",
+      "lane": 1,
+      "lane_end": 0.28,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        1,
+        83.61186663008702,
+        27.776997792652704,
+        "cf77eb4adf1c2a81148bc06992271d7c1de216d51c52050d6f2fd25d96fd6816"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000413,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 506,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 2.01,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        16.937376898091244,
+        7.068719231007841,
+        "994f1b65dd4c83c45995a1250b38c6a2c643451d1888fce42c32e69fda2a22e8"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000414,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 486,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 4.48,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":7461635551_0",
+        0,
+        4.167068668269792,
+        22.560922989472743,
+        "9ad1c792e0042327e543d6a3605f33234b945bd26767dc13ca13a2b536ebfa2d"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000415,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 618,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 4.51,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        70.58093862165978,
+        22.959565574281328,
+        "02e01b48e2b126e73db7d6cfe2ae5c1fa266c677702db30cf6446bd04c517dd9"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91000416,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 323,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.26,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        19.228720860043325,
+        24.83461094087726,
+        "f0a6586f462382687ed7b580077319d2dbe0c9799ed3a1cc3ad6294ad4358c77"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91000501,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 185,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 4.29,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        34.83010461586096,
+        20.97950507265495,
+        "79199b0f8294a14fed9df172d2882313c1f66723e2c8008974f4a0d63f11c057"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000502,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 383,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.66,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        17.7335261037189,
+        16.603815776708633,
+        "e60771c899e3d20b8f075c4f6a00b724e113fccad77d9eba49b61e4d26734b05"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000503,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 422,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 3.63,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        49.08191633747367,
+        16.61229774689812,
+        "a620ca84cf440a5df84ef5f108c53caaa8ea10ac57942169cf06474892e00b3c"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000504,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 369,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 3.43,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        68.24496393024998,
+        23.69892623604738,
+        "3622a02430297a9074ec78b9a4dc5b0ca099c2f6e8c868153957141498553948"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91000505,
+      "kind": "expert",
+      "outcome": "timeout",
+      "steps": 1000,
+      "edge": "170059994",
+      "lane": 2,
+      "lane_end": 7.06,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        2,
+        7.055215231886187,
+        0.0,
+        "22b8f593e9d28f8406db10596e542f0571087a46d0184c3cc6a2e4d474659d66"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91000506,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 280,
+      "edge": "1414146971",
+      "lane": 2,
+      "lane_end": 4.78,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708#1",
+        1,
+        42.36936467992595,
+        23.167115411785424,
+        "7978dadfc2c6700d7032068b89760014a178e9a50ed4390023d117209670b114"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000507,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 181,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 0.73,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        34.345591137309526,
+        20.341985558576294,
+        "740d85218b0ddffc960f15fb41fb2c892fbd3760a2dc009a20ca0fa6bdef4ef4"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91000508,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 375,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.02,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877#1",
+        0,
+        17.962398542126444,
+        24.580427709862732,
+        "0c1e8e49537bb155f1bba5dd6fab6a435e59ee0c9a0fe5108595dae6fab54d47"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91000509,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 162,
+      "edge": "169929503#2",
+      "lane": 1,
+      "lane_end": 5.55,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        1,
+        74.75648924581944,
+        26.154690745425405,
+        "2cb336301759aa78d006cb0e282335b6153bac550c3e85887b6092651b8efc09"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91000510,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 283,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 2.65,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":86198708.-50_0",
+        0,
+        0.23819173627808699,
+        23.393268538649302,
+        "35212e60e07ff6dba7088dce0c5bc8a1f108c6e24918452996fb02da68ed90ba"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91000511,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 423,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.0,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        20.389603905180962,
+        22.068838847947518,
+        "495a75af3dc5e7bbfb7dfcc0896dbd403f88f3562f9d32382c9df78eef00a7c3"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91000512,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 181,
+      "edge": "781184662#3",
+      "lane": 2,
+      "lane_end": 3.27,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        2,
+        83.62647390385986,
+        26.21484597679599,
+        "271fa25e2fe72b94ef09a323d11ebc374582af3fdc8206ecfbe0e505050ff98c"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000513,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 449,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 4.81,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        1,
+        62.43806724765483,
+        22.122937487068803,
+        "c5294f87beed98855ede7cec6e818ab64faf781c4f220b9b522d2569d16d86a0"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000514,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 453,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 1.28,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        81.69080363852945,
+        23.693090696503255,
+        "1c3aa1634533f5f32103b81757347c6b3943b3c4f160bd06852baee3e5d90148"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000515,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 541,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 2.81,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        61.251618139001806,
+        20.453713905704216,
+        "a3b8c543fb805973b0fd00fd5314e5403f3bf7ba1aadb4f8d94ba93181f425b8"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91000516,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 347,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.55,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        49.46129853667293,
+        24.64680991842327,
+        "48205f91a7fcb8920e50f9cddc54daf78162b96f0d327a8fc0f83144ae0d69b6"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91000601,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 205,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 1.88,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        26.410264505838256,
+        16.253918557862033,
+        "540ff5a544d6be3a7ff9bb96480f884be1977f051e0e6728527bbe330e878928"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000602,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 385,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 4.5,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        15.180901766483146,
+        20.581753528204427,
+        "5e1c994b1b0963c58f02398ed21401a85d05eb886f0ed15499cc00da5812c3a7"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000603,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 358,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 2.56,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        63.29639881931007,
+        21.311460726017682,
+        "14210b377f7dd4060b62a3571f8558d88dbe8d2c0fe03917a157c2b478d780b1"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000604,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 416,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 2.55,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        78.62930746141978,
+        24.11177334489885,
+        "f52ca92c485a116230eecd02935b833b18babfb5c45ad4851571cbc0ee9a7c67"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91000605,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 496,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.18,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        88.90504369811586,
+        27.177740941444636,
+        "e068e1d32c9a809b256f09efc38e221d2cf478fb14a19efa451be7ced99fb700"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91000606,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 335,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 2.47,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708#1",
+        0,
+        39.1137094362807,
+        21.23331030428413,
+        "3f99f151ef6e3ada678ccbfe1e857c4a7d745e323665175601c7be5a796ec5f6"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000607,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 192,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 3.84,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        30.439552139382926,
+        18.893676958388948,
+        "3dae11b9d55fb4035396e8eee6a291f6c6f9e6cebac3917bd3dbcf911226790d"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91000608,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 410,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.82,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":844484877.189_0",
+        0,
+        6.6751130668351575,
+        6.619768530049413,
+        "f514776c890679811f10064856d9ce3cb54383dd842c6b32d0c162c210b46490"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91000609,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 155,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 2.88,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        77.10335674099588,
+        25.91505121850027,
+        "c8c9ef5767cced1225bbbe8527681d4f3563bc20c77932cb30d05b01cf301f1c"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91000610,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 287,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 1.61,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        1.0509087331931823,
+        27.586409130758046,
+        "7243736adb83fc5f41272742d6f41ce688b2763b8022e4379af5f6ab1c1025fd"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91000611,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 517,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.74,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        194.30099449640488,
+        15.97838011980057,
+        "fca7ba0072e0a7cf5a3284d5fcc663d6f4bc81bc3168ca638740f98a69aee3d1"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91000612,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 191,
+      "edge": "781184662#3",
+      "lane": 1,
+      "lane_end": 4.3,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        1,
+        76.50547441001918,
+        27.763810586464057,
+        "b3293bad3cce2d16d862769d32b306e35881a98b323a1b32dd68be2f3daf43f1"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000613,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 466,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 2.74,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "170059995",
+        0,
+        7.021904199264398,
+        9.520483736362385,
+        "a8615aa4cb37ccd1819fc07d06a3deb9fbc0b26f8985caaa717594760e0bd4cf"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000614,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 461,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 2.16,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "1063527748",
+        2,
+        66.46457991549025,
+        20.37212752161127,
+        "a00da77a092b07c65a95ce36d0f985b51799b24be346f402a10e31fd6c970105"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000615,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 677,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 0.35,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        64.15988755035977,
+        20.49106588754166,
+        "7894d38fcd84e94a015e526de15520f5a25ea260ef104ffacc358862a28a9e1c"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91000616,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 293,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.01,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        20.39997918721022,
+        21.870254064032917,
+        "a5f6df92750a9a70ad5aec3384b9f0b7b9450056ca4d6b4202e5543dc40ffd99"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91000701,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 187,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 1.25,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        30.836483642434274,
+        18.210956157369925,
+        "ccbb9e1820a11b24a1840ce6a7b71099430952096493afb0efa588ac76b3361a"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000702,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 436,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.37,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":844484877.189_0",
+        0,
+        1.6088194999460486,
+        7.531592904216401,
+        "2c1f4048bebfda915625bef089c67aed2b52988ec62b62bff43416af0a96965c"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000703,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 365,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 2.76,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        76.20101730422634,
+        21.268215004511063,
+        "888a6303b36b73669cf5744a1baccc6c1daaabd424cd4babdc93024dcf3b6daf"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000704,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 362,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 3.02,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        63.16157407885156,
+        20.470901423369835,
+        "102abbda53000c679aab19da0f02d0610f7478880f6d201fcc721047bcdc2d14"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91000705,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 555,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 2.2,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        166.4910084368214,
+        22.82639262812846,
+        "9846b917ae039b95f32f52974b02b89b24e21cc3a4ee61ddc9dfb81ef5ecd57e"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91000706,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 296,
+      "edge": "1414146971",
+      "lane": 2,
+      "lane_end": 2.74,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708#1",
+        1,
+        43.55829708677571,
+        22.870923208559688,
+        "eeb3c62457a177681e3a28e20fdd88d1b96baafa87e31d0a1d072a126810ccdb"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000707,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 183,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 1.48,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        35.16495151451022,
+        20.37910005692131,
+        "da877279a9d039164077ab06d9333bd4dfdfe52fa4a88ff2bd4c2ef90858f8ed"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91000708,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 425,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.55,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":844484877.189_0",
+        0,
+        0.3735867588004087,
+        7.738112589123094,
+        "3253e3fdf85f95833cb77c9859f5b61823fbec8558b5c4d7075f6cb4e047dcf1"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91000709,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 152,
+      "edge": "169929503#2",
+      "lane": 1,
+      "lane_end": 2.82,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        1,
+        46.328802297705636,
+        27.00496553714927,
+        "58dec0f5cdbf8bd25c8efc47dc24755854649ac8ab53151bf0dcaf37af2abf96"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91000710,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 294,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 2.37,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": null
+    },
+    {
+      "route": 11,
+      "seed": 91000711,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 430,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.78,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        26.38210300248437,
+        24.71225813267422,
+        "b474912c5b921b9c0529ab51b483afa1481553c7329970b301a097b69c8ba1bb"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91000712,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 176,
+      "edge": "781184662#3",
+      "lane": 2,
+      "lane_end": 2.4,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        2,
+        80.18400000000048,
+        27.78,
+        "6842291d6683fb63fc2716d4d44c2fb386697bc815027a51f4c46723f86fd59d"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000713,
+      "kind": "expert",
+      "outcome": "timeout",
+      "steps": 1000,
+      "edge": "170059994",
+      "lane": 3,
+      "lane_end": 7.36,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        7.3626248741326705,
+        5.050210433106286e-06,
+        "0e5bd7ad3974ffbc08ae9b3b9fce4b8217ddb302593ceba75a533507465b35e2"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000714,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 434,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 0.69,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        65.81838377543357,
+        21.969489843908153,
+        "44ddc0bd1a65e1dc63641f2aea2c4c5693054fd9a3a4c323306fd511b66af6af"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000715,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 567,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.73,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        68.76932713864454,
+        23.334974876989268,
+        "53781d77fce5902790b77b70eb9c0b742870e08b3249454972febdcc97b09034"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91000716,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 400,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.6,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        3.4786646172372,
+        15.231881592649229,
+        "be64ba26bbdfc0dc63614fa15f98c69ab6a8824f43e89d4c805fa40a62aa0268"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91000801,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 196,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.26,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        38.36496972429387,
+        19.559487360367886,
+        "bee866ef5e1772b725c44346ba1852b9434dd9538c4c18c0df6e0df27723fa5c"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000802,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 394,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 4.36,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "544292617",
+        0,
+        0.5618645895548298,
+        22.219997689110563,
+        "691d2ec013331a6c43be9060968776fcbbff11086fabb8b6805094c8cf0debf4"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000803,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 396,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 0.52,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        53.250621213340565,
+        18.248275029816448,
+        "c66e867695c6dc6b745153b526a7874d632f262b3a99c63ba6834d79538882d8"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000804,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 400,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 0.81,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        58.44586849318745,
+        22.670585169707756,
+        "002877179b5c3299a2202a126d4f27f2a5c98ee806753ae1884068be79822389"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91000805,
+      "kind": "expert",
+      "outcome": "timeout",
+      "steps": 1000,
+      "edge": "170059994",
+      "lane": 2,
+      "lane_end": 9.82,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        2,
+        9.824462723884231,
+        0.0,
+        "2c64eb077f2e721faffeef89c1defbee6c52e02f7536b10ebef864e76a8f8735"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91000806,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 280,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 1.34,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        40.012092172742314,
+        27.778509968395223,
+        "e9b2b573cb5a47861cd617d4ae0318ce4d8f0c52e51eb0de032c213c9ffae37d"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000807,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 188,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.34,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        35.80993296731336,
+        20.397877841299035,
+        "789d8b979e91cd1d58293bbb56bcbb00bc2e354c42ad7b8b2a51b6ae1dbdf2fa"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91000808,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 423,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.92,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877#1",
+        0,
+        11.597239812157191,
+        18.669890249165714,
+        "3c3626bc0a194a6313e2f3c8fe02b2793c1651a8ed5ef7322ab3722beb5d8657"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91000809,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 175,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 3.65,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        55.6642375911608,
+        17.90849918787179,
+        "a01a6e5d82dfc9acdf17b4e733c7fd2896e1faeae9f1a169f138e7f3f831137b"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91000810,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 288,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 4.61,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":86198708.-50_0",
+        0,
+        6.939037530475417,
+        25.101135158135694,
+        "94a5c4a6407d45493a130bdafe5686052d4267a3ddf50fa718da41db586f44a8"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91000811,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 442,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.85,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        29.33971691965172,
+        25.7553440540676,
+        "c0df8201e89c985c9c5763f013124e1c289dfaa3b4234e106a740c0641e1c8b9"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91000812,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 179,
+      "edge": "781184662#3",
+      "lane": 1,
+      "lane_end": 0.97,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        1,
+        78.744657489434,
+        27.775864829623615,
+        "e736c1cbb9d202607151c2452d9839d0911d44276dcb250e163aad4b7871f39c"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000813,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 453,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 2.92,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        1,
+        73.88719490734748,
+        22.140465517577184,
+        "1bbba730eec6185c42064b0323f8fff00f4d50bcc9d041c4bbecd5add6a11eb3"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000814,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 479,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 0.49,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "170059995",
+        0,
+        6.2434625092044485,
+        8.671978561666926,
+        "dd567e2852a6cf29369158fa566814ae075320f563dde76e3172d77d03a54dcf"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000815,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 707,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.39,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        55.09811844273213,
+        18.558721691570188,
+        "afd70c2cd351edbae5cc602593054d2adf41fc10f13b22d6f27fe41acb930ed1"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91000816,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 344,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 4.78,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "86198728",
+        1,
+        40.10044131114654,
+        23.61004294110609,
+        "d7a6c8c20acb77b8b9739c42d06fbb7430e9a1fdc8d0601dbdfe85809fc97f99"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91000901,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 189,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 3.79,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        31.546579263859428,
+        19.615320920460817,
+        "e6a181008dbdcd62c0d739b20223388f1f1ea8d5d5d235a495c6633a88b9aca1"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000902,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 415,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.38,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        0,
+        27.419352284986616,
+        10.220407411343423,
+        "6f8f663bf5e8045d6fc4d2941d29f401f6b38de46706e681b672124737786f47"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000903,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 402,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 1.95,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "52873356",
+        1,
+        58.77728672653183,
+        14.882070347338498,
+        "f70d28283589226b9f35fea121b4ce17ffacb5d139bbb94ee4081eeb10219ca4"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000904,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 365,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 2.22,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        78.29328137568825,
+        24.111744619016132,
+        "62d196d7f53a152bef7aa91bf56cc736f23e174163090a504dca21323817757f"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91000905,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 515,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 2.52,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        62.89862720975984,
+        19.921998335183794,
+        "ede2fcdcfc384bd9e0df1ae9ad037000ecb5d6edd0ceeb974bc23c066cd29c69"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91000906,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 299,
+      "edge": "1414146971",
+      "lane": 2,
+      "lane_end": 2.04,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708#1",
+        1,
+        40.301458752770884,
+        21.959322484109805,
+        "d2e0ffc3fb5848a1e45c9b2da05d3b6ebba92e341819914d95eba754d520a900"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000907,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 208,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.21,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        19.478953685282733,
+        18.102897916996348,
+        "5596336880e4152c7168a162d05bb5b4504d49800863d03f37b50e77792f51d9"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91000908,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 462,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.39,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        0,
+        7.010109505542772,
+        0.0018009359411791917,
+        "473c822065a5cefa7e9e80f1bf5d1e82c5fe56c2aed1cfdd8f9455fa08fb4048"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91000909,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 151,
+      "edge": "169929503#2",
+      "lane": 1,
+      "lane_end": 4.88,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        1,
+        76.24319578974601,
+        27.273789772765422,
+        "7bcf03f4692d63d50693716e547dbf4d1fbcbc0c7aa99aa8c6eacf11a8189b5f"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91000910,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 302,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 3.66,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708#1",
+        0,
+        37.118495977306445,
+        21.43809357060501,
+        "2457ff20210d33e23d5dbe71ff3d8a7b2ca7a78e0cf32c3271e8e0f7b688d7a4"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91000911,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 481,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 4.73,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        139.63627662253623,
+        20.20517652437547,
+        "8fdd836e585351ad23edbb4bed3c4e4bf61dae3fc31a5890e3336de9fec2142c"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91000912,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 176,
+      "edge": "781184662#3",
+      "lane": 2,
+      "lane_end": 4.39,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        2,
+        82.16931911103444,
+        27.77998177579396,
+        "25269308ac3003d9f7f28b8f3cf83ed57f6e37f4137f84434dbbe09a0cdb9647"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000913,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 403,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 1.58,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        1,
+        58.56815897608787,
+        21.71316315874544,
+        "9132cfefa66e936d952e16777ec4b47a068753c5ba5731f9ed08527549c62e6f"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000914,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 432,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 1.56,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        68.80376260034184,
+        22.591813872602252,
+        "7cb047e1dbf14f00d9cb59841178d53b893f5bc3ee61057cfec2588329233b56"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000915,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 591,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 4.56,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": null
+    },
+    {
+      "route": 16,
+      "seed": 91000916,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 337,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 5.11,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": null
+    },
+    {
+      "route": 1,
+      "seed": 91001001,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 180,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.46,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        33.217458090783026,
+        20.940020017408475,
+        "979dbf6afcc6fe25fdaa33ac19e3c0ccda7ca8cd2af8151b811c3307adde4162"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91001002,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 421,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.98,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877#1",
+        0,
+        10.103350062131668,
+        17.244115099809207,
+        "351bd6c4693f34a4ee9a4875812d3a57cfbc53fadf0b62c15baa3d0db0907d81"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91001003,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 357,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 0.26,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        48.565797627411044,
+        16.643279388694157,
+        "83e30bf24a753bb8df41ccc404b44fa7d4c8f86379f92879367d2f9bac8a4405"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91001004,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 406,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 3.15,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        69.46866008408466,
+        24.483639042338613,
+        "3041edd443240707aea5bcc4186a34d49fda07f76a3cb325eb15d24c0adcd68c"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91001005,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 611,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.79,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        ":1812112753_0",
+        2,
+        8.677187121930993,
+        8.857109858534626,
+        "8f1ffb157fa47c64350941497724e6259e6f15c27ecef737edd0da931f28ae4a"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91001006,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 267,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 4.18,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        3.958955727284149,
+        27.779439348529486,
+        "e1ab77148971711daec734fda3726e4f86c34cae97ffdcd2bd5f53c3aba727a4"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91001007,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 178,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 0.4,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        35.53475979510887,
+        21.064246911104128,
+        "1523720f4831a14aba46413443a732fa76fe4a38c14e60434fde745d2a32ee19"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91001008,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 676,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.07,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        0,
+        7.018261718111972,
+        9.394026802717997e-06,
+        "ff274c84b4e5a141f8e4b2e4352fd4f905a65bead664310c5917e330525b2875"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91001009,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 160,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 4.1,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        76.41346212954048,
+        23.429690519996466,
+        "4f1a5a60040cf83da91338146d91be94030cae40e4a87702330397a53b02654c"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91001010,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 355,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 3.06,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708#1",
+        0,
+        40.403173379091655,
+        16.715782584612942,
+        "938b72fe2cb170c8d9c1004ae9944594813d0a35421a533b84ef4f648586dd61"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91001011,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 527,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 4.6,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        142.30511147759285,
+        21.245942415297034,
+        "70a4860a7c7cf01fe97694236396f8221d2ea6f5f8339a262453fdd4db1e115a"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91001012,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 177,
+      "edge": "781184662#3",
+      "lane": 1,
+      "lane_end": 3.14,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        1,
+        80.92286073935037,
+        27.77994689636208,
+        "c5a0d3ffded65ed11787a16108865290b22053f9f30396ec23c968f7fa4a5992"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91001013,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 429,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 0.89,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        28.491768941973962,
+        10.08482674581103,
+        "d90d6ca7fff47701a3455a2932a12dd3220e4eaa26a13605c9ed43ffac21d4d6"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91001014,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 464,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 0.18,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        88.77600476684975,
+        22.945234309298524,
+        "c3938d4f7e86b3e51961dedae682cb830d47d49cf5098f918c7da05d702094d2"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91001015,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 550,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 0.67,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        70.26400997731292,
+        26.268796810776475,
+        "2db9e231edad9b68ef523377663e74897adec2bf4e7e2893115bb28a4e7102d5"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91001016,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 377,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.08,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        220.66971726989686,
+        11.348224135637283,
+        "9c752800d56f3f476fba5d00d291b2831a4dbfc38d615380f390c6c60bf1814d"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91001101,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 172,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.12,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        34.14472707854995,
+        21.65776577162226,
+        "efa033795e415a3cd198a503345d0725ec01dc8a790643d064a2a55583bbe5d0"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91001102,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 380,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.19,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        0,
+        54.342018927123206,
+        14.378638227224203,
+        "d877efacca2f58e852d1e545a1eee8a9a5661cd730c119e9c535e00c67d430f4"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91001103,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 339,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 3.4,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        47.502324031118775,
+        21.96145083637252,
+        "9bb104a1e58fd7588f437830887f92aaf24391a75b743e200b82b3fc41c2eeba"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91001104,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 361,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 0.4,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        66.77860744299265,
+        24.514528430251584,
+        "8eaaed8a540c0a3e1dd027911527881a609a817320b57a12bba29431eec63336"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91001105,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 559,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 3.91,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        78.39039691615679,
+        21.52908081047609,
+        "8252810c51930d8a1160a4372e60606b66bd501d68b2d6a02bad1e366c7b49cc"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91001106,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 285,
+      "edge": "1414146971",
+      "lane": 2,
+      "lane_end": 1.18,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":86198708.-50_0",
+        1,
+        3.7727056410953708,
+        23.41682754099289,
+        "e74e3098215c34c63555a745fa7d193aa619c705717428858c558b21954f6e66"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91001107,
+      "kind": "expert",
+      "outcome": "timeout",
+      "steps": 1000,
+      "edge": "169929488#0",
+      "lane": 1,
+      "lane_end": 6.97,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929488#0",
+        1,
+        6.969117727052009,
+        2.1205260569152265e-05,
+        "b9cadbdeb7befb6d4374553618ed0f2112f51834581e7fd8c28a973aa0027be8"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91001108,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 374,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.67,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": null
+    },
+    {
+      "route": 9,
+      "seed": 91001109,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 156,
+      "edge": "169929503#2",
+      "lane": 1,
+      "lane_end": 6.32,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        1,
+        48.35344388741302,
+        25.82264394055601,
+        "0b32d16bfc8d5ea0dcd7d4052e4deb07791dd0c0684569c2ef65b9956631e088"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91001110,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 277,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 2.65,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        1.5562372550227792,
+        27.289235674182333,
+        "bf8a5f49dee9c387c9e16988a6ca9cec11a6145dd5e5bdb0db0baa255b766409"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91001111,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 485,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.88,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "206426298",
+        0,
+        108.81292909042737,
+        20.002038897240727,
+        "19aa318a8868ba6a7bd513b872c23f6c9637f7aba0e6642fe99966ab3c9e3cdf"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91001112,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 177,
+      "edge": "781184662#3",
+      "lane": 2,
+      "lane_end": 3.9,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        2,
+        76.12522504602212,
+        27.779940782321997,
+        "aeaa8dc3425201b37bed3404dcc39c04f409a93e3c972500207a087ba1595f18"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91001113,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 405,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 1.59,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        1,
+        50.42859770442388,
+        19.770829466474233,
+        "1819dffb608ed9b67850ce091a3776ecb825306999ccb5cbe91ec45e14f2a12f"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91001114,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 473,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 2.59,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        73.20302560178288,
+        24.00097415558547,
+        "f8f19092c12039a8e16558b6c286796b78cd3f8ea85d53a6407799e434a37121"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91001115,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 553,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 3.92,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        72.57302135273102,
+        23.966657077739214,
+        "ce30b8c2bf57347f0d72d346b7a2df8603304f686320c98b91c89dc0dd943b1d"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91001116,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 336,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.28,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        18.174207713790224,
+        21.101253589127406,
+        "c922066751a828cd71f8f2a5a9a2a9c994000b00f050508ebe89ec5f9ffd0a49"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91001201,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 194,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 3.98,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        31.477632247903216,
+        17.84979642354152,
+        "676a530df0b015cd05c7be4c8ae9ccca1a45c9a10bd75181ead7c9c1239810f5"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91001202,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 436,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.38,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        13.893724567980087,
+        20.517933793268664,
+        "36b530bc0b06375646d9afe4de5d4cdfa0d050a92b18a57f2b11c346fae42466"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91001203,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 377,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 2.29,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        51.10502518142769,
+        22.167909543914348,
+        "1925a54d170a531691fca78b25d6c73b0882a86087d1d368f19e00b750e12c70"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91001204,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 399,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 2.79,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        45.73681444402969,
+        20.129999878013596,
+        "08b22ca74b9a1e7250102f488e1eac2a13767aa6cedba331b871b3f2210c2eea"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91001205,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 568,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.09,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "170059991",
+        2,
+        15.199526668766964,
+        10.31578021456954,
+        "e3babe25b2d1d5b178a752aa5a7ef2384721df4954d9840356429f76225aba28"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91001206,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 295,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 5.56,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        10.8981828298364,
+        27.778366209910317,
+        "d9b7b0da33a0b68e4d39c9717f9a7347b1f78451b686af407a62cb428c4c4561"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91001207,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 184,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.29,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        39.34478937425271,
+        22.029400325312626,
+        "88997a51238ec304eddc49d79b8a70ad485e715fe678b5b86be483685625b4b6"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91001208,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 824,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.72,
+      "original": "stall",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        0,
+        7.032230520878755,
+        7.891699117033205e-11,
+        "3a28872096a89cfcb7d05bc329d8cbc5cce9171568a555971f0fb695c83eabfc"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91001209,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 148,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.43,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        78.53175718453483,
+        27.39764938131351,
+        "da435040460c735c0b2d829d4ee02c2a4f73e2af14c5972e1c9d32acb13e25d5"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91001210,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 296,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 1.09,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":86198708.-50_0",
+        0,
+        7.5669428273973836,
+        27.052910553130925,
+        "8d376408ad0de095efa18d6f2382c4bd8525225a7f7f7fa4d496c2c53ad989be"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91001211,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 583,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.83,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        72.16757848116964,
+        23.50342540293933,
+        "c8b6b87fd44c8710d5127f5989a6d072dbf032fea3450c89e37cf156e3e415c3"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91001212,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 199,
+      "edge": "781184662#3",
+      "lane": 1,
+      "lane_end": 5.11,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        1,
+        82.82504683068473,
+        27.740662394142714,
+        "1a869b92fb643464b095102f2e901072796157381eb6bd1f37dea99aac008856"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91001213,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 538,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 2.55,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        17.96375746904817,
+        6.738568469813384,
+        "ccda350a99041de96c3d88638e8789c468428022b5747bda9adf7b16c36eb622"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91001214,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 429,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 1.44,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        86.34653623935857,
+        23.377167648271552,
+        "f139447cc61433a8e04472976f66ddce191ddf970fa8e203e81b06ce666c235d"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91001215,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 539,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 5.38,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        76.20273496211365,
+        26.96439719278461,
+        "c8e1ee12eae7252ce4c9bfd6a50aef4e7a0b11b3647bd85a8d934db37061c9bd"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91001216,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 323,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.66,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        16.159317693833316,
+        19.852577727339437,
+        "dde9edf5241b87dfadb32c556f19c9739c1fdb9d7af00a051fc22c4e59be78ac"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91001301,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 182,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 1.27,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        36.7728287998728,
+        21.18391136805978,
+        "25bbc4cd1693d86e3c1f226c1f7a203052432090ee1d3063ef4af02a0204f585"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91001302,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 410,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 4.18,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        19.39892952382459,
+        15.94270462701299,
+        "7eff2bcbf5a356129c984867fdb5b2a5489888544229546699803fdf4f046a35"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91001303,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 406,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 2.62,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        47.5709053572708,
+        16.6126950345861,
+        "af557c5e1402b84d0949b7c7a4ab864fca605a06126240f40c9153cf5764f7cf"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91001304,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 368,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 0.89,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        64.92101731829317,
+        23.408259204900737,
+        "ac25b41b3b46923a9f80bcade0484d9d59aa5981e2886374bc8a31c5ffea96cb"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91001305,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 538,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 3.39,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        70.89705521112947,
+        23.52128170891194,
+        "5489357500ea189b6a3babdd6d1617459fc47a1f4dc97c1e1609cf8f6c453b03"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91001306,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 267,
+      "edge": "1414146971",
+      "lane": 2,
+      "lane_end": 3.62,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":86198708.-50_0",
+        1,
+        3.3298919875626893,
+        26.33356066427617,
+        "5b5f0f1da6bbebcc3744fbd6d0560dfd4971f8f585838cd6fd2853e2434f7813"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91001307,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 241,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 1.89,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        167.92863393659968,
+        19.00368570862113,
+        "6ac890127933b06a88a87ecad88cb0789c17ffdcf6b334e9f00d74aef0755084"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91001308,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 392,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.45,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "544292617",
+        0,
+        0.9832017084172264,
+        22.21912734948767,
+        "26522e291309f4912e651b86c322dca7767396f4248aa29f1e042c7670914141"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91001309,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 149,
+      "edge": "169929503#2",
+      "lane": 1,
+      "lane_end": 3.31,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        1,
+        64.41798199271892,
+        27.77152426900566,
+        "dc3f8fa04f8ee124fe8ca8cec2a090ff98cf730733a6b81110b7874d039061d4"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91001310,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 282,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 1.72,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        6.679681358751822,
+        27.573317373571943,
+        "f29a2718757ed6830d245c26199fdecb296e057ee54c854cb43fc8b68bbf381a"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91001311,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 510,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 5.17,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": null
+    },
+    {
+      "route": 12,
+      "seed": 91001312,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 176,
+      "edge": "781184662#3",
+      "lane": 2,
+      "lane_end": 3.47,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        2,
+        75.69896701611168,
+        27.779991014297345,
+        "5fda627722547d379c425dc0b8c435d4478781fb7bb306b5a723975a05b51d9d"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91001313,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 376,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 2.03,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        1,
+        68.11354463349734,
+        21.872194430330584,
+        "ff2d32faf4c67c7c6f7cffecb18ba05b0ce55282bcbaf3cf7c6a761a07c3a746"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91001314,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 459,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 4.67,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059995",
+        0,
+        27.20911026183191,
+        10.142807182611941,
+        "eee32ef6dc5dbc96e7ac03b423c84a46ced7c6a91217c0d94f905719c7c6a2eb"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91001315,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 582,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 2.65,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        59.461950716214915,
+        18.64057121233604,
+        "77a912728e0796f5d792b2b96d943b1d4860067b43832626e5f396f5af2bc50f"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91001316,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 351,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.27,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        19.795761095803442,
+        20.87890975536841,
+        "111d0e980a80e0aafa47d22aab805f0e11c1b051fc747201a9f1a4bb5e60b927"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91001401,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 189,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 1.83,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        30.25594538115999,
+        17.845189866321476,
+        "142d914f9bc4660ab7b6deabd70af6a7bdff6dc358433381f7f1c4bd1f5a03e9"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91001402,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 546,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.56,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        0,
+        51.85376972129893,
+        14.048199880623198,
+        "248986cdb955ef3c8b7498ad16ad5202a4fb08b2599cd99d8b1189ae7eaf1113"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91001403,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 354,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 3.9,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        56.01480943093104,
+        21.406200963338502,
+        "293de44e70f4ed733e88420b90042b9c27df8a50e2100e4b75c0f2105858f99d"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91001404,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 371,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 5.08,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        61.23998769096902,
+        24.671535330272402,
+        "d143230011c11b70d2277edb503e104cbee20c4a7131b7f7678533d5911179f3"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91001405,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 555,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.72,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "170059991",
+        2,
+        11.881899467834586,
+        9.687323262887091,
+        "f41ab1c2970c60c060f6dba1349fb9acb164cd218c6812036bd8d202f0b7210b"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91001406,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 300,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 1.24,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        ":86198708.-50_0",
+        0,
+        6.538887250215026,
+        26.41178444868418,
+        "ac80b588c7c90d655f03436f6ac3a5fd59384df072ab438ee93ef5979d1cb48b"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91001407,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 205,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.78,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        29.712469403927685,
+        17.31175147094894,
+        "f080eee646e8de273e964a03b41dd9055e3a02a893659d07d53bee52f0bb4a45"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91001408,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 392,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.89,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        0,
+        87.28193345128281,
+        18.092975661096645,
+        "7ab540859151d441ae2c645c86079a88841d98d71a29a46fe77c271ca2d862c6"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91001409,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 149,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 5.08,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        88.32603927398523,
+        27.727934426571007,
+        "85a30b42b14c7771f63b5254b43775b1bc56a6325d650572554e0fdeca6522a6"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91001410,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 281,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 3.1,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        8.037724224970106,
+        27.56580014898793,
+        "9a43d6164a8a516fa2b5d965e602133a5c9f1ecd1283447d4a61b087d18bc89b"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91001411,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 487,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.72,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        170.39534050022712,
+        19.342119508981703,
+        "9157606117218c49d960202c7b812095d05a10d4ec5fcfd1c655b018b490be21"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91001412,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 178,
+      "edge": "781184662#3",
+      "lane": 1,
+      "lane_end": 4.11,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        1,
+        76.33501694884475,
+        27.778728447185234,
+        "0d86b3e778fcbceaa011b3d270415f7c0e533c6718bfaa570d747fb1936a4839"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91001413,
+      "kind": "expert",
+      "outcome": "timeout",
+      "steps": 1000,
+      "edge": "170059994",
+      "lane": 3,
+      "lane_end": 7.4,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        21.05934167064026,
+        8.51576806812323,
+        "ece1870427836f33f2fe5e621ec445c5db99303016ece7f1e277dd13a98c2a1f"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91001414,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 404,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 3.71,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        68.44221832790174,
+        23.67702476306164,
+        "183bf50bc5a2fe7661e9489fbf30ff46da63ae73a80ee53a392e3e0208506ef6"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91001415,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 686,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 3.97,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        55.415067078686064,
+        17.369612674175325,
+        "ef9f701b6aa07b6d2b8d6cc50e0003b60c946ee91ea0a025eca69ac5e0876645"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91001416,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 358,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.63,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "86198728",
+        0,
+        436.3461995152155,
+        14.047976280428209,
+        "2ad4e4f0f85d7e82d05337098307758e61b7b1e172433e62a63d6b8b27feab0d"
+      ]
+    },
+    {
+      "route": 1,
+      "seed": 91001501,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 168,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 2.34,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "280963368",
+        0,
+        34.782159503136995,
+        21.913165217098722,
+        "22b8f22c36fb2d9b0e0f4ad70e2ccabae606975a2145d5a0b5c9aa800c8c86e7"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91001502,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 405,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.85,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        16.28242525181733,
+        19.776529697611693,
+        "d8f12b7ce4bc55bbfb4e4079b3b16594cda6a267e7c898914bacd8a4dce66ebe"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91001503,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 350,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 2.97,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        0,
+        38.47193163375742,
+        22.179301086375197,
+        "f9e86cace29929bb98f26a11aff54d7bd00dfe4465b620f8bf0242fc6459855d"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91001504,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 404,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 4.46,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "52873356",
+        1,
+        353.6330089957613,
+        18.219810235905435,
+        "457653a982ad187fcd4a2f5e10f75090ec3fac2301bcec7f68d47f4a281c03cd"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91001505,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 509,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 3.85,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        111.46294746484932,
+        26.347378366188327,
+        "1359a814664fd99b122579c4c2304f6ec381ddabb6116ecaf47c1ae1481c63cb"
+      ]
+    },
+    {
+      "route": 6,
+      "seed": 91001506,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 248,
+      "edge": "1414146971",
+      "lane": 2,
+      "lane_end": 0.47,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708#1",
+        1,
+        26.794081556243597,
+        25.24405658933356,
+        "7e56272004c0e00d69a1aacf0e69812ff88047e21da36203d1cece278c15bd50"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91001507,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 171,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 0.87,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "169929488#0",
+        0,
+        15.735569978665929,
+        20.309290405569303,
+        "a7d456b1ce898cf450b4a32ecc7a2eaf5697acd6e7fa91721d61ef6741df01dc"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91001508,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 412,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.82,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        19.84359914741293,
+        16.951555303614715,
+        "7dc46eb73f2d9a6f6c85a052bc401cfe222d99e7fad820affd65f2a04c1b2766"
+      ]
+    },
+    {
+      "route": 9,
+      "seed": 91001509,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 148,
+      "edge": "169929503#2",
+      "lane": 1,
+      "lane_end": 4.84,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        1,
+        71.49369420805479,
+        27.771153460592323,
+        "449ffb37ffc415be0712548332a4b6b3c31df0119c15dc1c534bb8d0e88cd9dc"
+      ]
+    },
+    {
+      "route": 10,
+      "seed": 91001510,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 298,
+      "edge": "1414146971",
+      "lane": 1,
+      "lane_end": 2.17,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "86198708",
+        1,
+        0.10291714730826129,
+        26.7551832269463,
+        "b237947273e64285d0595d3ae81d271bbbca4f3d14c3b7219c75000cfc0ef6b3"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91001511,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 461,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.53,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        17.234104865099965,
+        20.03900134042805,
+        "9e4aa644c1b64769dae00fa19864a94c6145df5005f8c288d9d77eb230b8b684"
+      ]
+    },
+    {
+      "route": 12,
+      "seed": 91001512,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 177,
+      "edge": "781184662#3",
+      "lane": 2,
+      "lane_end": 0.19,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        2,
+        77.97196338694403,
+        27.77997116084394,
+        "4555ea875d5e2b4f58616a84920853bc9ce065fd20e20c164f1645685474c3a4"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91001513,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 426,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 0.95,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169728835",
+        1,
+        71.9248902633278,
+        22.14515235544221,
+        "5aab3af7940380b1d085c9e2fc5c1e7694db6621915976519b0320043cebd955"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91001514,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 502,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 4.01,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "781184662#3",
+        0,
+        70.13508418025677,
+        24.38203925426502,
+        "52f32dec06768f52b07e85b6540daaada6ad0f019e9f06d277f9cd80d876f471"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91001515,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 563,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 4.24,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "169929503#2",
+        0,
+        70.69468096411572,
+        27.647556365416126,
+        "ec4496c32c5843a8acc0245ebc1b98a0c758ca0f571990102948dad9c14381ec"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91001516,
+      "kind": "expert",
+      "outcome": "arrival",
+      "steps": 367,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.19,
+      "original": "arrival",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        1,
+        145.9011899890667,
+        20.523547999262824,
+        "5990626a8b0b22e427ef85c14a1cddc11941f0523e98f5e3bf1809f0bd915e58"
+      ]
+    }
+  ],
+  "paired_failures": [
+    {
+      "route": 8,
+      "seed": 91000008,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 436,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.39,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "544295537",
+        0,
+        12.265338336927925,
+        9.899584798931063,
+        "b1156a706fdd3de462a6b1adde1065d19e5e2d543c5575138476f68686fdf5db"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000013,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 498,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 1.5,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        ":1812112753_3",
+        0,
+        7.522189208602821,
+        4.4353865701754485,
+        "893b231f117635f84c31f544ab9f65013c0036702162aa5645036cf23ddcb6da"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000103,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 354,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 4.05,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "52873356",
+        1,
+        260.6137477511394,
+        17.696644506753078,
+        "257ee0fec1f1c11ff0291361078c522b3b80ce272433a731082a8983a700eb3d"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91000104,
+      "kind": "takeover",
+      "outcome": "off_route",
+      "steps": 163,
+      "edge": "844484878#0",
+      "lane": 1,
+      "lane_end": 320.8,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        ":1000493460_3",
+        1,
+        58.02612098794424,
+        16.97977038223318,
+        "1e6d865bd77b1bcc7b980344268244923bd183ea3009199c2c5addacd59e68fc"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000107,
+      "kind": "takeover",
+      "outcome": "stall",
+      "steps": 266,
+      "edge": "169929488#0",
+      "lane": 1,
+      "lane_end": 4.05,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "169929488#0",
+        1,
+        27.100835802004923,
+        14.93916055627641,
+        "782034de0895649ff4ad3c5f80152e6ed607e9576cc8780b69bbe71888f43c04"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000113,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 525,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 4.38,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        23.319453840522115,
+        9.537474512995678,
+        "0b1e2c694464f2b545e6c4b497e7ed0fb484872c1bed215d192bf954918c3b1f"
+      ]
+    },
+    {
+      "route": 15,
+      "seed": 91000115,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 553,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 2.59,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "86198728",
+        1,
+        467.6555684906049,
+        26.222644199066167,
+        "b05a360b447f55514cda11205f9a74392787f01bc42c91a33965bc6796bd6c54"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91000307,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 228,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 1.84,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "169929488#0",
+        1,
+        24.039331621159462,
+        13.6134444219752,
+        "d8aa252d72a31055adca339434c88ba1c5df71d71d8dddf145801a6f3bd86583"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000314,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 458,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 1.41,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        35.03153887723056,
+        7.577887556715847,
+        "daf544cfb95fb95c2f7bc302a1c9b60b17ce86af83e96c4ceb76a759b7332ed7"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000402,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 385,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 0.45,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "169728849",
+        0,
+        53.45261698880091,
+        21.916127549194748,
+        "0b9d46aafc9977c99d1c681f7d595dbc05b0c71eef596fd993b51c5fe3d2d1fd"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000413,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 505,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 1.04,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        17.412930284691598,
+        7.9155330143356855,
+        "5a251ecce328b8efc03bb445aff14dd72856ffc29b77d78a25e3bdc005e7435b"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91000613,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 466,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 1.89,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "170059995",
+        0,
+        8.419060998687698,
+        9.557570889365607,
+        "ddd5879bd4f2baeddef1ef3d3614d317c38331944b16457d7acdfabd6e2860cf"
+      ]
+    },
+    {
+      "route": 2,
+      "seed": 91000802,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 395,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.36,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "544292616",
+        0,
+        34.90828467267457,
+        22.638464316473033,
+        "10569cd1b372288c8aba1e5a9dd4459678872e192ab8f4b18ef7d6a8ad18b1dc"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91000814,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 478,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 4.54,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "170059995",
+        0,
+        7.388977316206635,
+        8.697789576693916,
+        "ab0cb1c31dbe2ef1ce432f0c616ca0896dbdc64ad03c7a0055b177bdf338fe15"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91000816,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 344,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 4.46,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "86198728",
+        0,
+        56.34570851663068,
+        20.306495640195525,
+        "f1ffcd6f3f8dfc76d2f6074c3c6ffa80c8e989a07a1a2baf1674f475e745f09e"
+      ]
+    },
+    {
+      "route": 3,
+      "seed": 91000903,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 403,
+      "edge": "169728835",
+      "lane": 0,
+      "lane_end": 0.54,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "52873356",
+        1,
+        77.00354353770894,
+        14.624086920914774,
+        "253f030c1e23ea382fabd4c474287bba7359ffcb6ceef8fd451a6c72f6ad3fea"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91001005,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 604,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 4.7,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        ":1812112753_0",
+        2,
+        8.86343783350804,
+        9.012238437010684,
+        "cc89a244ba61004dea720165f851f5080c72560fc2d027301aa45a337b7437e1"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91001013,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 432,
+      "edge": "169728835",
+      "lane": 1,
+      "lane_end": 0.49,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        25.00802787933084,
+        10.939876762817033,
+        "ee5460ab4591ae484175c1d6f795e129097ce47205a6310f8256ca8286ee9ec4"
+      ]
+    },
+    {
+      "route": 11,
+      "seed": 91001111,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 485,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.31,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "206426298",
+        0,
+        106.75635713679591,
+        20.803333368240253,
+        "7d5798e8dfc40e861b20a6642e99901ba72682e564109492fe70db5cd8e39f8a"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91001205,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 568,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 1.42,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "170059991",
+        2,
+        14.704930996885622,
+        10.471323799139363,
+        "846ad0c0323605a7b09f935f259023693655e06f32e11a6bb2c2b6ebb2b15294"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91001208,
+      "kind": "takeover",
+      "outcome": "stall",
+      "steps": 673,
+      "edge": "844484877",
+      "lane": 0,
+      "lane_end": 0.0,
+      "original": "stall",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        0,
+        0.0,
+        0.0,
+        "3b47ee5722787a05b224e3a8a884af870e5e6429a2464278298798d0c50df956"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91001213,
+      "kind": "takeover",
+      "outcome": "timeout",
+      "steps": 1000,
+      "edge": "170059994",
+      "lane": 3,
+      "lane_end": 7.73,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        18.313134044322965,
+        7.270777230483948,
+        "7f8461aeb71a9220743b9b4fd6fb16cf4b588f3e0e2c48cef307b15cd117aec1"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91001308,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 393,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 2.82,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "544292616",
+        0,
+        41.127950887622966,
+        22.448099200055008,
+        "b18dd4a1a1e3ab812228840037691e66f56c94cba954043dbbadaeb003ca532e"
+      ]
+    },
+    {
+      "route": 14,
+      "seed": 91001314,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 411,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 0.73,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        19.304366227584357,
+        10.004010832621688,
+        "af97c71c621b933a09674645ddc607d8cec8855e12b5012d95406bf1c261d137"
+      ]
+    },
+    {
+      "route": 5,
+      "seed": 91001405,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 554,
+      "edge": "169929503#2",
+      "lane": 0,
+      "lane_end": 4.41,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "170059991",
+        2,
+        13.089183490088118,
+        9.899367219416824,
+        "20fc294138eb24e383b06ffd26dec24071bb882b08cedd8be50d18ebb389e85a"
+      ]
+    },
+    {
+      "route": 8,
+      "seed": 91001408,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 392,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 3.67,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "844484877",
+        0,
+        83.06975475396382,
+        17.645962983942844,
+        "555600988355cd8ca3e4784c0a9413ed8fa91446ab02cf9ffbf64133c1c3661c"
+      ]
+    },
+    {
+      "route": 13,
+      "seed": 91001413,
+      "kind": "takeover",
+      "outcome": "timeout",
+      "steps": 1000,
+      "edge": "170059994",
+      "lane": 3,
+      "lane_end": 7.13,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        21.20889290232414,
+        8.891208722932014,
+        "9cfd2808138125999b3edeff8fee4540a6483f9c0a0b5ce1cff5627af82ba712"
+      ]
+    },
+    {
+      "route": 16,
+      "seed": 91001416,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 358,
+      "edge": "844484877#1",
+      "lane": 0,
+      "lane_end": 1.13,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "86198728",
+        0,
+        436.1385895008886,
+        14.131550270389509,
+        "202fa717b12f24ab83a167b18b68a3c8453d1925463cceca0aa5b67e93d8e1c2"
+      ]
+    },
+    {
+      "route": 4,
+      "seed": 91001504,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 404,
+      "edge": "781184662#3",
+      "lane": 0,
+      "lane_end": 3.57,
+      "original": "collision",
+      "reversals": 0,
+      "entry": [
+        "52873356",
+        1,
+        354.43583165750385,
+        18.02661582212427,
+        "825d2d23e00f0e5949becae51b69a83fc02c9272c9e5dab80fc6dca6611bfad7"
+      ]
+    },
+    {
+      "route": 7,
+      "seed": 91001507,
+      "kind": "takeover",
+      "outcome": "arrival",
+      "steps": 177,
+      "edge": "1414146971",
+      "lane": 0,
+      "lane_end": 0.22,
+      "original": "off_route",
+      "reversals": 0,
+      "entry": [
+        "169929488#0",
+        1,
+        24.241615312049873,
+        11.969172958513203,
+        "409bb2e10f0ce7bb0059a74ce87251a1b0d91b5f40b2a14c611b29db8658c5e5"
+      ]
+    }
+  ],
+  "timeout_checks": [
+    {
+      "route": 7,
+      "seed": 91000107,
+      "outcome": "timeout",
+      "range_n": 150,
+      "last": [
+        "169929488#0",
+        1,
+        -1,
+        [
+          "front",
+          "rear",
+          "overlap"
+        ],
+        [
+          0
+        ],
+        "169728799",
+        [
+          0
+        ],
+        0.0,
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        6.839020051821649,
+        6
+      ],
+      "reason": {
+        "front+rear+overlap": 150
+      },
+      "n_keep": 150,
+      "side_front": [
+        0.0,
+        0.5894240364432335
+      ],
+      "side_rear": [
+        -0.0,
+        0.5089508928358555
+      ],
+      "speed_max": 0.0
+    },
+    {
+      "route": 5,
+      "seed": 91000505,
+      "outcome": "timeout",
+      "range_n": 150,
+      "last": [
+        "170059994",
+        2,
+        1,
+        [
+          "rear"
+        ],
+        [
+          3
+        ],
+        "844484876",
+        [
+          3
+        ],
+        0.0,
+        120.0,
+        -0.0,
+        0.0,
+        0.0,
+        7.055215231886187,
+        7
+      ],
+      "reason": {
+        "rear": 150
+      },
+      "n_keep": 150,
+      "side_front": [
+        120.0,
+        120.0
+      ],
+      "side_rear": [
+        -0.0,
+        0.606814194470644
+      ],
+      "speed_max": 0.0
+    },
+    {
+      "route": 13,
+      "seed": 91000713,
+      "outcome": "timeout",
+      "range_n": 150,
+      "last": [
+        "170059994",
+        3,
+        -1,
+        [
+          "rear"
+        ],
+        [
+          0,
+          1,
+          2
+        ],
+        "1063527748",
+        [
+          0,
+          1,
+          2
+        ],
+        0.0,
+        15.696970224380493,
+        0.00579230283619836,
+        0.0,
+        0.0,
+        7.362619318901096,
+        7
+      ],
+      "reason": {
+        "rear": 136,
+        "front+rear+overlap": 4,
+        "front+rear": 10
+      },
+      "n_keep": 150,
+      "side_front": [
+        0.0,
+        120.0
+      ],
+      "side_rear": [
+        -0.0,
+        0.5233321711421013
+      ],
+      "speed_max": 3.2101306074725654e-37
+    },
+    {
+      "route": 5,
+      "seed": 91000805,
+      "outcome": "timeout",
+      "range_n": 150,
+      "last": [
+        "170059994",
+        2,
+        1,
+        [
+          "rear"
+        ],
+        [
+          3
+        ],
+        "844484876",
+        [
+          3
+        ],
+        0.0,
+        120.0,
+        -0.0,
+        0.0,
+        0.0,
+        9.824462723884231,
+        9
+      ],
+      "reason": {
+        "rear": 150
+      },
+      "n_keep": 150,
+      "side_front": [
+        120.0,
+        120.0
+      ],
+      "side_rear": [
+        -0.0,
+        0.6370383314788342
+      ],
+      "speed_max": 0.0
+    },
+    {
+      "route": 7,
+      "seed": 91001107,
+      "outcome": "timeout",
+      "range_n": 150,
+      "last": [
+        "169929488#0",
+        1,
+        -1,
+        [
+          "front",
+          "rear",
+          "overlap"
+        ],
+        [
+          0
+        ],
+        "169728799",
+        [
+          0
+        ],
+        0.0,
+        0.17361255828291178,
+        -0.0,
+        0.0,
+        0.0,
+        6.9690944012656715,
+        6
+      ],
+      "reason": {
+        "front+rear+overlap": 150
+      },
+      "n_keep": 150,
+      "side_front": [
+        0.0,
+        0.612763948738575
+      ],
+      "side_rear": [
+        -0.0,
+        0.5574998818337917
+      ],
+      "speed_max": 0.0
+    },
+    {
+      "route": 13,
+      "seed": 91001413,
+      "outcome": "timeout",
+      "range_n": 150,
+      "last": [
+        "170059994",
+        3,
+        -1,
+        [
+          "front",
+          "rear"
+        ],
+        [
+          0,
+          1,
+          2
+        ],
+        "1063527748",
+        [
+          0,
+          1,
+          2
+        ],
+        0.0,
+        0.19183565396815538,
+        0.017333587165921926,
+        0.0,
+        0.0,
+        7.396983367057622,
+        7
+      ],
+      "reason": {
+        "front+rear": 150
+      },
+      "n_keep": 150,
+      "side_front": [
+        0.0,
+        0.4477054439485073
+      ],
+      "side_rear": [
+        -0.0,
+        0.5799499712884426
+      ],
+      "speed_max": 5.5332749881887564e-39
+    },
+    {
+      "route": 7,
+      "seed": 68172807,
+      "outcome": "timeout",
+      "range_n": 150,
+      "last": [
+        "169929488#0",
+        1,
+        -1,
+        [
+          "front",
+          "rear",
+          "overlap"
+        ],
+        [
+          0
+        ],
+        "169728799",
+        [
+          0
+        ],
+        0.0,
+        0.0,
+        0.22510172333568335,
+        0.0,
+        0.0,
+        6.917004933170567,
+        6
+      ],
+      "reason": {
+        "front+rear+overlap": 150
+      },
+      "n_keep": 150,
+      "side_front": [
+        0.0,
+        0.5716559663414955
+      ],
+      "side_rear": [
+        -0.0,
+        0.5349083058536053
+      ],
+      "speed_max": 0.0
+    },
+    {
+      "route": 13,
+      "seed": 68172513,
+      "outcome": "timeout",
+      "range_n": 150,
+      "last": [
+        "170059994",
+        3,
+        -1,
+        [
+          "front",
+          "rear",
+          "overlap"
+        ],
+        [
+          0,
+          1,
+          2
+        ],
+        "1063527748",
+        [
+          0,
+          1,
+          2
+        ],
+        0.0,
+        0.0,
+        0.07127501768991351,
+        0.0,
+        0.0,
+        7.180338877725966,
+        7
+      ],
+      "reason": {
+        "front+rear+overlap": 150
+      },
+      "n_keep": 150,
+      "side_front": [
+        0.0,
+        0.4353263508528471
+      ],
+      "side_rear": [
+        -0.0,
+        0.4885050281882286
+      ],
+      "speed_max": 1.5035520660407925e-36
+    },
+    {
+      "route": 2,
+      "seed": 68172902,
+      "outcome": "arrival",
+      "range_n": 114,
+      "last": [
+        "844484877",
+        0,
+        1,
+        [],
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        "844484877#1",
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        2.962739928391578e-09,
+        5.477329641580582,
+        51.24144673347473,
+        0.32253408432006836,
+        1.0,
+        6.978076309307198,
+        6
+      ],
+      "reason": {
+        "front+rear+overlap": 39,
+        "front+rear": 19,
+        "rear": 54,
+        "front": 1,
+        "": 1
+      },
+      "n_keep": 113,
+      "side_front": [
+        0.0,
+        29.942067861557007
+      ],
+      "side_rear": [
+        -0.0,
+        54.85381364822388
+      ],
+      "speed_max": 0.46764785081148147
+    }
+  ],
+  "original_failed_window": [
+    {
+      "route": 7,
+      "seed": 68172807,
+      "kind": "expert",
+      "outcome": "timeout",
+      "steps": 1000,
+      "edge": "169929488#0",
+      "lane": 1,
+      "lane_end": 6.92,
+      "original": "timeout",
+      "reversals": 0,
+      "entry": [
+        "169929488#0",
+        1,
+        6.917004933170567,
+        1.8303822678803256e-44,
+        "2d7069247b9fff6438a020df68250a600a49f93e6e025a9590aca5beb8f3dc79"
+      ],
+      "window": [
+        [
+          851,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          852,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          853,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          854,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          855,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          856,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          857,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          858,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          859,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          860,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          861,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          862,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          863,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          864,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          865,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          866,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          867,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          868,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          869,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          870,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          76.89,
+          0.0,
+          0
+        ],
+        [
+          871,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          872,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          873,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          874,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          875,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          876,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          877,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          878,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          879,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          880,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          881,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          9.98,
+          0.0,
+          0
+        ],
+        [
+          882,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          15.48,
+          0.0,
+          0
+        ],
+        [
+          883,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          20.47,
+          0.0,
+          0
+        ],
+        [
+          884,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          24.42,
+          0.0,
+          0
+        ],
+        [
+          885,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          26.76,
+          0.0,
+          0
+        ],
+        [
+          886,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          34.23,
+          0.0,
+          0
+        ],
+        [
+          887,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          38.11,
+          0.0,
+          0
+        ],
+        [
+          888,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          44.54,
+          0.0,
+          0
+        ],
+        [
+          889,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          45.95,
+          0.0,
+          0
+        ],
+        [
+          890,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          52.1,
+          0.0,
+          0
+        ],
+        [
+          891,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          55.61,
+          0.0,
+          0
+        ],
+        [
+          892,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          61.02,
+          0.0,
+          0
+        ],
+        [
+          893,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          62.88,
+          0.0,
+          0
+        ],
+        [
+          894,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          67.68,
+          0.0,
+          0
+        ],
+        [
+          895,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          76.55,
+          0.0,
+          0
+        ],
+        [
+          896,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          75.66,
+          0.0,
+          0
+        ],
+        [
+          897,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          85.09,
+          0.0,
+          0
+        ],
+        [
+          898,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          85.71,
+          0.0,
+          0
+        ],
+        [
+          899,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          89.44,
+          0.0,
+          0
+        ],
+        [
+          900,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          102.16,
+          0.0,
+          0
+        ],
+        [
+          901,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          103.62,
+          0.0,
+          0
+        ],
+        [
+          902,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          102.49,
+          0.0,
+          0
+        ],
+        [
+          903,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          109.78,
+          0.0,
+          0
+        ],
+        [
+          904,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          115.0,
+          0.0,
+          0
+        ],
+        [
+          905,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          116.65,
+          0.0,
+          0
+        ],
+        [
+          906,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          907,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          908,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          909,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          910,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          911,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          912,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          913,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          914,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          915,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          916,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          917,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          918,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          919,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          920,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          921,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          922,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          923,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          924,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          925,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          926,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          927,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          928,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          929,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          930,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          931,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          932,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          933,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          934,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          935,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          936,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          937,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          43.28,
+          0.0,
+          0
+        ],
+        [
+          938,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          44.55,
+          0.0,
+          0
+        ],
+        [
+          939,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          50.99,
+          0.0,
+          0
+        ],
+        [
+          940,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          53.22,
+          0.0,
+          0
+        ],
+        [
+          941,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          55.66,
+          0.0,
+          0
+        ],
+        [
+          942,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          58.24,
+          0.0,
+          0
+        ],
+        [
+          943,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          62.53,
+          0.0,
+          0
+        ],
+        [
+          944,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          62.51,
+          0.0,
+          0
+        ],
+        [
+          945,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          66.45,
+          0.0,
+          0
+        ],
+        [
+          946,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          74.68,
+          0.0,
+          0
+        ],
+        [
+          947,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          76.24,
+          0.0,
+          0
+        ],
+        [
+          948,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          76.68,
+          0.0,
+          0
+        ],
+        [
+          949,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          85.45,
+          0.0,
+          0
+        ],
+        [
+          950,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          81.25,
+          0.0,
+          0
+        ],
+        [
+          951,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          89.79,
+          0.0,
+          0
+        ],
+        [
+          952,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          96.82,
+          0.0,
+          0
+        ],
+        [
+          953,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          94.73,
+          0.0,
+          0
+        ],
+        [
+          954,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          97.66,
+          0.0,
+          0
+        ],
+        [
+          955,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          101.86,
+          0.0,
+          0
+        ],
+        [
+          956,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          109.33,
+          0.0,
+          0
+        ],
+        [
+          957,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          108.55,
+          0.0,
+          0
+        ],
+        [
+          958,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          959,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          960,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          961,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          962,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          963,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          964,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          965,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          966,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          967,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          968,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          969,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          970,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          971,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          972,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          973,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          974,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          975,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          976,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          977,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          978,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          979,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          980,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          981,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          982,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          983,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          984,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          985,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          986,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          987,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          113.53,
+          0.0,
+          0
+        ],
+        [
+          988,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          119.99,
+          0.0,
+          0
+        ],
+        [
+          989,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          990,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          991,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          992,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          993,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          994,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          995,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          996,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          997,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          998,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          999,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          1000,
+          "169929488#0",
+          1,
+          6.92,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ]
+      ],
+      "last30": 0.0
+    },
+    {
+      "route": 13,
+      "seed": 68172513,
+      "kind": "expert",
+      "outcome": "timeout",
+      "steps": 1000,
+      "edge": "170059994",
+      "lane": 3,
+      "lane_end": 7.18,
+      "original": "timeout",
+      "reversals": 0,
+      "entry": [
+        "170059994",
+        3,
+        7.180338877725966,
+        1.6872038693825009e-44,
+        "0cd7fba99f14b398b97139f1e85a9f636b0dec118f449b347e4159c63dc85a7c"
+      ],
+      "window": [
+        [
+          851,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          852,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          853,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          854,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          855,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          856,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          857,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          858,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          859,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          860,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          861,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          862,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          863,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          864,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          865,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          866,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          867,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          868,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          869,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          870,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          871,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          872,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          873,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          874,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          875,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          876,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          877,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          878,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          879,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          880,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          881,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          882,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          883,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          884,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          885,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          886,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          887,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          888,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          889,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          890,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          891,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          892,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          893,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          894,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          895,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          896,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          897,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          898,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          899,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          900,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          901,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          902,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          903,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          904,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          905,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          906,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          907,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          908,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          909,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          910,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          911,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          912,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          913,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          914,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          915,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          916,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          917,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          918,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          919,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          920,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          921,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          922,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          923,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          924,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          925,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          926,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          927,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          928,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          929,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          930,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          931,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          932,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          933,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          934,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          935,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          936,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          937,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          938,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          939,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          940,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          941,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          942,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          943,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          944,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          945,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          946,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          947,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          948,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          949,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          950,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          951,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          952,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          953,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          954,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          955,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          956,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          957,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          958,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          -0.0,
+          0
+        ],
+        [
+          959,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          960,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          961,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          962,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          963,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          964,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          965,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          966,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          967,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          968,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          969,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          970,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          971,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          972,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          973,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          974,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          975,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          976,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          977,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          978,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          979,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          980,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          981,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          982,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          983,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          984,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          985,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          986,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          987,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          988,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          989,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          990,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          991,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          992,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          993,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          994,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          995,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          996,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          997,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          998,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          999,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ],
+        [
+          1000,
+          "170059994",
+          3,
+          7.18,
+          0.0,
+          120.0,
+          0.0,
+          0
+        ]
+      ],
+      "last30": 0.0
+    }
+  ]
+}

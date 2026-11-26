@@ -1,0 +1,42 @@
+{
+  "seed": 11,
+  "steps": [
+    0,
+    8192,
+    16384,
+    32768,
+    49152,
+    65536,
+    81920,
+    98304,
+    114688,
+    131072,
+    147456,
+    163840,
+    180224,
+    196608,
+    212992,
+    229376,
+    245760,
+    262144,
+    278528,
+    294912,
+    300000
+  ],
+  "hp": {
+    "hidden_sizes": [
+      256,
+      256
+    ],
+    "n_steps": 2048,
+    "n_epochs": 10,
+    "minibatch_size": 64,
+    "lr": 0.0001,
+    "lane_entropy_coef": 0.002,
+    "lane_keep_bias": 1.0,
+    "device": "cpu"
+  },
+  "screen_base": 29110000,
+  "fresh_base": 32110000,
+  "selection": "most arrivals, fewest crashes, most arrivals on routes 5/13/14/16, earliest"
+}

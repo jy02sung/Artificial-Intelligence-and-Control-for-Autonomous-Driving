@@ -1,0 +1,308 @@
+{
+  "11_32768_39110000": {
+    "F1": {
+      "outcomes": {
+        "timeout": 21,
+        "arrival": 14,
+        "stall": 14,
+        "collision": 15
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "F0": {
+      "outcomes": {
+        "arrival": 14,
+        "stall": 21,
+        "collision": 26,
+        "timeout": 3
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "transitions": {
+      "timeout->arrival": 4,
+      "timeout->stall": 10,
+      "arrival->collision": 3,
+      "arrival->arrival": 10,
+      "stall->collision": 6,
+      "timeout->collision": 6,
+      "timeout->timeout": 1,
+      "stall->stall": 7,
+      "collision->collision": 11,
+      "collision->stall": 3,
+      "arrival->stall": 1,
+      "collision->timeout": 1,
+      "stall->timeout": 1
+    }
+  },
+  "22_32768_39110000": {
+    "F1": {
+      "outcomes": {
+        "collision": 5,
+        "stall": 14,
+        "timeout": 33,
+        "arrival": 12
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "F0": {
+      "outcomes": {
+        "timeout": 37,
+        "stall": 4,
+        "arrival": 8,
+        "collision": 15
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "transitions": {
+      "collision->timeout": 3,
+      "stall->stall": 4,
+      "timeout->timeout": 27,
+      "arrival->timeout": 4,
+      "stall->timeout": 3,
+      "arrival->arrival": 8,
+      "stall->collision": 7,
+      "timeout->collision": 6,
+      "collision->collision": 2
+    }
+  },
+  "33_32768_39110000": {
+    "F1": {
+      "outcomes": {
+        "collision": 27,
+        "stall": 21,
+        "arrival": 14,
+        "timeout": 2
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "F0": {
+      "outcomes": {
+        "collision": 18,
+        "stall": 29,
+        "arrival": 16,
+        "timeout": 1
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "transitions": {
+      "collision->collision": 12,
+      "stall->stall": 16,
+      "arrival->arrival": 12,
+      "stall->collision": 3,
+      "stall->arrival": 2,
+      "collision->stall": 13,
+      "collision->arrival": 1,
+      "arrival->collision": 2,
+      "timeout->collision": 1,
+      "collision->timeout": 1,
+      "timeout->arrival": 1
+    }
+  },
+  "11_65536_39110000": {
+    "F1": {
+      "outcomes": {
+        "arrival": 17,
+        "timeout": 14,
+        "stall": 21,
+        "collision": 12
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "F0": {
+      "outcomes": {
+        "arrival": 13,
+        "timeout": 18,
+        "stall": 14,
+        "collision": 19
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "transitions": {
+      "arrival->arrival": 12,
+      "timeout->timeout": 9,
+      "arrival->timeout": 2,
+      "stall->timeout": 5,
+      "stall->stall": 10,
+      "arrival->stall": 3,
+      "timeout->arrival": 1,
+      "timeout->collision": 3,
+      "collision->collision": 10,
+      "stall->collision": 6,
+      "collision->timeout": 2,
+      "timeout->stall": 1
+    }
+  },
+  "22_65536_39110000": {
+    "F1": {
+      "outcomes": {
+        "arrival": 19,
+        "timeout": 5,
+        "collision": 15,
+        "stall": 25
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "F0": {
+      "outcomes": {
+        "collision": 9,
+        "timeout": 49,
+        "arrival": 6
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "transitions": {
+      "arrival->collision": 6,
+      "timeout->timeout": 5,
+      "collision->timeout": 14,
+      "stall->timeout": 23,
+      "arrival->arrival": 6,
+      "arrival->timeout": 7,
+      "collision->collision": 1,
+      "stall->collision": 2
+    }
+  },
+  "33_65536_39110000": {
+    "F1": {
+      "outcomes": {
+        "arrival": 13,
+        "stall": 15,
+        "collision": 36
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "F0": {
+      "outcomes": {
+        "arrival": 14,
+        "timeout": 14,
+        "stall": 25,
+        "collision": 11
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "transitions": {
+      "arrival->arrival": 10,
+      "stall->timeout": 4,
+      "collision->arrival": 4,
+      "collision->stall": 16,
+      "arrival->collision": 1,
+      "stall->collision": 2,
+      "stall->stall": 9,
+      "collision->timeout": 8,
+      "collision->collision": 8,
+      "arrival->timeout": 2
+    }
+  },
+  "11_65536_41110000": {
+    "F1": {
+      "outcomes": {
+        "arrival": 21,
+        "timeout": 13,
+        "stall": 21,
+        "collision": 9
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "F0": {
+      "outcomes": {
+        "arrival": 15,
+        "stall": 17,
+        "timeout": 13,
+        "collision": 19
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "transitions": {
+      "arrival->arrival": 14,
+      "timeout->stall": 3,
+      "arrival->timeout": 2,
+      "stall->timeout": 3,
+      "timeout->timeout": 7,
+      "arrival->stall": 4,
+      "stall->stall": 9,
+      "timeout->collision": 3,
+      "collision->collision": 7,
+      "arrival->collision": 1,
+      "stall->collision": 8,
+      "collision->stall": 1,
+      "collision->timeout": 1,
+      "stall->arrival": 1
+    }
+  },
+  "22_65536_41110000": {
+    "F1": {
+      "outcomes": {
+        "arrival": 21,
+        "stall": 24,
+        "collision": 13,
+        "timeout": 6
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "F0": {
+      "outcomes": {
+        "timeout": 52,
+        "arrival": 6,
+        "collision": 5,
+        "stall": 1
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "transitions": {
+      "arrival->timeout": 15,
+      "stall->timeout": 22,
+      "collision->timeout": 9,
+      "arrival->arrival": 6,
+      "timeout->timeout": 6,
+      "collision->collision": 4,
+      "stall->stall": 1,
+      "stall->collision": 1
+    }
+  },
+  "33_65536_41110000": {
+    "F1": {
+      "outcomes": {
+        "arrival": 13,
+        "stall": 14,
+        "collision": 37
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "F0": {
+      "outcomes": {
+        "timeout": 17,
+        "arrival": 13,
+        "collision": 11,
+        "stall": 23
+      },
+      "exit13": 0,
+      "main16": 0
+    },
+    "transitions": {
+      "arrival->timeout": 4,
+      "stall->timeout": 8,
+      "collision->arrival": 4,
+      "collision->collision": 11,
+      "collision->stall": 17,
+      "arrival->arrival": 9,
+      "collision->timeout": 5,
+      "stall->stall": 6
+    }
+  }
+}
