@@ -33,9 +33,9 @@ MARK=50000
 GEOMETRY=prev.diagnosis.geometry
 
 
-def agent():
-    a=old.PPO(50,2,hidden_sizes=(256,256),activation="relu",seed=11,device="cpu",
-              gamma=.995,gae_lambda=.95,n_steps=2048,n_epochs=10,minibatch_size=64,
+def agent(seed=11, rollout=2048, minibatch=64):
+    a=old.PPO(50,2,hidden_sizes=(256,256),activation="relu",seed=seed,device="cpu",
+              gamma=.995,gae_lambda=.95,n_steps=rollout,n_epochs=10,minibatch_size=minibatch,
               lr=.0001,lane_keep_bias=1.,lane_entropy_coef=.002,entropy_coef=0.)
     prev.separate(a)
     return a
@@ -152,6 +152,10 @@ class Experience:
     def prob(self,x):
         return self.net(torch.as_tensor(x)).flatten().sigmoid().numpy()
 
+    def shaping(self,previous,current):
+        p0,p1=self.prob(np.stack([previous,current]))
+        return float(np.clip(.995*p1-p0,-.2,.2))
+
     def label(self,states,y):
         if not states:
             return
@@ -207,7 +211,8 @@ class Experience:
 
 
 class Episodes:
-    def __init__(self,env,arm,folder):
+    def __init__(self,env,arm,folder,*,training_seed=11):
+        self.training_seed=training_seed
         self.env,self.arm,self.folder=env,arm,folder
         self.map=Map(env)
         self.transform=lateral_transform(env) if arm in LATERAL else lambda x:x
@@ -224,8 +229,8 @@ class Episodes:
 
     def reset(self):
         block,i=divmod(self.count,16)
-        self.route=int(np.random.default_rng(11+block).permutation(16)[i])+1
-        self.seed=205000000+self.count
+        self.route=int(np.random.default_rng(self.training_seed+block).permutation(16)[i])+1
+        self.seed=205000000+(self.training_seed-11)*1000000+self.count
         self.count+=1
         self.map.set_stage(config(self.arm,self.steps))
         key,lane,self.start_type=self.map.departure(self.route,block)
@@ -287,8 +292,7 @@ class Episodes:
                 self.exp.label(self.seq,0)
                 self.segment,self.seq=None,[]
             if self.exp.updates and key is not None and key==next_key and not (passed or done or cut):
-                p0,p1=self.exp.prob(np.stack([self.obs,nxt]))
-                shaping=float(np.clip(.995*p1-p0,-.2,.2))
+                shaping=self.exp.shaping(self.obs,nxt)
         if self.arm in PREP:
             if key is not None and key==next_key and not(done or cut) and not self.initial_ready[key] and key not in self.prepaid and self.is_ready(self.env.snapshot):
                 self.prepaid.add(key)
@@ -331,19 +335,20 @@ def policy_path(arm,n):
     return folder(arm)/f"policy_{n}.pt"
 
 
-def train(arm,end):
+def train(arm,end,*,directory=None,make_agent=agent,make_episodes=Episodes,expected_hash=None,
+          training_seed=11,update=None):
     torch.set_num_threads(1)
-    f=folder(arm)
+    f=directory or folder(arm)
     f.mkdir(exist_ok=True,parents=True)
-    a=agent()
+    a=make_agent()
     initial=digest(a.policy)
-    assert initial==read(ROOT/"protocol.json")["initial_sha256"]
-    save(f/"initial.json",dict(sha256=initial,seed=11))
+    assert initial==(expected_hash or read(ROOT/"protocol.json")["initial_sha256"])
+    save(f/"initial.json",dict(sha256=initial,seed=training_seed))
     resume=f/"resume.pt"
     state=torch.load(resume,weights_only=False) if resume.exists() else None
     logs=("episodes.jsonl","updates.jsonl")
     with final.p.roll.baseline.simulator() as env:
-        ep=Episodes(env,arm,f)
+        ep=make_episodes(env,arm,f,training_seed=training_seed)
         stats=[0.,0]
         if state:
             assert state["initial"]==initial and state["arm"]==arm
@@ -368,10 +373,10 @@ def train(arm,end):
             limit=min(end,((a.num_timesteps//MARK)+1)*MARK)
             if arm in {"P3","P4","P5"}:
                 limit=min([limit]+[n for n in (80000,160000) if a.num_timesteps<n])
-            size=min(2048,limit-a.num_timesteps)
+            size=min(a.n_steps,limit-a.num_timesteps)
             obs,last,_=a.collect_rollout(ep,obs,ep_stats=stats,steps=size,timeout_is_failure=True)
             adv,ret=a.buffer.compute_gae(last,a.gamma,a.gae_lambda)
-            metrics=a.update(adv,ret)
+            metrics=update(a,ep,adv,ret) if update else a.update(adv,ret)
             diag=ep.exp.update() if ep.exp else None
             n=a.num_timesteps
             old.append(f/"updates.jsonl",dict(step=n,size=size,metrics=metrics,predictor=diag))
@@ -389,7 +394,7 @@ def train(arm,end):
         assert n==end
         final.atomic_torch(dict(policy={k:v for k,v in a.policy.state_dict().items() if not k.startswith("value_trunk.")},
                                value_trunk=a.policy.value_trunk.state_dict(),activation="relu",step=n,
-                               obs_dim=50,hidden_sizes=[256,256]),policy_path(arm,n))
+                               obs_dim=50,hidden_sizes=[256,256]),f/f"policy_{n}.pt")
     return arm,end
 
 
@@ -397,15 +402,16 @@ def panel_path(arm,n,panel):
     return folder(arm)/f"eval_{n}_{panel}.json"
 
 
-def eval_part(arm,n,panel,rep):
+def eval_part(arm,n,panel,rep,*,directory=None,lateral=None):
+    f=directory or folder(arm)
     base,reps=old.PANELS[panel]
     assert 0<=rep<reps
-    out=folder(arm)/"parts"/f"{n}_{panel}_{rep}.json"
+    out=f/"parts"/f"{n}_{panel}_{rep}.json"
     out.parent.mkdir(parents=True,exist_ok=True)
     if not out.exists():
-        rows=final.run_episodes((str(folder(arm)),[(r,rep,base) for r in final.ROUTES],True,
-                                 policy_path(arm,n),False,False),record_commands=True,
-                                policy_input_factory=lateral_transform if arm in LATERAL else None)
+        rows=final.run_episodes((str(f),[(r,rep,base) for r in final.ROUTES],True,
+                                 f/f"policy_{n}.pt",False,False),record_commands=True,
+                                policy_input_factory=lateral_transform if (arm in LATERAL if lateral is None else lateral) else None)
         save(out,rows)
     return read(out)
 
@@ -424,9 +430,10 @@ def measure(rows):
                 commands=commands(rows),required_commands=commands(need))
 
 
-def combine(arm,n,panel):
-    dest=panel_path(arm,n,panel)
-    rows=[r for i in range(old.PANELS[panel][1]) for r in read(folder(arm)/"parts"/f"{n}_{panel}_{i}.json")]
+def combine(arm,n,panel,*,directory=None):
+    f=directory or folder(arm)
+    dest=f/f"eval_{n}_{panel}.json"
+    rows=[r for i in range(old.PANELS[panel][1]) for r in read(f/"parts"/f"{n}_{panel}_{i}.json")]
     assert [r["seed"] for r in rows]==final.planned(*old.PANELS[panel])
     baseline=read(old.data_path("R5",0,panel))
     old.paired(baseline,rows)

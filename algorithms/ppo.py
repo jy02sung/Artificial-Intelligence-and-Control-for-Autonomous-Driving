@@ -245,7 +245,7 @@ class PPO:
     # ==================================================================
     # 3단계) 정책 업데이트 (clipped surrogate)
     # ==================================================================
-    def update(self, advantages, returns, *, reference_policy=None, reference_coef=0., stratified_reference=False) -> dict:
+    def update(self, advantages, returns, *, reference_policy=None, reference_coef=0., stratified_reference=False, target_kl=None) -> dict:
         obs_t, act_t, old_log_prob_t = self.buffer.to_tensors(self.device)
         adv_t = torch.as_tensor(advantages, device=self.device)
         ret_t = torch.as_tensor(returns, device=self.device)
@@ -259,6 +259,7 @@ class PPO:
         stats = {"policy_loss": 0.0, "value_loss": 0.0,
                  "entropy": 0.0, "approx_kl": 0.0, "clip_frac": 0.0}
         n_batches = 0
+        stop_kl = None
 
         if reference_policy is not None:
             with torch.no_grad():
@@ -280,6 +281,12 @@ class PPO:
 
                 # 확률비 r(θ) = exp(log π_new - log π_old)
                 ratio = torch.exp(log_prob - old_log_prob_t[mb])
+
+                if target_kl is not None:
+                    batch_kl = float((old_log_prob_t[mb] - log_prob.detach()).mean())
+                    if batch_kl > target_kl:
+                        stop_kl = batch_kl
+                        break
 
                 # ---- PPO 핵심: clipped surrogate objective ----
                 surrogate_1 = ratio * adv_t[mb]
@@ -339,7 +346,11 @@ class PPO:
                 stats["clip_frac"] += clip_frac.item()
                 n_batches += 1
 
+            if stop_kl is not None:
+                break
         out = {k: v / max(n_batches, 1) for k, v in stats.items()}
+        if target_kl is not None:
+            out.update(minibatches_applied=n_batches, kl_stop=stop_kl)
         # hybrid 진단: 업데이트 "후" 정책의 평균 차선변경(좌+우) 확률.
         #   0으로 붕괴 → 차선유지 지역최적 경고 / 적당히 유지되며
         #   eval의 차선변경 횟수가 오르면 제대로 배우는 중.
