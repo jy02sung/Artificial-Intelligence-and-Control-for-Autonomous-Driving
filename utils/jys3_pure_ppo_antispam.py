@@ -91,9 +91,10 @@ def warmup(seed):
     with final.p.roll.baseline.simulator() as env:
         episodes = Episodes(env, "S2", warm_dir, training_seed=seed, warm=True)
         obs, _ = episodes.reset()
+        episode_stats = [0., 0]
         while agent.num_timesteps < 10000:
             size = min(agent.n_steps, 10000-agent.num_timesteps)
-            obs, last, _ = agent.collect_rollout(episodes, obs, steps=size, timeout_is_failure=True)
+            obs, last, _ = agent.collect_rollout(episodes, obs, ep_stats=episode_stats, steps=size, timeout_is_failure=True)
             _, returns = agent.buffer.compute_gae(last, agent.gamma, agent.gae_lambda)
             states = agent.buffer.to_tensors(agent.device)[0]
             targets = torch.as_tensor(returns)
