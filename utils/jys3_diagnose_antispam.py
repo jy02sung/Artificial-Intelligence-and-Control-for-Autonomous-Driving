@@ -5,6 +5,8 @@ import xml.etree.ElementTree as ET
 from collections import Counter, defaultdict, deque
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
 from utils import jys3_pure_ppo_antispam as exp
 from env.sumo_env import traci
@@ -111,18 +113,12 @@ def one(env, model, transform, merges, row, probe, states):
         return dict(**identity,moves=moves)
     events=collision_events(ego) if info["outcome"]=="collision" else []
     final_lane=split_lane(events[0]["lane"]) if events else after
-    # Same-lane SUMO front/back collisions register both vehicles on the collision lane.
-    inferred=False
-    if final_lane and after is None and events and (events[0]["collider"]==ego or events[0]["kind"]=="collision"):
-        recent[-1][2]=final_lane
-        tail[-1]["after"]=final_lane
-        inferred=True
     ids={v for e in events for v in (e["victim"],e["collider"])} | {ego}
     for f in tail:
         f["cars"]={k:v for k,v in f["cars"].items() if k in ids}
     in_merge=any(a and b and a[0]!=b[0] and tuple(b) in merges for _,a,b in list(recent)[-3:])
     return dict(**identity,ego=ego,events=events,tail=list(tail),recent=list(recent),
-                final_lane=final_lane,last_external=last_external,terminal_recovered=inferred,
+                final_lane=final_lane,last_external=last_external,
                 merge_entry=in_merge,off_route=info.get("off_route_detail"))
 
 
@@ -130,9 +126,32 @@ def policy_path(track,seed,step):
     return exp.checkpoint(seed) if track=="Q1" else exp.folder(track,seed)/f"policy_{step}.pt"
 
 
+def event_replay(env, model, transform, merges, row, output):
+    start = traci.start
+    with patch.object(traci, "start", lambda cmd: start(cmd + ["--lanechange-output", str(output)])):
+        r = one(env, model, transform, merges, row, False, [])
+    end_time = traci.simulation.getTime()
+    dt = env.sim.step_length
+    env.close()  # Flush SUMO's authoritative from/to record, including removed vehicles.
+    participants = {r["ego"]} | {v for e in r["events"] for v in (e["victim"], e["collider"])}
+    moves = []
+    for change in ET.parse(output).getroot().findall("change"):
+        if change.get("id") not in participants:
+            continue
+        step = r["steps"] + 1 - round((end_time - float(change.get("time"))) / dt)
+        if r["steps"] - 20 < step <= r["steps"]:
+            moves.append([step, change.get("id"), split_lane(change.get("from")), split_lane(change.get("to"))])
+    r["lane_changes"] = moves
+    seen = {(t,tuple(a),tuple(b)) for t, vehicle, a, b in moves if vehicle == r["ego"]}
+    for t, a, b in r["recent"]:
+        if b and a[0] == b[0] and a != b:
+            assert (t,tuple(a),tuple(b)) in seen, (row["seed"], t, a, b, seen)
+    return r
+
+
 def shard(job):
     track,seed,step,probe,idx,rows=job
-    name=f"{track}_{seed}_{'probe' if probe else 'events'}_{idx}"
+    name=f"{track}_{seed}_{'probe' if probe else 'verified'}_{idx}"
     out=ROOT/"shards"/(name+".json")
     bank=out.with_suffix(".npz")
     if out.exists() and (not probe or bank.exists()):
@@ -143,7 +162,11 @@ def shard(job):
     with exp.final.p.roll.baseline.simulator() as env, torch.inference_mode():
         transform=exp.p.lateral_transform(env)
         merges=merge_lanes(env)
-        items=[one(env,model,transform,merges,r,probe,states) for r in rows]
+        if probe:
+            items=[one(env,model,transform,merges,r,True,states) for r in rows]
+        else:
+            with TemporaryDirectory() as tmp:
+                items=[event_replay(env,model,transform,merges,r,Path(tmp)/"moves.xml") for r in rows]
     if probe:
         with bank.with_suffix(".tmp").open("wb") as f:
             np.savez_compressed(f,states=np.stack(states))
@@ -207,10 +230,92 @@ def drift():
     return results
 
 
+def command_history():
+    """Measure right-command streaks at the first r16 fork and in the longest-count holdout."""
+    records=[]
+    for seed,step in exp.PEAK.items():
+        rows=[r for panel in exp.q.HOLDS for r in read(exp.folder("Q1",seed)/f"eval_{step}_{panel}.json")["rows"]]
+        top=max(rows,key=lambda r:r["right_commands"])
+        cases=[r for r in rows if r["route"]==16 and r["lane"]==0]
+        if top not in cases:
+            cases.append(top)
+        model=exp.final.network(exp.checkpoint(seed))
+        with exp.final.p.roll.baseline.simulator() as env:
+            transform=exp.p.lateral_transform(env)
+            for row in cases:
+                env.ego_depart_lane=str(row["lane"])
+                obs,_=env.reset(seed=row["seed"],options={"route":f"route_{row['route']:02d}"})
+                assert hashlib.sha256(obs.tobytes()).hexdigest()==row["initial_sha256"]
+                first=env.snapshot[0]
+                whole=Counter()
+                approach=Counter()
+                streak=longest=0
+                for t in range(1,1001):
+                    edge,lane=env.snapshot[:2]
+                    state=transform(obs[:50])
+                    action=model.det_action(torch.from_numpy(state).unsqueeze(0))[0].numpy()
+                    cmd=env.sim._quantize_lane_change(action[1])
+                    obs,_,done,cut,info=env.step(action)
+                    nav=env.snapshot
+                    values=dict(steps=1,right=int(cmd==-1),left=int(cmd==1),
+                                right_in_zero=int(cmd==-1 and lane==0 and not edge.startswith(":")),
+                                changed_right=int(cmd==-1 and nav is not None and nav[0]==edge and nav[1]<lane))
+                    whole.update(values)
+                    if edge==first:
+                        approach.update(values)
+                    streak=streak+1 if cmd==-1 else 0
+                    longest=max(streak,longest)
+                    if done or cut:
+                        break
+                assert (info["outcome"],t,whole["right"],whole["left"])==(row["outcome"],row["steps"],row["right_commands"],row["left_commands"])
+                records.append(dict(model_seed=seed,seed=row["seed"],route=row["route"],lane=row["lane"],
+                                    first=first,outcome=row["outcome"],whole=dict(whole),approach=dict(approach),
+                                    longest=longest,max_right_case=row==top))
+    return records
+
+
+def boundary_counterfactual():
+    results=[]
+    for row in read(ROOT/"command_history.json"):
+        if not row["max_right_case"]:
+            continue
+        seed=row["model_seed"]
+        model=exp.final.network(exp.checkpoint(seed))
+        trials=[]
+        with exp.final.p.roll.baseline.simulator() as env:
+            transform=exp.p.lateral_transform(env)
+            for replace in (False,True):
+                env.ego_depart_lane=str(row["lane"])
+                obs,_=env.reset(seed=row["seed"],options={"route":f"route_{row['route']:02d}"})
+                hasher=hashlib.sha256()
+                rewards=[]
+                count=0
+                for _ in range(1000):
+                    hasher.update(obs.tobytes())
+                    action=model.det_action(torch.from_numpy(transform(obs[:50])).unsqueeze(0))[0].numpy().copy()
+                    edge,lane=env.snapshot[:2]
+                    if not edge.startswith(":") and lane==0 and env.sim._quantize_lane_change(action[1])==-1:
+                        count+=1
+                        if replace:
+                            action[1]=0.
+                    obs,reward,done,cut,info=env.step(action)
+                    rewards.append(float(reward))
+                    if done or cut:
+                        break
+                hasher.update(obs.tobytes())
+                trials.append(dict(steps=len(rewards),hash=hasher.hexdigest(),outcome=info["outcome"],commands=count,
+                                   reward_hash=hashlib.sha256(np.array(rewards,dtype=np.float64).tobytes()).hexdigest()))
+        results.append(dict(model_seed=seed,route=row["route"],seed=row["seed"],original=trials[0],
+                            replaced=trials[1],identical=trials[0]==trials[1]))
+    return results
+
+
 if __name__=="__main__":
     collect()
     with torch.inference_mode():
         torch.set_num_threads(1)
         save(ROOT/"drift.json",drift())
+        save(ROOT/"command_history.json",command_history())
+        save(ROOT/"counterfactual.json",boundary_counterfactual())
     from utils.jys3_antispam_collision_report import generate
     generate()
