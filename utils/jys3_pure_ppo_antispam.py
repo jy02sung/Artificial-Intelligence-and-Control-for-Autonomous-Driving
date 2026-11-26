@@ -72,9 +72,9 @@ def load_peak(seed):
     return agent
 
 
-def warmup(seed):
+def warmup(seed, *, arm="S2", dest=None, episode_type=Episodes):
     torch.set_num_threads(1)
-    dest = folder("S2", seed)
+    dest = dest or folder(arm, seed)
     dest.mkdir(parents=True, exist_ok=True)
     agent = load_peak(seed)
     policy = agent.policy
@@ -89,7 +89,7 @@ def warmup(seed):
     (warm_dir / "episodes.jsonl").write_text("")
     history = []
     with final.p.roll.baseline.simulator() as env:
-        episodes = Episodes(env, "S2", warm_dir, training_seed=seed, warm=True)
+        episodes = episode_type(env, arm, warm_dir, training_seed=seed, warm=True)
         obs, _ = episodes.reset()
         episode_stats = [0., 0]
         while agent.num_timesteps < 10000:
