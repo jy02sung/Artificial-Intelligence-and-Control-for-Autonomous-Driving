@@ -530,10 +530,10 @@ def final_audit():
 
 def early_screens():
     # The main runner occupies only three slots until the first full training job completes.
-    # Release this fourth slot well before that at the first 150k checkpoint.
+    # Release this fourth slot well before that at the first 200k checkpoint.
     stage=STAGES[0]
     def reserved():
-        return any((dest(arm,s)/"policy_150000.pt").exists() for arm,s in stage)
+        return any((dest(arm,s)/"policy_200000.pt").exists() for arm,s in stage)
     while not reserved():
         advanced=False
         for n in (50000,100000):
