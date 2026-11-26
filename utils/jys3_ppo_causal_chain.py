@@ -489,6 +489,45 @@ def main():
     report()
 
 
+def final_audit():
+    assert read(ROOT/"finished.json")["completed"]==9
+    assert protective_hashes()==read(ROOT/"protected_start.json")==read(ROOT/"protected_end.json")
+    checked=[]
+    for stage in STAGES:
+        for arm,seed in stage:
+            path=dest(arm,seed)
+            if arm.startswith("S3"):
+                assert read(path/"warm_check.json")["actor_bits_identical"]
+            updates=[p.json.loads(line) for line in (path/"updates.jsonl").read_text().splitlines()]
+            previous=0
+            for u in updates:
+                gap=u["step"]-previous
+                assert 0<gap<=2048 and u["metrics"]["minibatches"]==10*math.ceil(gap/64)
+                previous=u["step"]
+            assert previous==max(marks(arm))
+            for n in marks(arm):
+                assert (path/f"policy_{n}.pt").is_file()
+                assert len(read(panel(arm,seed,n,"screen"))["rows"])==128
+            n=selected(arm,seed)
+            blocks=[read(panel(arm,seed,n,h))["rows"] for h in HOLDS]
+            m=summary(blocks)
+            assert sum(m[k] for k in anti.OUT)==576 and 0<=m["cutin"]<=m["collision"]
+            for block in blocks:
+                assert all(r["valid"]+r["invalid"]==r["left_commands"]+r["right_commands"] for r in block)
+            checked.append(dict(arm=arm,seed=seed,selected=n,updates=len(updates),steps=previous,holdout=m))
+    for seed in anti.SEEDS:
+        for h in HOLDS:
+            rows=read(panel("Q1",seed,anti.PEAK[seed],h))["rows"]
+            archived=read(anti.folder("Q1",seed)/f"eval_{anti.PEAK[seed]}_{h}.json")["rows"]
+            old.paired(archived,rows)
+            assert all(a["within_edge_moves"]==b["observed_moves"] and a["outcome"]==b["outcome"]
+                       and a["steps"]==b["steps"] for a,b in zip(archived,rows))
+    assert sum(r["cutin"] for h in HOLDS for r in read(panel("Q1",22,200000,h))["rows"])==32
+    report()
+    save(ROOT/"final_audit.json",dict(runs=checked,original_hashes_verified=True,q1_replayed=1152,
+                                      cutin_consistent=True))
+
+
 def early_screens():
     # The main runner occupies only three slots until the first full training job completes.
     # Release this fourth slot well before that at the first 150k checkpoint.
@@ -515,5 +554,7 @@ def early_screens():
 if __name__=="__main__":
     if sys.argv[1:]==["--early-screens"]:
         early_screens()
+    elif sys.argv[1:]==["--audit-final"]:
+        final_audit()
     else:
         main()
