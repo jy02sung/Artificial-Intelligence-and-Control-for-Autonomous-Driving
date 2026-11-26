@@ -252,20 +252,21 @@ def panel(arm,seed,n,name):
     return dest(arm,seed)/f"eval_{n}_{name}.json"
 
 
-def evaluate(arm,seed,n,name,rep):
-    path=dest(arm,seed)
+def evaluate(arm,seed,n,name,rep,*,directory=None,checkpoint=None,lateral=None):
+    path=directory or dest(arm,seed)
     out=path/"parts"/f"{n}_{name}_{rep}.json"
     if out.exists():
         return
     out.parent.mkdir(exist_ok=True,parents=True)
     torch.set_num_threads(1)
-    source=anti.checkpoint(seed) if arm=="Q1" else path/f"policy_{n}.pt"
+    source=checkpoint or (anti.checkpoint(seed) if arm=="Q1" else path/f"policy_{n}.pt")
     model=final.network(source)
     base=old.PANELS[name][0]
     rows=[]
     with final.p.roll.baseline.simulator() as env, torch.inference_mode(), TemporaryDirectory() as tmp:
         xml=Path(tmp)/"changes.xml"
-        transform=p.lateral_transform(env) if arm.startswith("S3") or arm=="Q1" else lambda x:x
+        use_lateral=(arm.startswith("S3") or arm=="Q1") if lateral is None else lateral
+        transform=p.lateral_transform(env) if use_lateral else lambda x:x
         for route in range(1,17):
             key=f"route_{route:02d}"
             lane=min(rep%2,env.counts[env.routes[key][0]]-1)

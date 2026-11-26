@@ -211,6 +211,8 @@ class Experience:
 
 
 class Episodes:
+    clear_stop_enabled = True
+
     def __init__(self,env,arm,folder,*,training_seed=11):
         self.training_seed=training_seed
         self.env,self.arm,self.folder=env,arm,folder
@@ -275,7 +277,7 @@ class Episodes:
         passed=self.env.sim.paid_forks-paid_before
         next_key=self.visible(nxt,self.env.snapshot)
         self.steps+=1
-        clear=info.get("speed") is not None and info["speed"]<2 and (info["gap"] is None or info["gap"]>25)
+        clear=self.clear_stop_enabled and info.get("speed") is not None and info["speed"]<2 and (info["gap"] is None or info["gap"]>25)
         self.idle=self.idle+1 if clear else 0
         if clear:
             reward-=.02
@@ -392,9 +394,11 @@ def train(arm,end,*,directory=None,make_agent=agent,make_episodes=Episodes,expec
                 final.atomic_torch(state,resume)
         n=a.num_timesteps
         assert n==end
-        final.atomic_torch(dict(policy={k:v for k,v in a.policy.state_dict().items() if not k.startswith("value_trunk.")},
-                               value_trunk=a.policy.value_trunk.state_dict(),activation="relu",step=n,
-                               obs_dim=50,hidden_sizes=[256,256]),f/f"policy_{n}.pt")
+        state=dict(policy={k:v for k,v in a.policy.state_dict().items() if not k.startswith("value_trunk.")},
+                   activation="relu",step=n,obs_dim=50,hidden_sizes=[256,256])
+        if getattr(a.policy,"value_trunk",None) is not None:
+            state["value_trunk"]=a.policy.value_trunk.state_dict()
+        final.atomic_torch(state,f/f"policy_{n}.pt")
     return arm,end
 
 
