@@ -1,0 +1,180 @@
+{
+  "start_sha256": "587b0d428cb8b1ee452bb1e3d6e39a43462ac412179a38b1685582edd4ce3a2c",
+  "baseline_sha256": "fb3a775fa4d4ccb56ab1c414b9e05af1a99ebf0623c992e096b063f2967728cd",
+  "rounds": {
+    "3": {
+      "original": {
+        "arrival": 119,
+        "collision": 7,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 2,
+        "slow10": 1
+      },
+      "fixed": {
+        "arrival": 121,
+        "collision": 6,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 4
+      },
+      "paired": {
+        "arrival -> arrival": 117,
+        "collision -> arrival": 3,
+        "off_route -> arrival": 1,
+        "collision -> collision": 4,
+        "off_route -> off_route": 1,
+        "arrival -> collision": 2
+      },
+      "weak": [
+        4,
+        5,
+        7,
+        14
+      ]
+    },
+    "4": {
+      "original": {
+        "arrival": 124,
+        "collision": 3,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 3
+      },
+      "fixed": {
+        "arrival": 123,
+        "collision": 3,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 2,
+        "slow10": 2
+      },
+      "paired": {
+        "arrival -> arrival": 121,
+        "arrival -> collision": 2,
+        "arrival -> off_route": 1,
+        "collision -> off_route": 1,
+        "collision -> collision": 1,
+        "collision -> arrival": 1,
+        "off_route -> arrival": 1
+      },
+      "weak": [
+        4,
+        5,
+        3,
+        13
+      ]
+    },
+    "5": {
+      "original": {
+        "arrival": 125,
+        "collision": 2,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 2
+      },
+      "fixed": {
+        "arrival": 126,
+        "collision": 1,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 1
+      },
+      "paired": {
+        "arrival -> arrival": 123,
+        "arrival -> off_route": 1,
+        "collision -> arrival": 2,
+        "arrival -> collision": 1,
+        "off_route -> arrival": 1
+      },
+      "weak": [
+        4,
+        3,
+        5,
+        13
+      ]
+    }
+  },
+  "panels": {
+    "hold64_5": {
+      "original": {
+        "arrival": 62,
+        "collision": 0,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 2,
+        "slow10": 2
+      },
+      "fixed": {
+        "arrival": 63,
+        "collision": 1,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 0,
+        "slow10": 3
+      },
+      "paired": {
+        "arrival -> arrival": 62,
+        "off_route -> collision": 1,
+        "off_route -> arrival": 1
+      }
+    },
+    "final256": {
+      "original": {
+        "arrival": 247,
+        "collision": 4,
+        "stall": 2,
+        "timeout": 0,
+        "off_route": 3,
+        "slow10": 8
+      },
+      "fixed": {
+        "arrival": 254,
+        "collision": 1,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 1,
+        "slow10": 7
+      },
+      "paired": {
+        "arrival -> arrival": 246,
+        "collision -> arrival": 3,
+        "collision -> collision": 1,
+        "off_route -> arrival": 3,
+        "stall -> arrival": 2,
+        "arrival -> off_route": 1
+      }
+    },
+    "novel256": {
+      "original": {
+        "arrival": 252,
+        "collision": 1,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 3,
+        "slow10": 3
+      },
+      "fixed": {
+        "arrival": 249,
+        "collision": 1,
+        "stall": 2,
+        "timeout": 1,
+        "off_route": 3,
+        "slow10": 11
+      },
+      "paired": {
+        "arrival -> arrival": 248,
+        "arrival -> off_route": 1,
+        "arrival -> collision": 1,
+        "arrival -> stall": 2,
+        "collision -> timeout": 1,
+        "off_route -> off_route": 2,
+        "off_route -> arrival": 1
+      }
+    }
+  }
+}
