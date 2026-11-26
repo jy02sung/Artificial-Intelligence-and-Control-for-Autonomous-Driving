@@ -173,9 +173,11 @@ def dataset(rows,name):
     return p.roll.baseline.dagger.load_rollouts(accepted,ROOT/name)
 
 
-def fit(k,x,y,vx,vy,critical,*,extended_bc=False,uniform_dir=None,initial=None):
+def fit(k,x,y,vx,vy,critical,*,extended_bc=False,uniform_dir=None,initial=None,output_dir=None,learning_rate=None):
     assert not extended_bc or k==0
     destination = uniform_dir if uniform_dir is not None else (ROOT/"bc100" if extended_bc else ROOT)
+    if output_dir is not None:
+        destination=output_dir
     destination.mkdir(exist_ok=True)
     folder=destination/f"fit{k}.json"
     best_path=destination/checkpoint(k).name
@@ -184,6 +186,8 @@ def fit(k,x,y,vx,vy,critical,*,extended_bc=False,uniform_dir=None,initial=None):
     torch.manual_seed(11)
     model=network(initial if initial is not None else (checkpoint(k-1) if k else None))
     lr=.0003 if k==0 else .0002 if k<=2 else .0001 if k<=5 else .00005
+    if learning_rate is not None:
+        lr=learning_rate
     optimizer=torch.optim.Adam(model.parameters(),lr=lr)
     generator=torch.Generator().manual_seed(11+k)
     cls=(1-y[:,1]).long()
