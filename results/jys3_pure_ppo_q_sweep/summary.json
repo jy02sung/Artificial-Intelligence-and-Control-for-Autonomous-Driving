@@ -1,7 +1,15 @@
 {
   "winner": "Q1",
-  "screens": 40,
-  "q_holdouts": [],
+  "screens": 56,
+  "q_holdouts": [
+    "Q1/11",
+    "Q2/11",
+    "Q3/11",
+    "Q4/11",
+    "Q5/11",
+    "Q1/22",
+    "Q1/33"
+  ],
   "models": {
     "P0": {
       "arrival": 398,
@@ -99,6 +107,16 @@
       "timeout": 0,
       "required_arrived": 198,
       "slow10": 13,
+      "all": {
+        "left": 254,
+        "right": 268,
+        "steps": 206278
+      },
+      "required": {
+        "left": 158,
+        "right": 189,
+        "steps": 84387
+      },
       "routes": {
         "1": {
           "arrival": 36
@@ -157,6 +175,636 @@
         "16": {
           "arrival": 35,
           "off_route": 1
+        }
+      }
+    },
+    "Q1/11": {
+      "arrival": 338,
+      "collision": 79,
+      "off_route": 157,
+      "stall": 0,
+      "timeout": 2,
+      "required_arrived": 80,
+      "slow10": 0,
+      "all": {
+        "left": 330,
+        "right": 46404,
+        "steps": 183343
+      },
+      "required": {
+        "left": 119,
+        "right": 17456,
+        "steps": 63236
+      },
+      "routes": {
+        "1": {
+          "arrival": 35,
+          "timeout": 1
+        },
+        "2": {
+          "collision": 12,
+          "off_route": 17,
+          "arrival": 7
+        },
+        "3": {
+          "arrival": 33,
+          "collision": 3
+        },
+        "4": {
+          "off_route": 30,
+          "collision": 5,
+          "arrival": 1
+        },
+        "5": {
+          "off_route": 28,
+          "collision": 7,
+          "timeout": 1
+        },
+        "6": {
+          "collision": 5,
+          "arrival": 31
+        },
+        "7": {
+          "arrival": 24,
+          "collision": 12
+        },
+        "8": {
+          "collision": 9,
+          "arrival": 15,
+          "off_route": 12
+        },
+        "9": {
+          "arrival": 35,
+          "collision": 1
+        },
+        "10": {
+          "arrival": 28,
+          "off_route": 7,
+          "collision": 1
+        },
+        "11": {
+          "collision": 10,
+          "off_route": 7,
+          "arrival": 19
+        },
+        "12": {
+          "arrival": 36
+        },
+        "13": {
+          "arrival": 29,
+          "collision": 5,
+          "off_route": 2
+        },
+        "14": {
+          "off_route": 26,
+          "collision": 8,
+          "arrival": 2
+        },
+        "15": {
+          "arrival": 36
+        },
+        "16": {
+          "off_route": 28,
+          "arrival": 7,
+          "collision": 1
+        }
+      }
+    },
+    "Q2/11": {
+      "arrival": 211,
+      "collision": 4,
+      "off_route": 265,
+      "stall": 54,
+      "timeout": 42,
+      "required_arrived": 0,
+      "slow10": 21,
+      "all": {
+        "left": 0,
+        "right": 0,
+        "steps": 202533
+      },
+      "required": {
+        "left": 0,
+        "right": 0,
+        "steps": 36127
+      },
+      "routes": {
+        "1": {
+          "arrival": 34,
+          "timeout": 2
+        },
+        "2": {
+          "off_route": 31,
+          "timeout": 4,
+          "collision": 1
+        },
+        "3": {
+          "arrival": 17,
+          "off_route": 18,
+          "timeout": 1
+        },
+        "4": {
+          "timeout": 8,
+          "off_route": 18,
+          "arrival": 10
+        },
+        "5": {
+          "off_route": 33,
+          "timeout": 3
+        },
+        "6": {
+          "arrival": 36
+        },
+        "7": {
+          "arrival": 18,
+          "off_route": 18
+        },
+        "8": {
+          "off_route": 18,
+          "stall": 18
+        },
+        "9": {
+          "arrival": 36
+        },
+        "10": {
+          "stall": 18,
+          "off_route": 18
+        },
+        "11": {
+          "stall": 18,
+          "off_route": 18
+        },
+        "12": {
+          "arrival": 36
+        },
+        "13": {
+          "off_route": 27,
+          "timeout": 9
+        },
+        "14": {
+          "off_route": 31,
+          "timeout": 5
+        },
+        "15": {
+          "arrival": 9,
+          "off_route": 18,
+          "timeout": 9
+        },
+        "16": {
+          "off_route": 17,
+          "arrival": 15,
+          "collision": 3,
+          "timeout": 1
+        }
+      }
+    },
+    "Q3/11": {
+      "arrival": 175,
+      "collision": 41,
+      "off_route": 262,
+      "stall": 45,
+      "timeout": 53,
+      "required_arrived": 0,
+      "slow10": 11,
+      "all": {
+        "left": 0,
+        "right": 0,
+        "steps": 180031
+      },
+      "required": {
+        "left": 0,
+        "right": 0,
+        "steps": 36084
+      },
+      "routes": {
+        "1": {
+          "arrival": 35,
+          "collision": 1
+        },
+        "2": {
+          "timeout": 11,
+          "off_route": 25
+        },
+        "3": {
+          "arrival": 18,
+          "off_route": 17,
+          "collision": 1
+        },
+        "4": {
+          "timeout": 15,
+          "off_route": 18,
+          "arrival": 3
+        },
+        "5": {
+          "timeout": 7,
+          "off_route": 27,
+          "collision": 2
+        },
+        "6": {
+          "collision": 6,
+          "arrival": 30
+        },
+        "7": {
+          "arrival": 18,
+          "off_route": 18
+        },
+        "8": {
+          "off_route": 18,
+          "stall": 10,
+          "collision": 8
+        },
+        "9": {
+          "arrival": 32,
+          "collision": 4
+        },
+        "10": {
+          "stall": 17,
+          "off_route": 17,
+          "timeout": 1,
+          "collision": 1
+        },
+        "11": {
+          "stall": 18,
+          "off_route": 18
+        },
+        "12": {
+          "arrival": 36
+        },
+        "13": {
+          "off_route": 34,
+          "collision": 1,
+          "timeout": 1
+        },
+        "14": {
+          "off_route": 34,
+          "timeout": 1,
+          "collision": 1
+        },
+        "15": {
+          "timeout": 17,
+          "off_route": 18,
+          "arrival": 1
+        },
+        "16": {
+          "off_route": 18,
+          "collision": 16,
+          "arrival": 2
+        }
+      }
+    },
+    "Q4/11": {
+      "arrival": 230,
+      "collision": 4,
+      "off_route": 284,
+      "stall": 54,
+      "timeout": 4,
+      "required_arrived": 0,
+      "slow10": 19,
+      "all": {
+        "left": 0,
+        "right": 0,
+        "steps": 173804
+      },
+      "required": {
+        "left": 0,
+        "right": 0,
+        "steps": 30585
+      },
+      "routes": {
+        "1": {
+          "arrival": 36
+        },
+        "2": {
+          "off_route": 34,
+          "collision": 2
+        },
+        "3": {
+          "arrival": 18,
+          "off_route": 18
+        },
+        "4": {
+          "arrival": 18,
+          "off_route": 18
+        },
+        "5": {
+          "off_route": 36
+        },
+        "6": {
+          "arrival": 36
+        },
+        "7": {
+          "arrival": 18,
+          "off_route": 18
+        },
+        "8": {
+          "off_route": 18,
+          "stall": 18
+        },
+        "9": {
+          "arrival": 36
+        },
+        "10": {
+          "stall": 18,
+          "off_route": 18
+        },
+        "11": {
+          "stall": 18,
+          "off_route": 18
+        },
+        "12": {
+          "arrival": 36
+        },
+        "13": {
+          "off_route": 36
+        },
+        "14": {
+          "off_route": 35,
+          "timeout": 1
+        },
+        "15": {
+          "arrival": 16,
+          "off_route": 18,
+          "timeout": 2
+        },
+        "16": {
+          "off_route": 17,
+          "arrival": 16,
+          "collision": 2,
+          "timeout": 1
+        }
+      }
+    },
+    "Q5/11": {
+      "arrival": 162,
+      "collision": 2,
+      "off_route": 207,
+      "stall": 31,
+      "timeout": 174,
+      "required_arrived": 0,
+      "slow10": 14,
+      "all": {
+        "left": 0,
+        "right": 0,
+        "steps": 289982
+      },
+      "required": {
+        "left": 0,
+        "right": 0,
+        "steps": 62070
+      },
+      "routes": {
+        "1": {
+          "arrival": 35,
+          "timeout": 1
+        },
+        "2": {
+          "timeout": 26,
+          "off_route": 10
+        },
+        "3": {
+          "arrival": 17,
+          "off_route": 18,
+          "timeout": 1
+        },
+        "4": {
+          "timeout": 18,
+          "off_route": 18
+        },
+        "5": {
+          "timeout": 19,
+          "off_route": 17
+        },
+        "6": {
+          "timeout": 3,
+          "arrival": 33
+        },
+        "7": {
+          "arrival": 18,
+          "off_route": 15,
+          "timeout": 3
+        },
+        "8": {
+          "off_route": 18,
+          "timeout": 18
+        },
+        "9": {
+          "arrival": 24,
+          "timeout": 12
+        },
+        "10": {
+          "stall": 18,
+          "off_route": 17,
+          "timeout": 1
+        },
+        "11": {
+          "timeout": 5,
+          "off_route": 18,
+          "stall": 13
+        },
+        "12": {
+          "arrival": 18,
+          "timeout": 18
+        },
+        "13": {
+          "timeout": 15,
+          "off_route": 21
+        },
+        "14": {
+          "timeout": 17,
+          "off_route": 19
+        },
+        "15": {
+          "timeout": 17,
+          "off_route": 18,
+          "arrival": 1
+        },
+        "16": {
+          "off_route": 18,
+          "arrival": 16,
+          "collision": 2
+        }
+      }
+    },
+    "Q1/22": {
+      "arrival": 431,
+      "collision": 50,
+      "off_route": 95,
+      "stall": 0,
+      "timeout": 0,
+      "required_arrived": 116,
+      "slow10": 0,
+      "all": {
+        "left": 9803,
+        "right": 56834,
+        "steps": 192491
+      },
+      "required": {
+        "left": 3509,
+        "right": 21141,
+        "steps": 69555
+      },
+      "routes": {
+        "1": {
+          "arrival": 36
+        },
+        "2": {
+          "arrival": 22,
+          "collision": 7,
+          "off_route": 7
+        },
+        "3": {
+          "arrival": 34,
+          "collision": 2
+        },
+        "4": {
+          "arrival": 20,
+          "off_route": 13,
+          "collision": 3
+        },
+        "5": {
+          "collision": 12,
+          "arrival": 22,
+          "off_route": 2
+        },
+        "6": {
+          "collision": 3,
+          "arrival": 33
+        },
+        "7": {
+          "arrival": 20,
+          "off_route": 16
+        },
+        "8": {
+          "arrival": 27,
+          "off_route": 5,
+          "collision": 4
+        },
+        "9": {
+          "arrival": 36
+        },
+        "10": {
+          "arrival": 27,
+          "off_route": 8,
+          "collision": 1
+        },
+        "11": {
+          "arrival": 29,
+          "off_route": 7
+        },
+        "12": {
+          "arrival": 36
+        },
+        "13": {
+          "off_route": 7,
+          "arrival": 20,
+          "collision": 9
+        },
+        "14": {
+          "arrival": 15,
+          "collision": 7,
+          "off_route": 14
+        },
+        "15": {
+          "arrival": 36
+        },
+        "16": {
+          "off_route": 16,
+          "arrival": 18,
+          "collision": 2
+        }
+      }
+    },
+    "Q1/33": {
+      "arrival": 446,
+      "collision": 89,
+      "off_route": 14,
+      "stall": 0,
+      "timeout": 27,
+      "required_arrived": 135,
+      "slow10": 0,
+      "all": {
+        "left": 83072,
+        "right": 102378,
+        "steps": 236347
+      },
+      "required": {
+        "left": 38092,
+        "right": 35470,
+        "steps": 95770
+      },
+      "routes": {
+        "1": {
+          "arrival": 36
+        },
+        "2": {
+          "arrival": 20,
+          "collision": 6,
+          "timeout": 10
+        },
+        "3": {
+          "arrival": 30,
+          "collision": 6
+        },
+        "4": {
+          "arrival": 26,
+          "collision": 10
+        },
+        "5": {
+          "arrival": 27,
+          "collision": 8,
+          "timeout": 1
+        },
+        "6": {
+          "arrival": 27,
+          "collision": 9
+        },
+        "7": {
+          "arrival": 35,
+          "collision": 1
+        },
+        "8": {
+          "collision": 4,
+          "arrival": 22,
+          "timeout": 9,
+          "off_route": 1
+        },
+        "9": {
+          "arrival": 36
+        },
+        "10": {
+          "arrival": 27,
+          "collision": 7,
+          "off_route": 2
+        },
+        "11": {
+          "collision": 4,
+          "arrival": 25,
+          "timeout": 4,
+          "off_route": 3
+        },
+        "12": {
+          "arrival": 36
+        },
+        "13": {
+          "arrival": 28,
+          "collision": 7,
+          "off_route": 1
+        },
+        "14": {
+          "collision": 9,
+          "arrival": 23,
+          "off_route": 4
+        },
+        "15": {
+          "arrival": 29,
+          "timeout": 2,
+          "collision": 5
+        },
+        "16": {
+          "collision": 13,
+          "arrival": 19,
+          "off_route": 3,
+          "timeout": 1
         }
       }
     }
@@ -322,8 +970,265 @@
         "r_exp": -122.2652355660298,
         "episodes": 1967
       }
+    },
+    "Q1/22": {
+      "step": 200000,
+      "screen": {
+        "n": 128,
+        "arrival": 104,
+        "collision": 9,
+        "stall": 0,
+        "timeout": 0,
+        "off_route": 15,
+        "slow10": 0,
+        "required": 52,
+        "required_arrived": 33,
+        "commands": {
+          "left": 2637,
+          "right": 11990,
+          "steps": 44117
+        },
+        "required_commands": {
+          "left": 1245,
+          "right": 4381,
+          "steps": 17884
+        }
+      },
+      "training": {
+        "updates": 100,
+        "kl_stops": 0,
+        "route_coverage": 9.09375,
+        "route_share_sd": 0.08139312093754675,
+        "last_lr": 0.0001
+      }
+    },
+    "Q1/33": {
+      "step": 250000,
+      "screen": {
+        "n": 128,
+        "arrival": 103,
+        "collision": 13,
+        "stall": 0,
+        "timeout": 9,
+        "off_route": 3,
+        "slow10": 0,
+        "required": 52,
+        "required_arrived": 39,
+        "commands": {
+          "left": 19776,
+          "right": 23053,
+          "steps": 54932
+        },
+        "required_commands": {
+          "left": 9149,
+          "right": 8797,
+          "steps": 23747
+        }
+      },
+      "training": {
+        "updates": 125,
+        "kl_stops": 0,
+        "route_coverage": 8.183333333333334,
+        "route_share_sd": 0.09162459662655618,
+        "last_lr": 0.0001
+      }
     }
   },
-  "comparisons": {},
-  "three_seed": {}
+  "comparisons": {
+    "P0\u2192Q1/11": {
+      "kept": 284,
+      "lost": 114,
+      "gained": 54,
+      "delta": {
+        "arrival": -60,
+        "collision": -4,
+        "off_route": 62,
+        "stall": 0,
+        "timeout": 2,
+        "required_arrived": -38
+      },
+      "transitions": {
+        "arrival\u2192arrival": 284,
+        "arrival\u2192collision": 38,
+        "arrival\u2192off_route": 74,
+        "off_route\u2192off_route": 62,
+        "collision\u2192collision": 24,
+        "collision\u2192off_route": 21,
+        "off_route\u2192collision": 17,
+        "collision\u2192arrival": 38,
+        "off_route\u2192arrival": 16,
+        "arrival\u2192timeout": 2
+      }
+    },
+    "Q1/11\u2192Q2/11": {
+      "kept": 186,
+      "lost": 152,
+      "gained": 25,
+      "delta": {
+        "arrival": -127,
+        "collision": -75,
+        "off_route": 108,
+        "stall": 54,
+        "timeout": 40,
+        "required_arrived": -80
+      },
+      "transitions": {
+        "arrival\u2192arrival": 186,
+        "collision\u2192off_route": 54,
+        "off_route\u2192timeout": 18,
+        "off_route\u2192off_route": 117,
+        "collision\u2192arrival": 7,
+        "arrival\u2192stall": 40,
+        "collision\u2192stall": 12,
+        "arrival\u2192off_route": 93,
+        "off_route\u2192arrival": 17,
+        "collision\u2192timeout": 5,
+        "arrival\u2192timeout": 19,
+        "collision\u2192collision": 1,
+        "off_route\u2192stall": 2,
+        "off_route\u2192collision": 3,
+        "timeout\u2192arrival": 1,
+        "timeout\u2192off_route": 1
+      }
+    },
+    "Q2/11\u2192Q3/11": {
+      "kept": 169,
+      "lost": 42,
+      "gained": 6,
+      "delta": {
+        "arrival": -36,
+        "collision": 37,
+        "off_route": -3,
+        "stall": -9,
+        "timeout": 11,
+        "required_arrived": 0
+      },
+      "transitions": {
+        "arrival\u2192arrival": 169,
+        "off_route\u2192timeout": 15,
+        "timeout\u2192timeout": 20,
+        "arrival\u2192collision": 24,
+        "off_route\u2192off_route": 246,
+        "stall\u2192stall": 45,
+        "arrival\u2192timeout": 18,
+        "timeout\u2192off_route": 15,
+        "stall\u2192collision": 9,
+        "collision\u2192off_route": 1,
+        "off_route\u2192collision": 4,
+        "timeout\u2192arrival": 6,
+        "collision\u2192collision": 3,
+        "timeout\u2192collision": 1
+      }
+    },
+    "Q2/11\u2192Q4/11": {
+      "kept": 210,
+      "lost": 1,
+      "gained": 20,
+      "delta": {
+        "arrival": 19,
+        "collision": 0,
+        "off_route": 19,
+        "stall": 0,
+        "timeout": -38,
+        "required_arrived": 0
+      },
+      "transitions": {
+        "arrival\u2192arrival": 210,
+        "off_route\u2192off_route": 263,
+        "timeout\u2192arrival": 18,
+        "stall\u2192stall": 54,
+        "timeout\u2192off_route": 20,
+        "arrival\u2192collision": 1,
+        "off_route\u2192collision": 2,
+        "collision\u2192off_route": 1,
+        "timeout\u2192timeout": 4,
+        "collision\u2192collision": 1,
+        "collision\u2192arrival": 2
+      }
+    },
+    "Q2/11\u2192Q5/11": {
+      "kept": 157,
+      "lost": 54,
+      "gained": 5,
+      "delta": {
+        "arrival": -49,
+        "collision": -2,
+        "off_route": -58,
+        "stall": -23,
+        "timeout": 132,
+        "required_arrived": 0
+      },
+      "transitions": {
+        "arrival\u2192arrival": 157,
+        "off_route\u2192timeout": 59,
+        "timeout\u2192timeout": 38,
+        "arrival\u2192timeout": 53,
+        "off_route\u2192off_route": 206,
+        "stall\u2192stall": 31,
+        "stall\u2192timeout": 23,
+        "collision\u2192timeout": 1,
+        "arrival\u2192collision": 1,
+        "collision\u2192arrival": 2,
+        "timeout\u2192arrival": 3,
+        "collision\u2192collision": 1,
+        "timeout\u2192off_route": 1
+      }
+    }
+  },
+  "three_seed": {
+    "arrival": {
+      "mean": 70.3125,
+      "sd": 10.157362830770884,
+      "rates": [
+        58.68055555555556,
+        74.82638888888889,
+        77.43055555555556
+      ]
+    },
+    "collision": {
+      "mean": 12.61574074074074,
+      "sd": 3.5167857880181708,
+      "rates": [
+        13.715277777777779,
+        8.680555555555555,
+        15.45138888888889
+      ]
+    },
+    "off_route": {
+      "mean": 15.393518518518517,
+      "sd": 12.449663954800087,
+      "rates": [
+        27.256944444444443,
+        16.493055555555554,
+        2.430555555555556
+      ]
+    },
+    "stall": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "rates": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "timeout": {
+      "mean": 1.6782407407407407,
+      "sd": 2.6118713186103606,
+      "rates": [
+        0.3472222222222222,
+        0.0,
+        4.6875
+      ]
+    },
+    "required_arrived": {
+      "mean": 53.0448717948718,
+      "sd": 13.430022631758533,
+      "rates": [
+        38.46153846153847,
+        55.769230769230774,
+        64.90384615384616
+      ]
+    }
+  }
 }

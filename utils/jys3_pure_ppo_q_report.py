@@ -1,7 +1,7 @@
 """Regenerate the Q sweep report from paired episodes and learner updates."""
 from collections import Counter
 import json
-from statistics import mean, stdev
+from statistics import mean, median, stdev
 
 from utils import jys3_pure_ppo_q_sweep as q
 
@@ -142,6 +142,17 @@ def generate():
                [[k,mix(d.get("all")),mix(d.get("required")),ratio(d["required_arrived"],208)] for k,d in data.items()])
     doc+=["## 경로별 완주와 실패","", "각 칸은 완주 / 충돌 / 이탈 / 끝 정지 / 일반 시간초과 건수다. 경로별 분모는 36회다."]
     doc+=table(["경로",*keys],[[i,*[" / ".join(str(data[k]["routes"][str(i)].get(v,0)) for v in OUT) for k in keys]] for i in [16,5,11]+[i for i in range(1,17) if i not in (16,5,11)]])
+    doc+=["### 16번의 출발 차로별 본선 복귀","",
+          "0차로는 출구 전용이어서 본선 완주에 왼쪽 변경이 필요하다. 1차로에서는 그대로 본선을 선택할 수 있다. 각 출발 차로는 18회다."]
+    lane_rows=[]
+    for key,rows in rows_by.items():
+        for lane in (0,1):
+            episodes=[r for r in rows if r["route"]==16 and r["lane"]==lane]
+            assert len(episodes)==18
+            outcomes=Counter(r["outcome"] for r in episodes)
+            left=sum(r["left_commands"] for r in episodes) if "left_commands" in episodes[0] else "—"
+            lane_rows.append([key,lane,*[outcomes[v] for v in OUT],left])
+    doc+=table(["모델","출발 차로",*LABELS,"왼쪽 명령 수"],lane_rows)
     doc+=["## Q2와 Q5의 자가 경험 보상"]
     if "Q2/11→Q5/11" in comparisons:
         d=comparisons["Q2/11→Q5/11"]["delta"]; g=picks["Q5/11"]["training"]
@@ -155,6 +166,16 @@ def generate():
     doc+=table(["모델","선정 스텝","선정 완주 /128","포함 경로 수 /16","경로 점유율 표준편차","KL 조기중단 / 업데이트"],
                [[k,v["step"],v["screen"]["arrival"],f"{v['training']['route_coverage']:.2f}",f"{v['training']['route_share_sd']:.3f}",
                 f"{v['training']['kl_stops']}/{v['training']['updates']}"] for k,v in picks.items()])
+    if all(f"{a}/11" in picks for a in q.ARMS):
+        doc+=["### 시드 11의 40만 스텝 전체 업데이트","",
+              "5만 스텝 경계의 짧은 롤아웃도 포함했다. 온전한 롤아웃에서 10에포크를 모두 사용하면 미니배치 업데이트는 320회다."]
+        budget=[]
+        for arm in q.ARMS[1:]:
+            path=q.folder(arm,11)/"updates.jsonl"
+            updates=[json.loads(line)["metrics"] for line in path.read_text().splitlines()]
+            budget.append([arm,len(updates),sum(m["kl_stop"] is not None for m in updates),
+                           median(m["minibatches_applied"] for m in updates)])
+        doc+=table(["조건","전체 업데이트","KL 조기중단","실제 적용 미니배치 중앙값"],budget)
     doc+=table(["조건","시드","스텝",*LABELS,"변경 필요 완주 /52"],screens)
     stats={}
     if winner and all(f"{winner}/{s}" in data for s in q.SEEDS):
@@ -163,7 +184,7 @@ def generate():
             denominator=208 if metric=="required_arrived" else 576
             fractions=[v[metric]/denominator*100 for v in group]
             stats[metric]=dict(mean=mean(fractions),sd=stdev(fractions),rates=fractions)
-        doc+=["## 우승 조건의 세 시드 재현성","",f"시드 11의 128회 평가로 **{winner}**를 선정했다. 시드마다 독립적으로 선정한 체크포인트의 576회 비율을 사용했다. 표준편차는 학습 시드 3개의 표본 표준편차다."]
+        doc+=["## 우승 조건의 세 시드 재현성","",f"시드 11의 128회 평가로 **{winner}** 조건을 선정했다. 시드마다 독립적으로 선정한 체크포인트의 576회 비율을 사용했다. 표준편차는 학습 시드 3개의 표본 표준편차다."]
         doc+=table(["지표","시드 11","시드 22","시드 33","평균 ± 표준편차"],
                    [[label,*[f"{v:.2f}%" for v in stats[key]["rates"]],f"{stats[key]['mean']:.2f}% ± {stats[key]['sd']:.2f}%p"] for key,label in zip((*OUT,"required_arrived"),(*LABELS,"변경 필요 완주율"))])
     doc+=["## 실행 조건","",
@@ -173,6 +194,19 @@ def generate():
           "- 평가 패널은 95380000 128회, 81260100 64회, 91000000·104320000 각 256회다. 모든 평가에서 결정론적 행동을 사용하며 학습용 10초 종료는 껐다. 원본 BC와 dagger5.pt의 SHA-256은 시작·종료 때 검사한다.",
           "- 128회에서 완주 최대, 충돌 최소, 변경 필요 출발 완주 최대, 이른 스텝 순으로 선정한다. 시드 11은 P0와 초기 가중치·교통 시드 편성을 맞췄다. 22·33은 초기화·행동 샘플링·경로 순서·교통 시드 대역을 바꾼 독립 학습이다.",
           "", "[실행 코드](../../utils/jys3_pure_ppo_q_sweep.py) · [원자료 집계](../../results/jys3_pure_ppo_q_sweep/summary.json) · [기존 P0 실험](jys3-pure-ppo-overnight.md)"]
+    if stats:
+        a=data["Q1/11"]; base=data["P0"]
+        doc[4:4]=["## 결과 요약","",
+                  f"- {winner} 조건이 선정 평가 1위를 기록했다. 세 시드 완주율 평균은 {stats['arrival']['mean']:.2f}% "
+                  f"(표본 표준편차 {stats['arrival']['sd']:.2f}%p), 충돌률 평균은 {stats['collision']['mean']:.2f}%다. "
+                  f"같은 시드 11에서 Q1의 완주는 P0 대비 {a['arrival']-base['arrival']:+d}건이었다. P0의 세 시드 평균은 이번 실험에서 측정하지 않았다.",
+                  f"- Q2~Q5의 선정 정책이 576회에서 낸 좌·우 명령은 합계 "
+                  f"{sum(sum(data[arm+'/11']['all'][k] for k in ('left','right')) for arm in q.ARMS[1:]):,}회였다. "
+                  f"Q2의 전체 업데이트 {budget[0][1]}회 중 {budget[0][2]}회가 KL 기준에 도달했다. "
+                  f"실제 적용한 미니배치 중앙값은 {budget[0][3]:g}회였다.",
+                  f"- 보강형 DAgger R5는 576회 중 {data['R5']['arrival']}회 완주했고 충돌은 {data['R5']['collision']}건이었다. "
+                  f"일곱 Q 모델 중 완주율 95%와 충돌률 5% 미만을 함께 충족한 모델은 "
+                  f"{sum(d['arrival']/576>=.95 and d['collision']/576<.05 for k,d in data.items() if k.startswith('Q'))}개였다.",""]
     dest=q.REPORT; temp=dest.with_suffix(".md.tmp")
     temp.write_text("\n".join(doc)+"\n",encoding="utf8"); temp.replace(dest)
     save(q.ROOT/"summary.json",dict(winner=winner,screens=len(screens),q_holdouts=[k for k in data if k.startswith("Q")],
