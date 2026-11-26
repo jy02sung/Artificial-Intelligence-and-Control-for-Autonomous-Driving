@@ -5,7 +5,7 @@ import sys
 import time
 import subprocess
 from collections import Counter, deque
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, as_completed, wait, FIRST_COMPLETED
 from functools import partial
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -239,7 +239,10 @@ def train_link():
 
 def train(arm,seed):
     if arm=="Link1":
-        train_link()
+        path=dest(arm,seed)
+        if not ((path/"policy_250000.pt").exists() and (path/"resume.pt").exists()
+                and torch.load(path/"resume.pt",weights_only=False)["step"]==250000):
+            train_link()
     else:
         for n in marks(arm):
             train_chunk(arm,seed,n)
@@ -291,16 +294,15 @@ def evaluate(arm,seed,n,name,rep):
             moves=finish_trace(env,xml,t)
             event_cut=False
             if collisions:
-                assert len(collisions)==1
-                contact=diag.split_lane(collisions[0]["lane"])
+                contacts=[diag.split_lane(c["lane"]) for c in collisions]
                 for tick,a,b in moves:
-                    if t-tick<3 and b==contact:
+                    if t-tick<3 and b in contacts:
                         m=diag.measurements(dict(history)[tick],int(np.sign(b[1]-a[1])),env.visibility,env.vmax)
                         event_cut|=m["tight"]
             assert bool(collisions)==(info["outcome"]=="collision")
             rows.append(dict(seed=seed_eval,rep=rep,route=route,lane=lane,initial_sha256=initial,steps=t,
                              outcome=info["outcome"],left_commands=left,right_commands=right,invalid=bad,
-                             valid=left+right-bad,moves=len(moves),observed_moves=seen,cutin=int(event_cut)))
+                             valid=left+right-bad,moves=len(moves),observed_moves=seen,cutin=int(event_cut),collision_contacts=len(collisions)))
     save(out,rows)
 
 
@@ -471,22 +473,51 @@ def main():
     with ProcessPoolExecutor(4) as pool:
         for stage in STAGES:
             jobs={pool.submit(train,arm,s):(arm,s) for arm,s in stage}
-            for fut in as_completed(jobs):
-                arm,s=fut.result()
-                evaluate_all(pool,[(arm,s,n,"screen") for n in marks(arm)])
-                choices={selected(arm,s)}
-                if arm=="Link1":
-                    choices.update((100000,250000))
-                evaluate_all(pool,[(arm,s,n,h) for n in choices for h in HOLDS])
-                report()
-                print("completed",arm,s,flush=True)
+            # Use spare slots for finished checkpoints while remaining runs are training.
+            panels={}
+            submitted=set()
+            finished=set()
+            while len(finished)<len(stage):
+                for arm,seed in stage:
+                    ready=[n for n in marks(arm) if (dest(arm,seed)/f"policy_{n}.pt").is_file()]
+                    keys=[(arm,seed,n,"screen") for n in ready]
+                    trained=(arm,seed) not in jobs.values()
+                    if trained and len(ready)==len(marks(arm)) and all(panel(*k).exists() for k in keys):
+                        choices={selected(arm,seed)}
+                        if arm=="Link1":
+                            choices.update((100000,250000))
+                        keys.extend((arm,seed,n,h) for n in choices for h in HOLDS)
+                        if all(panel(*k).exists() for k in keys) and (arm,seed) not in finished:
+                            finished.add((arm,seed))
+                            report()
+                            print("completed",arm,seed,flush=True)
+                    for key in keys:
+                        if key in submitted or panel(*key).exists():
+                            continue
+                        submitted.add(key)
+                        for rep in range(old.PANELS[key[-1]][1]):
+                            panels[pool.submit(evaluate,*key,rep)]=key
+                active=set(jobs)|set(panels)
+                if active:
+                    done,_=wait(active,timeout=5,return_when=FIRST_COMPLETED)
+                    for job in done:
+                        job.result()
+                        if job in jobs:
+                            del jobs[job]
+                        else:
+                            key=panels.pop(job)
+                            if key not in panels.values():
+                                finish_panel(*key)
+                                print("evaluated",*key,read(panel(*key))["metrics"]["arrival"],flush=True)
+                                if key[-1]=="screen":
+                                    report()
             if stage==STAGES[0]:
                 evaluate_all(pool,[("Q1",s,anti.PEAK[s],h) for s in anti.SEEDS for h in HOLDS])
                 report()
     assert protective_hashes()==hashes
     save(ROOT/"protected_end.json",hashes)
     save(ROOT/"finished.json",dict(completed=9,hashes_match=True))
-    report()
+    final_audit()
 
 
 def final_audit():
