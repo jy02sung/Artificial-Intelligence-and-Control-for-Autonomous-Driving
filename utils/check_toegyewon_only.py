@@ -16,7 +16,10 @@ EDGES={e.get('id'):e for e in XML.findall('edge') if not e.get('function')}
 ic.ZIP=()
 ic.RAMPS={eid for eid,e in EDGES.items() if e.get('type','').endswith('_link')}
 ROAD_NEW=dict(ROAD,routes=MAN['routes'],edges=[(eid,e.get('from'),e.get('to'),len(e.findall('lane'))) for eid,e in EDGES.items()],connections=[(c.get('from'),c.get('to'),int(c.get('fromLane')),int(c.get('toLane'))) for c in XML.findall('connection') if c.get('from') in EDGES and c.get('to') in EDGES],solid_lane_edges=[eid for eid,e in EDGES.items() if any(l.get('changeLeft') or l.get('changeRight') for l in e.findall('lane'))])
-COMMIT=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+# Release ZIPs have no Git metadata; replay uses only the map and model.
+COMMIT = None
+if (ROOT / ".git").exists():
+    COMMIT = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 def stamp():return dict(git=COMMIT,network_sha256=digest(MAP/'network.net.xml'),simulation_seed=1001)
 def checked_existing(target):
  if not target.exists():return False
