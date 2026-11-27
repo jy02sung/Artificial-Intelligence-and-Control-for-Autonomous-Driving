@@ -7,7 +7,7 @@
   <meta name="description" content="퇴계원 IC의 엇갈림을 SUMO로 재현하고 16개 경로에서 자율주행 정책의 완주, 충돌, 경로 이탈을 비교한 팀 프로젝트.">
   <title>1팀 퇴계일황 | 퇴계원 IC 자율주행 실험</title>
   <link rel="stylesheet" href="./assets/fonts/pretendard.css">
-  <link rel="stylesheet" href="./assets/project.css?v=ppo-driving">
+  <link rel="stylesheet" href="./assets/project.css?v=ppo-comparison">
   <script src="./assets/project.js?v=section-groups" defer></script>
 </head>
 <body>
@@ -155,7 +155,18 @@
 <tr class="chosen"><th scope="row">보강형 DAgger</th><td>97.7%</td><td>1.6%</td><td>0.8%</td><td>0.0%</td></tr>
 </tbody></table></details></div>
   </div>
-  <aside class="ppo-branch"><strong>강화학습(PPO)도 비교했다</strong><p>보강형 DAgger에 PPO 학습을 추가한 모델은 같은 두 교통 시드 묶음에서 각각 244회와 247회 완주했습니다. PPO를 추가하기 전 모델이 247회와 252회로 두 검증 모두 앞서 발표 모델로 선정했습니다. <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-relu-ppo-comparison.md">후속 PPO 비교 기록</a> · <a href="#pure-ppo">전문가 없이 학습한 PPO 실험</a></p></aside>
+  <div class="ppo-branch comparison">
+    <div class="trial-logic">
+      <h3>모방학습 뒤에 PPO를 더하면?</h3>
+      <p>같은 교통에서 다시 달렸을 때 PPO를 추가한 모델은 각각 3회, 5회 적게 완주했습니다. 두 조건 모두에서 완주율이 높았던 BC + 보강형 DAgger를 최종 모델로 골랐습니다.</p>
+      <p class="link-set"><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-relu-ppo-comparison.md">학습·평가 기록</a> · <a href="#pure-ppo">순수 PPO 실험</a></p>
+    </div>
+    <div class="selection-data"><h3>PPO 추가 전후의 완주 횟수</h3>
+      <table><caption>교통 조건별 256회 주행</caption><thead><tr><th scope="col">교통 조건</th><th scope="col">추가 전</th><th scope="col">추가 후</th></tr></thead>
+      <tbody><tr><th scope="row">모델 간 공통 시드</th><td>247회</td><td>244회</td></tr>
+      <tr><th scope="row">처음 사용한 시드</th><td>252회</td><td>247회</td></tr></tbody></table>
+    </div>
+  </div>
 </section>
 <section data-nav-section="learning" id="decisions" class="spread"><div class="section-copy"><h2>차량이 보는 것과 <br>행동에 주는 점수</h2>
   <p>0.2초마다 도로 단위 경로 안내와 주변 차량의 움직임을 읽고, 가감속과 왼쪽·유지·오른쪽 중 한 가지 차로 명령을 함께 냅니다.</p></div>
