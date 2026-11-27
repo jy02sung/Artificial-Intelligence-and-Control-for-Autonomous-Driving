@@ -1,0 +1,719 @@
+{
+  "full_minus_variant": true,
+  "source_sha256": {
+    "jys3_pure_ppo_q_sweep\\Q1_s22\\policy_200000.pt": "0087b1b4afbc42ba53654aa439392c4d1a931ee82fa06a9effd9c8c14def91a6",
+    "jys3_ppo_clean_ladder\\M5-FT_s22\\warm.pt": "4d02faf4cb64206b7f9b2f11d86cb99af3c73e95bd150b65afce23547be74944",
+    "jys3_ppo_clean_ladder\\M5-FT_s22\\policy_150000.pt": "97416e4309cc914166aefc21877c1f4e42983b3d5e0bfcb2352a1a8edec8fc23",
+    "jys3_pure_ppo_q_sweep\\Q1_s33\\policy_250000.pt": "217fea2aef8638b2cba2db9f5ee5d82348c1d07083126d9b9bad48f117c15e70",
+    "jys3_ppo_clean_ladder\\M5-FT_s33\\warm.pt": "13c5914d814b6b7354d74deec7360aa24ef0cbc45c00676e4d7c167dd7c447ff",
+    "jys3_ppo_clean_ladder\\M5-FT_s33\\policy_150000.pt": "2c8ccc43e4ce8a0c2808f5d9a4149067a2ab747e2d6d1fe742dd0c69a1bcde0f",
+    "jys3_ppo_clean_ladder\\M5-FT_s22\\policy_75000.pt": "d9a652ca5605294a345f0f728b2f2dc3e88b9366f5c46fae34d2966164962cab",
+    "jys3_ppo_clean_ladder\\M5-FT_s33\\policy_125000.pt": "37f121374492392154ec80dc13ef6a2079f3b45ac0e88d830bfce8ef18d36f10"
+  },
+  "comparisons": [
+    {
+      "condition": "no_warm",
+      "seed": 22,
+      "mode": "fixed",
+      "step": 150000,
+      "full_step": 150000,
+      "variant": {
+        "arrival": 369,
+        "collision": 32,
+        "off_route": 175,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 18,
+        "required": 65
+      },
+      "full": {
+        "arrival": 390,
+        "collision": 50,
+        "off_route": 134,
+        "stall": 0,
+        "timeout": 2,
+        "cutin": 25,
+        "required": 89
+      },
+      "full_minus_variant": {
+        "arrival": 21,
+        "collision": 18,
+        "off_route": -41,
+        "stall": 0,
+        "timeout": 2,
+        "cutin": 7,
+        "required": 24
+      },
+      "m3_to_variant": {
+        "kept": 340,
+        "lost": 91,
+        "gained": 29
+      },
+      "m3_to_full": {
+        "kept": 349,
+        "lost": 82,
+        "gained": 41
+      }
+    },
+    {
+      "condition": "no_warm",
+      "seed": 33,
+      "mode": "fixed",
+      "step": 150000,
+      "full_step": 150000,
+      "variant": {
+        "arrival": 469,
+        "collision": 69,
+        "off_route": 23,
+        "stall": 0,
+        "timeout": 15,
+        "cutin": 57,
+        "required": 137
+      },
+      "full": {
+        "arrival": 485,
+        "collision": 57,
+        "off_route": 28,
+        "stall": 0,
+        "timeout": 6,
+        "cutin": 52,
+        "required": 150
+      },
+      "full_minus_variant": {
+        "arrival": 16,
+        "collision": -12,
+        "off_route": 5,
+        "stall": 0,
+        "timeout": -9,
+        "cutin": -5,
+        "required": 13
+      },
+      "m3_to_variant": {
+        "kept": 393,
+        "lost": 53,
+        "gained": 76
+      },
+      "m3_to_full": {
+        "kept": 399,
+        "lost": 47,
+        "gained": 86
+      }
+    },
+    {
+      "condition": "no_warm",
+      "seed": 22,
+      "mode": "selected",
+      "step": 25000,
+      "full_step": 75000,
+      "variant": {
+        "arrival": 408,
+        "collision": 50,
+        "off_route": 118,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 28,
+        "required": 99
+      },
+      "full": {
+        "arrival": 461,
+        "collision": 47,
+        "off_route": 68,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 32,
+        "required": 142
+      },
+      "full_minus_variant": {
+        "arrival": 53,
+        "collision": -3,
+        "off_route": -50,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 4,
+        "required": 43
+      },
+      "m3_to_variant": {
+        "kept": 371,
+        "lost": 60,
+        "gained": 37
+      },
+      "m3_to_full": {
+        "kept": 399,
+        "lost": 32,
+        "gained": 62
+      }
+    },
+    {
+      "condition": "no_warm",
+      "seed": 33,
+      "mode": "selected",
+      "step": 125000,
+      "full_step": 125000,
+      "variant": {
+        "arrival": 494,
+        "collision": 46,
+        "off_route": 31,
+        "stall": 0,
+        "timeout": 5,
+        "cutin": 41,
+        "required": 156
+      },
+      "full": {
+        "arrival": 487,
+        "collision": 48,
+        "off_route": 30,
+        "stall": 0,
+        "timeout": 11,
+        "cutin": 40,
+        "required": 145
+      },
+      "full_minus_variant": {
+        "arrival": -7,
+        "collision": 2,
+        "off_route": -1,
+        "stall": 0,
+        "timeout": 6,
+        "cutin": -1,
+        "required": -11
+      },
+      "m3_to_variant": {
+        "kept": 406,
+        "lost": 40,
+        "gained": 88
+      },
+      "m3_to_full": {
+        "kept": 405,
+        "lost": 41,
+        "gained": 82
+      }
+    },
+    {
+      "condition": "higher_lr",
+      "seed": 22,
+      "mode": "fixed",
+      "step": 150000,
+      "full_step": 150000,
+      "variant": {
+        "arrival": 450,
+        "collision": 50,
+        "off_route": 75,
+        "stall": 0,
+        "timeout": 1,
+        "cutin": 34,
+        "required": 133
+      },
+      "full": {
+        "arrival": 390,
+        "collision": 50,
+        "off_route": 134,
+        "stall": 0,
+        "timeout": 2,
+        "cutin": 25,
+        "required": 89
+      },
+      "full_minus_variant": {
+        "arrival": -60,
+        "collision": 0,
+        "off_route": 59,
+        "stall": 0,
+        "timeout": 1,
+        "cutin": -9,
+        "required": -44
+      },
+      "m3_to_variant": {
+        "kept": 384,
+        "lost": 47,
+        "gained": 66
+      },
+      "m3_to_full": {
+        "kept": 349,
+        "lost": 82,
+        "gained": 41
+      }
+    },
+    {
+      "condition": "higher_lr",
+      "seed": 33,
+      "mode": "fixed",
+      "step": 150000,
+      "full_step": 150000,
+      "variant": {
+        "arrival": 464,
+        "collision": 71,
+        "off_route": 32,
+        "stall": 0,
+        "timeout": 9,
+        "cutin": 66,
+        "required": 146
+      },
+      "full": {
+        "arrival": 485,
+        "collision": 57,
+        "off_route": 28,
+        "stall": 0,
+        "timeout": 6,
+        "cutin": 52,
+        "required": 150
+      },
+      "full_minus_variant": {
+        "arrival": 21,
+        "collision": -14,
+        "off_route": -4,
+        "stall": 0,
+        "timeout": -3,
+        "cutin": -14,
+        "required": 4
+      },
+      "m3_to_variant": {
+        "kept": 375,
+        "lost": 71,
+        "gained": 89
+      },
+      "m3_to_full": {
+        "kept": 399,
+        "lost": 47,
+        "gained": 86
+      }
+    },
+    {
+      "condition": "higher_lr",
+      "seed": 22,
+      "mode": "selected",
+      "step": 125000,
+      "full_step": 75000,
+      "variant": {
+        "arrival": 444,
+        "collision": 46,
+        "off_route": 84,
+        "stall": 1,
+        "timeout": 1,
+        "cutin": 33,
+        "required": 128
+      },
+      "full": {
+        "arrival": 461,
+        "collision": 47,
+        "off_route": 68,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 32,
+        "required": 142
+      },
+      "full_minus_variant": {
+        "arrival": 17,
+        "collision": 1,
+        "off_route": -16,
+        "stall": -1,
+        "timeout": -1,
+        "cutin": -1,
+        "required": 14
+      },
+      "m3_to_variant": {
+        "kept": 390,
+        "lost": 41,
+        "gained": 54
+      },
+      "m3_to_full": {
+        "kept": 399,
+        "lost": 32,
+        "gained": 62
+      }
+    },
+    {
+      "condition": "higher_lr",
+      "seed": 33,
+      "mode": "selected",
+      "step": 75000,
+      "full_step": 125000,
+      "variant": {
+        "arrival": 462,
+        "collision": 81,
+        "off_route": 17,
+        "stall": 0,
+        "timeout": 16,
+        "cutin": 73,
+        "required": 149
+      },
+      "full": {
+        "arrival": 487,
+        "collision": 48,
+        "off_route": 30,
+        "stall": 0,
+        "timeout": 11,
+        "cutin": 40,
+        "required": 145
+      },
+      "full_minus_variant": {
+        "arrival": 25,
+        "collision": -33,
+        "off_route": 13,
+        "stall": 0,
+        "timeout": -5,
+        "cutin": -33,
+        "required": -4
+      },
+      "m3_to_variant": {
+        "kept": 380,
+        "lost": 66,
+        "gained": 82
+      },
+      "m3_to_full": {
+        "kept": 405,
+        "lost": 41,
+        "gained": 82
+      }
+    },
+    {
+      "condition": "original_entropy",
+      "seed": 22,
+      "mode": "fixed",
+      "step": 150000,
+      "full_step": 150000,
+      "variant": {
+        "arrival": 443,
+        "collision": 51,
+        "off_route": 82,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 32,
+        "required": 127
+      },
+      "full": {
+        "arrival": 390,
+        "collision": 50,
+        "off_route": 134,
+        "stall": 0,
+        "timeout": 2,
+        "cutin": 25,
+        "required": 89
+      },
+      "full_minus_variant": {
+        "arrival": -53,
+        "collision": -1,
+        "off_route": 52,
+        "stall": 0,
+        "timeout": 2,
+        "cutin": -7,
+        "required": -38
+      },
+      "m3_to_variant": {
+        "kept": 388,
+        "lost": 43,
+        "gained": 55
+      },
+      "m3_to_full": {
+        "kept": 349,
+        "lost": 82,
+        "gained": 41
+      }
+    },
+    {
+      "condition": "original_entropy",
+      "seed": 33,
+      "mode": "fixed",
+      "step": 150000,
+      "full_step": 150000,
+      "variant": {
+        "arrival": 472,
+        "collision": 74,
+        "off_route": 27,
+        "stall": 0,
+        "timeout": 3,
+        "cutin": 70,
+        "required": 152
+      },
+      "full": {
+        "arrival": 485,
+        "collision": 57,
+        "off_route": 28,
+        "stall": 0,
+        "timeout": 6,
+        "cutin": 52,
+        "required": 150
+      },
+      "full_minus_variant": {
+        "arrival": 13,
+        "collision": -17,
+        "off_route": 1,
+        "stall": 0,
+        "timeout": 3,
+        "cutin": -18,
+        "required": -2
+      },
+      "m3_to_variant": {
+        "kept": 391,
+        "lost": 55,
+        "gained": 81
+      },
+      "m3_to_full": {
+        "kept": 399,
+        "lost": 47,
+        "gained": 86
+      }
+    },
+    {
+      "condition": "original_entropy",
+      "seed": 22,
+      "mode": "selected",
+      "step": 125000,
+      "full_step": 75000,
+      "variant": {
+        "arrival": 445,
+        "collision": 43,
+        "off_route": 88,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 23,
+        "required": 129
+      },
+      "full": {
+        "arrival": 461,
+        "collision": 47,
+        "off_route": 68,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 32,
+        "required": 142
+      },
+      "full_minus_variant": {
+        "arrival": 16,
+        "collision": 4,
+        "off_route": -20,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 9,
+        "required": 13
+      },
+      "m3_to_variant": {
+        "kept": 395,
+        "lost": 36,
+        "gained": 50
+      },
+      "m3_to_full": {
+        "kept": 399,
+        "lost": 32,
+        "gained": 62
+      }
+    },
+    {
+      "condition": "original_entropy",
+      "seed": 33,
+      "mode": "selected",
+      "step": 150000,
+      "full_step": 125000,
+      "variant": {
+        "arrival": 472,
+        "collision": 74,
+        "off_route": 27,
+        "stall": 0,
+        "timeout": 3,
+        "cutin": 70,
+        "required": 152
+      },
+      "full": {
+        "arrival": 487,
+        "collision": 48,
+        "off_route": 30,
+        "stall": 0,
+        "timeout": 11,
+        "cutin": 40,
+        "required": 145
+      },
+      "full_minus_variant": {
+        "arrival": 15,
+        "collision": -26,
+        "off_route": 3,
+        "stall": 0,
+        "timeout": 8,
+        "cutin": -30,
+        "required": -7
+      },
+      "m3_to_variant": {
+        "kept": 391,
+        "lost": 55,
+        "gained": 81
+      },
+      "m3_to_full": {
+        "kept": 405,
+        "lost": 41,
+        "gained": 82
+      }
+    },
+    {
+      "condition": "no_kl",
+      "seed": 22,
+      "mode": "fixed",
+      "step": 150000,
+      "full_step": 150000,
+      "variant": {
+        "arrival": 312,
+        "collision": 34,
+        "off_route": 230,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 10,
+        "required": 22
+      },
+      "full": {
+        "arrival": 390,
+        "collision": 50,
+        "off_route": 134,
+        "stall": 0,
+        "timeout": 2,
+        "cutin": 25,
+        "required": 89
+      },
+      "full_minus_variant": {
+        "arrival": 78,
+        "collision": 16,
+        "off_route": -96,
+        "stall": 0,
+        "timeout": 2,
+        "cutin": 15,
+        "required": 67
+      },
+      "m3_to_variant": {
+        "kept": 288,
+        "lost": 143,
+        "gained": 24
+      },
+      "m3_to_full": {
+        "kept": 349,
+        "lost": 82,
+        "gained": 41
+      }
+    },
+    {
+      "condition": "no_kl",
+      "seed": 33,
+      "mode": "fixed",
+      "step": 150000,
+      "full_step": 150000,
+      "variant": {
+        "arrival": 414,
+        "collision": 29,
+        "off_route": 131,
+        "stall": 0,
+        "timeout": 2,
+        "cutin": 20,
+        "required": 89
+      },
+      "full": {
+        "arrival": 485,
+        "collision": 57,
+        "off_route": 28,
+        "stall": 0,
+        "timeout": 6,
+        "cutin": 52,
+        "required": 150
+      },
+      "full_minus_variant": {
+        "arrival": 71,
+        "collision": 28,
+        "off_route": -103,
+        "stall": 0,
+        "timeout": 4,
+        "cutin": 32,
+        "required": 61
+      },
+      "m3_to_variant": {
+        "kept": 336,
+        "lost": 110,
+        "gained": 78
+      },
+      "m3_to_full": {
+        "kept": 399,
+        "lost": 47,
+        "gained": 86
+      }
+    },
+    {
+      "condition": "no_kl",
+      "seed": 22,
+      "mode": "selected",
+      "step": 25000,
+      "full_step": 75000,
+      "variant": {
+        "arrival": 410,
+        "collision": 42,
+        "off_route": 124,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 25,
+        "required": 96
+      },
+      "full": {
+        "arrival": 461,
+        "collision": 47,
+        "off_route": 68,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 32,
+        "required": 142
+      },
+      "full_minus_variant": {
+        "arrival": 51,
+        "collision": 5,
+        "off_route": -56,
+        "stall": 0,
+        "timeout": 0,
+        "cutin": 7,
+        "required": 46
+      },
+      "m3_to_variant": {
+        "kept": 376,
+        "lost": 55,
+        "gained": 34
+      },
+      "m3_to_full": {
+        "kept": 399,
+        "lost": 32,
+        "gained": 62
+      }
+    },
+    {
+      "condition": "no_kl",
+      "seed": 33,
+      "mode": "selected",
+      "step": 50000,
+      "full_step": 125000,
+      "variant": {
+        "arrival": 417,
+        "collision": 45,
+        "off_route": 84,
+        "stall": 0,
+        "timeout": 30,
+        "cutin": 38,
+        "required": 105
+      },
+      "full": {
+        "arrival": 487,
+        "collision": 48,
+        "off_route": 30,
+        "stall": 0,
+        "timeout": 11,
+        "cutin": 40,
+        "required": 145
+      },
+      "full_minus_variant": {
+        "arrival": 70,
+        "collision": 3,
+        "off_route": -54,
+        "stall": 0,
+        "timeout": -19,
+        "cutin": 2,
+        "required": 40
+      },
+      "m3_to_variant": {
+        "kept": 351,
+        "lost": 95,
+        "gained": 66
+      },
+      "m3_to_full": {
+        "kept": 405,
+        "lost": 41,
+        "gained": 82
+      }
+    }
+  ]
+}
