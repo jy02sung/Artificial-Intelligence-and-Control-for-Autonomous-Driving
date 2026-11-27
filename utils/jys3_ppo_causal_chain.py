@@ -69,6 +69,9 @@ def finish_trace(env,path,last):
 
 
 class Episodes(p.Episodes):
+    def extra_move_cost(self, measurement):
+        return 0.
+
     def __init__(self,env,arm,path,*,training_seed,warm=False):
         super().__init__(env,arm,path,training_seed=training_seed)
         self.costed=arm.startswith("S3")
@@ -96,6 +99,7 @@ class Episodes(p.Episodes):
         bad=invalid(edge,lane,count,cmd,obs)
         nxt,reward,done,cut,info=super().drive(action)
         charge=False
+        extra=0.
         if self.risk:
             direction=0
             if info["collided"]:
@@ -108,8 +112,9 @@ class Episodes(p.Episodes):
             if direction:
                 m=diag.measurements(obs,direction,env.visibility,env.vmax)
                 charge=dangerous(m)
+                extra=self.extra_move_cost(m)
         self.stats.update(invalid_commands=int(bad),risk_moves=int(charge))
-        return nxt,reward-.02*bad-1.5*charge,done,cut,info
+        return nxt,reward-.02*bad-1.5*charge-extra,done,cut,info
 
 
 def verified_update(agent,ep,adv,ret,ref=None):
@@ -252,7 +257,7 @@ def panel(arm,seed,n,name):
     return dest(arm,seed)/f"eval_{n}_{name}.json"
 
 
-def evaluate(arm,seed,n,name,rep,*,directory=None,checkpoint=None,lateral=None,record_first_fork=False):
+def evaluate(arm,seed,n,name,rep,*,directory=None,checkpoint=None,lateral=None,record_first_fork=False,move_probe=None):
     path=directory or dest(arm,seed)
     out=path/"parts"/f"{n}_{name}_{rep}.json"
     if out.exists():
@@ -278,7 +283,7 @@ def evaluate(arm,seed,n,name,rep,*,directory=None,checkpoint=None,lateral=None,r
                 path = env.routes[key]
                 first_fork = next((i for i, pair in enumerate(zip(path,path[1:])) if pair in env.sim.signs),None)
             left=right=bad=seen=0
-            history=deque(maxlen=3)
+            history=deque(maxlen=None if move_probe else 3)
             for t in range(1,1001):
                 x=transform(obs[:50])
                 action=model.det_action(torch.from_numpy(x).unsqueeze(0))[0].numpy()
@@ -309,6 +314,10 @@ def evaluate(arm,seed,n,name,rep,*,directory=None,checkpoint=None,lateral=None,r
                              valid=left+right-bad,moves=len(moves),observed_moves=seen,cutin=int(event_cut),collision_contacts=len(collisions)))
             if record_first_fork:
                 rows[-1]["first_fork_passed"] = None if first_fork is None else first_fork in env.sim.paid_forks
+            if move_probe:
+                states = dict(history)
+                rows[-1]["flagged_moves"] = sum(move_probe(diag.measurements(
+                    states[tick],int(np.sign(b[1]-a[1])),env.visibility,env.vmax)) for tick,a,b in moves)
     save(out,rows)
 
 

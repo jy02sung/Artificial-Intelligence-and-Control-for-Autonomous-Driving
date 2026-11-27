@@ -59,20 +59,26 @@ class PrepEpisodes(T.Episodes):
         return nxt, reward + adjustment, done, cut, info
 
 
-def train(arm):
-    directory = ROOT / arm
+def prepare(source, directory):
     directory.mkdir(parents=True, exist_ok=True)
     if not (directory / "start.json").exists():
-        resume = T.torch.load(SOURCE / "resume.pt", weights_only=False)
+        resume = T.torch.load(source / "resume.pt", weights_only=False)
         assert resume["step"] == mid.STEP and resume["optimizer"]["state"]
-        cp = T.torch.load(SOURCE / "policy_100000.pt", weights_only=True)
+        cp = T.torch.load(source / "policy_100000.pt", weights_only=True)
         weights = dict(cp["policy"])
         weights.update({"value_trunk."+k: v for k,v in cp["value_trunk"].items()})
         assert set(weights) == set(resume["model"]) and all(T.torch.equal(v,resume["model"][k]) for k,v in weights.items())
         for name in ("resume.pt", "updates.jsonl", "episodes.jsonl"):
-            copyfile(SOURCE / name, directory / name)
-        L.save(directory / "start.json", {"resume": T.ft.sha(SOURCE / "resume.pt")})
-    assert L.read(directory / "start.json")["resume"] == T.ft.sha(SOURCE / "resume.pt")
+            copyfile(source / name, directory / name)
+            if name in resume["offsets"]:
+                assert (directory / name).stat().st_size == resume["offsets"][name]
+        L.save(directory / "start.json", {"resume": T.ft.sha(source / "resume.pt")})
+    assert L.read(directory / "start.json")["resume"] == T.ft.sha(source / "resume.pt")
+
+
+def train(arm):
+    directory = ROOT / arm
+    prepare(SOURCE, directory)
     episode_type = PrepEpisodes if arm == "advance" else T.Episodes
     with patch.object(T, "Episodes", episode_type):
         T.train(("A",33,"A"), directory=directory, marks=(END,), collision_reward=-14., gae_lambda=.95)
