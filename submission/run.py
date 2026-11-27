@@ -31,7 +31,7 @@ def main():
     os.environ["IC_LIBSUMO"] = "0" if args.gui else "1"
 
     import torch
-    from utils import jys3_final_relu_dagger as final
+    from utils import imitation as final
 
     torch.set_num_threads(1)
     policy = final.network(args.checkpoint or model_path(args.model))
@@ -41,12 +41,12 @@ def main():
         cases = [(route, base + rep * 100 + route, rep % 2)
                  for base, reps in ((81260100, 4), (91000000, 16), (104320000, 16))
                  for rep in range(reps) for route in range(1, 17)]
-    with final.p.roll.baseline.simulator() as env, torch.inference_mode():
+    with final.simulator() as env, torch.inference_mode():
         assert env.sim.physical_forks and env.sim.occlusion and not env.sim.lc_safety_enabled
         env.sim.gui = args.gui
         transform = None
         if args.model == "pure_ppo":
-            from utils.jys3_pure_ppo_overnight import lateral_transform
+            from utils.ppo_rollout import lateral_transform
             transform = lateral_transform(env)
         for route, seed, lane in cases:
             route_id = f"route_{route:02d}"

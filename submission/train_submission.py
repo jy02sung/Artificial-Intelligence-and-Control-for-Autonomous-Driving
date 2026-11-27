@@ -8,16 +8,17 @@ from run import ROOT, model_path
 
 
 def pure_ppo():
-    from utils import jys3_m5ft_targeted as last
-    ladder = last.L
-    q = ladder.q
+    from utils import ppo_continuation as last
+    from utils import ppo_finetune as ladder
+    from utils import ppo_initial as q
+    from utils import ppo_rollout as rollout
     seed = 33
-    initializer = partial(q.p.agent, seed, 2048, 64)
-    initial_hash = q.p.digest(initializer().policy)
+    initializer = partial(rollout.agent, seed, 2048, 64)
+    initial_hash = rollout.digest(initializer().policy)
     for step in range(50000, 250001, 50000):
         dest = q.folder("Q1", seed)
         if not (dest / f"policy_{step}.pt").exists():
-            q.p.train("Q1", step, directory=dest, make_agent=initializer, make_episodes=q.Episodes,
+            rollout.train("Q1", step, directory=dest, make_agent=initializer, make_episodes=q.Episodes,
                       expected_hash=initial_hash, training_seed=seed, update=q.update)
     ladder.train("M5-FT", seed, end=125000)
     dest = ROOT / "results/pure_ppo_final"
@@ -39,13 +40,13 @@ def main():
         pure_ppo()
         return
     if args.model == "dagger5_ppo":
-        from utils import jys3_relu_ppo_comparison as ppo
+        from utils import kl_ppo as ppo
         ppo.ORIG.update(BC=model_path("bc50"), R5=model_path("dagger5"))
         ppo.train("B", fixed_budget=True)
         print(ppo.ROOT / "B/policy_32768.pt")
         return
 
-    from utils import jys3_final_relu_dagger as final
+    from utils import imitation as final
     final.ROOT.mkdir(parents=True, exist_ok=True)
     final.torch.set_num_threads(2)
     with ProcessPoolExecutor(args.workers) as pool:

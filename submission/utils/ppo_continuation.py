@@ -1,28 +1,20 @@
-"""Targeted pure PPO continuation from the selected M5-FT weights."""
-import argparse
-import hashlib
-import math
-from collections import Counter, deque
-from concurrent.futures import ProcessPoolExecutor
-from functools import lru_cache
 from pathlib import Path
-from tempfile import TemporaryDirectory
+import math
+from functools import lru_cache
 import xml.etree.ElementTree as ET
 
-from utils import jys3_m5ft_ablation as ft
-
-L, P, C = ft.L, ft.P, ft.C
-np, torch = C.np, C.torch
-ROOT = L.ROOT.parent / "jys3_m5ft_targeted"
+import utils.lane_change_cost as C
+import utils.ppo_finetune as L
+import utils.ppo_rollout as P
+import numpy as np
+import torch
+ROOT = Path(__file__).resolve().parents[1] / "results/jys3_m5ft_targeted"
 STEPS = {22:75000, 33:125000}
-SHA = {22:"d9a652ca5605294a345f0f728b2f2dc3e88b9366f5c46fae34d2966164962cab",33:"37f121374492392154ec80dc13ef6a2079f3b45ac0e88d830bfce8ef18d36f10"}
 FOCUS = (10,11,13,14)
-PANELS = dict(L.old.PANELS, unseen=(1609000000,16))
-REPORT = L.REPORT.parent/"jys3-m5ft-targeted-results.md"
 
 
 def source(s):
-    return ft.original(s)/f"policy_{STEPS[s]}.pt"
+    return L.folder("M5-FT", s)/f"policy_{STEPS[s]}.pt"
 
 
 def folder(a,s):
@@ -154,29 +146,3 @@ def train(job, *, directory=None, marks=(12500,25000), collision_reward=None, ga
         if not (dest/f"policy_{n}.pt").exists():
             P.train("M5-FT",n,directory=dest,make_agent=make_agent,make_episodes=build,training_seed=s,
                     expected_hash=P.digest(ref),update=update)
-
-
-def preflight():
-    ROOT.mkdir(exist_ok=True,parents=True)
-    for s in STEPS:
-        load(s)
-        slots=[[start(a,s,i) for i in range(64)] for a in "ABC"]
-        assert len({x[3] for x in slots[0]})==64
-        assert sum(x[2] for x in slots[2])==8 and all(x[:2]==y[:2] and x[3]==y[3] for x,y in zip(*slots[1:]))
-        assert Counter(x[0] for x in slots[0])==Counter({r:4 for r in range(1,17)})
-    with L.final.p.roll.baseline.simulator() as env,TemporaryDirectory() as tmp:
-        ep=Episodes(env,"C",Path(tmp),training_seed=22,schedule="C")
-        for r in (13,14):
-            ep.count=next(i for i in range(64) if start("C",22,i)[0:3:2]==(r,True))
-            ep.reset()
-            before=env.high
-            _,_,_,_,info=ep.step(np.array([0.,0.],dtype=np.float32))
-            assert math.isclose(info["progress_bonus"],6*(env.high-before)/ep.length[r],abs_tol=1e-8) and not info["fork_passed"]
-    L.save(ROOT/"protocol.json",dict(source=SHA,panels=PANELS,training_seed_base=1500000000,steps=[12500,25000],
-        lr=1e-5,entropy=.0005,beta=.08,training_commit="b85de13",workers=4))
-
-
-if __name__=="__main__":
-    preflight()
-    with ProcessPoolExecutor(max_workers=4) as pool:
-        list(pool.map(train,[(a,s,a) for a in "ABC" for s in STEPS]))

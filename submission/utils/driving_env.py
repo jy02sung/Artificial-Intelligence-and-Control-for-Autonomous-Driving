@@ -1,33 +1,30 @@
-"""jys3: jys2 driving controls, one-hop physical road map, sparse event rewards.
-
-Training is opt-in: python -m utils.jys3 --train --steps N --seed S
-"""
 import argparse
 import numpy as np
 from gymnasium import spaces
-from pathlib import Path
-
 from env.sumo_env import SumoHighwayEnv
-from utils.experiment_a import RoadEnv, directions, traci
+from utils.scenario import directions
+from env.sumo_env import traci
 from env.jys3_dagger_sensors import DaggerSensors
-from utils.experiment_b import HP, m, torch
-from utils.experiment_c_train import ScheduledEpisodes, atomic_torch
-
+from utils import scenario as m
 PASS_REWARD = 0.25
 ARRIVAL_REWARD = 5.0
 COLLISION_REWARD = -15.0
 TIMEOUT_REWARD = -5.0
 STALL_SECONDS = 30.0
-
-
-# 31 local sensor features, 9 road/ego features, then two static branch flags per lane.
 MAX_LANES = 5
 OBS_DIM = 40 + 2 * MAX_LANES
-SCHEMA = "jys3_onehop_bc_v1"
 
 
 class SparseRouteEnv(DaggerSensors):
-    split = RoadEnv.split
+    def split(self,path,idx,remaining):
+        for j in range(idx,len(path)-1):
+            src,dst = path[j:j+2]
+            if remaining>400:
+                break
+            if (src,dst) in self.signs:
+                return j,remaining
+            remaining += self.navigation.link_lengths.get((src,dst),0)+self.navigation.lengths[dst]
+        return None,None
 
     def _get_obs(self):
         base = super()._get_obs()
@@ -167,48 +164,3 @@ def environment(stage, seed, folder):
     env.observation_space = spaces.Box(-1, 1, (OBS_DIM,), np.float32)
     assert not env.lc_safety_enabled
     return env
-
-
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--train", action="store_true")
-    parser.add_argument("--steps", type=int)
-    parser.add_argument("--checkpoint", type=Path, help="BC checkpoint with matching schema")
-    parser.add_argument("--seed", type=int, default=11)
-    args = parser.parse_args()
-    if not args.train:
-        parser.print_help()
-        return
-    if not args.steps or args.steps < 2:
-        parser.error("--train requires --steps >= 2")
-    if args.checkpoint is None:
-        parser.error("--train requires a new one-hop BC checkpoint")
-    payload = torch.load(args.checkpoint, map_location="cpu", weights_only=True)
-    if payload.get("schema") != SCHEMA:
-        parser.error("BC observation schema mismatch")
-    torch.set_num_threads(1)
-    folder = Path(m.ROOT) / "results" / "jys3" / f"seed_{args.seed}_{args.steps}"
-    folder.mkdir(parents=True, exist_ok=False)
-    agent = m.PPO(obs_dim=OBS_DIM, act_dim=2, buffer=m.RolloutBuffer(), seed=args.seed, **HP)
-    agent.policy.load_state_dict(payload["policy"], strict=True)
-    env = environment("high_real_ratio", args.seed, folder / "map")
-    try:
-        episodes = ScheduledEpisodes(env, args.seed, folder / "episodes.jsonl")
-        obs, _ = episodes.reset()
-        stats = [0., 0]
-        atomic_torch(agent.policy.state_dict(), folder / "policy_0.pt")
-        while agent.num_timesteps < args.steps:
-            steps = min(2048, args.steps - agent.num_timesteps)
-            if args.steps - agent.num_timesteps == 2049:
-                steps = 2047
-            obs, last, _ = agent.collect_rollout(episodes, obs, ep_stats=stats,
-                                                  steps=steps, timeout_is_failure=True)
-            advantages, returns = agent.buffer.compute_gae(last, agent.gamma, agent.gae_lambda)
-            agent.update(advantages, returns)
-        atomic_torch(agent.policy.state_dict(), folder / f"policy_{args.steps}.pt")
-    finally:
-        env.close()
-
-
-if __name__ == "__main__":
-    main()

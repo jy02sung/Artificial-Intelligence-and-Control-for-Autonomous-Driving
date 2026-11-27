@@ -1,31 +1,7 @@
-"""경험 버퍼 모음.
-
-강화학습 알고리즘은 크게 두 부류이고, 쓰는 버퍼도 다르다:
-
-  · on-policy  (PPO, A2C, ...)  → RolloutBuffer
-      "지금 정책"으로 모은 경험만 쓸 수 있다.
-      업데이트가 끝나면 데이터를 전부 버리고 새로 모은다.
-
-  · off-policy (DQN, SAC, ...)  → ReplayBuffer
-      과거 정책이 모은 경험도 재사용할 수 있다.
-      큰 순환 버퍼에 계속 쌓아두고 무작위로 뽑아 학습한다.
-
-버퍼를 utils/로 분리한 이유: 버퍼는 알고리즘의 "부품"이지 본체가 아니다.
-train.py(메인)에서 버퍼를 만들어 에이전트에 주입(dependency injection)하면,
-- 어떤 버퍼를 쓰는지가 메인에서 한눈에 보이고
-- 나중에 버퍼를 바꾸거나(예: 우선순위 리플레이) 다른 알고리즘을 붙일 때
-  알고리즘 코드를 열지 않아도 된다.
-"""
-import random
-from collections import deque
-
 import numpy as np
 import torch
 
 
-# ======================================================================
-# On-policy용: RolloutBuffer  (PPO가 사용)
-# ======================================================================
 class RolloutBuffer:
     """한 번의 rollout(n_steps) 동안의 경험을 담아두는 버퍼.
 
@@ -94,36 +70,3 @@ class RolloutBuffer:
             torch.as_tensor(np.asarray(self.actions, dtype=np.float32), device=device),
             torch.as_tensor(np.asarray(self.log_probs, dtype=np.float32), device=device),
         )
-
-
-# ======================================================================
-# Off-policy용: ReplayBuffer  (DQN, SAC 등을 추가할 때 사용)
-#
-# 현재 PPO는 이 버퍼를 쓰지 않지만, 새 알고리즘을 붙일 때
-# 그대로 가져다 쓸 수 있도록 표준형을 만들어둔다.
-# ======================================================================
-class ReplayBuffer:
-    """고정 크기 순환(circular) 경험 버퍼.
-
-    (s, a, r, s', done) 전이를 capacity까지 쌓고, 가득 차면
-    가장 오래된 것부터 밀어낸다. sample()로 무작위 미니배치를 뽑는다.
-    무작위 샘플링은 연속된 전이 사이의 상관관계를 깨서 학습을 안정화한다.
-    """
-
-    def __init__(self, capacity: int = 100_000, seed: int = 0):
-        self.buffer = deque(maxlen=capacity)
-        self.rng = random.Random(seed)
-
-    def add(self, obs, action, reward, next_obs, done):
-        self.buffer.append((obs, action, reward, next_obs, float(done)))
-
-    def __len__(self):
-        return len(self.buffer)
-
-    def sample(self, batch_size: int, device=None):
-        """무작위 미니배치를 텐서로 반환: (obs, act, rew, next_obs, done)"""
-        batch = self.rng.sample(self.buffer, batch_size)
-        obs, act, rew, next_obs, done = map(np.asarray, zip(*batch))
-        to = lambda x, dt=np.float32: torch.as_tensor(
-            np.asarray(x, dtype=dt), device=device)
-        return to(obs), to(act), to(rew), to(next_obs), to(done)

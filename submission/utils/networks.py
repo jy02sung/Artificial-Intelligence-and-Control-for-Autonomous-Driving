@@ -1,23 +1,10 @@
-"""신경망 부품 모음.
-
-알고리즘(algorithms/)과 분리해둔 이유: 네트워크 구조는 알고리즘과 독립적이다.
-PPO든 SAC든 A2C든 "관측을 받아 행동분포와 가치를 내놓는 몸통"은 공유할 수 있다.
-새 알고리즘을 만들 때 여기서 필요한 부품만 가져다 쓰면 된다.
-
-제공하는 것:
-    build_mlp(...)          : 범용 MLP 생성 함수
-    GaussianActorCritic     : 연속 행동용 actor-critic (PPO가 사용)
-    CategoricalActorCritic  : 이산 행동용 actor-critic (참고/확장용)
-"""
 import numpy as np
 import torch
 import torch.nn as nn
-from torch.distributions import Categorical, Normal
+from torch.distributions import Categorical
+from torch.distributions import Normal
 
 
-# ======================================================================
-# 범용 MLP 빌더
-# ======================================================================
 def build_mlp(in_dim: int, hidden_sizes, out_dim: int = None,
               activation: str = "tanh") -> nn.Sequential:
     """[in_dim] → hidden_sizes → (out_dim) 형태의 MLP를 만든다.
@@ -58,16 +45,6 @@ def orthogonal_init(module: nn.Module, gain: float = 1.0):
     return module
 
 
-# ======================================================================
-# 연속 행동용 Actor-Critic (Gaussian 정책)
-#
-#   π(a|s) = N( μ(s), σ )
-#     μ(s) : 신경망 출력. tanh로 [-1,1]에 묶는다 (환경의 행동 범위와 일치)
-#     σ    : 상태와 무관한 학습 파라미터 log_std → σ = exp(log_std)
-#            학습 초반엔 크게(탐험), 진행되며 작아진다(정밀 제어)
-#
-#   critic V(s)는 별도 head. trunk를 공유해 파라미터를 절약한다.
-# ======================================================================
 class GaussianActorCritic(nn.Module):
     def __init__(self, obs_dim: int, act_dim: int, hidden_sizes=(64, 64),
                  activation: str = "tanh", init_log_std=-0.5,
@@ -137,61 +114,6 @@ class GaussianActorCritic(nn.Module):
         return float(torch.exp(self.log_std).mean().item())
 
 
-# ======================================================================
-# 이산 행동용 Actor-Critic (Categorical 정책)
-#   현재 환경은 연속 행동을 쓰므로 사용하지 않지만,
-#   행동을 이산으로 바꾸는 실험을 할 때 그대로 쓸 수 있게 남겨둔다.
-# ======================================================================
-class CategoricalActorCritic(nn.Module):
-    def __init__(self, obs_dim: int, n_actions: int, hidden_sizes=(64, 64),
-                 activation: str = "tanh"):
-        super().__init__()
-        self.trunk = build_mlp(obs_dim, hidden_sizes, None, activation)
-        last = hidden_sizes[-1]
-        self.pi_head = orthogonal_init(nn.Linear(last, n_actions), gain=0.01)
-        self.v_head = orthogonal_init(nn.Linear(last, 1), gain=1.0)
-
-    def forward(self, obs):
-        z = self.trunk(obs)
-        return self.pi_head(z), self.v_head(z).squeeze(-1)
-
-    def distribution(self, obs) -> Categorical:
-        logits, _ = self.forward(obs)
-        return Categorical(logits=logits)
-
-    def evaluate_actions(self, obs, actions):
-        logits, value = self.forward(obs)
-        dist = Categorical(logits=logits)
-        return dist.log_prob(actions.long()), dist.entropy(), value
-
-    @property
-    def current_std(self) -> float:
-        return float("nan")   # 이산 정책엔 σ 개념이 없음
-
-
-# ======================================================================
-# 하이브리드 Actor-Critic: 연속 가감속 + "이산" 차선변경   ★ 권장 정책 ★
-#
-# 왜 하이브리드인가 — 양자화 dead zone 문제:
-#   차선변경을 연속값으로 내고 |raw|>0.5에서 자르면, (-0.5,0.5) 구간은
-#   출력이 뭐든 아무 일도 안 일어나 gradient가 노이즈다. 게다가
-#   deterministic 평가는 평균 μ만 쓰므로, μ가 0 근처에 머무는 한
-#   변경이 영원히 0회가 된다 (실측: 탐험 σ=1.0으로 키워도 μ_lane이
-#   0에 고정되어 eval 차선변경 0회 지속).
-#
-# 해결: 차선변경을 3-way Categorical(왼쪽/유지/오른쪽)로 분리.
-#   - 각 선택의 확률이 명시적 → gradient가 깨끗하다 (dead zone 없음)
-#   - deterministic 평가 = argmax → 학습된 만큼 변경이 "실제로 나온다"
-#   - 탐험 = 확률 그 자체 (keep_bias로 초기 시도율을 직관적으로 제어)
-#
-# 행동 벡터 인터페이스는 기존과 동일하게 유지한다:
-#   action = [가감속 실수, 차선명령 실수(-1/0/+1)]
-#   → env의 양자화(_quantize_lane_change)가 ±1을 그대로 통과시키므로
-#     환경 코드는 수정 없이 동작한다.
-#
-# log π(a|s) = Normal.log_prob(가감속) + Categorical.log_prob(차선)
-#   (두 행동을 조건부 독립으로 두는 표준 구성)
-# ======================================================================
 class HybridActorCritic(nn.Module):
     # 차선 인덱스 ↔ 명령 매핑: 0=왼쪽(+1), 1=유지(0), 2=오른쪽(-1)
     LANE_CMDS = (1.0, 0.0, -1.0)

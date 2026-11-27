@@ -1,17 +1,5 @@
-"""정책 평가 유틸 — 주행 지표 측정.
-
-알고리즘과 분리해둔 이유: 평가는 "정책이 무엇으로 학습됐는지"와 무관하다.
-`predict(obs, deterministic=True) -> action` 메서드만 있으면
-PPO든 SAC든, 심지어 규칙 기반 컨트롤러든 똑같이 평가할 수 있다.
-
-왜 별도 평가가 필요한가:
-    학습 중 에피소드는 탐험 노이즈(σ)가 섞인 확률적 행동의 결과라
-    "지금 정책의 실제 운전 실력"을 정확히 보여주지 못한다.
-    그래서 주기적으로 노이즈 없는(deterministic) 정책으로 주행시켜
-    충돌률 / 완주율 / 평균속도 / 차간거리를 따로 측정한다.
-"""
-from dataclasses import dataclass, asdict
-
+from dataclasses import asdict
+from dataclasses import dataclass
 import numpy as np
 
 
