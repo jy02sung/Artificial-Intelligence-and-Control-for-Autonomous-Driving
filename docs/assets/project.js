@@ -189,3 +189,14 @@ routePicker.addEventListener("change", selectRouteFilm);
 document.addEventListener("visibilitychange", updateRoutePlayback);
 motion.addEventListener("change", updateRoutePlayback);
 selectRouteFilm();
+
+const forkScene = document.getElementById("ppo-fork-scene");
+const ppoFilm = document.querySelector(".ppo-film");
+forkScene.addEventListener("click", event => {
+  if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || !ppoFilm.canPlayType("video/mp4")) return;
+  event.preventDefault();
+  ppoFilm.currentTime = Number(forkScene.hash.slice(3));
+  ppoFilm.scrollIntoView({ block: "center" });
+  ppoFilm.focus({ preventScroll: true });
+  ppoFilm.play().catch(() => { ppoFilm.controls = true; });
+});

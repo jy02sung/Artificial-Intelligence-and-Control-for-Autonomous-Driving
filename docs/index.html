@@ -8,7 +8,7 @@
   <title>1팀 퇴계일황 | 퇴계원 IC 자율주행 실험</title>
   <link rel="stylesheet" href="./assets/fonts/pretendard.css">
   <link rel="stylesheet" href="./assets/project.css?v=ppo-comparison">
-  <script src="./assets/project.js?v=section-groups" defer></script>
+  <script src="./assets/project.js?v=ppo-scene" defer></script>
 </head>
 <body>
 <a class="skip" href="#results">핵심 결과로 건너뛰기</a>
@@ -181,21 +181,21 @@
 </details></div></section>
 <section data-nav-section="learning" id="pure-ppo" class="spread" aria-labelledby="pure-ppo-title">
   <div class="section-copy">
-    <h2 id="pure-ppo-title">완주가 늘면 분기도 배운 걸까?</h2>
-    <p>전문가 시범 없이 보상만으로 퇴계원 IC를 주행하도록 PPO 정책을 학습했습니다. 완주율은 16.3%에서 32.6%로 올랐지만, 출발 차로를 바꿔야 하는 208회에서는 한 번도 완주하지 못했습니다.</p>
-    <p>굽은 갈림길의 방향 안내를 고치자 같은 조건에서 135회 완주했습니다. 이후에는 차로를 옮기다 충돌한 장면을 살펴보고, 분기를 배운 모델에서 안전한 진입을 추가로 학습했습니다.</p>
-    <p>아래 결과는 학습 시드 33의 모델로 시간당 15,000대의 유입 수요를 설정한 16개 경로를 주행한 결과입니다. 충돌률 5% 미만에서 얻은 최고 완주율은 <strong>86.5%</strong>였습니다. 프로젝트 목표인 완주율 95%까지는 8.5%p가 남았습니다.</p>
+    <h2 id="pure-ppo-title">완주가 늘면 운전을 잘하는 걸까?</h2>
+    <p>전문가 시범 없이 학습한 순수 PPO 모델은 보상과 할인율을 조정하자 완주율이 16.3%에서 32.6%로 올랐습니다. 그런데 출발한 차로에서 다른 차로로 옮겨야 목적지에 도달하는 208번의 주행에서는 한 번도 완주하지 못했습니다.</p>
+    <p>16번 경로에서는 출발 차로를 그대로 따라가면 출구로 빠집니다. 목적지로 가려면 분기 전에 왼쪽 차로로 옮겨 본선에 남아야 합니다. 모델에는 다음에 탈 도로가 어느 쪽인지 알려줬는데, 일부 분기에서 도로가 휘는 방향을 따라 좌우를 잘못 표시했습니다. 운전자 시점에서 두 갈래의 실제 위치에 맞게 고친 모델은 차로를 바꿔야 했던 208회 중 135회를 완주했습니다. <a id="ppo-fork-scene" href="./assets/ppo-driving.mp4#t=13">16번 경로 교정 전후 보기 (0:13)</a></p>
+    <p>다음으로는 차로를 옮기던 중 충돌한 장면을 살폈습니다. 분기 선택을 익힌 모델에 좁은 틈으로 진입했을 때의 벌점을 주고 추가로 학습했습니다. 이후 충돌 벌점까지 조정한 모델은 16개 경로에서 576회 주행해 <strong>완주율 86.5%, 충돌률 4.3%</strong>를 기록했습니다.</p>
   </div>
   <div class="evidence">
     <h3>같은 출발 조건에서 달라진 주행</h3>
     <video class="ppo-film" controls playsinline preload="metadata" width="1288" height="616" aria-label="순수 PPO 모델의 세 경로 주행 비교" src="./assets/ppo-driving.mp4"></video>
     <dl class="choices">
       <div><dt>3번 · 완주 보상</dt><dd>완주 보상을 +5에서 +10으로, 전진 보상 상한을 +2에서 +6으로 키웠습니다. 올바른 분기 통과는 +1에서 +2.5로, 충돌은 −5에서 −12로 조정했습니다. 영상에서는 왼쪽 차가 충돌한 조건에서 오른쪽 차가 완주합니다.</dd></div>
-      <div><dt>16번 · 분기 관측</dt><dd>두 차 모두 본선으로 가야 합니다. 일부 분기에서는 진입 도로가 휘는 방향과 실제 갈림길의 좌우 순서가 달랐습니다. 다음 도로의 방향과 차로별 연결 정보를 바로잡자 오른쪽 차는 출구로 빠지기 전에 왼쪽 차로로 복귀했습니다. 두 모델의 보상은 같습니다.</dd></div>
+      <div><dt>16번 · 본선과 출구가 갈라지는 지점</dt><dd>화면 왼쪽의 빨간 차는 출발 차로를 따라 출구로 빠집니다. 오른쪽의 빨간 차는 분기 전에 왼쪽 차로로 옮겨 본선을 따라갑니다. 두 모델의 보상은 같고, 다음 도로의 좌우 위치와 각 차로가 연결되는 갈래를 표시하는 방식을 바꿨습니다.</dd></div>
       <div><dt>2번 · 위험한 진입</dt><dd>두 모델 모두 차로를 바꿉니다. 왼쪽 차는 좁은 틈에 들어간 직후 충돌합니다. 오른쪽 차는 위험한 틈에 실제로 진입하면 −1.5점을 받도록 추가 학습했고, 이 주행에서 합류 후 완주했습니다.</dd></div>
     </dl>
     <details><summary>실험 흐름과 576회 평가 결과</summary>
-      <p>먼저 여섯 조건을 각각 무작위 가중치에서 학습했습니다. 표는 설계를 바꾼 순서입니다.</p>
+      <p>먼저 여섯 조건을 각각 무작위 가중치에서 학습했습니다. 표는 설계를 바꾼 순서입니다. 아래 두 표는 학습 시드 33의 모델을 시간당 15,000대 유입 수요에서 각각 576회 평가한 결과입니다.</p>
       <table><caption>처음부터 학습한 모델 · 지표 단위 %</caption><thead><tr><th scope="col">학습 조건</th><th scope="col">완주</th><th scope="col">충돌</th><th scope="col">경로 이탈</th></tr></thead><tbody>
 <tr><th scope="row">기본 보상</th><td>16.3</td><td>18.6</td><td>28.8</td></tr>
 <tr><th scope="row">보상·할인율 조정</th><td>32.6</td><td>2.1</td><td>35.6</td></tr>
@@ -236,7 +236,6 @@
   <div class="section-copy"><h2 id="main-model">최종 모델은 얼마나 자주 완주했을까?</h2>
     <p><strong>BC + 보강형 DAgger</strong>로 16개 경로를 각각 1,755회 달렸습니다. 전체 28,080회 중 27,123회 완주했고(96.6%), 450회 충돌했습니다(1.6%). 모든 진입로의 유입 수요를 합쳐 시간당 15,000대로 설정한 결과입니다.</p>
     <p>이 주행에서 수집한 10,003,923개 전이를 <a href="https://huggingface.co/datasets/jy02sung/toegyewon-ic-dagger5-pomdp">전체 주행 데이터</a>로 공개했습니다.</p>
-    <p class="goal">평가 목표 <b>완주율 95% 이상 · 충돌률 5% 미만</b></p>
   </div>
   <div class="evidence"><table class="outcomes"><caption>학습과 모델 선정에 쓰지 않은 교통 조건 · 각 256회 평가</caption>
     <thead><tr><th scope="col">주행 결과</th><th scope="col">이전 모델과 같은 교통</th><th scope="col">모델 선정 후 새로 생성한 교통</th></tr></thead>
