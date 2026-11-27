@@ -38,7 +38,8 @@ def drive(env,model,transform,xml,row,trigger=None):
                 m=C.diag.measurements(x,direc,env.visibility,env.vmax)
                 if not C.dangerous(m):
                     prob=model(tensor)[2].softmax(-1)[0].tolist()
-                    event.update(clear=True,view=m,hash=replay.digest(x),p_keep=prob[1],p_toward=prob[direc+1])
+                    assert model.LANE_CMDS[prob.index(max(prob))]==cmd
+                    event.update(clear=True,view=m,hash=replay.digest(x),p_keep=prob[1],p_toward=prob[model.LANE_CMDS.index(direc)])
             frames.append(event)
         obs,_,done,cut,info=env.step(a)
         if trigger and t>=trigger["step"] and env.snapshot and env.snapshot[0]==trigger["dst"]:
