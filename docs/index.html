@@ -132,7 +132,7 @@
         <tr><th scope="row">DAgger 3차</th><td><span>93.0%</span><meter min="0" max="128" value="119" aria-label="128회 중 119회 완주"></meter></td></tr>
         <tr class="winner"><th scope="row">DAgger 5차</th><td><span>97.7%</span><meter min="0" max="128" value="125" aria-label="128회 중 125회 완주"></meter></td></tr>
       </tbody></table>
-      <p class="decision"><strong>최종 선정 · BC + 보강형 DAgger</strong>같은 128회에서 BC 학습 직후보다 18회 더 완주했습니다. 충돌은 17회에서 2회로 줄었습니다.</p>
+      <p class="decision"><strong>최종 선정 · BC + 보강형 DAgger</strong>같은 128회에서 전문가 시범만 학습했을 때보다 18회 더 완주했습니다. 가장 크게 줄어든 실패는 충돌이었습니다(17회 → 2회).</p>
       <details><summary>128회 주행의 전체 결과</summary><table class="training"><caption>같은 출발·교통 조건 128회에서 모델별 결과</caption>
 <thead><tr><th scope="col">모델</th><th scope="col">완주</th><th scope="col">충돌</th><th scope="col">이탈</th><th scope="col"><span class="term-info"><button type="button" aria-expanded="false" aria-controls="selection-timeout" aria-describedby="selection-timeout">시간초과</button><span id="selection-timeout" role="tooltip" hidden>한 차로의 끝에서 멈춘 뒤 30초 동안 움직이지 않거나, 제한 시간 안에 목적지에 도착하지 못한 경우입니다.</span></span></th></tr></thead>
   <tbody><tr><th scope="row">BC</th><td>83.6%</td><td>13.3%</td><td>3.1%</td><td>0.0%</td></tr>
@@ -211,11 +211,11 @@
 <tr><th scope="row">기존 설정 유지 · 2.5만 스텝</th><td>86.5</td><td>4.3</td><td>8.7</td></tr>
 <tr><th scope="row">GAE λ 0.95 → 0.98 · 2.5만 스텝</th><td>87.8</td><td>6.6</td><td>5.0</td></tr>
       </tbody></table>
-      <p>마지막 두 조건은 충돌 벌점 −14로 7.5만 스텝 더 학습한 동일 모델에서 갈라집니다. GAE λ는 이후 여러 시점의 결과를 현재 행동의 평가에 얼마나 반영할지 조절합니다. λ를 높이자 완주는 8회 늘고 이탈은 21회 줄었지만 충돌도 13회 늘었습니다.</p>
+      <p>마지막 두 조건은 충돌 벌점 −14로 7.5만 스텝 더 학습한 동일 모델에서 갈라집니다. GAE λ는 이후 여러 시점의 결과를 현재 행동의 평가에 얼마나 반영할지 조절합니다. λ를 높인 모델은 경로를 더 잘 따라갔습니다. 이탈은 21회 줄고 완주는 8회 늘었습니다. 다만 충돌도 13회 늘어 더 안전한 주행으로 이어지지는 않았습니다.</p>
     </details>
     <details><summary>후속 실험 · 더 강한 진입 벌점과 차로 연결 정보</summary>
-    <p>차량 간격이 1m 이하인 틈에 진입할 때 벌점을 −1.5에서 −3으로 높였습니다. 같은 모델에서 각각 2.5만 스텝 더 학습한 뒤 128회씩 주행했습니다. 완주는 두 조건 모두 111회였고, 충돌은 각각 6회와 7회였습니다.</p>
-    <p>별도 실험에서는 다음 도로의 방향 안내를 유지하고 차로별 분기 연결 정보만 가렸습니다. 모델별 576회 평가에서 완주율은 학습 시드 11에서 58.7% → 81.4%, 22에서 74.8% → 64.2%, 33에서 77.4% → 79.7%였습니다. 연결 정보를 뺐을 때의 효과는 학습 시드에 따라 달랐습니다.</p></details>
+    <p>차량 간격이 1m 이하인 틈에 진입할 때 벌점을 −1.5에서 −3으로 높였습니다. 같은 모델에서 각각 2.5만 스텝 더 학습한 뒤 128회씩 주행했습니다. 두 모델 모두 111회 완주했습니다. 충돌은 기존 벌점에서 6회, 두 배로 높인 뒤 7회로, 이번 주행에서는 벌점을 강화해도 충돌이 줄지 않았습니다.</p>
+    <p>별도 실험에서는 다음 도로의 방향 안내를 유지하고 차로별 분기 연결 정보만 가렸습니다. 모델별 576회 평가에서 완주율은 학습 시드 11에서 58.7% → 81.4%, 22에서 74.8% → 64.2%, 33에서 77.4% → 79.7%였습니다. 어느 차로가 어느 갈래로 이어지는지 가리자 두 모델은 완주가 늘고 한 모델은 줄었습니다.</p></details>
     <details><summary>완주율이 정체됐을 때 왜 신경망을 나누고 분기 안내를 점검했나</summary>
       <p>PPO는 직접 주행하며 얻은 보상으로 행동의 선택 확률을 조정합니다. 초기 실험에서는 할인율도 0.99에서 0.995로 높여 먼 시점의 분기 통과와 도착에 더 큰 비중을 뒀습니다.</p>
       <p>5만 스텝마다 같은 교통 조건에서 128회 주행했습니다. 보상을 조정한 모델은 10만 스텝에서 43회 완주했고, 25만 스텝까지 그 기록을 넘지 못했습니다. 차로변경이 필요한 52회는 매번 전부 실패했습니다.</p>
@@ -227,7 +227,7 @@
     <details><summary>어떤 관측으로 위험을 판단하고, 배운 행동을 어떻게 보존했나</summary>
       <p>모든 조건에서 대형 차량에 의한 시야 가림과 거리 비례 측정 노이즈를 적용했습니다. 주변 차량이 멀수록 간격과 상대속도에 섞이는 오차가 커집니다.</p>
       <p>추가 학습에는 기존 관측에 있던 옆 차로의 앞뒤 간격, 상대속도, 차체 겹침을 썼습니다. 앞 간격 6m 미만이나 뒤 간격 10m 미만, 차체 겹침, 또는 초당 0.5m 넘게 가까워져 1.5초 안에 간격이 닫히는 경우를 위험한 틈으로 판정했습니다. 실제 진입에는 −1.5점, 경계·실선 방향의 무효 명령에는 −0.02점을 적용했습니다.</p>
-      <p>새 보상을 학습하면서도 이미 배운 분기 선택을 보존하도록 가치망을 먼저 적응시키고 학습률을 낮췄습니다. 같은 상황에서 기존 모델과 새 모델의 행동 확률이 벌어지면 KL 발산에 비례해 학습 손실을 더했습니다. 같은 가중치에서 15만 스텝씩 학습한 대조에서 이 항을 적용하면 경로 이탈이 28회, 제외하면 131회였습니다. 충돌은 각각 57회와 29회였습니다.</p>
+      <p>새 보상을 학습하면서도 이미 배운 분기 선택을 보존하도록 가치망을 먼저 적응시키고 학습률을 낮췄습니다. 같은 상황에서 기존 모델과 새 모델의 행동 확률이 벌어지면 KL 발산에 비례해 학습 손실을 더했습니다. 같은 모델에서 15만 스텝씩 더 학습한 결과, 기존 행동을 유지하도록 한 쪽이 경로를 더 잘 지켰습니다. 경로 이탈은 131회에서 28회로 줄었지만 충돌은 29회에서 57회로 늘었습니다.</p>
     </details>
   </div>
 </section>
@@ -248,7 +248,7 @@
       <tr><th scope="row"><span class="term-info"><button type="button" aria-expanded="false" aria-controls="final-timeout" aria-describedby="final-timeout">시간초과</button><span id="final-timeout" role="tooltip" hidden>한 차로의 끝에서 멈춘 뒤 30초 동안 움직이지 않거나, 제한 시간 안에 목적지에 도착하지 못한 경우입니다.</span></span></th><td>0.8%</td><td>0.0%</td></tr>
     </tbody><tfoot><tr><th scope="row">전체 주행</th><td>256회</td><td>256회</td></tr></tfoot>
   </table>
-  <p class="note">이전 모델과 같은 교통에서 평가했을 때 시간초과 2회는 모두 8번 경로에서 발생했습니다.</p>
+  <p class="note">주변 교통을 새로 생성해도 완주율은 96% 이상이었습니다. 경로 이탈률은 두 조건 모두 1.2%였고, 시간초과는 첫 번째 조건의 8번 경로에서만 2회 발생했습니다.</p>
   <p class="link-set"><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-presentation-main-model.md">검증 보고서</a>
 <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/07f7eaf/docs/experiments/jys3-final-relu-dagger.md">실험과 선정 과정</a>
 <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/35866da/results/jys3_final_relu_dagger/dagger5.pt">최종 모델 가중치</a></p>
