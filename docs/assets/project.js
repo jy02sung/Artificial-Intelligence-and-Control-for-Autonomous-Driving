@@ -55,7 +55,7 @@ function sectionScrollProgress(t) {
   return 1 - cruiseSpeed * remaining * remaining / (2 * ramp);
 }
 
-for (const link of navLinks.filter(link => link.hash)) {
+for (const link of document.querySelectorAll('.navlinks a[href^="#"], a[data-section-scroll]')) {
   link.addEventListener("click", event => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey ||
         event.shiftKey || event.altKey || motion.matches) return;

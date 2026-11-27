@@ -8,7 +8,7 @@
   <title>1팀 퇴계일황 | 퇴계원 IC 자율주행 실험</title>
   <link rel="stylesheet" href="./assets/fonts/pretendard.css">
   <link rel="stylesheet" href="./assets/project.css?v=sensor-caption">
-  <script src="./assets/project.js?v=ppo-scene" defer></script>
+  <script src="./assets/project.js?v=reward-scroll" defer></script>
 </head>
 <body>
 <a class="skip" href="#results">핵심 결과로 건너뛰기</a>
@@ -181,9 +181,9 @@
 <summary>순수 PPO는 어떤 주행에 점수를 줬나</summary>
 <p>16번 경로의 목적지는 본선입니다. 차가 본선으로 이어지는 차로로 옮긴 뒤 실제로 분기점을 지나 본선에 들어가면 +2.5점을 받습니다. 이후 지정된 목적지까지 도착하면 완주 보상 +10점을 더 받습니다. 이동 중에도 경로를 따라 전진한 만큼 점수를 조금씩 받으며, 전진으로 얻는 점수는 한 번의 주행을 통틀어 최대 +6점입니다.</p>
 <p>분기를 통과하는 법을 배운 뒤에는 차로를 옮기는 과정도 평가했습니다. 도로 바깥이나 실선을 넘는 방향으로 명령하면 −0.02점, 옆 차와의 간격이 위험한데도 실제로 그 차로에 들어가면 −1.5점을 줬습니다. 충돌은 −12점이었고, 이후 같은 모델에서 −14점으로 높여 충돌 횟수가 달라지는지 비교했습니다.</p>
-<p><a href="#pure-ppo">보상 조정 전후 주행 비교</a></p>
+<p><a href="#pure-ppo" data-section-scroll>보상 조정 전후 주행 비교</a></p>
 </details></div></section>
-<section data-nav-section="learning" id="pure-ppo" class="spread" aria-labelledby="pure-ppo-title">
+<section data-nav-section="learning" id="pure-ppo" class="spread" aria-labelledby="pure-ppo-title" tabindex="-1">
   <div class="section-copy">
     <h2 id="pure-ppo-title">완주가 늘면 운전을 잘하는 걸까?</h2>
     <p>전문가 시범 없이 학습한 순수 PPO 모델은 보상과 할인율을 조정하자 완주율이 16.3%에서 32.6%로 올랐습니다. 그런데 출발한 차로에서 다른 차로로 옮겨야 목적지에 도달하는 208번의 주행에서는 한 번도 완주하지 못했습니다.</p>
