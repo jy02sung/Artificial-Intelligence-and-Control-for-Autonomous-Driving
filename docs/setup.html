@@ -18,12 +18,12 @@
 </nav></header>
 <main class="setup wrap">
   <h1>내 PC에서 대표 주행 재생하기</h1>
-  <p class="setup-intro">최종 모델 <strong>BC + 보강형 DAgger</strong>로 퇴계원 IC의 13번 경로를 달려 봅니다. SUMO 창에서 빨간 자율주행 차량이 북쪽 본선을 출발해 분기를 통과하는 모습을 볼 수 있습니다. 학습된 모델과 도로 지도가 코드에 들어 있어 CPU로 바로 재생할 수 있습니다.</p>
+  <p class="setup-intro">최종 모델 <strong>BC + 보강형 DAgger</strong>로 퇴계원 IC의 13번 경로를 달려 봅니다. SUMO 창에서 빨간 자율주행 차량이 북쪽 본선을 출발해 분기를 통과하는 모습을 볼 수 있습니다. 학습된 모델과 도로 지도가 코드에 들어 있어 바로 재생할 수 있습니다.</p>
 
   <section id="materials" aria-labelledby="materials-title">
     <h2 id="materials-title">실행 코드와 주행 데이터</h2>
     <dl class="setup-materials">
-      <div><dt>실행 코드 · 모델</dt><dd><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/tree/65493d75f22ee43f92226783858d90d2318c246f">주행 재생 코드</a> · <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/07f7eaf/docs/experiments/jys3-final-relu-dagger.md">모델 선정·검증 기록</a></dd></div>
+      <div><dt>실행 코드 · 모델</dt><dd><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/tree/eae3b82fded3705cf51fb9f847ff75aebfd1ea33">주행 재생 코드</a> · <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/07f7eaf/docs/experiments/jys3-final-relu-dagger.md">모델 선정·검증 기록</a></dd></div>
       <div><dt>50차원 관측 주행 데이터</dt><dd><a href="https://huggingface.co/datasets/jy02sung/toegyewon-ic-dagger5-pomdp/tree/main">퇴계원 IC 16개 경로의 주행 데이터 받기 (Hugging Face)</a></dd></div>
     </dl>
   </section>
@@ -33,7 +33,7 @@
     <ol class="setup-steps">
       <li><h3>코드와 재생 파일 받기</h3>
         <p>실행 코드 ZIP을 풀고, 재생 파일을 <code>requirements.txt</code>와 같은 폴더에 넣으세요. ZIP은 주행 시뮬레이션 코드와 <code>dagger5.pt</code> 가중치를 포함합니다.</p>
-        <p class="link-set"><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/archive/65493d75f22ee43f92226783858d90d2318c246f.zip">실행 코드 ZIP 받기</a><a href="./assets/replay_r5.py" download="replay_r5.py">재생 파일 받기 (replay_r5.py)</a></p>
+        <p class="link-set"><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/archive/eae3b82fded3705cf51fb9f847ff75aebfd1ea33.zip">실행 코드 ZIP 받기</a><a href="./assets/replay_r5.py?v=vehicle-shapes" download="replay_r5.py">재생 파일 받기 (replay_r5.py)</a></p>
       </li>
       <li><h3>Python과 SUMO 준비하기</h3>
         <p>64비트 <a href="https://www.python.org/downloads/release/python-31210/">Python 3.12</a>가 필요합니다. Windows에서는 위 폴더를 열고 탐색기 주소창에 <code>cmd</code>를 입력한 뒤, 아래 명령을 차례로 실행하세요. 설치는 처음 한 번만 하면 됩니다.</p>
@@ -41,14 +41,14 @@
 .venv\Scripts\activate
 python -m pip install -r requirements.txt eclipse-sumo==1.27.1 sumo-data==1.27.1</code></pre>
         <details><summary>macOS · Linux에서 설치하기</summary>
-          <p>같은 폴더에서 터미널을 열고 실행하세요.</p>
+          <p>같은 폴더에서 터미널을 열고 실행하세요. Mac에서는 Apple Silicon 칩과 macOS 14 이상이 필요합니다.</p>
           <pre aria-label="macOS 및 Linux 설치 명령"><code>python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt eclipse-sumo==1.27.1 sumo-data==1.27.1</code></pre>
         </details>
       </li>
       <li><h3>최종 모델로 주행 재생하기</h3>
-        <p>같은 창에서 아래 명령을 실행하세요. SUMO가 자동으로 열리고, 주행이 끝나면 터미널에 결과가 표시됩니다.</p>
+        <p>같은 창에서 아래 명령을 실행하세요. SUMO가 열리면 화면이 빨간 자율주행 차량을 따라갑니다. 주변 차량도 차체 모양으로 표시되며, 주행이 끝나면 터미널에서 결과를 확인할 수 있습니다.</p>
         <pre aria-label="대표 주행 실행 명령"><code>python replay_r5.py</code></pre>
         <p>검증 기록에서 이 주행은 <samp>route_13 | arrival | 507 steps</samp>로 끝났습니다. <code>arrival</code>은 목적지에 도착했다는 뜻입니다.</p>
         <details><summary>화면 없이 결과만 확인하기</summary>

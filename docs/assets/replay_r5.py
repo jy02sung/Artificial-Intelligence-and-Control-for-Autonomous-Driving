@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
@@ -31,9 +32,20 @@ def main():
         env.sim.gui_autostart = True
         env.sim.gui_delay = 35
         env.ego_depart_lane = "0"
+        if env.sim.gui:
+            # The simulator creates a private scenario for each replay.
+            config_path = Path(env.sim.cfg_path)
+            config = ET.parse(config_path)
+            gui_options = ET.SubElement(config.getroot(), "gui_only")
+            view = root / "maps/toegyewon_north400/landscape-view.xml"
+            ET.SubElement(gui_options, "gui-settings-file", value=str(view))
+            config.write(config_path, encoding="utf-8")
         obs, _ = env.reset(seed=104320013, options={"route": "route_13"})
         if env.sim.gui:
             traci.vehicle.setColor(env.ego_id, (255, 0, 0, 255))
+            view_id = traci.gui.getIDList()[0]
+            traci.gui.trackVehicle(view_id, env.ego_id)
+            traci.gui.setZoom(view_id, 2400)
         steps = 0
         while True:
             state = torch.from_numpy(obs[:50]).unsqueeze(0)
