@@ -263,14 +263,14 @@
     <div><dt><span class="term-info"><button type="button" aria-expanded="false" aria-controls="final-timeout" aria-describedby="final-timeout">시간초과</button><span id="final-timeout" role="tooltip" hidden>주행 제한 시간 안에 목적지에 도착하지 못한 경우입니다.</span></span></dt><dd><strong>0.10%</strong><span>27회</span></dd></div>
   </dl>
   <h3 class="validation-heading">기본형·보강형 DAgger와 순수 PPO의 검증 결과</h3>
-  <p>최종 모델은 기본형 DAgger와 같은 출발 차로와 주변 교통에서 비교했습니다. 두 모델 모두 기존 평가에 사용한 교통과 모델 선정 후 처음 사용한 교통에서 경로당 16회씩 달렸습니다. 순수 PPO는 학습 시드 33에서 얻은 두 모델을 같은 출발 차로와 교통 조건에서 경로당 36회씩 비교했습니다.</p>
+  <p>1차에서는 기본형과 보강형 DAgger가 같은 256개 상황에서 달렸습니다. 각 상황에서 두 모델의 출발 차로와 주변 차량 배치를 맞췄습니다. 2차에서는 시간당 유입 수요를 그대로 두고 다른 난수 시드로 주변 교통을 새로 생성한 뒤, 두 모델로 같은 비교를 반복했습니다. 순수 PPO는 학습 시드 33에서 얻은 두 모델을 같은 출발 차로와 교통 조건에서 경로당 36회씩 비교했습니다.</p>
   <div class="result-table-scroll" role="region" aria-label="모델별 주행 결과 비교" tabindex="0">
     <table aria-label="모델과 평가 조건별 주행 결과"><thead><tr><th scope="col">모델 · 평가 조건</th><th scope="col">주행 횟수</th><th scope="col">완주</th><th scope="col">충돌</th><th scope="col">경로 이탈</th><th scope="col">정지 종료</th><th scope="col">시간초과</th></tr></thead>
     <tbody>
-      <tr><th scope="row">BC + 기본형 DAgger<small>기존 평가에 사용한 교통</small></th><td>256회</td><td>91.4%</td><td>3.5%</td><td>3.9%</td><td>0.8%</td><td>0.4%</td></tr>
-      <tr><th scope="row">BC + 보강형 DAgger<small>기존 평가에 사용한 교통</small></th><td>256회</td><td>96.5%</td><td>1.6%</td><td>1.2%</td><td>0.8%</td><td>0.0%</td></tr>
-      <tr><th scope="row">BC + 기본형 DAgger<small>모델 선정 후 처음 사용한 교통</small></th><td>256회</td><td>96.1%</td><td>2.0%</td><td>1.2%</td><td>0.8%</td><td>0.0%</td></tr>
-      <tr><th scope="row">BC + 보강형 DAgger<small>모델 선정 후 처음 사용한 교통</small></th><td>256회</td><td>98.4%</td><td>0.4%</td><td>1.2%</td><td>0.0%</td><td>0.0%</td></tr>
+      <tr><th scope="row">BC + 기본형 DAgger<small>1차 · 공통 교통 상황 256개</small></th><td>256회</td><td>91.4%</td><td>3.5%</td><td>3.9%</td><td>0.8%</td><td>0.4%</td></tr>
+      <tr><th scope="row">BC + 보강형 DAgger<small>1차 · 공통 교통 상황 256개</small></th><td>256회</td><td>96.5%</td><td>1.6%</td><td>1.2%</td><td>0.8%</td><td>0.0%</td></tr>
+      <tr><th scope="row">BC + 기본형 DAgger<small>2차 · 새로 생성한 교통 상황 256개</small></th><td>256회</td><td>96.1%</td><td>2.0%</td><td>1.2%</td><td>0.8%</td><td>0.0%</td></tr>
+      <tr><th scope="row">BC + 보강형 DAgger<small>2차 · 새로 생성한 교통 상황 256개</small></th><td>256회</td><td>98.4%</td><td>0.4%</td><td>1.2%</td><td>0.0%</td><td>0.0%</td></tr>
       <tr><th scope="row">순수 PPO<small>GAE λ 0.95 유지</small></th><td>576회</td><td>86.5%</td><td>4.3%</td><td>8.7%</td><td>0.0%</td><td>0.5%</td></tr>
       <tr><th scope="row">순수 PPO<small>GAE λ 0.95 → 0.98</small></th><td>576회</td><td>87.8%</td><td>6.6%</td><td>5.0%</td><td>0.0%</td><td>0.5%</td></tr>
     </tbody></table>
