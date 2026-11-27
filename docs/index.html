@@ -137,9 +137,10 @@
   <div class="comparison">
     <div class="trial-logic">
       <h3>최종 모델은 어떤 주행으로 학습했나</h3>
-      <p>전문가의 완주 시범 160회로 행동 복제(BC)를 학습한 뒤, 학생 모델이 한 차례에 144회씩 다섯 차례 직접 주행했습니다.</p>
+      <p>전문가의 완주 시범 160회에서 관측과 행동 57,158쌍을 수집해 행동 복제(BC)를 학습한 뒤, 학생 모델이 한 차례에 144회씩 다섯 차례 직접 주행했습니다.</p>
+      <p>같은 시범으로 50에포크와 100에포크를 학습해도 완주는 모두 107/128회였습니다. 학생이 직접 마주친 상황을 학습 데이터에 더한 이유입니다.</p>
       <dl><dt>학생이 만난 상황에서 다시 학습</dt><dd>학생 모델이 방문한 장면에 전문가의 가감속과 차로 선택을 기록해 다음 학습에 더했습니다.</dd>
-      <dt>실패 직전의 판단 보강</dt><dd>실패가 잦은 네 경로의 주행을 늘리고, 드문 차로변경이나 학생이 차로를 잘못 선택한 장면, 실패 직전 3초의 판단을 더 자주 학습했습니다.</dd></dl>
+      <dt>실패 직전의 판단 보강</dt><dd>매 차례 16개 경로를 8회씩 달리고, 실패가 잦은 네 경로를 4회씩 더 달렸습니다. 같은 720회를 모든 경로에 균등 배분한 대조 모델보다 128회 평가에서 7회 더 완주했습니다. 학습할 때는 드문 차로변경이나 학생이 차로를 잘못 선택한 장면, 실패 직전 3초의 판단을 더 자주 학습했습니다.</dd></dl>
     </div>
     <div class="selection-data"><h3>학습 단계별 완주율 · 같은 조건 128회</h3>
       <table class="comparison-bars"><thead class="visually-hidden"><tr><th>모델</th><th>완주율</th></tr></thead><tbody>
@@ -158,18 +159,19 @@
   <div class="ppo-branch comparison">
     <div class="trial-logic">
       <h3>모방학습 뒤에 PPO를 더하면?</h3>
-      <p>같은 교통에서 다시 달렸을 때 PPO를 추가한 모델은 각각 3회, 5회 적게 완주했습니다. 두 조건 모두에서 완주율이 높았던 BC + 보강형 DAgger를 최종 모델로 골랐습니다.</p>
+      <p>최종 모방학습 모델에 PPO를 추가하자 같은 576회에서 완주는 9회 줄고 충돌은 4회 늘었습니다. 완주와 충돌 두 지표에서 앞선 BC + 보강형 DAgger를 선정했습니다.</p>
       <p class="link-set"><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-relu-ppo-comparison.md">학습·평가 기록</a> · <a href="#pure-ppo">순수 PPO 실험</a></p>
     </div>
-    <div class="selection-data"><h3>PPO 추가 전후의 완주 횟수</h3>
-      <table><caption>교통 조건별 256회 주행</caption><thead><tr><th scope="col">교통 조건</th><th scope="col">추가 전</th><th scope="col">추가 후</th></tr></thead>
-      <tbody><tr><th scope="row">이전 모델과 같은 교통</th><td>247회</td><td>244회</td></tr>
-      <tr><th scope="row">모델 선정 후 새로 생성한 교통</th><td>252회</td><td>247회</td></tr></tbody></table>
+    <div class="selection-data"><h3>같은 576회 주행에서 세 학습 방식 비교</h3>
+      <table><thead><tr><th scope="col">학습 방식</th><th scope="col">완주</th><th scope="col">충돌</th></tr></thead><tbody>
+      <tr><th scope="row">순수 PPO · 분기 방향 교정</th><td>446회 (77.4%)</td><td>89회 (15.5%)</td></tr>
+      <tr><th scope="row">BC + 보강형 DAgger</th><td>561회 (97.4%)</td><td>5회 (0.9%)</td></tr>
+      <tr><th scope="row">BC + 보강형 DAgger + PPO</th><td>552회 (95.8%)</td><td>9회 (1.6%)</td></tr></tbody></table>
     </div>
   </div>
 </section>
 <section data-nav-section="learning" id="decisions" class="spread"><div class="section-copy"><h2>차량이 보는 것과 <br>행동에 주는 점수</h2>
-  <p>0.2초마다 도로 단위 경로 안내와 주변 차량의 움직임을 읽고, 가감속과 왼쪽·유지·오른쪽 중 한 가지 차로 명령을 함께 냅니다.</p></div>
+  <p>0.2초마다 도로 단위 경로 안내와 주변 교통을 담은 50차원 관측을 읽고, 가감속과 왼쪽·유지·오른쪽 중 한 가지 차로 명령을 함께 냅니다.</p></div>
   <div class="evidence"><details>
 <summary>관측 · 경로 안내와 교통 상황을 어떻게 구별했나</summary>
 <dl class="choices">
@@ -186,26 +188,10 @@
 </dl>
 </details>
 <details>
-<summary>초기 강화학습 보상 · 전진, 완주, 충돌에 다른 값을 준 이유</summary>
-<p>초기 보상 비교에서 사용한 설정입니다. 점수는 한 번의 주행 안에서 누적됩니다.</p>
-<dl class="choices">
-<div>
-<dt>지정 경로 완주 +5</dt><dd>마지막 도로까지 지정한 순서로 도착했을 때 지급합니다. 전진 보상의 총량(+3)보다 크게 두어 중간까지 달린 주행과 완주를 구별합니다.</dd></div>
-<div>
-<dt>경로 전진 누적 최대 +3</dt><dd>목적지에 가까워지는 동안 중간 신호를 줍니다. 전진 보상을 없앤 단기 비교에서는 192회 중 일반 시간초과가 63건 늘었습니다. 반대로 도착 보너스를 없애고 전진만 크게 주면 충돌을 피하고 차로 끝에 멈추는 사례가 늘어, 두 항을 함께 둡니다.</dd></div>
-<div>
-<dt>올바른 분기 통과 +1</dt><dd>요구된 다음 도로에 실제로 진입하면 분기당 한 번 지급합니다. 기존 +0.25보다 중간 경로 선택에 무게를 두되, 옆 차로를 왕복하는 것만으로는 점수가 쌓이지 않게 했습니다.</dd></div>
-<div>
-<dt>충돌 −9</dt><dd>−15에서 −5로 완화한 60만 스텝 비교에서는 같은 192회에서 완주가 51건 늘고 충돌도 21건 늘었습니다. 이 사이의 값을 택하고, 실제 충돌을 시간초과(−8)보다 무겁게 뒀습니다.</dd></div>
-<div>
-<dt>시간초과 −8</dt><dd>진행할 수 없는 차로 끝에서 앞이 빈 채 30초간 멈추거나, 1,000스텝(200초) 안에 도착하지 못하면 종료합니다. 끝에서 기다리는 행동의 비용을 기존 −5보다 키우고 결과표에서는 두 경우를 시간초과로 합산합니다.</dd></div>
-<div>
-<dt>앞이 빈 정지 −0.03/스텝</dt><dd>속도 0.5m/s 미만이고 앞차가 없거나 25m보다 멀 때 적용합니다. 정체로 앞차를 기다리는 상황을 구분하면서, 긴 정지는 종료 전부터 비용이 쌓이게 합니다.</dd></div>
-<div>
-<dt>전방 추돌 위험 · 별도 비교</dt><dd>앞차에 0.5m/s보다 빠르게 접근하고 현재 속도차로 간격이 닫히기까지 2.5초 미만이면 위험도의 변화를 반영합니다. 같은 기본 보상에 이 항만 켜고 끄면서 충돌과 차로변경이 어떻게 달라지는지 비교합니다.</dd></div>
-</dl>
-<p class="link-set"><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-reward-comparison.md">같은 출발 조건의 보상 비교</a>
-<a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-reward-mix-v2.md">관측과 보상 설정</a></p>
+<summary>순수 PPO · 경로 선택과 충돌에 준 보상</summary>
+<p>경로를 따라 전진할 때 누적 최대 +6, 올바른 분기를 통과할 때 +2.5, 지정 경로를 완주할 때 +10을 줬습니다. 분기를 배운 뒤에는 도로 경계·실선 방향 명령에 −0.02, 좁은 틈으로 실제 진입하면 −1.5를 적용했습니다. 후속 비교에서는 충돌 벌점을 −12에서 −14로 높였습니다.</p>
+<p>최종 BC + 보강형 DAgger는 전문가가 선택한 행동을 학습했습니다. 공개 주행 데이터의 보상은 각 스텝에서 환경이 계산한 값입니다.</p>
+<p><a href="#pure-ppo">보상 조정 전후 주행 비교</a></p>
 </details></div></section>
 <section data-nav-section="learning" id="pure-ppo" class="spread" aria-labelledby="pure-ppo-title">
   <div class="section-copy">
@@ -241,9 +227,13 @@
       </tbody></table>
       <p>마지막 두 조건은 충돌 벌점 −14로 7.5만 스텝 더 학습한 동일 모델에서 갈라집니다. GAE λ는 이후 여러 시점의 결과를 현재 행동의 평가에 얼마나 반영할지 조절합니다. λ를 높이자 완주는 8회 늘고 이탈은 21회 줄었지만 충돌도 13회 늘었습니다.</p>
     </details>
+    <details><summary>후속 실험 · 더 강한 진입 벌점과 차로 연결 정보</summary>
+    <p>차량 간격이 1m 이하일 때 진입 벌점만 −1.5에서 −3으로 높였습니다. 같은 가중치에서 각각 2.5만 스텝 더 학습한 뒤 128회 비교한 결과, 완주는 두 조건 모두 111회였고 충돌은 6회에서 7회로 늘었습니다. 이 후보는 576회 최종 평가로 넘기지 않았습니다.</p>
+    <p>별도 실험에서는 다음 도로의 방향 안내를 유지하고 차로별 분기 연결 정보만 가렸습니다. 모델별 576회 평가에서 완주율은 학습 시드 11에서 58.7% → 81.4%, 22에서 74.8% → 64.2%, 33에서 77.4% → 79.7%였습니다. 연결 정보를 뺐을 때의 효과는 학습 시드에 따라 달랐습니다.</p></details>
     <details><summary>학습량을 늘릴지, 관측을 고칠지 어떻게 판단했나</summary>
       <p>PPO는 직접 주행하며 얻은 보상으로 행동의 선택 확률을 조정합니다. 초기 실험에서는 할인율도 0.99에서 0.995로 높여 먼 시점의 분기 통과와 도착에 더 큰 비중을 뒀습니다.</p>
       <p>5만 스텝마다 같은 교통 조건에서 128회 주행했습니다. 보상을 조정한 모델은 10만 스텝에서 43회 완주했고, 25만 스텝까지 그 기록을 넘지 못했습니다. 차로변경이 필요한 52회는 매번 전부 실패했습니다. 중간 평가로 선택한 가중치를 별도의 576회 주행에서 비교했습니다.</p>
+      <p><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/07f7eaf/docs/experiments/jys3-ppo-clean-ladder.md">분기 방향 교정 전후의 모델별 평가</a></p>
       <p>정책 손실·가치 손실·엔트로피와 업데이트 전후 정책 차이(근사 KL)도 기록했습니다. 모델 선택 기준은 실제 완주 횟수였고, 동률이면 충돌이 적은 모델을 우선했습니다. 가치 추정망을 행동 선택망과 분리한 조건에서 충돌은 0회였지만 실제 차로변경도 3회뿐이었습니다. 경로 이탈 271회가 다음 실험에서 분기 안내를 점검한 이유입니다.</p>
     </details>
     <details><summary>어떤 관측으로 위험을 판단하고, 배운 행동을 어떻게 보존했나</summary>
@@ -254,7 +244,7 @@
   </div>
 </section>
 <section data-nav-section="learning" id="roadmap" class="spread"><div class="section-copy"><h2>실험 일지</h2></div>
-<div class="evidence"><details><summary>도로 구현부터 최종 검증까지의 날짜별 기록</summary><ol class="timeline"><li id="step-1"><span class="date">10.27 – 11.09</span><div><h3>퇴계원 IC 도로 구현</h3><ul><li>OpenStreetMap을 바탕으로 퇴계원 IC와 인접한 사노 IC를 SUMO 도로망으로 구성했습니다.</li><li>램프·고가 차로 형상과 합류 접선을 다듬고, 서쪽 엇갈림 출구를 추가했습니다.</li></ul></div></li><li id="step-2"><span class="date">11.12 – 11.13</span><div><h3>교통 시나리오 검증</h3><ul><li>자율주행차 없이 일반 차량만으로 먼저 돌려 병목·교착 지점을 확인했습니다.</li><li>진입부 전체에 시간당 15,000대의 수요를 설정하고, 합류·진출·본선 유지가 포함된 16개 경로에서 검증했습니다.</li></ul></div></li><li id="step-3"><span class="date">11.14 – 11.16</span><div><h3>관측·데이터 정의</h3><ul><li>같은 분기에서 서로 다른 목적지를 구별하도록 도로 단위 안내를 추가하고, 대형 차량에 가려진 주변 차량은 관측에서 제외했습니다.</li><li>분기 7곳을 지도와 대조해, 도로가 휘는 방향과 출구의 실제 좌우 순서가 달랐던 3곳의 안내를 수정했습니다.</li></ul></div></li><li id="step-4"><span class="date">11.19 – 11.24</span><div><h3>모방학습 (BC · DAgger)</h3><ul><li>규칙 기반 전문가 주행으로 데이터를 모으고 행동 복제(BC)로 첫 정책을 학습했습니다.</li><li>학생 차량이 차로 끝에 남거나 옆 차량과 엇갈린 장면을 다시 수집해 전문가의 행동으로 보완했습니다.</li></ul></div></li><li id="step-5"><span class="date">11.24 – 11.25</span><div><h3>PPO 보상 실험</h3><ul><li>완주·충돌·전진·분기 보상 비율을 바꿔 가며 최대 60만 스텝까지 학습했습니다.</li><li>같은 출발·교통 조건의 주행을 짝지어 비교해 어떤 보상이 어떤 결과를 바꿨는지 추적했습니다.</li></ul></div></li><li id="step-6"><span class="date">11.26</span><div><h3>최종 모델 선정</h3><ul><li>같은 경로·출발 차로·배경 교통에서 모델을 교체해 완주와 충돌을 비교했습니다.</li><li>시간당 유입 수요 15,000대에서 256회씩 두 차례 검증한 BC + 보강형 DAgger를 최종 모델로 선정했습니다.</li></ul></div></li></ol></details></div></section>
+<div class="evidence"><details><summary>도로 구현부터 최종 검증까지의 날짜별 기록</summary><ol class="timeline"><li id="step-1"><span class="date">10.27 – 11.09</span><div><h3>퇴계원 IC 도로 구현</h3><ul><li>OpenStreetMap을 바탕으로 퇴계원 IC와 인접한 사노 IC를 SUMO 도로망으로 구성했습니다.</li><li>램프·고가 차로 형상과 합류 접선을 다듬고, 서쪽 엇갈림 출구를 추가했습니다.</li></ul></div></li><li id="step-2"><span class="date">11.12 – 11.13</span><div><h3>교통 시나리오 검증</h3><ul><li>자율주행차 없이 일반 차량만으로 먼저 돌려 병목·교착 지점을 확인했습니다.</li><li>진입부 전체에 시간당 15,000대의 수요를 설정하고, 합류·진출·본선 유지가 포함된 16개 경로에서 검증했습니다.</li></ul></div></li><li id="step-3"><span class="date">11.14 – 11.16</span><div><h3>관측·데이터 정의</h3><ul><li>같은 분기에서 서로 다른 목적지를 구별하도록 도로 단위 안내를 추가하고, 대형 차량에 가려진 주변 차량은 관측에서 제외했습니다.</li><li>분기 7곳을 지도와 대조해, 도로가 휘는 방향과 출구의 실제 좌우 순서가 달랐던 3곳의 안내를 수정했습니다.</li></ul></div></li><li id="step-4"><span class="date">11.19 – 11.24</span><div><h3>모방학습 (BC · DAgger)</h3><ul><li>규칙 기반 전문가 주행으로 데이터를 모으고 행동 복제(BC)로 첫 정책을 학습했습니다.</li><li>학생 차량이 차로 끝에 남거나 옆 차량과 엇갈린 장면을 다시 수집해 전문가의 행동으로 보완했습니다.</li></ul></div></li><li id="step-5"><span class="date">11.24 – 11.27</span><div><h3>PPO 보상 실험</h3><ul><li>분기 방향 관측을 교정한 뒤, 해당 모델에서 위험한 진입과 충돌의 벌점을 조정해 추가 학습했습니다.</li><li>같은 출발·교통 조건의 주행을 짝지어 비교해 어떤 보상이 어떤 결과를 바꿨는지 추적했습니다.</li></ul></div></li><li id="step-6"><span class="date">11.26</span><div><h3>최종 모델 선정</h3><ul><li>같은 경로·출발 차로·배경 교통에서 모델을 교체해 완주와 충돌을 비교했습니다.</li><li>시간당 유입 수요 15,000대에서 256회씩 두 차례 검증한 BC + 보강형 DAgger를 최종 모델로 선정했습니다.</li></ul></div></li></ol></details></div></section>
 </div>
 <div class="results-band"><section class="wrap spread" id="results" tabindex="-1" aria-labelledby="main-model">
   <div class="section-copy"><h2 id="main-model">선정한 모델은 다른 교통에서도 완주할까?</h2>
@@ -272,7 +262,7 @@
   </table>
   <p class="note">이전 모델과 같은 교통에서 평가했을 때 시간초과 2회는 모두 8번 경로에서 발생했습니다.</p>
   <p class="link-set"><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-presentation-main-model.md">검증 보고서</a>
-<a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-project-decision-history.md">실험과 선정 과정</a>
+<a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/07f7eaf/docs/experiments/jys3-final-relu-dagger.md">실험과 선정 과정</a>
 <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/35866da/results/jys3_final_relu_dagger/dagger5.pt">최종 모델 가중치</a></p>
 </div>
 </section></div>
@@ -280,8 +270,8 @@
 <section id="resources" tabindex="-1" class="spread"><div class="section-copy"><h2>자료와 실험 기록</h2><p>최종 모델의 실행 코드와 주행 데이터를 한곳에서 받을 수 있습니다.</p><p><a href="./setup.html">동일 환경 구축 · 코드와 데이터</a></p></div>
 <div class="evidence"><details>
 <summary>주행 데이터 · 한 번의 판단을 어떻게 기록하나</summary>
-<p>한 행에는 주행 번호, 시점, 정책이 본 관측, 가감속·차로 명령, 실제 차로변경 여부, 보상, 다음 관측과 종료 사유가 들어갑니다. 같은 시점의 전체 차량 좌표(m)·속도(m/s)·차로를 별도로 저장해 시야에 가린 차가 있었는지도 재생할 수 있습니다. 완주를 집계할 때는 지정한 도로의 순서와 도착을 확인하고, 차량이 강제로 이동한 경우는 제외합니다.</p>
-<p>16개 경로에서 수집한 10,003,923개 전이를 Parquet 형식으로 공개했습니다. <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/main/docs/review/pomdp-dataset-checklist.md">데이터 항목과 단위</a></p>
+<p>주행 전이 표에는 주행 번호, 시점, 정책에 입력된 50차원 관측, 가감속·차로 명령, 실제 차로변경 여부, 보상, 다음 관측과 종료 사유가 들어갑니다. 같은 시점의 전체 차량 좌표(m)·속도(m/s)·차로를 별도로 저장해 시야에 가린 차가 있었는지도 재생할 수 있습니다. 완주를 집계할 때는 지정한 도로의 순서와 도착을 확인하고, 차량이 강제로 이동한 경우는 제외합니다.</p>
+<p>16개 경로에서 수집한 10,003,923개 전이를 Parquet 형식으로 공개했습니다. <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/bcdfdb8/docs/review/pomdp-dataset-checklist.md">50차원 관측 · 데이터 항목과 단위</a></p>
 </details>
 <dl class="choices resources-list">
 <div>
