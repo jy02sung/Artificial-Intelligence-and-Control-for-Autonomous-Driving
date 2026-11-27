@@ -48,7 +48,7 @@
   <div class="hero-copy hero-intro">
     <p>군 운전병 시절, 이재중 팀원은 버스를 몰고 퇴계원 IC에 합류할 때마다 옆 차와 눈치싸움을 했습니다. 퇴계원 IC에서는 본선에 들어가려는 차와 출구로 빠지려는 차가 같은 틈을 두고 서로의 속도를 살핍니다.</p>
     <p>저희 팀은 이 구간을 SUMO에 옮겼습니다. <strong>하나의 자율주행 모델이 주변 차에 양보하면서도 제 갈림길을 찾아갈 수 있을까요?</strong></p>
-    <div class="hero-outcome"><strong>최종 선정 · BC + 보강형 DAgger</strong><span>같은 16개 경로에서 완주율은 기준 교통 조건 96.5%, 새로운 교통 조건 98.4%였습니다.</span></div>
+    <div class="hero-outcome"><strong>최종 선정 · BC + 보강형 DAgger</strong><span>고교통 28,080회 주행 · 완주율 96.6% · 충돌률 1.6%</span></div>
     <div class="hero-links"><a href="#learning">세 모델 비교</a><a href="#result-summary">완주율과 충돌률</a></div>
   </div>
 </section></div>
@@ -86,7 +86,7 @@
       <figure class="route-panel"><figcaption><strong>7번 · 동쪽 상단 본선 → 북쪽 본선</strong><p>동쪽 상단 본선에서 들어와 1번과 같은 연결 도로를 거쳐 북쪽으로 향합니다.</p></figcaption>
         <div class="route-visuals"><a href="./assets/toegyewon-routes/route_07.png"><img src="./assets/toegyewon-routes/route_07.png" loading="lazy" width="670" height="900" alt="7번 경로도, 동쪽 상단 본선 → 북쪽 본선"></a><video class="route-film" controls muted playsinline loop preload="none" poster="./assets/route-scenes/route_07.webp?v=full" width="840" height="630" aria-label="7번 경로에서 빨간 자율주행차가 출발부터 도착까지 달리는 영상" src="./assets/route-scenes/route_07.mp4"><a href="./assets/route-scenes/route_07.mp4">7번 전체 주행 영상 열기</a></video></div></figure>
       <input type="radio" id="route8" name="route" aria-label="8번, 동쪽 상단 본선 → 남쪽 본선"><label for="route8" class="key-route">8</label>
-      <figure class="route-panel"><figcaption><strong>8번 · 동쪽 상단 본선 → 남쪽 본선</strong><p>동쪽에서 남쪽으로 이어집니다. 최종 모델의 지정 검증에서 시간초과 2회가 발생한 경로입니다.</p></figcaption>
+      <figure class="route-panel"><figcaption><strong>8번 · 동쪽 상단 본선 → 남쪽 본선</strong><p>동쪽에서 남쪽으로 이어집니다. 모델 간 공통 교통 시드로 평가했을 때 시간초과 2회가 발생한 경로입니다.</p></figcaption>
         <div class="route-visuals"><a href="./assets/toegyewon-routes/route_08.png"><img src="./assets/toegyewon-routes/route_08.png" loading="lazy" width="670" height="900" alt="8번 경로도, 동쪽 상단 본선 → 남쪽 본선"></a><video class="route-film" controls muted playsinline loop preload="none" poster="./assets/route-scenes/route_08.webp?v=full" width="840" height="630" aria-label="8번 경로에서 빨간 자율주행차가 출발부터 도착까지 달리는 영상" src="./assets/route-scenes/route_08.mp4"><a href="./assets/route-scenes/route_08.mp4">8번 전체 주행 영상 열기</a></video></div></figure>
       <input type="radio" id="route9" name="route" aria-label="9번, 동쪽 금강로 → 서쪽 금강로"><label for="route9">9</label>
       <figure class="route-panel"><figcaption><strong>9번 · 동쪽 금강로 → 서쪽 금강로</strong><p>동쪽에서 서쪽으로 금강로를 따라 IC를 통과합니다.</p></figcaption>
@@ -119,14 +119,15 @@
   <div class="section-copy">
     <h2 id="result-summary-title">최종 모델과 주행 결과</h2>
     <p><strong>BC + 보강형 DAgger</strong></p>
-    <p>16개 경로를 16회씩 달렸습니다. 교통 조건을 바꿔 다시 검증해도 완주율 95% 이상, 충돌률 5% 미만이라는 두 목표를 달성했습니다.</p>
+    <p>퇴계원 IC의 16개 경로를 각각 1,755회 달려 28,080회 중 27,123회를 완주했습니다. 이 주행에서 수집한 데이터는 총 10,003,923개 전이입니다. <a href="https://huggingface.co/datasets/jy02sung/toegyewon-ic-dagger5-pomdp">전체 주행 데이터</a></p>
   </div>
   <table class="summary-table">
-    <caption>고교통 주행 · 검증별 256회</caption>
-    <thead><tr><th scope="col">검증</th><th scope="col">완주율</th><th scope="col">충돌률</th></tr></thead>
+    <caption>고교통 주행 · 같은 최종 모델</caption>
+    <thead><tr><th scope="col">주행 조건</th><th scope="col">완주율</th><th scope="col">충돌률</th></tr></thead>
     <tbody>
-      <tr><th scope="row">지정 검증</th><td><b>96.5%</b>247회 완주</td><td><b>1.6%</b>4회 충돌</td></tr>
-      <tr><th scope="row">추가 검증</th><td><b>98.4%</b>252회 완주</td><td><b>0.4%</b>1회 충돌</td></tr>
+      <tr><th scope="row">전체 데이터 수집<br>28,080회</th><td><b>96.6%</b>27,123회 완주</td><td><b>1.6%</b>450회 충돌</td></tr>
+      <tr><th scope="row">모델 간 공통 교통 시드<br>256회</th><td><b>96.5%</b>247회 완주</td><td><b>1.6%</b>4회 충돌</td></tr>
+      <tr><th scope="row">처음 사용한 교통 시드<br>256회</th><td><b>98.4%</b>252회 완주</td><td><b>0.4%</b>1회 충돌</td></tr>
     </tbody>
   </table>
 </section>
@@ -154,7 +155,7 @@
 <tr class="chosen"><th scope="row">보강형 DAgger</th><td>97.7%</td><td>1.6%</td><td>0.8%</td><td>0.0%</td></tr>
 </tbody></table></details></div>
   </div>
-  <aside class="ppo-branch"><strong>강화학습(PPO)도 비교했다</strong><p>보강형 DAgger에 PPO 학습을 추가한 모델은 같은 지정·추가 검증에서 각각 244회와 247회 완주했습니다. PPO를 추가하기 전 모델이 247회와 252회로 두 검증 모두 앞서 발표 모델로 선정했습니다. <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-relu-ppo-comparison.md">후속 PPO 비교 기록</a> · <a href="#pure-ppo">전문가 없이 학습한 PPO 실험</a></p></aside>
+  <aside class="ppo-branch"><strong>강화학습(PPO)도 비교했다</strong><p>보강형 DAgger에 PPO 학습을 추가한 모델은 같은 두 교통 시드 묶음에서 각각 244회와 247회 완주했습니다. PPO를 추가하기 전 모델이 247회와 252회로 두 검증 모두 앞서 발표 모델로 선정했습니다. <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-relu-ppo-comparison.md">후속 PPO 비교 기록</a> · <a href="#pure-ppo">전문가 없이 학습한 PPO 실험</a></p></aside>
 </section>
 <section data-nav-section="learning" id="decisions" class="spread"><div class="section-copy"><h2>차량이 보는 것과 <br>행동에 주는 점수</h2>
   <p>0.2초마다 도로 단위 경로 안내와 주변 차량의 움직임을 읽고, 가감속과 왼쪽·유지·오른쪽 중 한 가지 차로 명령을 함께 냅니다.</p></div>
@@ -253,11 +254,11 @@
 </div>
 <div class="results-band"><section class="wrap spread" id="results" tabindex="-1" aria-labelledby="main-model">
   <div class="section-copy"><h2 id="main-model">선정한 모델은 다른 교통에서도 완주할까?</h2>
-    <p>다섯 번째 라운드에서 학습을 마친 모델로 시간당 15,000대 수요에서 16개 경로를 각각 16회씩 달렸습니다. 추가 검증에서는 모델 선정 후 처음 쓰는 교통 시드로 같은 시험을 반복했습니다.</p>
+    <p>모델의 학습과 선정에 쓰지 않은 교통 시드로 256회씩 두 번 평가했습니다. 첫 256회는 이전 모델들과 같은 교통에서 비교했고, 다음 256회는 모델을 고른 뒤 처음 사용한 시드로 주변 교통을 새로 생성했습니다. 두 평가 모두 시간당 15,000대 수요에서 16개 경로를 16회씩 달렸습니다.</p>
     <p class="goal">평가 목표 <b>완주율 95% 이상 · 충돌률 5% 미만</b></p>
   </div>
   <div class="evidence"><table class="outcomes"><caption>완주·충돌·경로 이탈·시간초과 비율</caption>
-    <thead><tr><th scope="col">주행 결과</th><th scope="col">지정 검증</th><th scope="col">추가 검증</th></tr></thead>
+    <thead><tr><th scope="col">주행 결과</th><th scope="col">모델 간 공통 교통 시드</th><th scope="col">처음 사용한 교통 시드</th></tr></thead>
     <tbody>
       <tr class="headline-row"><th scope="row">완주</th><td><b>96.5%</b></td><td><b>98.4%</b></td></tr>
       <tr><th scope="row">충돌</th><td>1.6%</td><td>0.4%</td></tr>
@@ -265,7 +266,7 @@
       <tr><th scope="row"><span class="term-info"><button type="button" aria-expanded="false" aria-controls="final-timeout" aria-describedby="final-timeout">시간초과</button><span id="final-timeout" role="tooltip" hidden>한 차로의 끝에서 멈춘 뒤 30초 동안 움직이지 않거나, 제한 시간 안에 목적지에 도착하지 못한 경우입니다.</span></span></th><td>0.8%</td><td>0.0%</td></tr>
     </tbody><tfoot><tr><th scope="row">전체 주행</th><td>256회</td><td>256회</td></tr></tfoot>
   </table>
-  <p class="note">지정 검증의 시간초과 2회는 모두 8번 경로에서 발생했습니다.</p>
+  <p class="note">공통 교통 시드에서 발생한 시간초과 2회는 모두 8번 경로에서 발생했습니다.</p>
   <p class="link-set"><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-presentation-main-model.md">검증 보고서</a>
 <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/jys3/docs/experiments/jys3-project-decision-history.md">실험과 선정 과정</a>
 <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/35866da/results/jys3_final_relu_dagger/dagger5.pt">최종 모델 가중치</a></p>
