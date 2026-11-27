@@ -8,7 +8,7 @@
 
 ## 1. 필수 포함 항목 체크표
 
-| 필수 포함 항목 | 형태 | 의미 | 포함&nbsp;여부&nbsp;(o&nbsp;/&nbsp;x) | 비고 |
+| 필수 포함 항목 | 형태 | 의미 | 포&#8288;함&nbsp;여&#8288;부&nbsp;(o&nbsp;/&nbsp;x) | 비고 |
 | :--- | :--- | :--- | :---: | :--- |
 | `episode` | Integer | Episode 번호 | **o** | `steps.episode` (int32) |
 | `t` | Integer | Episode 내부 timestep | **o** | `steps.t` (int32), 0.2초 간격, 최대 1,000스텝 |
