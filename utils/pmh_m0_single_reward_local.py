@@ -31,6 +31,47 @@ _config = sr.reward_config
 sr.reward_config = lambda arm: dict(sr.BASE) if arm == 'M0' else _config(arm)
 LOCAL_BASELINE = sr.ROOT / 'local_baseline'
 
+# Route-replacement guard. utils/jys3_physical_forks.Env.step calls traci setRoute when the
+# occupied lane switches the physical successor. SUMO rejects that while the ego is already
+# committed to cross the junction ("Route replacement failed ... committed to move to another
+# successor edge"); the arrival seed-11 run hit it at ~104k steps and the whole run aborted.
+# The guard keeps the previous route and retries on the next step. Episodes that never raise
+# this exception (including every M0 episode trained before the guard) are unchanged.
+from utils import jys3_physical_forks as _pf
+import sys as _sys
+
+
+def _step(self, action):
+    edge, lane, mission, index, *_ = self.snapshot
+    exits = self.links.get(edge, {})
+    if len(exits) > 1 and index + 1 < len(mission) and edge == mission[index]:
+        expected = mission[index + 1]
+        available = [dst for dst, lanes in exits.items() if lane in lanes]
+        alternate = available[0] if available and expected not in available else None
+        if alternate != self.alternate:
+            path = mission[index:]
+            if alternate is not None:
+                path = self.continuations.get((edge, alternate), [edge, alternate])
+            try:
+                _pf.j.traci.vehicle.setRoute(self.ego_id, path)
+                self.alternate = alternate
+            except Exception as e:                     # libsumo.TraCIException
+                if 'Route replacement failed' not in str(e):
+                    raise
+                print(f'[route-guard] setRoute rejected on {edge} lane {lane}: kept previous route', file=_sys.stderr,
+                      flush=True)
+    return super(_pf.Env, self).step(action)
+
+
+_pf.Env.step = _step
+
+
+def evaluate(arm, seed, n, name, rep):
+    sr.c.evaluate(arm, seed, n, name, rep, directory=sr.folder(arm, seed), lateral=False)
+
+
+sr.evaluate = evaluate          # evaluation workers import this module, so they get the guard too
+
 
 def local_hash(seed):
     return sr.p.digest(ladder.fresh('M0', seed).policy)
