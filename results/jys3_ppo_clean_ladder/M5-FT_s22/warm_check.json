@@ -1,0 +1,38 @@
+{
+  "actor_bits_identical": true,
+  "critic_trunk_and_head_changed": true,
+  "source_step": 200000,
+  "updates": [
+    {
+      "step": 2048,
+      "last_mse": 0.9567765593528748,
+      "invalid_commands": 797,
+      "risk_moves": 4
+    },
+    {
+      "step": 4096,
+      "last_mse": 1.3407261371612549,
+      "invalid_commands": 833,
+      "risk_moves": 7
+    },
+    {
+      "step": 6144,
+      "last_mse": 0.8077512383460999,
+      "invalid_commands": 845,
+      "risk_moves": 6
+    },
+    {
+      "step": 8192,
+      "last_mse": 2.024543285369873,
+      "invalid_commands": 805,
+      "risk_moves": 8
+    },
+    {
+      "step": 10000,
+      "last_mse": 0.3118447959423065,
+      "invalid_commands": 834,
+      "risk_moves": 4
+    }
+  ],
+  "sha256": "1a1bff5f33952c4352f0a6acce94f77f84198edccaf7b445a087b9bdb489d9f7"
+}
