@@ -7,7 +7,7 @@
   <meta name="description" content="퇴계원 IC의 엇갈림을 SUMO로 재현하고 16개 경로에서 자율주행 정책의 완주, 충돌, 경로 이탈을 비교한 팀 프로젝트.">
   <title>1팀 퇴계일황 | 퇴계원 IC 자율주행 실험</title>
   <link rel="stylesheet" href="./assets/fonts/pretendard.css">
-  <link rel="stylesheet" href="./assets/project.css?v=ppo-comparison">
+  <link rel="stylesheet" href="./assets/project.css?v=sensor-caption">
   <script src="./assets/project.js?v=ppo-scene" defer></script>
 </head>
 <body>
@@ -43,6 +43,8 @@
       <div class="traffic-links"><span class="driver-info"><button id="driver-trigger" type="button" aria-expanded="false" aria-controls="driver-definition">비협조 운전자 · 승용차의 약 2%</button>
         <span id="driver-definition" hidden>이 실험에서는 다른 차의 차로변경을 돕기 위해 차로를 옮기거나 속도를 조절하는 협조 설정을 껐습니다. 일반 승용차의 차로변경을 막은 일부 경계에서도 이 유형은 차로를 바꿀 수 있습니다. 전체 배경 차량의 약 1.54%에 해당합니다.</span></span>
         <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/eda60ff/docs/experiments/ic-measured-traffic-20261113.md">교통량 조사 자료</a></div>
+      <div class="traffic-links"><span class="term-info"><button type="button" aria-expanded="false" aria-controls="sensor-definition" aria-describedby="sensor-definition">거리 비례 노이즈 · 주변 차량에 의한 시야 가림</button>
+        <span id="sensor-definition" role="tooltip" hidden>자율주행차에서 멀리 있는 차량일수록 간격과 상대속도의 측정 오차가 커집니다. 트럭이나 버스가 시야를 가리면 그 뒤에 가려진 차량은 관측에서 제외합니다.</span></span></div>
     </figcaption>
   </figure>
   <div class="hero-copy hero-intro">
