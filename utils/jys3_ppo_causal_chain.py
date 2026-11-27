@@ -252,7 +252,7 @@ def panel(arm,seed,n,name):
     return dest(arm,seed)/f"eval_{n}_{name}.json"
 
 
-def evaluate(arm,seed,n,name,rep,*,directory=None,checkpoint=None,lateral=None):
+def evaluate(arm,seed,n,name,rep,*,directory=None,checkpoint=None,lateral=None,record_first_fork=False):
     path=directory or dest(arm,seed)
     out=path/"parts"/f"{n}_{name}_{rep}.json"
     if out.exists():
@@ -274,6 +274,9 @@ def evaluate(arm,seed,n,name,rep,*,directory=None,checkpoint=None,lateral=None):
             seed_eval=base+rep*100+route
             obs,_=start_trace(lambda:env.reset(seed=seed_eval,options={"route":key}),xml)
             initial=hashlib.sha256(obs.tobytes()).hexdigest()
+            if record_first_fork:
+                path = env.routes[key]
+                first_fork = next((i for i, pair in enumerate(zip(path,path[1:])) if pair in env.sim.signs),None)
             left=right=bad=seen=0
             history=deque(maxlen=3)
             for t in range(1,1001):
@@ -304,6 +307,8 @@ def evaluate(arm,seed,n,name,rep,*,directory=None,checkpoint=None,lateral=None):
             rows.append(dict(seed=seed_eval,rep=rep,route=route,lane=lane,initial_sha256=initial,steps=t,
                              outcome=info["outcome"],left_commands=left,right_commands=right,invalid=bad,
                              valid=left+right-bad,moves=len(moves),observed_moves=seen,cutin=int(event_cut),collision_contacts=len(collisions)))
+            if record_first_fork:
+                rows[-1]["first_fork_passed"] = None if first_fork is None else first_fork in env.sim.paid_forks
     save(out,rows)
 
 

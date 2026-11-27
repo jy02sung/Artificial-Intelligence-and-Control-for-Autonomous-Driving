@@ -5,8 +5,8 @@ from concurrent.futures import ProcessPoolExecutor
 from utils import jys3_m5ft_ablation as ft
 
 L,P,C,A = ft.L,ft.P,ft.C,ft.A
-ROOT = L.ROOT.parent / "jys3_reward_two_starts"
-REWARDS = ("base","fork","progress")
+ROOT = L.ROOT.parent / "jys3_matched_fork_two_starts"
+REWARDS = ("base","fork1")
 PEAK = {22:75000,33:125000}
 
 
@@ -43,10 +43,9 @@ def train(job):
         else:
             ep=L.q.Episodes(env,"Q1",path,training_seed=s)
         assert env.progress_cap==6. and L.old.driving.PASS_REWARD==2.5
-        if reward=="fork":
-            L.old.driving.PASS_REWARD=3.5
-        if reward=="progress":
-            env.progress_cap=8.
+        assert reward in REWARDS
+        if reward=="fork1":
+            L.old.driving.PASS_REWARD=1.
         return ep
     reference=A.load_peak(s).policy.eval().requires_grad_(False) if track=="ft" else None
     def update(agent,ep,adv,ret):
@@ -68,7 +67,7 @@ def evaluation(job):
     track,reward,s,n,panel,rep=job
     directory=out(track,reward,s)
     source=(L.q.folder("Q1",s) if track=="scratch" and reward=="base" else directory)
-    C.evaluate("Q1",s,n,panel,rep,directory=directory,checkpoint=source/f"policy_{n}.pt",lateral=True)
+    C.evaluate("Q1",s,n,panel,rep,directory=directory,checkpoint=source/f"policy_{n}.pt",lateral=True,record_first_fork=True)
 
 
 def panel_path(track,r,s,n,h):
@@ -101,23 +100,38 @@ def best(track,r,s):
 def results(track):
     rows=[]
     table=[]
+    effects=[]
+    effect_table=[]
     for mode in ("fixed","selected"):
         for s in ft.SEEDS:
             baseline=None
             for r in REWARDS:
                 n=marks(track)[-1] if mode=="fixed" else best(track,r,s)
                 panels=[L.read(panel_path(track,r,s,n,h))["rows"] for h in L.HOLDS]
+                outcomes=C.summary(panels)
+                needed = [x for block in panels[1:] for x in block
+                          if P.groups()[x["route"],x["lane"]]=="needs_change"]
+                assert len(needed)==208 and all(x["first_fork_passed"] is not None for x in needed)
+                outcomes["required_first_pass"] = sum(x["first_fork_passed"] for x in needed)
                 if r=="base":
                     baseline=panels
-                outcomes=C.summary(panels)
+                    high=outcomes
+                else:
+                    # Direction matches the published M0 fork experiment: +2.5 minus +1.
+                    effect={k:high[k]-outcomes[k] for k in (*A.OUT,"required_first_pass","required","cutin")}
+                    effects.append(dict(mode=mode,seed=s,counts=effect))
+                    effect_table.append([mode,s,*[effect[k] for k in (*A.OUT,"required_first_pass","required","cutin")]])
                 pairs=[L.old.paired(a,b) for a,b in zip(baseline,panels)]
                 shifts={k:sum(d[k] for d in pairs) for k in pairs[0]}
                 rows.append(dict(mode=mode,seed=s,reward=r,step=n,**outcomes,**shifts))
-                table.append([mode,s,r,n,*[outcomes[k] for k in (*A.OUT,"required","cutin")],
+                table.append([mode,s,r,n,*[outcomes[k] for k in (*A.OUT,"required_first_pass","required","cutin")],
                               shifts["lost"],shifts["gained"]])
     L.save(ROOT/track/"comparison.json",rows)
+    L.save(ROOT/track/"fork_effect.json",effects)
     md=["# "+track+" 출발 보상 비교","","같은 출발점의 base와 비교한 주행 건수. 시드당 576회, 변경 필요 출발 208회."]
-    md+=L.md_table(["비교","시드","보상","스텝","완주","충돌","이탈","끝 정지","시간초과","변경 필요 완주","컷인","기존 완주 상실","새 완주"],table)
+    md+=L.md_table(["비교","시드","보상","스텝","완주","충돌","이탈","끝 정지","시간초과","필요 출발 첫 분기 통과","변경 필요 완주","컷인","기존 완주 상실","새 완주"],table)
+    md+=["","분기 보상 +2.5에서 +1의 결과를 뺀 건수. 각 주행은 출발 관측 해시까지 짝을 맞췄다."]
+    md+=L.md_table(["비교","시드","완주 차이","충돌 차이","이탈 차이","끝 정지 차이","시간초과 차이","필요 출발 첫 분기 통과 차이","변경 필요 완주 차이","컷인 차이"],effect_table)
     tmp=ROOT/track/"report.tmp"
     tmp.write_text("\n".join(md)+"\n",encoding="utf8")
     tmp.replace(ROOT/track/"report.md")
@@ -142,7 +156,7 @@ def main():
         for f in files:
             artifacts[f.relative_to(L.ROOT.parent).as_posix()]=ft.sha(f)
     protocol=dict(track=t,checkpoints=artifacts,seeds=ft.SEEDS,steps=marks(t),
-                  fork=[2.5,3.5,2.5],progress=[6,6,8],arms=REWARDS,
+                  fork=[2.5,1.],progress=[6,6],arms=REWARDS,
                   baseline="archived Q1" if t=="scratch" else "matched continuation",panels=L.old.PANELS)
     if args.check:
         print(json.dumps(protocol,indent=2))
