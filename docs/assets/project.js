@@ -89,11 +89,9 @@ for (const type of ["wheel", "touchstart", "pointerdown", "keydown", "popstate",
   window.addEventListener(type, cancelSectionScroll, {passive: true});
 }
 
-const sections = [...document.querySelectorAll("main section[id]")].filter(section => section.id !== "home").map(section => {
-  const navSection = section.dataset.navSection || section.id;
-  const group = navLinks.some(link => link.hash === "#" + navSection) ? navSection : "learning";
-  return [group, section];
-});
+const sections = [...document.querySelectorAll("main section[id]")].map(section =>
+  [section.dataset.navSection || section.id, section]
+);
 let queued = false;
 
 function updateNavigation() {
