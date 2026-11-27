@@ -28,7 +28,14 @@ Each checkpoint (every 20,480 steps) is evaluated on the 64-episode sets
 26010000 and 29010000 (selection only). The untouched test set is 256
 episodes on base TEST_BASE, used once for the chosen checkpoints.
 
+Round 2 (--round 2): round 1 kept the start level with beta 0.1/0.3 but did not
+improve, and beta 0 still collapsed. Round 2 trains twice as long (409,600 steps),
+doubles the hard-route weight (--hard-reps 4: 28 episodes per block, 12 of them
+routes 5/13/14, i.e. 43 %) and tries beta 0.1 and 0.2; checkpoints every 40,960
+steps. Everything else is round 1.
+
 Usage: python -m utils.pmh_jys3_ppo_target --chain sep01 --seed 11
+       python -m utils.pmh_jys3_ppo_target --round 2 --chain sep02 --seed 11 --hard-reps 4 --steps 409600 --every 40960
 """
 import argparse
 import json
@@ -48,7 +55,7 @@ from utils.pmh_jys3_ppo_minreward import TwoTermReward, AnchoredPPO, START as _S
 START = m.ROOT / 'models/pmh/jys3_dagger10_fixed.pt'
 assert START == _S
 OUT = m.ROOT / 'results/pmh_jys3_ppo_target'
-BETA = {'sep0': 0.0, 'sep01': 0.1, 'sep03': 0.3}
+BETA = {'sep0': 0.0, 'sep01': 0.1, 'sep02': 0.2, 'sep03': 0.3}
 HARD = (5, 13, 14)
 WARMUP_ROLLOUTS = 10
 INIT_LOG_STD = -1.5
@@ -59,13 +66,14 @@ TEST_BASE = 48010000          # untouched 256-episode test set (16 routes x 16 r
 class Schedule:
     """Blocks of routes 1-16 + HARD twice, shuffled; traffic seed = seed*1e6 + n; start lane alternates per block."""
 
-    def __init__(self, env, seed, log):
+    def __init__(self, env, seed, log, hard_reps=2):
         self.env, self.seed, self.log, self.n, self.queue, self.block = env, seed, log, 0, [], -1
+        self.hard_reps = hard_reps
 
     def reset(self):
         if not self.queue:
             self.block += 1
-            self.queue = list(range(1, 17)) + list(HARD) * 2
+            self.queue = list(range(1, 17)) + list(HARD) * self.hard_reps
             random.Random(self.seed * 100000 + self.block).shuffle(self.queue)
         route = f'route_{self.queue.pop():02d}'
         self.env.ego_depart_lane = str(min(self.block % 2, self.env.counts[self.env.routes[route][0]] - 1))
@@ -117,9 +125,12 @@ def main():
     p.add_argument('--seed', type=int, default=11)
     p.add_argument('--steps', type=int, default=10 * EVERY)
     p.add_argument('--workers', type=int, default=2)
+    p.add_argument('--round', type=int, default=1)
+    p.add_argument('--hard-reps', type=int, default=2)
+    p.add_argument('--every', type=int, default=EVERY)
     a = p.parse_args()
     torch.set_num_threads(1)
-    folder = OUT / f'{a.chain}_seed{a.seed}'
+    folder = (OUT if a.round == 1 else OUT / f'round{a.round}') / f'{a.chain}_seed{a.seed}'
     folder.mkdir(parents=True, exist_ok=False)
     agent = TargetPPO(obs_dim=OBS_DIM, act_dim=2, buffer=m.RolloutBuffer(), seed=a.seed, **HP)
     state = torch.load(START, weights_only=True, map_location='cpu')
@@ -132,13 +143,13 @@ def main():
     agent.setup(dm.policy(START).policy, BETA[a.chain])
     (folder / 'protocol.json').write_text(json.dumps(dict(
         start=str(START.relative_to(m.ROOT)), chain=a.chain, beta=BETA[a.chain], seed=a.seed, steps=a.steps,
-        reward={'arrival': 1, 'collision': -1}, hard_routes=HARD, critic='separate 256x256 tanh MLP',
-        warmup_rollouts=WARMUP_ROLLOUTS, init_log_std=INIT_LOG_STD, hp=HP, every=EVERY,
+        reward={'arrival': 1, 'collision': -1}, hard_routes=HARD, hard_reps=a.hard_reps, round=a.round, critic='separate 256x256 tanh MLP',
+        warmup_rollouts=WARMUP_ROLLOUTS, init_log_std=INIT_LOG_STD, hp=HP, every=a.every,
         selection_bases=[dm.EVAL_BASE, dm.HOLDOUT_BASE], test_base=TEST_BASE), indent=1))
     log = (folder / 'train.jsonl').open('a')
     env = environment('high_real_ratio', a.seed, folder / 'map')
     try:
-        episodes = TwoTermReward(Schedule(env, a.seed, folder / 'episodes.jsonl'))
+        episodes = TwoTermReward(Schedule(env, a.seed, folder / 'episodes.jsonl', a.hard_reps))
         obs, _ = episodes.reset()
         stats = [0., 0]
         t0 = time.time()
@@ -158,7 +169,7 @@ def main():
                                   episodes=len(out), arrival=out.count('arrival'), collision=out.count('collision'),
                                   **{k: round(v, 5) for k, v in info.items()})), file=log, flush=True)
             episodes.outcomes = []
-            if agent.num_timesteps % EVERY == 0:
+            if agent.num_timesteps % a.every == 0:
                 atomic_torch(dict(schema=SCHEMA, policy=actor_state(agent.policy)), folder / f'policy_{agent.num_timesteps}.pt')
         atomic_torch(dict(critic=agent.policy.critic.state_dict()), folder / 'critic_last.pt')
     finally:
