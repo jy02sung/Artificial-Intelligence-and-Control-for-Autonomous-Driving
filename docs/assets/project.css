@@ -249,14 +249,16 @@ footer .wrap { gap: 1rem; padding-block: 1.5rem; color: var(--quiet); font-size:
   }
 }
 .drive video { aspect-ratio: 880 / 760; }
-.traffic-caption { position: relative; }
-.traffic-key, .traffic-links { display: flex; align-items: center; flex-wrap: wrap; gap: .2rem .75rem; }
+.traffic-caption { position: relative; container-type: inline-size; }
+.traffic-summary { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; }
+.traffic-summary a { flex: none; }
+.traffic-key, .traffic-links { display: flex; align-items: center; gap: .2rem .75rem; }
 .traffic-key > span { white-space: nowrap; }
-.traffic-key { column-gap: .55rem; }
-.av-key { color: var(--ink); font-weight: 600; }
+.traffic-key { flex-wrap: wrap; column-gap: .55rem; }
+.traffic-links button { text-align: left; }
 .driver-info, .term-info { position: relative; }
 .driver-info button, .term-info button { appearance: none; border: 0; padding: .4rem 0; background: transparent; font: inherit; color: var(--accent); cursor: help; text-decoration: underline dotted; text-underline-offset: .22em; }
-#driver-definition { position: absolute; z-index: 2; left: 0; bottom: 100%; width: min(26rem,calc(100vw - 4.5rem)); padding: .75rem 1rem; background: var(--ink); color: var(--surface); border-radius: 4px; }
+#driver-definition { position: absolute; z-index: 2; left: 0; bottom: 100%; width: min(26rem,100cqi); padding: .75rem 1rem; background: var(--ink); color: var(--surface); border-radius: 4px; }
 .satellite { margin-top: 1.4rem; }
 .satellite img { display: block; width: 100%; height: auto; }
 .satellite figcaption { margin-top: .45rem; color: var(--quiet); font-size: .87rem; }
@@ -269,7 +271,7 @@ footer .wrap { gap: 1rem; padding-block: 1.5rem; color: var(--quiet); font-size:
 .repo-button svg { width: 28px; height: 28px; fill: currentColor; }
 .navlinks .repo-button:is(:hover, :focus-visible) { background: var(--active); color: var(--surface); }
 @media (max-width: 540px) {
-  .driver-info button, .traffic-links a { min-height: 44px; align-content: center; }
+  .driver-info button, .traffic-summary a { min-height: 44px; align-content: center; }
   .route-visuals { gap: .35rem; padding: .35rem; }
 }
 
@@ -282,6 +284,11 @@ footer .wrap { gap: 1rem; padding-block: 1.5rem; color: var(--quiet); font-size:
 .traffic-caption [role="tooltip"] { max-width: 100%; }
 .term-info [role="tooltip"] { position: absolute; left: 0; bottom: 100%; z-index: 3; width: min(16rem, 68vw); padding: .65rem .85rem; border-radius: 4px; background: var(--ink); color: var(--surface); font-size: .88rem; font-weight: 400; line-height: 1.5; text-align: left; }
 .training .term-info [role="tooltip"] { left: auto; right: 0; }
+@container (max-width: 28rem) {
+  .traffic-links { position: relative; }
+  .traffic-links .term-info { position: static; }
+  .traffic-links .term-info [role="tooltip"] { left: auto; right: 0; }
+}
 
 .lane-note { display: block; margin-top: .45rem; color: var(--quiet); font-size: .95rem; }
 .result-summary { background: var(--panel); padding: clamp(1.25rem, 3vw, 2.5rem); align-items: center; }
