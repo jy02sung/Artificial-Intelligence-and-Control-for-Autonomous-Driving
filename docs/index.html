@@ -11,7 +11,7 @@
   <script src="./assets/project.js?v=section-groups" defer></script>
 </head>
 <body>
-<a class="skip" href="#result-summary">핵심 결과로 건너뛰기</a>
+<a class="skip" href="#results">핵심 결과로 건너뛰기</a>
 <header class="mast"><nav class="wrap topnav" aria-label="주 메뉴">
   <a class="brand" href="#home">26-2학기 자율주행 인공지능 및 제어</a>
   <div class="navlinks"><a href="#project">도로 선정</a><a href="#learning">모델 비교</a><a href="#results">최종 검증</a><a href="#resources">자료</a><a href="./setup.html">동일 환경 구축</a><a class="repo-button" aria-label="팀 GitHub 저장소" title="팀 GitHub 저장소" href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving"><svg aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a class="repo-button hf-button" aria-label="Hugging Face 주행 데이터셋" title="Hugging Face 주행 데이터셋" href="https://huggingface.co/datasets/jy02sung/toegyewon-ic-dagger5-pomdp/tree/main"><img src="./assets/huggingface.svg" width="28" height="28" alt=""></a></div>
@@ -49,7 +49,7 @@
     <p>군 운전병 시절, 이재중 팀원은 버스를 몰고 퇴계원 IC에 합류할 때마다 옆 차와 눈치싸움을 했습니다. 퇴계원 IC에서는 본선에 들어가려는 차와 출구로 빠지려는 차가 같은 틈을 두고 서로의 속도를 살핍니다.</p>
     <p>저희 팀은 이 구간을 SUMO에 옮겼습니다. <strong>하나의 자율주행 모델이 주변 차에 양보하면서도 제 갈림길을 찾아갈 수 있을까요?</strong></p>
     <div class="hero-outcome"><strong>최종 선정 · BC + 보강형 DAgger</strong><span>28,080회 주행 · 완주율 96.6% · 충돌률 1.6%</span></div>
-    <div class="hero-links"><a href="#learning">세 모델 비교</a><a href="#result-summary">완주율과 충돌률</a></div>
+    <div class="hero-links"><a href="#learning">세 모델 비교</a><a href="#results">완주율과 충돌률</a></div>
   </div>
 </section></div>
 <div class="wrap main-sections">
@@ -114,22 +114,6 @@
         <div class="route-visuals"><a href="./assets/toegyewon-routes/route_16.png"><img src="./assets/toegyewon-routes/route_16.png" loading="lazy" width="670" height="900" alt="16번 경로도, 북쪽 본선 → 남쪽 본선"></a><video class="route-film" controls muted playsinline loop preload="none" poster="./assets/route-scenes/route_16.webp?v=recovery2" width="840" height="630" aria-label="16번 경로에서 빨간 자율주행차가 출발부터 도착까지 달리는 영상" src="./assets/route-scenes/route_16.mp4?v=recovery2"><a href="./assets/route-scenes/route_16.mp4?v=recovery2">16번 전체 주행 영상 열기</a></video></div></figure>
     </div>
   </fieldset>
-</section>
-<section id="result-summary" class="spread result-summary" tabindex="-1" data-nav-section="learning" aria-labelledby="result-summary-title">
-  <div class="section-copy">
-    <h2 id="result-summary-title">최종 모델과 주행 결과</h2>
-    <p><strong>BC + 보강형 DAgger</strong></p>
-    <p>고교통은 시뮬레이션의 모든 진입로를 합쳐 시간당 차량 15,000대가 들어오도록 수요를 설정한 조건입니다. 이 조건에서 퇴계원 IC의 16개 경로를 각각 1,755회 달려 28,080회 중 27,123회를 완주했습니다. 이 주행에서 수집한 데이터는 총 10,003,923개 전이입니다. <a href="https://huggingface.co/datasets/jy02sung/toegyewon-ic-dagger5-pomdp">전체 주행 데이터</a></p>
-  </div>
-  <table class="summary-table">
-    <caption>시간당 15,000대 유입 수요 · 같은 최종 모델</caption>
-    <thead><tr><th scope="col">주행 조건</th><th scope="col">완주율</th><th scope="col">충돌률</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">전체 데이터 수집<br>28,080회</th><td><b>96.6%</b>27,123회 완주</td><td><b>1.6%</b>450회 충돌</td></tr>
-      <tr><th scope="row">이전 모델과 같은 교통<br>256회</th><td><b>96.5%</b>247회 완주</td><td><b>1.6%</b>4회 충돌</td></tr>
-      <tr><th scope="row">모델 선정 후 새로 생성한 교통<br>256회</th><td><b>98.4%</b>252회 완주</td><td><b>0.4%</b>1회 충돌</td></tr>
-    </tbody>
-  </table>
 </section>
 <section id="learning" tabindex="-1" class="selection">
   <h2>어떤 주행을 다시 가르칠 것인가</h2>
@@ -246,12 +230,13 @@
 <section data-nav-section="learning" id="roadmap" class="spread"><div class="section-copy"><h2>실험 일지</h2></div>
 <div class="evidence"><details><summary>도로 구현부터 최종 검증까지의 날짜별 기록</summary><ol class="timeline"><li id="step-1"><span class="date">10.27 – 11.09</span><div><h3>퇴계원 IC 도로 구현</h3><ul><li>OpenStreetMap을 바탕으로 퇴계원 IC와 인접한 사노 IC를 SUMO 도로망으로 구성했습니다.</li><li>램프·고가 차로 형상과 합류 접선을 다듬고, 서쪽 엇갈림 출구를 추가했습니다.</li></ul></div></li><li id="step-2"><span class="date">11.12 – 11.13</span><div><h3>교통 시나리오 검증</h3><ul><li>자율주행차 없이 일반 차량만으로 먼저 돌려 병목·교착 지점을 확인했습니다.</li><li>진입부 전체에 시간당 15,000대의 수요를 설정하고, 합류·진출·본선 유지가 포함된 16개 경로에서 검증했습니다.</li></ul></div></li><li id="step-3"><span class="date">11.14 – 11.16</span><div><h3>관측·데이터 정의</h3><ul><li>같은 분기에서 서로 다른 목적지를 구별하도록 도로 단위 안내를 추가하고, 대형 차량에 가려진 주변 차량은 관측에서 제외했습니다.</li><li>분기 7곳을 지도와 대조해, 도로가 휘는 방향과 출구의 실제 좌우 순서가 달랐던 3곳의 안내를 수정했습니다.</li></ul></div></li><li id="step-4"><span class="date">11.19 – 11.24</span><div><h3>모방학습 (BC · DAgger)</h3><ul><li>규칙 기반 전문가 주행으로 데이터를 모으고 행동 복제(BC)로 첫 정책을 학습했습니다.</li><li>학생 차량이 차로 끝에 남거나 옆 차량과 엇갈린 장면을 다시 수집해 전문가의 행동으로 보완했습니다.</li></ul></div></li><li id="step-5"><span class="date">11.24 – 11.27</span><div><h3>PPO 보상 실험</h3><ul><li>분기 방향 관측을 교정한 뒤, 해당 모델에서 위험한 진입과 충돌의 벌점을 조정해 추가 학습했습니다.</li><li>같은 출발·교통 조건의 주행을 짝지어 비교해 어떤 보상이 어떤 결과를 바꿨는지 추적했습니다.</li></ul></div></li><li id="step-6"><span class="date">11.26</span><div><h3>최종 모델 선정</h3><ul><li>같은 경로·출발 차로·배경 교통에서 모델을 교체해 완주와 충돌을 비교했습니다.</li><li>시간당 유입 수요 15,000대에서 256회씩 두 차례 검증한 BC + 보강형 DAgger를 최종 모델로 선정했습니다.</li></ul></div></li></ol></details></div></section>
 </div>
-<div class="results-band"><section class="wrap spread" id="results" tabindex="-1" aria-labelledby="main-model">
-  <div class="section-copy"><h2 id="main-model">선정한 모델은 다른 교통에서도 완주할까?</h2>
-    <p>모델의 학습과 선정에 쓰지 않은 교통 시드로 256회씩 두 번 평가했습니다. 첫 256회는 이전 모델들과 같은 교통에서 비교했고, 다음 256회는 모델을 고른 뒤 모델 선정 후 새로 생성한 교통로 주변 교통을 새로 생성했습니다. 두 평가 모두 시간당 15,000대 수요에서 16개 경로를 16회씩 달렸습니다.</p>
+<div class="results-band" id="result-summary"><section class="wrap spread" id="results" tabindex="-1" aria-labelledby="main-model">
+  <div class="section-copy"><h2 id="main-model">최종 모델은 얼마나 자주 완주했을까?</h2>
+    <p><strong>BC + 보강형 DAgger</strong>로 16개 경로를 각각 1,755회 달렸습니다. 전체 28,080회 중 27,123회 완주했고(96.6%), 450회 충돌했습니다(1.6%). 모든 진입로의 유입 수요를 합쳐 시간당 15,000대로 설정한 결과입니다.</p>
+    <p>이 주행에서 수집한 10,003,923개 전이를 <a href="https://huggingface.co/datasets/jy02sung/toegyewon-ic-dagger5-pomdp">전체 주행 데이터</a>로 공개했습니다.</p>
     <p class="goal">평가 목표 <b>완주율 95% 이상 · 충돌률 5% 미만</b></p>
   </div>
-  <div class="evidence"><table class="outcomes"><caption>완주·충돌·경로 이탈·시간초과 비율</caption>
+  <div class="evidence"><table class="outcomes"><caption>학습과 모델 선정에 쓰지 않은 교통 조건 · 각 256회 평가</caption>
     <thead><tr><th scope="col">주행 결과</th><th scope="col">이전 모델과 같은 교통</th><th scope="col">모델 선정 후 새로 생성한 교통</th></tr></thead>
     <tbody>
       <tr class="headline-row"><th scope="row">완주</th><td><b>96.5%</b></td><td><b>98.4%</b></td></tr>
