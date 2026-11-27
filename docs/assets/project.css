@@ -65,6 +65,7 @@ small, .note { font-size: .875rem; color: var(--quiet); }
 .goal b { display: block; color: var(--ink); }
 .evidence { min-width: 0; }
 .evidence > p, .evidence details p { margin-top: .8rem; }
+#decisions .evidence > p + details { margin-top: 1.25rem; }
 .evidence > p:has(a) { line-height: 1.95; }
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; line-height: 1.4; }
 caption, legend { text-align: left; font-weight: 600; font-size: 1rem; margin-bottom: .8rem; }
