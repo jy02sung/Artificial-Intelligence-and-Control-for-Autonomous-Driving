@@ -61,6 +61,9 @@ small, .note { font-size: .875rem; color: var(--quiet); }
 .final-results { padding-block: clamp(2.7rem, 5vw, 4.5rem); }
 .final-results h3 { margin: 2rem 0 .45rem; }
 .final-results p { margin: .6rem 0; color: var(--secondary); }
+.final-results .final-model-name { margin: .7rem 0 .25rem; color: var(--accent); font-size: clamp(1.7rem, 3vw, 2.6rem); line-height: 1.2; }
+.final-model-name strong { font-weight: 750; }
+.final-results .validation-heading { margin-top: clamp(3rem, 6vw, 5rem); }
 .collection-outcomes { display: grid; grid-template-columns: repeat(5, 1fr); gap: .75rem 1.25rem; margin: .8rem 0; font-variant-numeric: tabular-nums; }
 .collection-outcomes > div { padding-block: .6rem; border-top: 1px solid var(--line); }
 .collection-outcomes dt { font-weight: 600; }
