@@ -7,7 +7,7 @@
   <meta name="description" content="퇴계원 IC의 엇갈림을 SUMO로 재현하고 16개 경로에서 자율주행 정책의 완주, 충돌, 경로 이탈을 비교한 팀 프로젝트.">
   <title>1팀 퇴계일황 | 퇴계원 IC 자율주행 실험</title>
   <link rel="stylesheet" href="./assets/fonts/pretendard.css">
-  <link rel="stylesheet" href="./assets/project.css?v=final-model-heading">
+  <link rel="stylesheet" href="./assets/project.css?v=outcome-tips">
   <script src="./assets/section-scroll.js" defer></script>
   <script src="./assets/project.js?v=all-section-links" defer></script>
 </head>
@@ -251,16 +251,15 @@
 <div class="results-band" id="result-summary"><section class="wrap final-results" id="results" tabindex="-1" aria-labelledby="main-model">
   <h2 id="main-model">최종모델 결과</h2>
   <p class="final-model-name"><strong>BC+보강형 DAgger</strong></p>
-  <p>16개 경로를 각각 1,755회 달렸습니다. 모든 진입로의 유입 수요는 시간당 총 15,000대입니다.</p>
+  <p>16개 경로를 각각 1,755회 달렸습니다. 모든 진입로의 유입 수요는 시간당 총 15,000대입니다. <a href="https://huggingface.co/datasets/jy02sung/toegyewon-ic-dagger5-pomdp">전체 주행 데이터 · 10,003,923개 transition</a></p>
   <h3>전체 주행 데이터 수집 · 28,080회</h3>
   <dl class="collection-outcomes">
     <div><dt>완주</dt><dd><strong>96.59%</strong><span>27,123회</span></dd></div>
     <div><dt>충돌</dt><dd><strong>1.60%</strong><span>450회</span></dd></div>
     <div><dt>경로 이탈</dt><dd><strong>1.46%</strong><span>409회</span></dd></div>
-    <div><dt>정지 종료</dt><dd><strong>0.25%</strong><span>71회</span></dd></div>
+    <div><dt><span class="term-info"><button type="button" aria-expanded="false" aria-controls="final-stall" aria-describedby="final-stall">정지 종료</button><span id="final-stall" role="tooltip" hidden>차로 끝에서 30초 동안 움직이지 않아 주행이 종료된 경우입니다.</span></span></dt><dd><strong>0.25%</strong><span>71회</span></dd></div>
     <div><dt><span class="term-info"><button type="button" aria-expanded="false" aria-controls="final-timeout" aria-describedby="final-timeout">시간초과</button><span id="final-timeout" role="tooltip" hidden>주행 제한 시간 안에 목적지에 도착하지 못한 경우입니다.</span></span></dt><dd><strong>0.10%</strong><span>27회</span></dd></div>
   </dl>
-  <p class="note">정지 종료는 차로 끝에서 30초 동안 움직이지 않은 경우, 시간초과는 주행 제한 시간 안에 도착하지 못한 경우입니다. <a href="https://huggingface.co/datasets/jy02sung/toegyewon-ic-dagger5-pomdp">전체 주행 데이터 · 10,003,923개 transition</a></p>
   <h3 class="validation-heading">최종 모델과 순수 PPO의 검증 결과</h3>
   <p>최종 모델은 기본형 DAgger와 같은 출발 차로와 주변 교통에서 비교했습니다. 두 모델 모두 기존 평가에 사용한 교통과 모델 선정 후 처음 사용한 교통에서 경로당 16회씩 달렸습니다. 순수 PPO는 학습 시드 33에서 얻은 두 모델을 같은 출발 차로와 교통 조건에서 경로당 36회씩 비교했습니다.</p>
   <div class="result-table-scroll" role="region" aria-label="모델별 주행 결과 비교" tabindex="0">
