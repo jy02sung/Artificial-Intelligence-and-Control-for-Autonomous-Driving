@@ -250,8 +250,8 @@ footer .wrap { gap: 1rem; padding-block: 1.5rem; color: var(--quiet); font-size:
 }
 .drive video { aspect-ratio: 880 / 760; }
 .traffic-caption { position: relative; container-type: inline-size; }
-.traffic-summary { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; }
-.traffic-summary a { flex: none; }
+.traffic-footer { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .75rem; }
+.traffic-footer > a { margin-inline-start: auto; }
 .traffic-key, .traffic-links { display: flex; align-items: center; gap: .2rem .75rem; }
 .traffic-key > span { white-space: nowrap; }
 .traffic-key { flex-wrap: wrap; column-gap: .55rem; }
@@ -271,7 +271,7 @@ footer .wrap { gap: 1rem; padding-block: 1.5rem; color: var(--quiet); font-size:
 .repo-button svg { width: 28px; height: 28px; fill: currentColor; }
 .navlinks .repo-button:is(:hover, :focus-visible) { background: var(--active); color: var(--surface); }
 @media (max-width: 540px) {
-  .driver-info button, .traffic-summary a { min-height: 44px; align-content: center; }
+  .driver-info button, .traffic-footer > a { min-height: 44px; align-content: center; }
   .route-visuals { gap: .35rem; padding: .35rem; }
 }
 
@@ -285,7 +285,7 @@ footer .wrap { gap: 1rem; padding-block: 1.5rem; color: var(--quiet); font-size:
 .term-info [role="tooltip"] { position: absolute; left: 0; bottom: 100%; z-index: 3; width: min(16rem, 68vw); padding: .65rem .85rem; border-radius: 4px; background: var(--ink); color: var(--surface); font-size: .88rem; font-weight: 400; line-height: 1.5; text-align: left; }
 .training .term-info [role="tooltip"] { left: auto; right: 0; }
 @container (max-width: 28rem) {
-  .traffic-links { position: relative; }
+  .traffic-links { position: relative; width: 100%; }
   .traffic-links .term-info { position: static; }
   .traffic-links .term-info [role="tooltip"] { left: auto; right: 0; }
 }
