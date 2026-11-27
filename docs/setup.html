@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f9f7">
-  <meta name="description" content="퇴계원 IC의 최종 자율주행 모델로 13번 경로를 내 컴퓨터에서 재생하는 방법과 프로젝트 제출 자료.">
+  <meta name="description" content="퇴계원 IC의 최종 자율주행 모델로 13번 경로를 내 컴퓨터에서 재생하는 방법과 실행 코드와 주행 데이터.">
   <title>동일 환경 구축 | 퇴계원 IC 자율주행 실험</title>
   <link rel="stylesheet" href="./assets/fonts/pretendard.css">
   <link rel="stylesheet" href="./assets/project.css?v=r5-setup">
@@ -20,10 +20,9 @@
   <p class="setup-intro">최종 모델 <strong>BC + 보강형 DAgger</strong>로 퇴계원 IC의 13번 경로를 달려 봅니다. SUMO 창에서 빨간 자율주행차가 북쪽 본선을 출발해 분기를 통과하는 모습을 볼 수 있습니다. 학습된 모델과 도로 지도가 코드에 들어 있어 CPU로 바로 재생할 수 있습니다.</p>
 
   <section id="materials" aria-labelledby="materials-title">
-    <h2 id="materials-title">프로젝트 제출 자료</h2>
+    <h2 id="materials-title">실행 코드와 주행 데이터</h2>
     <dl class="setup-materials">
-      <div><dt>실행 코드 · 모델</dt><dd><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/tree/65493d75f22ee43f92226783858d90d2318c246f">재생에 쓰는 팀 코드</a> · <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/65493d75f22ee43f92226783858d90d2318c246f/docs/experiments/jys3-presentation-main-model.md">모델 선정·검증 기록</a></dd></div>
-      <div><dt>발표자료</dt><dd>최종 발표 PDF는 제작 중입니다.</dd></div>
+      <div><dt>실행 코드 · 모델</dt><dd><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/tree/65493d75f22ee43f92226783858d90d2318c246f">주행 재생 코드</a> · <a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/blob/65493d75f22ee43f92226783858d90d2318c246f/docs/experiments/jys3-presentation-main-model.md">모델 선정·검증 기록</a></dd></div>
       <div><dt>Hugging Face 데이터셋</dt><dd><a href="https://huggingface.co/datasets/jy02sung/toegyewon-ic-dagger5-pomdp/tree/main">퇴계원 IC 16개 경로의 주행 데이터 받기 (Hugging Face)</a></dd></div>
     </dl>
   </section>
@@ -32,8 +31,8 @@
     <h2 id="replay-title">13번 경로 실행 방법</h2>
     <ol class="setup-steps">
       <li><h3>코드와 재생 파일 받기</h3>
-        <p>팀 코드 ZIP을 풀고, 재생 파일을 <code>requirements.txt</code>와 같은 폴더에 넣으세요. ZIP은 검증 당시의 <code>jys3</code> 코드와 <code>dagger5.pt</code> 가중치를 포함합니다.</p>
-        <p class="link-set"><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/archive/65493d75f22ee43f92226783858d90d2318c246f.zip">팀 코드 ZIP 받기</a><a href="./assets/replay_r5.py" download="replay_r5.py">재생 파일 받기 (replay_r5.py)</a></p>
+        <p>실행 코드 ZIP을 풀고, 재생 파일을 <code>requirements.txt</code>와 같은 폴더에 넣으세요. ZIP은 주행 시뮬레이션 코드와 <code>dagger5.pt</code> 가중치를 포함합니다.</p>
+        <p class="link-set"><a href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving/archive/65493d75f22ee43f92226783858d90d2318c246f.zip">실행 코드 ZIP 받기</a><a href="./assets/replay_r5.py" download="replay_r5.py">재생 파일 받기 (replay_r5.py)</a></p>
       </li>
       <li><h3>Python과 SUMO 준비하기</h3>
         <p>64비트 <a href="https://www.python.org/downloads/release/python-31210/">Python 3.12</a>가 필요합니다. Windows에서는 위 폴더를 열고 탐색기 주소창에 <code>cmd</code>를 입력한 뒤, 아래 명령을 차례로 실행하세요. 설치는 처음 한 번만 하면 됩니다.</p>
