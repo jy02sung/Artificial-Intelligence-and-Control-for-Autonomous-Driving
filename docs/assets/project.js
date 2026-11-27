@@ -41,54 +41,6 @@ if (video.canPlayType("video/mp4")) {
 }
 
 const navLinks = [...document.querySelectorAll(".navlinks a")];
-let scrollFrame;
-function cancelSectionScroll() {
-  cancelAnimationFrame(scrollFrame);
-}
-
-function sectionScrollProgress(t) {
-  const ramp = 0.25;
-  const cruiseSpeed = 1 / (1 - ramp);
-  if (t < ramp) return cruiseSpeed * t * t / (2 * ramp);
-  if (t <= 1 - ramp) return cruiseSpeed * (t - ramp / 2);
-  const remaining = 1 - t;
-  return 1 - cruiseSpeed * remaining * remaining / (2 * ramp);
-}
-
-for (const link of document.querySelectorAll('.navlinks a[href^="#"], a[data-section-scroll]')) {
-  link.addEventListener("click", event => {
-    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey ||
-        event.shiftKey || event.altKey || motion.matches) return;
-
-    const section = document.getElementById(link.hash.slice(1));
-    if (!section) return;
-    event.preventDefault();
-    cancelSectionScroll();
-    const root = document.documentElement;
-    const start = window.scrollY;
-    const inset = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
-    const end = Math.min(root.scrollHeight - window.innerHeight,
-      Math.max(0, start + section.getBoundingClientRect().top - inset));
-    const distance = end - start;
-    const duration = Math.min(280, 180 + Math.abs(distance) * 0.035);
-    const began = performance.now();
-    if (location.hash !== link.hash) history.pushState(null, "", link.hash);
-
-    function slide(now) {
-      const t = Math.min(1, Math.max(0, (now - began) / duration));
-      const eased = sectionScrollProgress(t);
-      window.scrollTo(0, start + distance * eased);
-      if (t < 1) scrollFrame = requestAnimationFrame(slide);
-      else section.focus({preventScroll: true});
-    }
-    scrollFrame = requestAnimationFrame(slide);
-  });
-}
-
-for (const type of ["wheel", "touchstart", "pointerdown", "keydown", "popstate", "hashchange"]) {
-  window.addEventListener(type, cancelSectionScroll, {passive: true});
-}
-
 const sections = [...document.querySelectorAll("main section[id]")].map(section =>
   [section.dataset.navSection || section.id, section]
 );
@@ -196,7 +148,6 @@ forkScene.addEventListener("click", event => {
   if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || !ppoFilm.canPlayType("video/mp4")) return;
   event.preventDefault();
   ppoFilm.currentTime = Number(forkScene.hash.slice(3));
-  ppoFilm.scrollIntoView({ block: "center" });
-  ppoFilm.focus({ preventScroll: true });
+  scrollToSection(ppoFilm, "center");
   ppoFilm.play().catch(() => { ppoFilm.controls = true; });
 });

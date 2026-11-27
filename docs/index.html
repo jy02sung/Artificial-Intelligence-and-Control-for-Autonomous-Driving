@@ -8,7 +8,8 @@
   <title>1팀 퇴계일황 | 퇴계원 IC 자율주행 실험</title>
   <link rel="stylesheet" href="./assets/fonts/pretendard.css">
   <link rel="stylesheet" href="./assets/project.css?v=traffic-source-bottom">
-  <script src="./assets/project.js?v=reward-scroll" defer></script>
+  <script src="./assets/section-scroll.js" defer></script>
+  <script src="./assets/project.js?v=all-section-links" defer></script>
 </head>
 <body>
 <a class="skip" href="#results">핵심 결과로 건너뛰기</a>
@@ -17,7 +18,7 @@
   <div class="navlinks"><a href="#project">도로 선정</a><a href="#learning">모델 비교</a><a href="#results">최종 검증</a><a href="#resources">자료</a><a href="./setup.html">동일 환경 구축</a><a class="repo-button" aria-label="팀 GitHub 저장소" title="팀 GitHub 저장소" href="https://github.com/jy02sung/Artificial-Intelligence-and-Control-for-Autonomous-Driving"><svg aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a class="repo-button hf-button" aria-label="Hugging Face 주행 데이터셋" title="Hugging Face 주행 데이터셋" href="https://huggingface.co/datasets/jy02sung/toegyewon-ic-dagger5-pomdp/tree/main"><img src="./assets/huggingface.svg" width="28" height="28" alt=""></a></div>
 </nav></header>
 <main>
-<div class="opening"><section class="hero wrap" id="home" aria-labelledby="hero-title">
+<div class="opening"><section class="hero wrap" id="home" tabindex="-1" aria-labelledby="hero-title">
   <div class="hero-copy hero-title">
     <h1 id="hero-title">1팀 퇴계일황</h1>
     <p class="team-members">성지용 · 김영훈 · 문시원 · 박민호 · 이재중</p>
@@ -183,7 +184,7 @@
 <summary>순수 PPO는 어떤 주행에 점수를 줬나</summary>
 <p>16번 경로의 목적지는 본선입니다. 차가 본선으로 이어지는 차로로 옮긴 뒤 실제로 분기점을 지나 본선에 들어가면 +2.5점을 받습니다. 이후 지정된 목적지까지 도착하면 완주 보상 +10점을 더 받습니다. 이동 중에도 경로를 따라 전진한 만큼 점수를 조금씩 받으며, 전진으로 얻는 점수는 한 번의 주행을 통틀어 최대 +6점입니다.</p>
 <p>분기를 통과하는 법을 배운 뒤에는 차로를 옮기는 과정도 평가했습니다. 도로 바깥이나 실선을 넘는 방향으로 명령하면 −0.02점, 옆 차와의 간격이 위험한데도 실제로 그 차로에 들어가면 −1.5점을 줬습니다. 충돌은 −12점이었고, 이후 같은 모델에서 −14점으로 높여 충돌 횟수가 달라지는지 비교했습니다.</p>
-<p><a href="#pure-ppo" data-section-scroll>보상 조정 전후 주행 비교</a></p>
+<p><a href="#pure-ppo">보상 조정 전후 주행 비교</a></p>
 </details></div></section>
 <section data-nav-section="learning" id="pure-ppo" class="spread" aria-labelledby="pure-ppo-title" tabindex="-1">
   <div class="section-copy">
